@@ -6,5 +6,4 @@
 ## Definition Of Done
 - Ominaisuus toimii
 - Oltava merkityksellinen testi mikäli mahdollista ja järkevää
-- Pitää läpäistä staattinen analyysi (esim. pylint)-
-
+- Pitää läpäistä staattinen analyysi (esim. pylint)
