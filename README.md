@@ -7,5 +7,3 @@
 - Ominaisuus toimii
 - Oltava merkityksellinen testi mikäli mahdollista ja järkevää
 - Pitää läpäistä staattinen analyysi (esim. pylint)
--
-
