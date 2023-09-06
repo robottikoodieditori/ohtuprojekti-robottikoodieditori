@@ -6,10 +6,7 @@ import CodeMirror from "@uiw/react-codemirror";
  
 function App() {
     const [data, setdata] = useState({
-        name: "",
-        age: 0,
         date: "",
-        programming: "",
     });
 
     const [editorValue, changeEditorValue] = useState("")
@@ -18,10 +15,7 @@ function App() {
         comms.data().then((res) => res.data).then(data =>
         {
             setdata({
-                name: data.Name,
-                age: data.Age,
                 date: data.Date,
-                programming: data.programming,
             });
         });
     }, []);
@@ -34,12 +28,9 @@ function App() {
         <div className="App">
             {console.log(editorValue)}
             <header className="App-header">
-                <h1>React and flask</h1>
-                <p>{data.name}</p>
-                <p>{data.age}</p>
+                <h1>Koodieditori</h1>
                 <p>{data.date}</p>
-                <p>{data.programming}</p>
- 
+                <p>Kirjoita koodia:</p>
             </header>
             <CodeMirror
             onChange={onChange}
