@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import comms from "./services/comms"
+import EditorView from "./components/editorview";
  
 function App() {
     const [data, setdata] = useState({
@@ -23,6 +24,7 @@ function App() {
  
     return (
         <div className="App">
+            <EditorView/>
             <header className="App-header">
                 <h1>React and flask</h1>
                 <p>{data.name}</p>
