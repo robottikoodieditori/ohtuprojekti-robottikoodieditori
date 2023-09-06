@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import comms from "./services/comms"
  
 function App() {
     const [data, setdata] = useState({
@@ -9,16 +10,15 @@ function App() {
     });
  
     useEffect(() => {
-        fetch("/data").then((res) =>
-            res.json().then((data) => {
-                setdata({
-                    name: data.Name,
-                    age: data.Age,
-                    date: data.Date,
-                    programming: data.programming,
-                });
-            })
-        );
+        comms.data().then((res) => res.data).then(data =>
+        {
+            setdata({
+                name: data.Name,
+                age: data.Age,
+                date: data.Date,
+                programming: data.programming,
+            });
+        });
     }, []);
  
     return (
