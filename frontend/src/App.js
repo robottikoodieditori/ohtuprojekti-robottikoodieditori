@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from "react";
 import comms from "./services/comms"
 import EditorView from "./components/editorview";
-import Button from "./components/button";
-import CodeMirror from "@uiw/react-codemirror";
 import CompileButton from "./components/compilebutton";
 import RobotButton from "./components/robotbutton";
 
@@ -25,20 +23,12 @@ function App() {
 
     const onChange = React.useCallback((value, viewUpdate) => {
         changeEditorValue(value)
+        console.log(value)
       }, []);
 
     return (
-        <div className="App">
-            <EditorView/>
-            {console.log(editorValue)}
-            <header className="App-header">
-                <h1>Koodieditori</h1>
-                <p>{data.date}</p>
-                <p>Kirjoita koodia:</p>
-            </header>
-            <CodeMirror
-            onChange={onChange}
-            />
+        <div>
+            <EditorView eventHandler={onChange} data={data}/>
             <CompileButton />
             <RobotButton />
         </div>
