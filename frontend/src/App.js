@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
 import comms from "./services/comms"
 import EditorView from "./components/editorview";
-import CompileButton from "./components/compilebutton";
-import RobotButton from "./components/robotbutton";
+import { useSelector, useDispatch } from 'react-redux'
 
 
 function App() {
@@ -10,10 +9,9 @@ function App() {
         date: "",
     });
 
-    const [editorValue, changeEditorValue] = useState("")
 
     useEffect(() => {
-        comms.data().then((res) => res.data).then(data =>
+        comms.getData().then((res) => res.data).then(data =>
         {
             setdata({
                 date: data.Date,
@@ -21,16 +19,9 @@ function App() {
         });
     }, []);
 
-    const onChange = React.useCallback((value, viewUpdate) => {
-        changeEditorValue(value)
-        console.log(value)
-      }, []);
-
     return (
         <div>
-            <EditorView eventHandler={onChange} data={data}/>
-            <CompileButton />
-            <RobotButton />
+            <EditorView data={data}/>
         </div>
     );
 }
