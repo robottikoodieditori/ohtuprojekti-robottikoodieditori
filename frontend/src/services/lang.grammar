@@ -1,0 +1,10 @@
+@top Program { Boolean Number }
+
+Number { "22" | "33" }
+
+Boolean { "()" }
+
+@tokens {
+  Name { @asciiLetter+ }
+  Numeral { @digit+ }
+}
