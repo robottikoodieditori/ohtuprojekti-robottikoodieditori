@@ -2,7 +2,7 @@
 from flask import Flask
 import datetime
  
-x = datetime.datetime.now()
+x = datetime.datetime.now().strftime("%H:%M:%S")
  
 # Initializing flask app
 app = Flask(__name__)
