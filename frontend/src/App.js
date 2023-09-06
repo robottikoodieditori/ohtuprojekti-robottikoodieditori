@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import comms from "./services/comms"
+import EditorView from "./components/editorview";
 import CodeMirror from "@uiw/react-codemirror";
-
 
  
 function App() {
@@ -26,6 +26,7 @@ function App() {
  
     return (
         <div className="App">
+            <EditorView/>
             {console.log(editorValue)}
             <header className="App-header">
                 <h1>Koodieditori</h1>
