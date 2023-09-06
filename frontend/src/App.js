@@ -11,7 +11,7 @@ function App() {
 
 
     useEffect(() => {
-        comms.data().then((res) => res.data).then(data =>
+        comms.getData().then((res) => res.data).then(data =>
         {
             setdata({
                 date: data.Date,

@@ -1,12 +1,10 @@
 import axios from "axios";
 
-const data = () => {
+const getData = () => {
     const data = axios.get("/data")
     return data
-    }
-
-
+}
 
 export default {
-    data: data
+    getData: getData
 }
