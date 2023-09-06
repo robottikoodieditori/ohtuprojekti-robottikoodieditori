@@ -1,15 +1,17 @@
 import React, { useState, useEffect } from "react";
 import comms from "./services/comms"
 import EditorView from "./components/editorview";
+import CompileButton from "./components/compilebutton";
+import RobotButton from "./components/robotbutton";
 
- 
+
 function App() {
     const [data, setdata] = useState({
         date: "",
     });
 
     const [editorValue, changeEditorValue] = useState("")
- 
+
     useEffect(() => {
         comms.data().then((res) => res.data).then(data =>
         {
@@ -23,12 +25,14 @@ function App() {
         changeEditorValue(value)
         console.log(value)
       }, []);
- 
+
     return (
         <div>
             <EditorView eventHandler={onChange} data={data}/>
+            <CompileButton />
+            <RobotButton />
         </div>
     );
 }
- 
+
 export default App;
