@@ -1,5 +1,6 @@
 import Navbar from "./navbar";
 import Editor from "./editor";
+import Button from "./button";
 
 
 const EditorView = (props) => {
@@ -11,7 +12,9 @@ const EditorView = (props) => {
                 <p>{props.data.date}</p>
                 <p>Kirjoita koodia:</p>
             </header>
-            <Editor eventHandler={props.eventHandler}/>
+            <Editor />
+            <Button function={'COMPILE'} text={'Lähetä koodi kääntäjälle'} />
+            <Button function={'SEND'} text={'Lähetä koodi robotille'} />
         </div>
     )
 }
