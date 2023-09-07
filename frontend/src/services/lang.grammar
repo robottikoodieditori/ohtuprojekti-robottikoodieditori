@@ -1,0 +1,10 @@
+@top Program { Boolean }
+
+expression { name | number | Boolean }
+
+Boolean { "command" | "command2" }
+
+@tokens {
+  name { @asciiLetter+ }
+  number { @digit+ }
+}
