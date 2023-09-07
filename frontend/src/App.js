@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import comms from "./services/comms"
 import EditorView from "./components/editorview";
 import { useSelector, useDispatch } from 'react-redux'
-
   
 
 function App() {

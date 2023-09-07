@@ -1,10 +1,8 @@
-@top Program { Boolean }
+@top Program { Keyword }
 
-expression { name | number | Boolean }
-
-Boolean { "command" | "command2" }
+Keyword { ( whitespace? | end ) ("hallou" | "whatta" ) }
 
 @tokens {
-  name { @asciiLetter+ }
-  number { @digit+ }
+  whitespace { " " }
+  end { "\n" }
 }

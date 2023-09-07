@@ -2,14 +2,14 @@
 import {LRParser} from "@lezer/lr"
 export const parser = LRParser.deserialize({
   version: 14,
-  states: "bOQOPOOOOOO'#C^'#C^QOOOOO",
-  stateData: "Y~OSPOTPO~O",
-  goto: "VRPPSRQO",
-  nodeNames: "⚠ Program Boolean",
-  maxTerm: 5,
+  states: "nOQOPOOOOOO'#C^'#C^O`OPO'#C^QOOOOOOOOO,58x,58x",
+  stateData: "h~OSQOTQOUPOVPO~OUSOVSO~O",
+  goto: "VRPPSRRO",
+  nodeNames: "⚠ Program Keyword",
+  maxTerm: 7,
   skippedNodes: [0],
   repeatNodeCount: 0,
-  tokenData: "!X~RP#V#WU~XP#c#d[~_P#a#bb~eP#a#bh~kP#T#Un~qP#b#ct~wP#W#Xz~!PPS~!S!T!S~!XOT~",
+  tokenData: "#R~RSYZ_pqd#[#]i#k#l!^~dOT~~iOS~~lP#T#Uo~rP#`#au~xP#`#a{~!OP#c#d!R~!UP#i#j!X~!^OU~~!aP#[#]!d~!gP#T#U!j~!mP#h#i!p~!sP#h#i!v~!yP#T#U!|~#ROV~",
   tokenizers: [0],
   topRules: {"Program":[0,1]},
   tokenPrec: 0
