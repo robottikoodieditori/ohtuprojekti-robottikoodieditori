@@ -7,19 +7,11 @@ import {LRLanguage} from "@codemirror/language"
 import { javascript } from '@codemirror/lang-javascript';
 import {styleTags, tags as t} from "@lezer/highlight"
 
-console.log(t)
+
 let parserWithMetadata = parser.configure({
     props: [
       styleTags({
-        Identifier: t.variableName,
-        Boolean: t.bool,
-        Number: t.number,
-        String: t.string,
-        Null: t.null,
-        Command: t.command,
-        LineComment: t.lineComment,
-        Name: t.name,
-        "( )": t.paren
+        Keyword: t.keyword,
       })
     ]
   })
@@ -45,21 +37,7 @@ const myTheme = createTheme({
       gutterForeground: '#8a919966',
     },
     styles: [
-      { tag: t.comment, color: 'red' },
-      { tag: t.variableName, color: 'red' },
-      { tag: [t.string, t.special(t.brace)], color: 'red' },
-      { tag: t.name, color: "red"},
-      { tag: t.number, color: 'green' },
-      { tag: t.bool, color: 'red' },
-      { tag: t.null, color: 'red' },
-      { tag: t.keyword, color: 'green' },
-      { tag: t.operator, color: 'red' },
-      { tag: t.className, color: 'red' },
-      { tag: t.definition(t.typeName), color: 'red' },
-      { tag: t.typeName, color: 'red' },
-      { tag: t.angleBracket, color: 'red' },
-      { tag: t.tagName, color: 'red' },
-      { tag: t.attributeName, color: 'red' },
+      { tag: t.keyword, color: 'blue' },
     ],
   });
 
