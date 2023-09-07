@@ -1,7 +1,7 @@
 # How to test
 
 ### Backend  
-- Navigate to /robottikoodieditori_backend
+- Navigate to `/robottikoodieditori_backend/src`
 - Launch virtual environment: `poetry shell`
 - Run tests: `pytest tests`
 #### Writing more tests:
