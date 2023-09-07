@@ -1,4 +1,4 @@
-from backend import __version__
+from test_backend import __version__
 from tests.conftest import client
 
 def test_version():
