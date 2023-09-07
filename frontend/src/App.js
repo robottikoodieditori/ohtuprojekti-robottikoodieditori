@@ -88,8 +88,8 @@ function App() {
 
 
     const onChange = React.useCallback((value, viewUpdate) => {
-        changeEditorValue(value)
-      }, []);
+      console.log(value)
+    }, []);
 
  
     return (
