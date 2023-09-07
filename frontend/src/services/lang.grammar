@@ -1,8 +1,9 @@
 @top Program { Keyword }
 
-Keyword { ( whitespace? | end ) ("hallou" | "whatta" ) }
+Keyword { ( whitespace? | end) ("tulosta" | "eteen" | "et" | "taakse" | "ta" | "vasemmalle" | "va" | "oikealle" | "oi" | "jos" | "riippuen" | "olkoon" | "miten" | "valmis" | "toista" | "luvuille" | "anna") }
 
 @tokens {
   whitespace { " " }
-  end { "\n" }
+  end { "
+" }
 }

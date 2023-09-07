@@ -1,0 +1,8 @@
+@top Program { Keyword }
+
+Keyword { ( whitespace? | end ) ("hallou" | "whatta" ) }
+
+@tokens {
+  whitespace { " " }
+  end { "\n" }
+}

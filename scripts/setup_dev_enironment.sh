@@ -33,5 +33,7 @@ if [ "$OS" == "Darwin" ]; then  # macOS
     end tell
 EOD
 elif [ "$OS" == "Linux" ]; then
+
     gnome-terminal -- bash -c "cd \"$ROOT_DIR/backend\" && poetry install; poetry run invoke start"
 fi
+
