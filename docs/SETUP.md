@@ -1,25 +1,41 @@
-# Kehitysympäristön Pystytys
+# Setting up the Development Environment
 
-Tämä ohje kertoo, miten saat pystytettyä projektiin liittyvän kehitysympäristön paikallisesti käyttäen valmista skriptiä.
+Setting up the development environment for robottikoodieditori is a straightforward process. Here's how you can get started.
 
-## Esivaatimukset
+## Prerequisites (Esitietovaatimukset)
 
-- Varmista, että sinulla on `npm` ja `poetry` asennettuna koneellesi.
-- Skriptin suorittaminen vaatii, että sinulla on oikeudet suorittaa skriptejä. Tarvittaessa voit antaa skriptille suoritusoikeudet komennolla `chmod +x /path/to/script`.
+Before setting up the development environment, make sure you have the following installed:
 
-## Asennusohjeet
+Make sure you have `npm` and `poetry` installed on your computer.
 
-1. Navigoi projektin juurihakemistoon komentorivillä.
-2. Suorita skripti komennolla `./scripts/setup-dev-environment.sh`.
 
-Skripti hoitaa loput ja käynnistää tarvittavat palvelut ja asennukset.
+## Setup Instructions
 
-## Mahdollisia Ongelmatilanteita
+1. Navigate to the `scripts` directory from the root of the project.
 
-1. **Skripti ei käynnisty**:
-   - Varmista, että sinulla on oikeudet suorittaa skriptiä. Voit antaa skriptille suoritusoikeudet komennolla `chmod +x /path/to/script`.
-2. **Riippuvuuksien asennus epäonnistuu**:
-   - Varmista, että verkkoyhteys toimii ja yritä uudelleen.
-   - Varmista, että sinulla on tarvittavat työkalut (`npm` ja `poetry`) asennettuna.
+    ```bash
+    cd scripts/
+    ```
 
-Lisää ongelmatilanteita ja ratkaisuja voi lisätä tähän osioon tarpeen mukaan.
+2. Grant execute permissions to the setup script (this is a one-time step):
+
+    ```bash
+    chmod +x setup_dev_environment.sh
+    ```
+
+3. Run the setup script:
+
+    ```bash
+    ./setup_dev_environment.sh
+    ```
+
+This script will:
+- Prompt you for confirmation before proceeding.
+- Install the necessary dependencies for both the frontend and backend.
+- Open separate terminals to run the frontend and backend services.
+
+## Troubleshooting
+
+- **Script Permission Issues**: If you face issues related to permissions when running the script, ensure you have granted execute permissions as mentioned in step 2 above.
+
+- **Dependency Installation Issues**: Make sure your internet connection is stable. If npm or poetry fails to fetch a package, retry after some time or check the respective package repositories for any known issues.
