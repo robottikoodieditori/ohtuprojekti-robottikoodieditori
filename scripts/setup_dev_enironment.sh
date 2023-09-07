@@ -29,8 +29,11 @@ fi
 if [ "$OS" == "Darwin" ]; then  # macOS
     osascript <<EOD
     tell application "Terminal"
-        do script "cd \"$ROOT_DIR/robottikoodieditori-backend\" && poetry install && poetry run invoke start"
+        do script "cd \"$ROOT_DIR/backend\" && poetry install && poetry run invoke start"
     end tell
 EOD
 elif [ "$OS" == "Linux" ]; then
-    gnome-terminal -- bash -c "cd \"$ROOT_DIR/robottikoodieditori-backend\" && poetry install; poetry run invoke start"
+
+    gnome-terminal -- bash -c "cd \"$ROOT_DIR/backend\" && poetry install; poetry run invoke start"
+fi
+
