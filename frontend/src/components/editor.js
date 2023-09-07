@@ -2,6 +2,8 @@ import CodeMirror from '@uiw/react-codemirror';
 import React from 'react';
 import { useDispatch } from 'react-redux'
 import { editCode } from '../reducers/editorReducer';
+import { extensions } from '../utils/cmConfig';
+import { logoTheme } from '../utils/cmConfig';
 
 const Editor = (props) => {
     const dispatch = useDispatch()
@@ -14,6 +16,8 @@ const Editor = (props) => {
         <div>
             <CodeMirror
             onChange={onChange}
+            theme={logoTheme}
+            extensions={extensions}
             />
         </div>
     )
