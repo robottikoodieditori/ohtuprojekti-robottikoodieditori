@@ -4,10 +4,10 @@ const editorReducer = (state = '', action) => {
             console.log(action.payload.content)
             return action.payload.content
         case 'COMPILE':
-            console.log('Compile placeholder')
+            console.log('Compile placeholder', state)
             return state
         case 'SEND':
-            console.log('Send placeholder')
+            console.log('Send placeholder', state)
             return state
         default:
             return state
