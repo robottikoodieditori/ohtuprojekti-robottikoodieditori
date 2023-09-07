@@ -1,10 +1,10 @@
-@top Program { Boolean Number }
+@top Program { Boolean }
 
-Number { "22" | "33" }
+expression { name | number | Boolean }
 
-Boolean { "()" }
+Boolean { "command" | "command2" }
 
 @tokens {
-  Name { @asciiLetter+ }
-  Numeral { @digit+ }
+  name { @asciiLetter+ }
+  number { @digit+ }
 }

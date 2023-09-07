@@ -18,6 +18,7 @@ let parserWithMetadata = parser.configure({
         Null: t.null,
         Command: t.command,
         LineComment: t.lineComment,
+        Name: t.name,
         "( )": t.paren
       })
     ]
@@ -47,6 +48,7 @@ const myTheme = createTheme({
       { tag: t.comment, color: 'red' },
       { tag: t.variableName, color: 'red' },
       { tag: [t.string, t.special(t.brace)], color: 'red' },
+      { tag: t.name, color: "red"},
       { tag: t.number, color: 'green' },
       { tag: t.bool, color: 'red' },
       { tag: t.null, color: 'red' },
