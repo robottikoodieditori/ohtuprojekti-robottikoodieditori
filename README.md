@@ -6,7 +6,7 @@
 ## Ohjeet repositorioiden hallintaan
 Ohjeet projektin kehitykseen osallistumiseen löydät [täältä](./docs/CONTRIBUTING.md).
 
-## Local Development Setup
+## Kehitysympäriston pystyttäminen
 Kehitysympäristön saa pystytettyä paikallisesti käyttämällä valmista skriptiä. Skriptin ja tarkemmat ohjeet löydät [täältä](./docs/SETUP.md).
 
 ## Definition Of Done
