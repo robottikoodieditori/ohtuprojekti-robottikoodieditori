@@ -1,1 +1,1 @@
-tulosta, eteen, et, taakse, ta, vasemmalle, va, oikealle, oi, jos, riippuen, olkoon, miten, valmis, toista, luvuille, anna
+tulosta,eteen,et,taakse,ta,vasemmalle,va,oikealle,oi,jos,riippuen,olkoon,miten,valmis,toista,luvuille,anna

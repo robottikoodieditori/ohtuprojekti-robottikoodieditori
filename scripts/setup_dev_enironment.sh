@@ -9,7 +9,7 @@ then
 fi
 
 # Navigate to frontend directory
-cd frontend
+cd ../frontend
 
 # Install frontend dependencies
 echo "Installing frontend dependencies..."
