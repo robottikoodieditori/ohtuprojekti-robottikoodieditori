@@ -1,6 +1,7 @@
 import pytest
 from robottikoodieditori_backend.server import app
 
+
 @pytest.fixture()
 def app_():
     app_ = app
@@ -11,7 +12,7 @@ def app_():
 
     yield app_
 
+
 @pytest.fixture()
 def client(app_):
     return app_.test_client()
-
