@@ -1,4 +1,4 @@
-from robottikoodieditori_backend import __version__
+from backend import __version__
 from tests.conftest import client
 
 def test_version():
