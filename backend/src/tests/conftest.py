@@ -1,5 +1,5 @@
 import pytest
-from robottikoodieditori_backend.server import app
+from src.server import app
 
 
 @pytest.fixture()

@@ -2,4 +2,4 @@ from invoke import task
 
 @task
 def start(ctx):
-    ctx.run("python3 robottikoodieditori_backend/server.py")
+    ctx.run("python3 src/server.py")
