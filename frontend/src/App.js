@@ -1,11 +1,15 @@
 import React, { useState, useEffect } from "react";
 import comms from "./services/comms"
+
 import { createTheme } from '@uiw/codemirror-themes';
 import CodeMirror from "@uiw/react-codemirror";
 import {parser} from "./services/parser"
 import {LRLanguage} from "@codemirror/language"
 import { javascript } from '@codemirror/lang-javascript';
 import {styleTags, tags as t} from "@lezer/highlight"
+
+import EditorView from "./components/editorview";
+import { useSelector, useDispatch } from 'react-redux'
 
 console.log(t)
 let parserWithMetadata = parser.configure({
@@ -67,28 +71,21 @@ const myTheme = createTheme({
 const extensions = [exampleLanguage];
   
 
- 
 function App() {
     const [data, setdata] = useState({
-        name: "",
-        age: 0,
         date: "",
-        programming: "",
     });
 
-    const [editorValue, changeEditorValue] = useState("")
- 
+
     useEffect(() => {
-        comms.data().then((res) => res.data).then(data =>
+        comms.getData().then((res) => res.data).then(data =>
         {
             setdata({
-                name: data.Name,
-                age: data.Age,
                 date: data.Date,
-                programming: data.programming,
             });
         });
     }, []);
+
 
     const onChange = React.useCallback((value, viewUpdate) => {
         changeEditorValue(value)
@@ -99,10 +96,7 @@ function App() {
         <div className="App">
             <header className="App-header">
                 <h1>React and flask</h1>
-                <p>{data.name}</p>
-                <p>{data.age}</p>
                 <p>{data.date}</p>
-                <p>{data.programming}</p>
  
             </header>
             <CodeMirror
@@ -110,8 +104,9 @@ function App() {
             extensions={extensions}
             onChange={onChange}
             />
+              
         </div>
     );
 }
- 
+
 export default App;
