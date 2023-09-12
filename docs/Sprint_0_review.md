@@ -25,3 +25,10 @@ Ominaisuudet on OHTUPROJEKTIN aikana korkeat prioriteetin
 * koodi esimerkeissä dokumentaatiossa syntaksi väritys
 
 15 yli kymmenen ensi tiistaina
+
+
+
+## Kysymyksi asiakkaalle
+
+* Tunnin jälkeen jääkö tiedosto vai miten sen tallennus// tietokanta.
+* Kielenvalinta suomeksi ja englanniksi vai suomeksi tai englanniksi
