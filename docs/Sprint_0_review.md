@@ -1,34 +1,34 @@
 # Sprint 0 review / sprint 1
 
-* Sanan keskeltä värjäys pois
-* Siivotaan backlog asiakkaan kanssa sovittu -> oma todo listaan backlog
+## Palautetta sprint 0
+Asiakas kommentoi, että olisi hyvä saada sanan värjäys sanan keskeltä pois
+Backlogissa näkyy vain user storyt ensi tapaamisesa 
 
 ## Uusia user story KORKEA PRIORITEETTI
-* 1 Hiirellä klikkaa editorissa avain sanaa / siirtää päälle. Sivupallkki avaa kyseisen sivun dokumentaation (placeholder) ei ole vielä dokumentaatiota. Kääntäjästä esim dokumentaatiota mitä siellä on. Markdown voisi olla esim. Asiakas kirjoittaa ne tiedostot. 
-* 2 Napeista toiminnallisemat -> tutustu miten kääntäjä toimii. Kutsuisi oikeasti kääntäjää ja loisi java tiedostot jonnekkin. Pitää muistaa usean yhtäaikaisemman käyttäjän käyttämä. Sessio manageri eli käyttäjän selain / cookien perustella tunnistaa kenen tallennetaan mihin. Ei ole pakko toimia että pitää toimia niiin mutta tulevaisuudessa. tutustukaa
-* Robotti placeholderiks saa jäädä.
-* Kun käännös saadaan ehkä robotti jolle voidaan testata.
-* 3 Kääntäjästä tulee virheet ominaisuus virheet alleviivataan punaisella kuten normistikin tehdään. Kääntäjän pitäisi antaa virheilmoitus millä rivillä ja millä merkeillä.
-* Kääntäjän sisällä python metodeja??
-* Editorin pitää herjata tässä vaiheessa vasta lähettäessä virheet. Katsotaan myöhemmin että reaaliaikaiseksi
-* On toimittava usealla koneella. Voidaan aloittaa että toimii yhdellä sitten useammalla.
+* Hiirellä avainsanan päällä/klikatessa ilmestyy sivupalkki kyseisen avainsanan dokumentaatiosta. Nyt teemme placeholderin voimme käyttää kääntäjän dokumentaatiota hyväksi. Tulevaisuudessa asiakkaalta tulee omat markdown tiedostot?
+* Kääntäjä nappi toimisi ja kääntäisi/loisi tiedoston.
+    -> Kun käännös saadaan tehtyä niin saadaan ehkä robotti jolle voidaan testata.
+* Robotti placeholderi nappi saa jäädä.
+* Kääntäjästä tulee virheet ominaisuus virheet alleviivataan punaisella kuten normistikin tehdään. Kääntäjän pitäisi antaa virheilmoitus millä rivillä ja millä merkeillä. 
+    ->Editorin pitää herjata tässä vaiheessa vasta lähettäessä virheet. Katsotaan myöhemmin että reaaliaikaiseksi
+* On toimittava usealla koneella. Voidaan aloittaa että toimii yhdellä sitten useammalla. 
 
 
-Yksi kone hostaa useampi voi mennä 
+Yksi kone hostaa useampi voi mennä sen ip
 
-Ominaisuudet on OHTUPROJEKTIN aikana korkeat prioriteetin
+Ominaisuudet on OHTUPROJEKTIN aikana korkeat prioriteetin eli 11 vko aikaa about tehdä nämä
 
 ## Matalan prioriteetin ominaisuuksia tulee:
-* Kauniimmat tyylit nettiviulle
-* Autmaatti täydennys 
-* koodin tallentaminen tiedostoon palvelin koneella
-* koodi esimerkeissä dokumentaatiossa syntaksi väritys
+* Kauniimmat tyylit nettisivulle
+* Automaattinen täydennys 
+* Koodin tallentaminen tiedostoon palvelin koneella
+* Koodi esimerkeissä dokumentaatiossa syntaksi väritys
 
-15 yli kymmenen ensi tiistaina
-
-
+## Muuta
+Seuraava asiakas tapaaminen 19.9 klo 10:15 A318
 
 ## Kysymyksi asiakkaalle
 
 * Tunnin jälkeen jääkö tiedosto vai miten sen tallennus// tietokanta.
 * Kielenvalinta suomeksi ja englanniksi vai suomeksi tai englanniksi
+* Kommunikaatio tyyli asiakkaan ja meidän välillä
