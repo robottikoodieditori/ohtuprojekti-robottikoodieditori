@@ -3,7 +3,8 @@ import { HighlightStyle, syntaxHighlighting } from "@codemirror/language";
 
 export const jsonHighlighting = styleTags({
   Keyword: t.keyword,
-  String: t.string
+  String: t.string,
+  Parameters: t.name,
 });
 
 // A very dim/dull syntax highlighting so you have something to look at, but also to trigger you to write your own ;)
@@ -13,7 +14,7 @@ const syntax_colors = syntaxHighlighting(
   HighlightStyle.define(
     [
       { tag: t.keyword, color: "red" },
-      { tag: t.name, color: "Blue" },
+      { tag: t.name, color: "red" },
       { tag: t.number, color: "green"},
       { tag: t.string, color:"Blue"},
     ]  )

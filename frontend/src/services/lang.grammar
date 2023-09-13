@@ -1,30 +1,16 @@
-@top Program { expression* } 
-  
-
-expression { String | Keyword }
-
+@precedence { times @left, plus @left }
+@top Program { expression* }
+expression { String | Keyword | Parameters}
 String { number |  name }
-
-Keyword { command }
-
+Keyword { command !times String* ")" | !plus command}
+Parameters { "(" String ")"}
 @skip { space }
-
-
-  
-
-@tokens { 
-
-  space { @whitespace+ } 
-
-  name { @asciiLetter+ } 
-
-  number { @digit+ } 
-
-  command { "tulosta" | "eteen" | "et" | "taakse" | "ta" | "vasemmalle" | "va" | "oikealle" | "oi" | "jos" | "riippuen" | "olkoon" | "miten" | "valmis" | "toista" | "luvuille" | "anna" | "show" | "forward" | "fd" | "backward" | "bk" | "left" | "lt" | "right" | "rt" | "if" | "ifelse" | "make" | "to" | "end" | "repeat" | "for" | "output " }
-
+@tokens {
+  space { @whitespace+ }
+  name { @asciiLetter+ }
+  number { @digit+ }
+  command { ("tulosta" | "eteen" | "et" | "taakse" | "ta" | "vasemmalle" | "va" | "oikealle" | "oi" | "jos" | "riippuen" | "olkoon" | "miten" | "valmis" | "toista" | "luvuille" | "anna" | "show" | "forward" | "fd" | "backward" | "bk" | "left" | "lt" | "right" | "rt" | "if" | "ifelse" | "make" | "to" | "end" | "repeat" | "for" | "output") ((@eof | @whitespace) | "(")}
   @precedence {command, name}
-
 }
-
 @external propSource jsonHighlighting from "./highlight"
 

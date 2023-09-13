@@ -2,4 +2,5 @@
 export const
   Program = 1,
   String = 2,
-  Keyword = 3
+  Keyword = 3,
+  Parameters = 4
