@@ -17,7 +17,7 @@ const Editor = (props) => {
         value={props.code} // Set the initial code value from props
         options={{
           mode: customJSMode, // Use the custom mode here
-          theme: 'default', // You can specify your desired theme
+           // You can specify your desired theme
           lineNumbers: true, // Enable line numbers if needed
         }}
         onBeforeChange={(editor, data, value) => {
