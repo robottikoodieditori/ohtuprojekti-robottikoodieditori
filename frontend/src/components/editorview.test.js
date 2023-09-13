@@ -15,6 +15,6 @@ test('renders content', () => {
         </Provider>
     )
 
-    const element = screen.getByText('Koodieditori')
+    const element = screen.getByText('Kirjoita koodia:')
     expect(element).toBeDefined()
 })

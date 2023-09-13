@@ -21,12 +21,16 @@ def read_file(filename):
         keywords = list(csv.reader(file, delimiter=','))
     return keywords[0]
 
-def parse_keywords(keywords):
+def parse_keywords(keywords_finnish, keywords_english):
     keyword_string = ''
-    keyword_string += f'"{keywords.pop(0)}"'
-    for keyword in keywords:
+    keyword_string += f'"{keywords_finnish.pop(0)}"'
+    for keyword_finnish in keywords_finnish:
         print(keyword_string)
-        keyword_string += f' | "{keyword}"'
+        keyword_string += f' | "{keyword_finnish}"'
+
+    for keyword_english in keywords_english:
+        print(keyword_string)
+        keyword_string += f' | "{keyword_english}"'
     return keyword_string
 
 def write_lang_file(parsed_keywords):
@@ -35,8 +39,10 @@ def write_lang_file(parsed_keywords):
 
 def main():
     finnish_words = os.path.join(KEYWORD_DIRNAME, 'keywords_finnish.txt')
-    keywords = read_file(finnish_words)
-    parsed_keywords = parse_keywords(keywords)
+    english_words = os.path.join(KEYWORD_DIRNAME, 'keywords_english.txt')
+    keywords_finnish = read_file(finnish_words)
+    keywords_english = read_file(english_words)
+    parsed_keywords = parse_keywords(keywords_finnish, keywords_english)
     write_lang_file(parsed_keywords)
     
 
