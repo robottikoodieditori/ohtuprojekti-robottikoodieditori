@@ -3,9 +3,8 @@ import React from 'react';
 import { useDispatch } from 'react-redux'
 import { editCode } from '../reducers/editorReducer';
 import { extensions } from '../utils/cmConfig';
-import { logoTheme } from '../utils/cmConfig';
-
-const Editor = () => {
+import { extensions as highlight } from '../services/highlight';
+const Editor = (props) => {
     const dispatch = useDispatch()
 
     const onChange = React.useCallback((value) => {
@@ -15,9 +14,9 @@ const Editor = () => {
     return (
         <div>
             <CodeMirror
-                onChange={onChange}
-                theme={logoTheme}
-                extensions={extensions}
+            onChange={onChange}
+            extensions={extensions}
+            theme={highlight}
             />
         </div>
     )
