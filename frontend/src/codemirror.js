@@ -5,7 +5,8 @@ const Editor = (props) => {
   const customJSMode = {
     name: 'custom-javascript', // Name for your custom mode
     token: (stream) => {
-      const customWords = ['example', 'word', 'highlight'];      if (customWords.includes(stream.current())) {
+      const customWords = ['example', 'word', 'highlight'];      
+        if (customWords.includes(stream.current())) {
         return 'custom-word';
       }      // Use the default JavaScript mode for other tokens
       return null;

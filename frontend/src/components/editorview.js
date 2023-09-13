@@ -1,7 +1,8 @@
+import React from 'react';
+import PropTypes from 'prop-types';
 import Navbar from "./navbar";
 import Editor from "./editor";
 import Button from "./button";
-
 
 const EditorView = (props) => {
     return (
@@ -17,6 +18,12 @@ const EditorView = (props) => {
             <Button function={'SEND'} text={'Lähetä koodi robotille'} />
         </div>
     )
+}
+
+EditorView.propTypes = {
+    data: PropTypes.shape({
+        date: PropTypes.string.isRequired
+    }).isRequired
 }
 
 export default EditorView;

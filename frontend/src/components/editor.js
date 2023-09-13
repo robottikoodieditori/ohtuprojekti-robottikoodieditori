@@ -5,19 +5,19 @@ import { editCode } from '../reducers/editorReducer';
 import { extensions } from '../utils/cmConfig';
 import { logoTheme } from '../utils/cmConfig';
 
-const Editor = (props) => {
+const Editor = () => {
     const dispatch = useDispatch()
 
-    const onChange = React.useCallback((value, viewUpdate) => {
+    const onChange = React.useCallback((value) => {
         dispatch(editCode(value))
-      }, []);
+    }, []);
 
     return (
         <div>
             <CodeMirror
-            onChange={onChange}
-            theme={logoTheme}
-            extensions={extensions}
+                onChange={onChange}
+                theme={logoTheme}
+                extensions={extensions}
             />
         </div>
     )
