@@ -23,9 +23,9 @@ export const wordHover = hoverTooltip((view, pos, side) => {
     create(view) {
       let dom = document.createElement("div");
       dom.id = "::img";
-      dom.style.cssText = 'color:black; width:150px; overflow:auto; word-break: break-word; border-style: solid; border: 1px;';
+      dom.style.cssText = 'color:black; width:300px; overflow:auto; word-break: break-word; border-style: solid; border: 1px;';
       console.log(view.state.doc.slice(start,end))
-      dom.textContent = view.state.doc.slice(start, end) + "Tähän tulee funktioiden dokumentaatio jatkossa"
+      dom.textContent = view.state.doc.slice(start, end) + ": Tähän tulee funktioiden dokumentaatio jatkossa"
       return { dom };
     }
   };
