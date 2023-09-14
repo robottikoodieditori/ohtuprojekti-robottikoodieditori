@@ -21,6 +21,7 @@ const Editor = ({ doc }) => {
     return (
         <div ref={ref}>
             <CodeMirror
+                id='editor'
                 value={doc}
                 extensions={[extensions, wordHover]}
                 theme={syntax_style}
