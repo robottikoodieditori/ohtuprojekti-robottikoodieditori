@@ -24,7 +24,7 @@ jobs:
         run: poetry install
       - name: Run pylint
         working-directory: ./backend
-        run: poetry run invoke test
+        run: poetry run invoke lint
       - name: Leave backend on for testing
         working-directory: ./backend
         run: poetry run invoke start &
