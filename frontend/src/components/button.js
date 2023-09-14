@@ -1,4 +1,3 @@
-import React from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
 import { sendToCompiler, sendToRobot } from "../reducers/editorReducer";
