@@ -5,14 +5,21 @@ KEYWORD_DIRNAME = os.path.join(DIRNAME, 'docs')
 LANG_DIRNAME = os.path.join(DIRNAME, 'frontend', 'src', 'services')
 print(os.listdir(LANG_DIRNAME))
 
-BASE_STRING = f"""@top Program {{ Keyword }}
-
-Keyword {{ ( whitespace? | end) (TO_REPLACE) }}
-
+BASE_STRING = f"""@precedence {{ times @left, plus @left }}
+@top Program {{ expression* }}
+expression {{ String | Keyword | Parameters}}
+String {{ number |  name }}
+Keyword {{ command !times String* ")" | !plus command}}
+Parameters {{ "(" String ")"}}
+@skip {{ space }}
 @tokens {{
-  whitespace {{ " " }}
-  end {{ "\n" }}
+  space {{ @whitespace+ }}
+  name {{ @asciiLetter+ }}
+  number {{ @digit+ }}
+  command {{ (TO_REPLACE) ((@eof | @whitespace) | "(")}}
+  @precedence {{command, name}}
 }}
+@external propSource jsonHighlighting from "./highlight"
 """
 
 
