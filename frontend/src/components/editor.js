@@ -2,7 +2,10 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 import { useEffect, useRef } from "react";
 import { editCode } from '../reducers/editorReducer';
-import { createView } from '../utils/cmSetup';
+import { extensions as syntax_style} from '../services/highlight';
+import { extensions } from '../utils/cmConfig';
+import CodeMirror from '@uiw/react-codemirror'
+import { wordHover } from './hoverTooltip';
 
 
 
@@ -14,21 +17,15 @@ const Editor = ({ doc }) => {
         dispatch(editCode(value))
     }, []);
 
-    useEffect(() => {
-        const view = createView({
-            doc,
-            parent: ref.current
-        });
-
-
-    return () => {
-        view.destroy();
-    };
-    }, [doc]);
-
 
     return (
         <div ref={ref}>
+            <CodeMirror
+            value={doc}
+            extensions={[extensions, wordHover]}
+            theme={syntax_style}
+            onChange={onChange}
+            />
         </div>
     )
 }
