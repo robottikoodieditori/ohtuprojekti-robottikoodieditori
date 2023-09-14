@@ -58,6 +58,7 @@
     "@testing-library/user-event": "^14.4.3",
     "cypress": "^13.2.0",
     "eslint": "^8.49.0",
+    "eslint-plugin-cypress": "^2.14.0",
     "eslint-plugin-react": "^7.33.2"
   }
 }

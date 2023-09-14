@@ -1,6 +1,6 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import { useEffect, useRef } from "react";
+import { useRef } from "react";
 import { editCode } from '../reducers/editorReducer';
 import { extensions as syntax_style} from '../services/highlight';
 import { extensions } from '../utils/cmConfig';
@@ -21,10 +21,10 @@ const Editor = ({ doc }) => {
     return (
         <div ref={ref}>
             <CodeMirror
-            value={doc}
-            extensions={[extensions, wordHover]}
-            theme={syntax_style}
-            onChange={onChange}
+                value={doc}
+                extensions={[extensions, wordHover]}
+                theme={syntax_style}
+                onChange={onChange}
             />
         </div>
     )

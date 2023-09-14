@@ -1,1 +1,3 @@
 src/services/parser.js
+cypress.config.js
+**/**.test.js
