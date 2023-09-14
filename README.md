@@ -13,3 +13,4 @@ Kehitysympäristön saa pystytettyä paikallisesti käyttämällä valmista skri
 - Ominaisuus toimii
 - Oltava merkityksellinen testi mikäli mahdollista ja järkevää
 - Pitää läpäistä staattinen analyysi (esim. pylint)
+- 
