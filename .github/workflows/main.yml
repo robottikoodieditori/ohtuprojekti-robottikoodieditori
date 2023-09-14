@@ -1,43 +1,50 @@
-name: CI/CD Pipeline  # Name of the Workflow
+name: CI
 
-on:  # Define when the Workflow should be triggered
+on:
   push:
-    branches:
-      - main  # Run the Workflow when code is pushed to the `main` branch
+    branches: [main]
+  pull_request:
+    branches: [main]
 
-jobs:  # Define one or more jobs to be executed
-  setup-python:  # Name of the job
-    runs-on: ubuntu-latest  # The type of machine to run the job on
+jobs:
+  build:
+    runs-on: ubuntu-latest
 
-    steps:  # A sequence of tasks to be executed as part of this job
-    - name: Checkout repository  # A human-readable name for this step
-      uses: actions/checkout@v2  # Use a pre-defined action to checkout code
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Python 3.8
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+      - name: Install Poetry
+        working-directory: ./backend
+        run: pip install poetry
+      - name: Install dependencies
+        working-directory: ./backend
+        run: poetry install
+      - name: Run tests
+        working-directory: ./backend
+        run: poetry run invoke test
+      - name: Run pylint
+        working-directory: ./backend
+        run: poetry run invoke test
+      - name: Leave backend on for testing
+        working-directory: ./backend
+        run: poetry run invoke start &
 
-    - name: Setup Python
-      uses: actions/setup-python@v2
-      with:
-        python-version: '3.8'  # Additional parameters for the action
-
-    # Future Step: Install Poetry
-    # - name: Install Poetry
-    #    run: pip install poetry
-
-   # Future Step: Install Dependencies
-    # - name: Install dependencies
-    #    run: poetry install
-    
-    # Future Step: Run Tests
-    # - name: Run Tests
-    #   run: poetry run pytest
-    
-    # Future Step: Lint Code
-    # - name: Lint Code
-    #   run: poetry run flake8
-    
-    # Future Step: Build Project (if necessary)
-    # - name: Build Project
-    #   run: make build
-    
-    # Future Step: Deploy Project
-    # - name: Deploy Project
-    #   run: ./deploy.sh
+      - name: Use Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: latest
+      - name: Install dependencies
+        working-directory: ./frontend
+        run: npm install
+      - name: Leave frontend on for testing
+        working-directory: ./frontend
+        run: npm start &
+      - name: Run tests
+        working-directory: ./frontend
+        run: npm run cypress:open
+      - name: Run eslint
+        working-directory: ./frontend
+        run: npm run lint
