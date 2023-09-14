@@ -30,7 +30,8 @@
     "eject": "react-scripts eject",
     "prepare": "lezer-generator src/services/lang.grammar -o src/services/parser.js",
     "lint": "eslint .",
-    "cypress:open": "cypress open"
+    "cypress:open": "cypress open",
+    "test:e2e": "cypress run"
   },
   "eslintConfig": {
     "extends": [
