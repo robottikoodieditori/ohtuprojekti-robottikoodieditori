@@ -29,4 +29,11 @@ describe('Editor ', function() {
     cy.contains("eteen").click()
     cy.contains("lauseke et lauseke")
   })
+
+  it('hovering on non keyword does not reveal documentation', function() {
+    cy.visit('http://localhost:3000')
+    cy.get("#editor").type("{ctrl}a").type("hellou")
+    cy.contains("hellou").click()
+    cy.contains("lauseke et lauseke").should('not.exist')
+  })
 })
