@@ -1,12 +1,10 @@
 import PropTypes from 'prop-types';
-import Navbar from "./navbar";
 import Editor from "./editor";
 import Button from "./button";
 
 const EditorView = (props) => {
     return (
         <div>
-            <Navbar/>
             <header className="App-header">
                 <h1>Koodieditori</h1>
                 <p>{props.data.date}</p>
