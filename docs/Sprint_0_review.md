@@ -32,3 +32,5 @@ Seuraava asiakas tapaaminen 19.9 klo 10:15 A318
 * Tunnin jälkeen jääkö tiedosto vai miten sen tallennus// tietokanta.
 * Kielenvalinta suomeksi ja englanniksi vai suomeksi tai englanniksi
 * Kommunikaatio tyyli asiakkaan ja meidän välillä
+* Mikä lisenssi asiakkaalle
+* Milloin tulee dokumentaatiota enkuks yms.
