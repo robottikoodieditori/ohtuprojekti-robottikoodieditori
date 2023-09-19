@@ -25,9 +25,9 @@ jobs:
       - name: Run pylint
         working-directory: ./backend
         run: poetry run invoke lint
-      # - name: Test backend
-      #   working-directory: ./backend
-      #   run: poetry run invoke test
+      - name: Test backend
+        working-directory: ./backend
+        run: poetry run invoke test
       - name: Leave backend on for testing
         working-directory: ./backend
         run: poetry run invoke start &
