@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
 import comms from "./services/comms"
 import EditorView from "./components/editorview";
-  
+import Sidebar from "./components/sidebar";
+import Navbar from "./components/navbar";  
 
 function App() {
     const [data, setdata] = useState({
@@ -18,8 +19,18 @@ function App() {
 
  
     return (
-        <div className="App">
-            <EditorView data={data}/> 
+        <div className="app">
+            <div className="navbar">
+                <Navbar/>
+            </div>
+            <div className="main-content">
+                <div className="editor">
+                    <EditorView data={data}/>
+                </div>  
+                <div className="sidebar">
+                    <Sidebar/>
+                </div>
+            </div>
         </div>
     );
 }
