@@ -1,12 +1,14 @@
 from invoke import task
 
+
 @task
 def start(ctx):
     ctx.run("python3 src/server.py")
 
+
 @task
 def test(ctx):
-    ctx.run("pytest src", pty=True)
+    ctx.run("pytest src/tests", pty=True)
 
 
 @task
