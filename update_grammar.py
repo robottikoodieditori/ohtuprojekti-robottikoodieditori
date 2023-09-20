@@ -1,7 +1,7 @@
 import os, csv
 
 DIRNAME = os.path.dirname(__file__)
-KEYWORD_DIRNAME = os.path.join(DIRNAME, 'docs')
+KEYWORD_DIRNAME = os.path.join(DIRNAME, 'src', 'utils')
 LANG_DIRNAME = os.path.join(DIRNAME, 'frontend', 'src', 'services')
 print(os.listdir(LANG_DIRNAME))
 

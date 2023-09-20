@@ -22,13 +22,13 @@ describe('sidebar Functionality', function() {
     });
 
   it('searchbar does not show not searched commands', function() {
-    cy.get("#searchbar").type('{selectall}').type('ta');;
+    cy.get("#searchbar").type('{selectall}').type('ta');
     cy.wait(100);
     cy.get('#sidebar').should('not.contain', "oikealle");
   });
 
   it('searchbar contains right commands', function() {
-    cy.get("#searchbar").type('{selectall}').type('ta');;
+    cy.get("#searchbar").type('{selectall}').type('ta');
     cy.wait(100);
     cy.get('#sidebar').contains('taakse');
   });
@@ -38,4 +38,10 @@ describe('sidebar Functionality', function() {
     cy.wait(100);
     cy.get('#sidebar').should('not.contain', '#searchbar');
 });
+
+    it('clicking on keyword in editor displays command on sidebar', function () {
+        cy.get("#editor").type('{selectall}').type("eteen");
+        cy.get("#editor").contains("eteen").click().wait(1500).click();
+        cy.get("#sidebar").should('contain', 'eteen lauseke')
+    })
 });

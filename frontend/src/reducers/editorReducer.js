@@ -1,7 +1,7 @@
 const editorReducer = (state = '', action) => {
     switch (action.type) {
     case 'EDIT':
-        console.log(action.payload.content)
+
         return action.payload.content
     case 'COMPILE':
         console.log('Compile placeholder', state)

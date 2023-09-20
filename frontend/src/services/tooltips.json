@@ -1,5 +1,5 @@
 {
-    "tulosta": "***tulosta lauseke***  \nKutsua *tulosta* voi käyttää erilaisten arvojen tulostamiseen. *tulosta* tulostaa aina rivinvaihdon, vaikka sille annettaisiin useampi syöte.\n\n*Esimerkki*\n```\ntulosta \"hei\n-> hei\n\ntulosta \"hei\ntulosta \"moi\n-> hei\n-> moi\n\n(tulosta \"hei \"moi)\n-> hei\n-> moi\n```",
+    "tulosta": "***tulosta lauseke***\nKutsua *tulosta* voi käyttää erilaisten arvojen tulostamiseen. *tulosta* tulostaa aina rivinvaihdon, vaikka sille annettaisiin useampi syöte.\n\n*Esimerkki*\n```\ntulosta \"hei\n-> hei\n\ntulosta \"hei\ntulosta \"moi\n-> hei\n-> moi\n\n(tulosta \"hei \"moi)\n-> hei\n-> moi\n```",
     "eteen": "***eteen lauseke***  \n***et lauseke***  \nLiiku eteenpäin *lauseke* yksikköä.\n\n*Esimerkki*\n```\net 100\noi 90\nta 100\nva 90\nolkoon \"x 200\neteen :x\n```",
     "et": "***eteen lauseke***  \n***et lauseke***  \nLiiku eteenpäin *lauseke* yksikköä.\n\n*Esimerkki*\n```\net 100\noi 90\nta 100\nva 90\nolkoon \"x 200\neteen :x\n```",
     "taakse": "***taakse lauseke***  \n***ta lauseke***  \nLiiku taaksepäin *lauseke* yksikköä.\n\n*Esimerkki*\n```\net 100\noi 90\nta 100\nva 90\nolkoon \"x 200\neteen :x\n```",
@@ -9,7 +9,7 @@
     "oikealle": "***oikealle lauseke***  \n***oi lauseke***  \nKäänny oikealle *lauseke* astetta.\n\n*Esimerkki*\n```\net 100\noi 90\nta 100\nva 90\nolkoon \"x 200\neteen :x\n```",
     "oi": "***oikealle lauseke***  \n***oi lauseke***  \nKäänny oikealle *lauseke* astetta.\n\n*Esimerkki*\n```\net 100\noi 90\nta 100\nva 90\nolkoon \"x 200\neteen :x\n```",
     "jos": "***jos lauseke { komennot }***\nSuorita *komennot*, jos *lauseke* on tosi.\n\n*Esimerkki*\n```\njos :x > 999 { tulosta \"suuri }\n```",
-    "riippuen": "***riippuen lauseke { komennot1 } { komennot2 }***  \nSuorita *komennot1*, jos *lauseke* on tosi. Muuten suorita *komennot2*.\n\n*Esimerkki*\n```\nriippuen :x > 999 { tulosta \"suuri } { tulosta \"pieni }\n```",
+    "riippuen": "***riippuen lauseke { komennot1 } { komennot2 }***\nSuorita *komennot1*, jos *lauseke* on tosi. Muuten suorita *komennot2*.\n\n*Esimerkki*\n```\nriippuen :x > 999 { tulosta \"suuri } { tulosta \"pieni }\n```",
     "olkoon": "***olkoon \"nimi lauseke***  \nLuo muuttuja nimeltään *nimi* ja anna sen arvoksi *lauseke*.\n\n*Esimerkki*\n```\nolkoon \"a 42\n```",
     "miten": "***miten aliohjelman.nimi :parametrit ... komennot ... valmis***\n\n*Esimerkki: Aliohjelma **foo** kaksinkertaistaa parametrina saamansa numeerisen arvon **n** ja tulostaa tulon.*\n```\nMITEN foo :n\n    tulosta :n*2\nVALMIS\n```\n\nYllä olevaa aliohjelmaa voi kutsua muuttujalla. Esimerkkinä muuttuja x:\n\n```\nOLKOON \"x 42\nfoo :x\n```",
     "anna": "***anna***\nKäytä aliohjelman *komentojen* sisällä antaaksesi aliohjelmalle paluuarvon.\n\n*Esimerkki: Aliohjelma **neliö** antaa parametrinsä **x** neliön.*\n```\nMITEN neliö :x\n    anna :x * :x\nVALMIS\n```\n\nPaluuarvoa voi käyttää niin kuin mitä tahansa muuta arvoa.\n```\nolkoon \"x neliö 2\nolkoon \"y (neliö 2) + 5\njos 10 < neliö 5 {}\n```",

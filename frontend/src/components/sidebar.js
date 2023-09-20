@@ -3,8 +3,12 @@ import { useState } from 'react';
 import CommandList from './commandList';
 import Searchbar from './searchbar';
 import OneCommand from './oneCommand';
+import { useDispatch, useSelector } from 'react-redux';
+import { resetWord } from '../reducers/highlightReducer';
 
 const Sidebar = () => {
+    const clickedCommand = useSelector(state => state.highlight)
+    const dispatch = useDispatch()
     const [selectedCommand, setSelectedCommand] = useState(null);
     const [searchTerm, setSearchTerm] = useState('');
 
@@ -16,6 +20,12 @@ const Sidebar = () => {
         const term = event.target.value;
         setSearchTerm(term);
     };
+
+
+    if (clickedCommand !== '') {
+        setSelectedCommand(clickedCommand)
+        dispatch(resetWord())
+    }
 
     return (
         <div className="sidebar" id='sidebar'>
