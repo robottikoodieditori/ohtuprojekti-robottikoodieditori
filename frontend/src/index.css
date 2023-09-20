@@ -23,8 +23,21 @@ h1 {
   margin-left: auto;
   width: 300px;
   background-color:rgb(52, 116, 199);
-  padding: 20px;
+
+  
 }
+
+.content {
+  background-color: rgb(52, 116, 199);
+  padding: 30px;
+}
+
+.search-bar input {
+  width: 80%;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
 
 
 .app {
@@ -45,4 +58,9 @@ h1 {
 .buttonsidebar {
   background-color:rgb(52, 116, 199);
   border: none;
+}
+
+.editorview {
+  padding-left: 20px;
+  padding-right: 50px;
 }
