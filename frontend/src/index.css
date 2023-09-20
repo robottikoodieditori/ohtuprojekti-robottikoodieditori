@@ -41,3 +41,8 @@ h1 {
 .editor {
   flex: 1;
 }
+
+.buttonsidebar {
+  background-color:rgb(52, 116, 199);
+  border: none;
+}
