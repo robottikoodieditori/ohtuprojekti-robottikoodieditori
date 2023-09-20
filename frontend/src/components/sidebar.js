@@ -25,18 +25,22 @@ const Sidebar = () => {
 
     return (
         <div className="sidebar">
-            <h2>Commands</h2>
-            <ul>
-                {commands.map((command) => (
-                    <li key={command}>
-                        <button className="buttonsidebar" onClick={() => handleCommandClick(command)}>{command}</button>
-                    </li>
-                ))}
-            </ul>
-            {selectedCommand && (
-                <div className="documentation">
+            {selectedCommand ? (
+                <div>
+                    <button className='buttonsidebar' onClick={() => setSelectedCommand(null)}>Takaisin</button>
                     <h2>{selectedCommand}</h2>
                     <ReactMarkdown>{docs[selectedCommand]}</ReactMarkdown>
+                </div>
+            ) : (
+                <div>
+                    <h2>Käskyt</h2>
+                    <ul>
+                        {commands.map((command) => (
+                            <li key={command}>
+                                <button className="buttonsidebar" onClick={() => handleCommandClick(command)}>{command}</button>
+                            </li>
+                        ))}
+                    </ul>
                 </div>
             )}
         </div>
