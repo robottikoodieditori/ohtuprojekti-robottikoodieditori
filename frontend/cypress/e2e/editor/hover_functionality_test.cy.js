@@ -7,7 +7,10 @@ describe('Hover Functionality', function() {
         cy.get("#editor").type('{selectall}').type("eteen");
         cy.get("#editor").contains("eteen").click();
         cy.wait(100);
-        cy.get("#editor").contains("lauseke et lauseke");
+        cy.get('#editor').click()
+        cy.get("#editor").contains("eteen").click();
+        cy.wait(100)
+        cy.get('#tooltip').contains("et lauseke");
     });
 
     it('does not show documentation for non-command words', function() {

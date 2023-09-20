@@ -2,7 +2,7 @@ import { hoverTooltip } from "@codemirror/view"
 import docs from "../services/tooltips.json"
 import {parse} from 'marked';
 
-export const wordHover = ( updateCurWord, resetWord ) => hoverTooltip((view, pos, side) => {
+export const wordHover = ( updateCurWord ) => hoverTooltip((view, pos, side) => {
     let { from, to, text } = view.state.doc.lineAt(pos);
 
     let start = pos;
@@ -23,11 +23,13 @@ export const wordHover = ( updateCurWord, resetWord ) => hoverTooltip((view, pos
     const definition = docs[word];
 
     if (!definition) {
-        resetWord()
         return null;
     }
 
-    updateCurWord(word)
+
+    const handleClick = () => {
+        updateCurWord(word)
+    }
 
 
     return {
@@ -36,11 +38,12 @@ export const wordHover = ( updateCurWord, resetWord ) => hoverTooltip((view, pos
         above: true,
         create() {
             let container = document.createElement('div');
-            container.id = '::img';
+            container.handleClick = handleClick()
+            container.id = 'tooltip';
             'color:black; width:150px; overflow:auto; word-break: break-word; border-style: solid; border: 1px;';
 
             const markdown = parse(definition)
-            container.innerHTML = markdown
+            container.innerHTML = `<small>Click word to display on sidebar</small>${markdown}`
 
   
             return { 

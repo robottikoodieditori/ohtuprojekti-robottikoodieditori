@@ -3,8 +3,12 @@ import { useState, useEffect } from 'react';
 import docs from "../services/tooltips.json"
 import keywords from "../utils/keywords_finnish.txt"
 import ReactMarkdown from "react-markdown";
+import { useSelector, useDispatch } from 'react-redux';
+import { resetWord } from '../reducers/highlightReducer';
 
 const Sidebar = () => {
+    const clickedCommand = useSelector(state => state.highlight)
+    const dispatch = useDispatch()
     const [commands, setCommands] = useState([]);
     const [selectedCommand, setSelectedCommand] = useState(null);
     const [searchTerm, setSearchTerm] = useState('');
@@ -42,6 +46,12 @@ const Sidebar = () => {
         setSearchTerm('');
         setSuggestions([]);
     };
+
+
+    if (clickedCommand !== '') {
+        setSelectedCommand(clickedCommand)
+        dispatch(resetWord())
+    }
 
     return (
         <div className="sidebar" id='sidebar'>

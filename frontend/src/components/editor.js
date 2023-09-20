@@ -15,6 +15,7 @@ const Editor = ({ doc }) => {
     const [curWord, setCurWord] = useState('')
     const ref = useRef(null)
 
+
     const onChange = React.useCallback((value) => {
         dispatch(editCode(value))
     }, []);
@@ -32,6 +33,7 @@ const Editor = ({ doc }) => {
     const handleClick = () => {
         if (curWord !== '') {
             dispatch(setWord(curWord))
+            resetLocal()
         }
     }
 
