@@ -24,7 +24,7 @@ const Sidebar = () => {
     };
 
     return (
-        <div className="sidebar">
+        <div className="sidebar" id='sidebar'>
             {selectedCommand ? (
                 <div>
                     <button className='buttonsidebar' onClick={() => setSelectedCommand(null)}>Takaisin</button>
