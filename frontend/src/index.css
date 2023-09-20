@@ -24,7 +24,7 @@ h1 {
   width: 300px;
   background-color:rgb(52, 116, 199);
 
-  
+
 }
 
 .content {
@@ -58,6 +58,10 @@ h1 {
 .buttonsidebar {
   background-color:rgb(52, 116, 199);
   border: none;
+}
+
+.buttonsidebar:hover {
+  text-shadow: 0px 0px 5px #FFF;
 }
 
 .editorview {
