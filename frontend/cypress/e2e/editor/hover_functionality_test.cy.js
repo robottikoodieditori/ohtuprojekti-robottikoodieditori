@@ -4,13 +4,9 @@ describe('Hover Functionality', function() {
     });
 
     it('hovering reveals documentation', function() {
-        cy.get("#editor").type('{selectall}').type("eteen");
-        cy.get("#editor").contains("eteen").click();
-        cy.wait(100);
-        cy.get('#editor').click()
-        cy.get("#editor").contains("eteen").click();
-        cy.wait(100)
-        cy.get('#tooltip').contains("et lauseke");
+        cy.get("#editor").type('{selectall}').type("eteen ja pois");
+        cy.get('#editor').contains('eteen').click()
+        cy.get('#tooltip').should('exist').should('contain', 'Liiku')
     });
 
     it('does not show documentation for non-command words', function() {

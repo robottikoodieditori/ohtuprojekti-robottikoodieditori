@@ -39,13 +39,9 @@ describe('sidebar Functionality', function() {
     cy.get('#sidebar').should('not.contain', '#searchbar');
 });
 
-    it.only('clicking on keyword in editor displays command on sidebar', function () {
+    it('clicking on keyword in editor displays command on sidebar', function () {
         cy.get("#editor").type('{selectall}').type("eteen");
-        cy.get("#editor").contains("eteen").click();
-        cy.wait(100);
-        cy.get('#editor').click()
-        cy.get("#editor").contains("eteen").click();
-        cy.wait(100)
-        cy.get('#sidebar').should('contain', 'lauseke')
+        cy.get("#editor").contains("eteen").click().wait(1500).click();
+        cy.get("#sidebar").should('contain', 'eteen lauseke')
     })
 });

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useDispatch } from 'react-redux';
 import { useRef } from "react";
 import { editCode } from '../reducers/editorReducer';
@@ -12,7 +12,7 @@ import { setWord } from '../reducers/highlightReducer';
 
 const Editor = ({ doc }) => {
     const dispatch = useDispatch()
-    const [curWord, setCurWord] = useState('')
+    const curWord = useRef('')
     const ref = useRef(null)
 
 
@@ -21,18 +21,20 @@ const Editor = ({ doc }) => {
     }, []);
 
     const updateLocal = (word) => {
-        setCurWord(word)
+        curWord.current = word
+        //dispatch(setWord(word))
+        //resetLocal()
     }
 
     const resetLocal = () => {
-        setCurWord('')
+        curWord.current = ''
     }
 
     const hover = wordHover(updateLocal, resetLocal)
 
     const handleClick = () => {
         if (curWord !== '') {
-            dispatch(setWord(curWord))
+            dispatch(setWord(curWord.current))
             resetLocal()
         }
     }

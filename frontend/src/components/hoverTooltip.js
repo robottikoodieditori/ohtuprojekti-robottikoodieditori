@@ -27,9 +27,10 @@ export const wordHover = ( updateCurWord ) => hoverTooltip((view, pos, side) => 
     }
 
 
-    const handleClick = () => {
+    updateCurWord(word)
+    /*const handleClick = () => {
         updateCurWord(word)
-    }
+    }*/
 
 
     return {
@@ -38,7 +39,7 @@ export const wordHover = ( updateCurWord ) => hoverTooltip((view, pos, side) => 
         above: true,
         create() {
             let container = document.createElement('div');
-            container.handleClick = handleClick()
+            //container.handleClick = handleClick()
             container.id = 'tooltip';
             'color:black; width:150px; overflow:auto; word-break: break-word; border-style: solid; border: 1px;';
 
