@@ -4,7 +4,7 @@ import Button from "./button";
 
 const EditorView = (props) => {
     return (
-        <div>
+        <div id='editorview'>
             <header className="App-header">
                 <h1>Koodieditori</h1>
                 <p>{props.data.date}</p>

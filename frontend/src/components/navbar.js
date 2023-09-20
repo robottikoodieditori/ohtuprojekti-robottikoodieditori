@@ -2,7 +2,7 @@ import '../index.css';
 
 const Navbar = () => {
     return (
-        <div className={'navbar'}>
+        <div className={'navbar'} id='navbar'>
             <p>navbar</p>
         </div>
     );
