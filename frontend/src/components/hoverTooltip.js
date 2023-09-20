@@ -1,9 +1,8 @@
 import { hoverTooltip } from "@codemirror/view"
 import docs from "../services/tooltips.json"
-import ReactMarkdown from "react-markdown";
-import { createRoot } from 'react-dom/client';
+import {parse} from 'marked';
 
-export const wordHover = hoverTooltip((view, pos, side) => {
+export const wordHover = ( updateCurWord, resetWord ) => hoverTooltip((view, pos, side) => {
     let { from, to, text } = view.state.doc.lineAt(pos);
 
     let start = pos;
@@ -24,8 +23,12 @@ export const wordHover = hoverTooltip((view, pos, side) => {
     const definition = docs[word];
 
     if (!definition) {
+        resetWord()
         return null;
     }
+
+    updateCurWord(word)
+
 
     return {
         pos: start,
@@ -34,14 +37,15 @@ export const wordHover = hoverTooltip((view, pos, side) => {
         create() {
             let container = document.createElement('div');
             container.id = '::img';
-            container.style.cssText =
-        'color:black; width:150px; overflow:auto; word-break: break-word; border-style: solid; border: 1px;';
+            'color:black; width:150px; overflow:auto; word-break: break-word; border-style: solid; border: 1px;';
+
+            const markdown = parse(definition)
+            container.innerHTML = markdown
+
   
-            // Create a root and render the ReactMarkdown component inside it
-            const root = createRoot(container);
-            root.render(<ReactMarkdown>{definition}</ReactMarkdown>);
-  
-            return { dom: container };
+            return { 
+                dom: container,
+            };
         },
     };
 });
