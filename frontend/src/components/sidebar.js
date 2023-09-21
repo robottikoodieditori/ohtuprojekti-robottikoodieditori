@@ -1,12 +1,15 @@
 import '../index.css';
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import CommandList from './commandList';
 import Searchbar from './searchbar';
 import OneCommand from './oneCommand';
 import { useDispatch, useSelector } from 'react-redux';
 import { resetWord } from '../reducers/highlightReducer';
+import { LanguageContext } from '../contexts/languagecontext'; 
 
 const Sidebar = () => {
+    const { language } = useContext(LanguageContext);
+
     const clickedCommand = useSelector(state => state.highlight)
     const dispatch = useDispatch()
     const [selectedCommand, setSelectedCommand] = useState(null);
@@ -21,7 +24,6 @@ const Sidebar = () => {
         setSearchTerm(term);
     };
 
-
     if (clickedCommand !== '') {
         setSelectedCommand(clickedCommand)
         dispatch(resetWord())
@@ -31,11 +33,11 @@ const Sidebar = () => {
         <div className="sidebar" id='sidebar'>
             <div className='content'>
                 {selectedCommand ? (
-                    <OneCommand selectedCommand={selectedCommand} setSelectedCommand={setSelectedCommand} />
+                    <OneCommand selectedCommand={selectedCommand} setSelectedCommand={setSelectedCommand} language={language} />
                 ) : (
                     <div>
-                        <Searchbar searchTerm={searchTerm} handleSearchChange={handleSearchChange} />
-                        <CommandList searchTerm={searchTerm} handleCommandClick={handleCommandClick} />
+                        <Searchbar searchTerm={searchTerm} handleSearchChange={handleSearchChange} language={language} />
+                        <CommandList searchTerm={searchTerm} handleCommandClick={handleCommandClick} language={language} />
                     </div>
                 )}
             </div>
@@ -44,4 +46,3 @@ const Sidebar = () => {
 }
 
 export default Sidebar;
-
