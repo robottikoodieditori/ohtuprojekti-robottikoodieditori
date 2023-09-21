@@ -10,7 +10,7 @@ const EditorView = (props) => {
                 <p>{props.data.date}</p>
                 <p>Kirjoita koodia:</p>
             </header>
-            <Editor doc={String.raw`\tekstiä tähän`}/>
+            <Editor doc=""/>
             <Button function={'COMPILE'} text={'Lähetä koodi kääntäjälle'} />
             <Button function={'SEND'} text={'Lähetä koodi robotille'} />
         </div>
