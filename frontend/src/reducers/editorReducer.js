@@ -1,30 +1,55 @@
-const editorReducer = (state = '', action) => {
-    switch (action.type) {
-    case 'EDIT':
+import commService from '../services/comms'
+import { createSlice } from '@reduxjs/toolkit'
 
-        return action.payload.content
-    case 'COMPILE':
-        console.log('Compile placeholder', state)
-        return state
-    case 'SEND':
-        console.log('Send placeholder', state)
-        return state
-    default:
-        return state
+const editorSlice = createSlice({
+    name: 'editor',
+    initialState: {
+        textContent: '',
+        currentlyHighlightedWord: '',
+        responseFromServer: ''
+    },
+    reducers: {
+        setContent(state, action) {
+            state.textContent = action.payload
+            console.log(state.textContent)
+            return state
+        },
+        sendToCompiler(state) {
+            console.log(`Compile placeholder ${state}`)
+            return state
+        },
+        sendToRobot(state) {
+            console.log(`Send to robot placeholder ${state}`)
+            return state
+        },
+        setHighlightedWord(state, action) {
+            state.currentlyHighlightedWord = action.payload
+            console.log(`CURRENLTY HIGHLIGHTED WORD: ${state.currentlyHighlightedWord}`)
+            return state
+        },
+        resetHighlightedWord(state) {
+            state.currentlyHighlightedWord = ''
+            console.log(`RESET HIGHLIGHTED WORD; VALUE NOW: ${state.currentlyHighlightedWord}`)
+            return state
+        },
+        setResponseFromServer(state, action) {
+            state.responseFromServer = action.payload
+            console.log(`SERVER RESPONDED WITH: ${state.responseFromServer}`)
+            return state
+        }
+    }
+})
+
+export const { 
+    setContent, sendToCompiler, sendToRobot, setHighlightedWord,
+    resetHighlightedWord, setResponseFromServer
+} = editorSlice.actions
+
+export const sendToServer = code => {
+    return async dispatch => {
+        const res = await commService.sendToCompile(code)
+        dispatch(setResponseFromServer(res.data))
     }
 }
 
-export const editCode = (content) => { return {
-    type: 'EDIT',
-    payload: { content }
-}}
-
-export const sendToCompiler = () => { return {
-    type: 'COMPILE'
-}}
-
-export const sendToRobot = () => { return {
-    type: 'SEND'
-}}
-
-export default editorReducer;
+export default editorSlice.reducer

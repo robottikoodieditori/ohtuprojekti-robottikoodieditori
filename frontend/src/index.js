@@ -5,14 +5,11 @@ import { Provider } from 'react-redux';
 
 import App from './App';
 import editorReducer from './reducers/editorReducer';
-import highlightReducer from './reducers/highlightReducer';
-
 
 
 const store = configureStore({
     reducer: {
-        editor: editorReducer,
-        highlight: highlightReducer
+        editor: editorReducer
     }
 })
 
