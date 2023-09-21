@@ -4,7 +4,7 @@ import { useRef } from "react";
 import { editCode } from '../reducers/editorReducer';
 import { extensions as syntax_style} from '../services/highlight';
 import { extensions } from '../utils/cmConfig';
-import CodeMirror from '@uiw/react-codemirror'
+import CodeMirror, { placeholder } from '@uiw/react-codemirror'
 import { wordHover } from './hoverTooltip';
 import { setWord } from '../reducers/highlightReducer';
 
@@ -46,7 +46,7 @@ const Editor = ({ doc }) => {
             <CodeMirror
                 id='editor'
                 value={doc}
-                extensions={[extensions, hover]}
+                extensions={[extensions, hover, placeholder('Kirjoita koodia tähän')]}
                 theme={syntax_style}
                 onChange={onChange}
                 onClick={handleClick}
