@@ -4,13 +4,13 @@ import CommandList from './commandList';
 import Searchbar from './searchbar';
 import OneCommand from './oneCommand';
 import { useDispatch, useSelector } from 'react-redux';
-import { resetWord } from '../reducers/highlightReducer';
+import { resetHighlightedWord } from '../reducers/editorReducer';
 import { LanguageContext } from '../contexts/languagecontext';
 
 const Sidebar = () => {
     const { language, translations } = useContext(LanguageContext); // Include translations here
 
-    const clickedCommand = useSelector(state => state.highlight);
+    const clickedCommand = useSelector(state => state.editor.currentlyHighlightedWord)
     const dispatch = useDispatch();
     const [selectedCommand, setSelectedCommand] = useState(null);
     const [searchTerm, setSearchTerm] = useState('');
@@ -26,7 +26,7 @@ const Sidebar = () => {
 
     if (clickedCommand !== '') {
         setSelectedCommand(clickedCommand);
-        dispatch(resetWord());
+        dispatch(resetHighlightedWord())
     }
 
     return (
@@ -91,7 +91,7 @@ const Sidebar = () => {
 
     if (clickedCommand !== '') {
         setSelectedCommand(clickedCommand)
-        dispatch(resetWord())
+        dispatch(resetHighlightedWord())
     }
 
     return (

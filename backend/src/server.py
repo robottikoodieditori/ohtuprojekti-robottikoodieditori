@@ -1,6 +1,6 @@
 # Import flask and datetime module for showing date and time
 import datetime
-from flask import Flask
+from flask import Flask, request
 
 x = datetime.datetime.now().strftime("%H:%M:%S")
 
@@ -16,6 +16,12 @@ def get_time():
     return {
         "Date": x,
     }
+
+
+@app.route('/send/compiler', methods=['POST'])
+def send_to_compiler():
+    data = request.data
+    return data
 
 
 # Running app

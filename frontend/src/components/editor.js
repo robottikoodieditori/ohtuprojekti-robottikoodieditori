@@ -1,12 +1,12 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import { useRef } from "react";
-import { editCode } from '../reducers/editorReducer';
+import { setContent } from '../reducers/editorReducer';
 import { extensions as syntax_style} from '../services/highlight';
 import { extensions } from '../utils/cmConfig';
 import CodeMirror, { placeholder } from '@uiw/react-codemirror'
 import { wordHover } from './hoverTooltip';
-import { setWord } from '../reducers/highlightReducer';
+import { setHighlightedWord } from '../reducers/editorReducer';
 
 
 
@@ -17,7 +17,7 @@ const Editor = ({ doc }) => {
 
 
     const onChange = React.useCallback((value) => {
-        dispatch(editCode(value))
+        dispatch(setContent(value))
     }, []);
 
     const updateLocal = (word) => {
@@ -33,8 +33,8 @@ const Editor = ({ doc }) => {
     const hover = wordHover(updateLocal, resetLocal)
 
     const handleClick = () => {
-        if (curWord !== '') {
-            dispatch(setWord(curWord.current))
+        if (curWord.current !== '') {
+            dispatch(setHighlightedWord(curWord.current))
             resetLocal()
         }
     }

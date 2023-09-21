@@ -1,10 +1,16 @@
 import axios from "axios";
 
 const getData = () => {
-    const data = axios.get("/data")
-    return data
+    const req = axios.get("/data")
+    return req.then(res => res.data)
+}
+
+const sendToCompile = async (code) => {
+    const res = await axios.post('/send/compiler', {'data': code})
+    return res.data
 }
 
 export default {
-    getData: getData
+    getData: getData,
+    sendToCompile: sendToCompile
 }
