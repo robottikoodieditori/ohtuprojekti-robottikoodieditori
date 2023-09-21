@@ -1,0 +1,17 @@
+{
+  "show" : "***show expr***  \n*show* can be used to print out various values. *show* will always print with a line break, even when given multiple inputs.  \n  \n*Example*  \n```show \"hello\n-> hello\n\nshow \"hello\nshow \"hi\n-> hello\n-> hi\n\n(show \"hello \"hi)\n-> hello\n-> hi```",
+  "forward" : "***forward expr***  \n***fd expr***  \nMove forward *expr* units.  \n*Example*  \n```fd 100\nrt 90\nbk 100\nlt 90\nmake \"x 200\nforward :x```",
+  "fd" : "***forward expr***  \n***fd expr***  \nMove forward *expr* units.  \n*Example*  \n```fd 100\nrt 90\nbk 100\nlt 90\nmake \"x 200\nforward :x```",
+  "backward" : "***backward expr***  \n***bk expr***  \nMove backward *expr* units.  \n*Example*  \n```fd 100\nrt 90\nbk 100\nlt 90\nmake \"x 200\nforward :x```",
+  "bk" : "***backward expr***  \n***bk expr***  \nMove backward *expr* units.  \n*Example*  \n```fd 100\nrt 90\nbk 100\nlt 90\nmake \"x 200\nforward :x```",
+  "left" : "***left expr***  \n***lt expr***  \nTurn left *expr* degrees.  \n*Example*  \n```fd 100\nrt 90\nbk 100\nlt 90\nmake \"x 200\nforward :x```",
+  "lt" : "***left expr***  \n***lt expr***  \nTurn left *expr* degrees.  \n*Example*  \n```fd 100\nrt 90\nbk 100\nlt 90\nmake \"x 200\nforward :x```",
+  "right" : "***right expr***  \n***rt expr***  \nTurn right *expr* degrees.  \n*Example*  \n```fd 100\nrt 90\nbk 100\nlt 90\nmake \"x 200\nforward :x```",
+  "rt" : "***right expr***  \n***rt expr***  \nTurn right *expr* degrees.  \n*Example*  \n```fd 100\nrt 90\nbk 100\nlt 90\nmake \"x 200\nforward :x```",
+  "if" : "***if expr { statements }***  \nRun *statements* if *expr* is true.  \n  \n*Example*  \n```if :x > 999 { show \"large }```",
+  "ifelse" : "***ifelse expr { statements1 } { statements2 }***  \nRun *statements1* if *expr* is true. Otherwise run *statements2*.  \n  \n*Example*  \n```ifelse :x > 999 { show \"large } { show \"small }```",
+  "make" : "***make \"varname expr***  \nCreate a variable named *varname* and assign *expr* as its value.  \n  \n*Example*  \n```make \"a 42```",
+  "to" : "***to procname :params ... statements ... end***  \n  \n*Example: Procedure **foo** doubles the numeric value it has received as its parameter **n** and prints the result.*  \n```TO foo :n\n    show :n*2\nEND",
+  "repeat" : "***repeat expr { statements }***  \nRun *statements* *expr* times.  \n  \n*Example*  \n```repeat 10 { fd 20 }```",
+  "for" : "***for [ \"variable expr expr expr ] { statements }***  \nTypical **for** loop. The arguments inside the square brackets are, in order, *iterable*, *start*, *limit* and *step*.  \n  \n*Iterable* is created as a new local variable and can be referred to within the for loop in the same way as other variables.  \n  \n*Start* is the value the *iterable* starts at.  \n  \n*Limit* is the value the *iterable* ends at. Inclusive.  \n  \n*Step* is the value added to *iterable* after each loop of *statements*.  \n  \n*Example: Count to 10*  \n```for [\"a 1 10 1] { show :a }```  \n  \n*Example: Print out the multiplication table of 2*  \n```for [\"a 2 20 2] { show :a }```",
+}
