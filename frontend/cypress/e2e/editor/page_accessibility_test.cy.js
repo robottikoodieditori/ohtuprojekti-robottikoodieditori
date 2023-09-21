@@ -4,7 +4,7 @@ describe('Editor Page Accessibility', function() {
         cy.get("#navbar").contains('navbar')
         cy.get("#editorview").contains('Koodieditori')
         cy.get("#editorview").contains('Kirjoita koodia:')
-        cy.get("#editor").contains('\\tekstiä tähän')
+        cy.get("#editor").contains('Kirjoita koodia tähän')
         cy.get("#editorview").contains('Lähetä koodi kääntäjälle')
         cy.get("#editorview").contains('Lähetä koodi robotille')
     })
