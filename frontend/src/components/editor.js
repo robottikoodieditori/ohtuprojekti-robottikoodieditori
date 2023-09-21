@@ -50,6 +50,7 @@ const Editor = ({ doc }) => {
                 theme={syntax_style}
                 onChange={onChange}
                 onClick={handleClick}
+                height='30vw'
             />
         </div>
     )

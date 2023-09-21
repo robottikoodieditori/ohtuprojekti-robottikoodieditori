@@ -3,6 +3,7 @@ import commService from "./services/comms"
 import EditorView from "./components/editorview";
 import Sidebar from "./components/sidebar";
 import Navbar from "./components/navbar";  
+import { LanguageProvider } from './contexts/languagecontext';
 
 function App() {
     const [data, setdata] = useState({
@@ -17,21 +18,22 @@ function App() {
             })
     }, [])
 
- 
     return (
-        <div className="app">
-            <div className="navbar">
-                <Navbar/>
-            </div>
-            <div className="main-content">
-                <div className="editor">
-                    <EditorView date={data}/> 
-                </div>  
-                <div className="sidebar">
-                    <Sidebar/>
+        <LanguageProvider>
+            <div className="app">
+                <div className="navbar">
+                    <Navbar/>
+                </div>
+                <div className="main-content">
+                    <div className="editor">
+                        <EditorView date={data}/>
+                    </div>  
+                    <div className="sidebar">
+                        <Sidebar/>
+                    </div>
                 </div>
             </div>
-        </div>
+        </LanguageProvider>
     );
 }
 
