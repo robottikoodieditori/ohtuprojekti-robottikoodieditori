@@ -20,4 +20,5 @@ export default {
         valmis: "end",
         vasemmalle: "left",
     },
+    returnbutton: "Return"
 };

@@ -1,18 +1,20 @@
 import "../index.css"
-import docs from "../services/tooltips.json"
+import tooltips_finnish from "../services/tooltips.json"
+import tooltips_english from "../services/tooltips_english.json"
 import ReactMarkdown from "react-markdown";
 
-const OneCommand = ({ selectedCommand, setSelectedCommand }) => {
+const OneCommand = ({ selectedCommand, setSelectedCommand , language, translations}) => {
+    const docs = language === 'fi' ? tooltips_finnish : tooltips_english;
     return (
         <div>
             <button className='buttonsidebar' onClick={() => setSelectedCommand(null)}>
-                Takaisin
+                {translations?.returnbutton}
             </button>
 
-            <h2>{selectedCommand}</h2>
+            <h2>{translations?.command?.[selectedCommand] || selectedCommand}</h2>
 
             <ReactMarkdown>
-                {docs[selectedCommand]}
+                {docs[translations?.command?.[selectedCommand] || selectedCommand]}
             </ReactMarkdown>
 
         </div>
