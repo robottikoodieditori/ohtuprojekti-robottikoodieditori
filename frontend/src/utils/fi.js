@@ -20,5 +20,4 @@ export default {
         valmis: "valmis",
         vasemmalle: "vasemmalle",
     },
-    // Add other Finnish translations here...
 };
