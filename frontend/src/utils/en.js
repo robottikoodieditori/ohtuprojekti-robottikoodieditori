@@ -1,13 +1,13 @@
 export default {
     searchPlaceholder: "Search Command",
     commandListTitle: "Commands",
-    command: { /* These commands will need to be checked and verified that they are right */
+    command: {
         anna: "output",
         et: "fd",
         eteen: "forward",
         jos: "if",
         luvuille: "for",
-        miten: "how",
+        miten: "to",
         oi: "rt",
         oikealle: "right",
         olkoon: "make",
@@ -20,5 +20,4 @@ export default {
         valmis: "end",
         vasemmalle: "left",
     },
-    // Add other English translations here...
 };
