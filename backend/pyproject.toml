@@ -8,6 +8,7 @@ authors = ["Your name"]
 python = "^3.8"
 Flask = "^2.3.3"
 python-dotenv = "^1.0.0"
+logomotion = { git = "https://github.com/theJSZ/logomotion.git" }
 
 [tool.poetry.dev-dependencies]
 pytest = "^5.2"

@@ -1,6 +1,13 @@
+# pylint: skip-file
+
 # Import flask and datetime module for showing date and time
 import datetime
+import json
 from flask import Flask, request
+
+
+
+from uselogomotion import main as uselogomotion
 
 x = datetime.datetime.now().strftime("%H:%M:%S")
 
@@ -21,6 +28,11 @@ def get_time():
 @app.route('/send/compiler', methods=['POST'])
 def send_to_compiler():
     data = request.data
+    data = data.decode('UTF-8').replace("'", '"')
+    data = json.loads(data)
+    #print(data['data'])
+    #print(f"{data['data']}, | {str(data['data'])}")
+    uselogomotion(data['data'], 'eetvartti/ompi')
     return data
 
 
