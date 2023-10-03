@@ -20,5 +20,6 @@ export default {
         valmis: "valmis",
         vasemmalle: "vasemmalle",
     },
-    returnbutton: "Takaisin"
+    returnbutton: "Takaisin",
+    editorPlaceholder: "Kirjoita koodia tähän"
 };

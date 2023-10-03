@@ -1,59 +1,56 @@
-import React from 'react';
+import React, { useContext, useRef, useCallback } from 'react';
 import { useDispatch } from 'react-redux';
-import { useRef } from "react";
-import { setContent } from '../reducers/editorReducer';
-import { extensions as syntax_style} from '../services/highlight';
+import { setContent, setHighlightedWord } from '../reducers/editorReducer';
+import { extensions as syntax_style } from '../services/highlight';
 import { extensions } from '../utils/cmConfig';
-import CodeMirror, { placeholder } from '@uiw/react-codemirror'
+import CodeMirror, { placeholder } from '@uiw/react-codemirror';
 import { wordHover } from './hoverTooltip';
-import { setHighlightedWord } from '../reducers/editorReducer';
-
-
+import { LanguageContext } from '../contexts/languagecontext';  // <-- Import the LanguageContext
 
 const Editor = ({ doc }) => {
-    const dispatch = useDispatch()
-    const curWord = useRef('')
-    const ref = useRef(null)
+    const dispatch = useDispatch();
+    const curWord = useRef('');
+    const ref = useRef(null);
+    const { translations } = useContext(LanguageContext); // <-- Use the LanguageContext
 
-
-    const onChange = React.useCallback((value) => {
-        dispatch(setContent(value))
-    }, []);
+    const onChange = useCallback((value) => {
+        dispatch(setContent(value));
+    }, [dispatch]);
 
     const updateLocal = (word) => {
-        curWord.current = word
-        //dispatch(setWord(word))
-        //resetLocal()
+        curWord.current = word;
     }
 
     const resetLocal = () => {
-        curWord.current = ''
+        curWord.current = '';
     }
 
-    const hover = wordHover(updateLocal, resetLocal)
+    const hover = wordHover(updateLocal, resetLocal);
 
     const handleClick = () => {
         if (curWord.current !== '') {
-            dispatch(setHighlightedWord(curWord.current))
-            resetLocal()
+            dispatch(setHighlightedWord(curWord.current));
+            resetLocal();
         }
     }
-
-
 
     return (
         <div ref={ref}>
             <CodeMirror
                 id='editor'
                 value={doc}
-                extensions={[extensions, hover, placeholder('Kirjoita koodia tähän')]}
+                extensions={[
+                    extensions, 
+                    hover, 
+                    placeholder(translations.editorPlaceholder || 'Kirjoita koodia tähän')  // <-- Use the translation
+                ]}
                 theme={syntax_style}
                 onChange={onChange}
                 onClick={handleClick}
                 height='30vw'
             />
         </div>
-    )
+    );
 }
 
 export default Editor;
