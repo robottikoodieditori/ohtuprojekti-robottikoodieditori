@@ -44,4 +44,55 @@ describe('sidebar Functionality', function() {
         cy.get("#editor").contains("eteen").click().wait(1500).click();
         cy.get("#sidebar").should('contain', 'eteen lauseke')
     })
+
+  });
+
+// in english
+describe('sidebar Functionality', function() {
+  beforeEach(function() {
+      cy.visit('http://localhost:3000');
+      cy.get("#navbar").contains("Switch to English").click(100);
+  });
+
+    it('clicking command reveals documentation in english', function() {
+      cy.get("#sidebar").contains("forward").click();
+      cy.wait(100);
+      cy.get('#sidebar').contains("expr fd expr");
+    });
+
+    it('clicking return revels commands in english', function() {
+    cy.get("#sidebar").contains("forward").click();
+    cy.wait(100);
+    cy.get("#sidebar").contains("Return").click();
+    cy.get('#sidebar').contains("forward");
+    });
+
+
+    it('commands shown in english', function() {
+    cy.get('#sidebar').contains("fd");
+    });
+
+    it('searchbar does not show not searched commands in english', function() {
+    cy.get("#searchbar").type('{selectall}').type('fd');
+    cy.wait(100);
+    cy.get('#sidebar').should('not.contain', "right");
+    });
+
+    it('searchbar contains right commands in english', function() {
+    cy.get("#searchbar").type('{selectall}').type('fo');
+    cy.wait(100);
+    cy.get('#sidebar').contains('forward');
+    });
+
+    it('clicking command does not show searchbar in english', function() {
+    cy.get("#sidebar").contains("forward").click();
+    cy.wait(100);
+    cy.get('#sidebar').should('not.contain', '#searchbar');
+    });
+
+    it('clicking translate goes back to finnish', function() {
+      cy.get("#navbar").contains("Vaihda suomeksi").click(100);
+      cy.get('#sidebar').contains('eteen');
+      });
+
 });
