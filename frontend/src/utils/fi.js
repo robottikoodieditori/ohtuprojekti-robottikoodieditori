@@ -21,5 +21,11 @@ export default {
         vasemmalle: "vasemmalle",
     },
     returnbutton: "Takaisin",
-    editorPlaceholder: "Kirjoita koodia tähän"
+    editorPlaceholder: "Kirjoita koodia tähän",
+    editorView: {
+        title: "Koodieditori",
+        writeCode: "Kirjoita koodia:",
+        sendToCompilerBtn: "Lähetä koodi kääntäjälle",
+        sendToRobotBtn: "Lähetä koodi robotille",
+    }
 };
