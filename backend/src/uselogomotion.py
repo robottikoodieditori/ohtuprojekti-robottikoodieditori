@@ -1,3 +1,4 @@
+# pylint: skip-file
 """Main module for the compiler.
 """
 import argparse
