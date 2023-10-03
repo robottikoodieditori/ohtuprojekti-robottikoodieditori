@@ -166,3 +166,4 @@ cython_debug/
 **/node_modules
 frontend/src/services/parser.js
 frontend/src/servies/parser.terms.js
+**/javafiles
