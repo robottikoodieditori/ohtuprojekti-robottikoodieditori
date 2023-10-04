@@ -2,14 +2,12 @@ import Editor from "./editor";
 import Button from "./button";
 import { useSelector } from "react-redux";
 
-const EditorView = ({ date }) => {
+const EditorView = () => {
     const serverResponse = useSelector(state => state.editor.responseFromServer)
     return (
         <div className='editorview' id='editorview'>
             <header className="App-header">
-                <h1>Koodieditori</h1>
-                <p>{date.Date}</p>
-                <p>Kirjoita koodia:</p>
+                <br></br>
             </header>
             <Editor doc=""/>
             <Button function={'COMPILE'} text={'Lähetä koodi kääntäjälle'} />

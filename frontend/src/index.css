@@ -4,13 +4,13 @@ body {
 }
 
 h1 {
-    color:rgb(78, 142, 226);
-    font-family: 'Times New Roman', Times, serif;
-    font-size: 3em;
+    color:rgb(0, 0, 0);
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 2em;
 }
 
 .navbar {
-  background-color: rgb(57, 104, 165);
+  background-color: rgb(134, 176, 226);
   color: white;
   height: 60px;
   display: flex;
@@ -22,13 +22,11 @@ h1 {
 .sidebar {
   margin-left: auto;
   width: 300px;
-  background-color:rgb(52, 116, 199);
-
-
+  background-color:rgb(170, 206, 253);
 }
 
 .content {
-  background-color: rgb(52, 116, 199);
+  background-color: rgb(170, 206, 253);
   padding: 30px;
 }
 
@@ -37,8 +35,6 @@ h1 {
   padding: 10px;
   margin-bottom: 10px;
 }
-
-
 
 .app {
   display: flex;
@@ -56,7 +52,7 @@ h1 {
 }
 
 .buttonsidebar {
-  background-color:rgb(52, 116, 199);
+  background-color:rgb(170, 206, 253);
   border: none;
 }
 
