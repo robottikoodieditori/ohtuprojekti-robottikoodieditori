@@ -1,17 +1,22 @@
+import { useContext } from 'react';
 import Editor from "./editor";
 import Button from "./button";
 import { useSelector } from "react-redux";
+import { LanguageContext } from '../contexts/languagecontext'; 
 
 const EditorView = () => {
     const serverResponse = useSelector(state => state.editor.responseFromServer)
+    const { translations } = useContext(LanguageContext); 
+    console.log(translations);
     return (
         <div className='editorview' id='editorview'>
             <header className="App-header">
                 <br></br>
             </header>
             <Editor doc=""/>
-            <Button function={'COMPILE'} text={'Lähetä koodi kääntäjälle'} />
-            <Button function={'SEND'} text={'Lähetä koodi robotille'} />
+            <br></br>
+            <Button function={'COMPILE'} text={translations.editorView.sendToCompilerBtn} /> 
+            <Button function={'SEND'} text={translations.editorView.sendToRobotBtn} /> 
             {serverResponse !== ''
                 ? <div id='sResponse'>Server responded: {serverResponse}</div>
                 : ''
@@ -19,7 +24,5 @@ const EditorView = () => {
         </div>
     )
 }
-
-
 
 export default EditorView;

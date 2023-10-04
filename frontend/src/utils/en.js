@@ -20,5 +20,12 @@ export default {
         valmis: "end",
         vasemmalle: "left",
     },
-    returnbutton: "Return"
+    returnbutton: "Return",
+    editorPlaceholder: "Write code here",
+    editorView: {
+        title: "Code Editor",
+        writeCode: "Write code:",
+        sendToCompilerBtn: "Send code to compiler",
+        sendToRobotBtn: "Send code to robot",
+    }
 };
