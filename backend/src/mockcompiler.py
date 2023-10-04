@@ -18,8 +18,8 @@ class MockCompiler:
                 summa = 0
                 for j in range(i):
                     summa += len(wordlist[j])
-                errors.append({"message": "errorroror", "start": sum,
-                               "end": sum + len(wordlist[i])})
+                errors.append({"message": "errorroror", "start": summa,
+                               "end": summa + len(wordlist[i])})
         path = os.getcwd()
         path = os.path.join(path,"javafiles" , output_file)
         # pylint: disable=unspecified-encoding
