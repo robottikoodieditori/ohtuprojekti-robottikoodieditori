@@ -11,7 +11,6 @@ describe('sidebar Functionality', function() {
 
   it('clicking takaisin revels commands', function() {
     cy.get("#sidebar").contains("eteen").click();
-    cy.wait(100);
     cy.get("#sidebar").contains("Takaisin").click();
     cy.get('#sidebar').contains("taakse");
   });
@@ -23,19 +22,16 @@ describe('sidebar Functionality', function() {
 
   it('searchbar does not show not searched commands', function() {
     cy.get("#searchbar").type('{selectall}').type('ta');
-    cy.wait(100);
     cy.get('#sidebar').should('not.contain', "oikealle");
   });
 
   it('searchbar contains right commands', function() {
     cy.get("#searchbar").type('{selectall}').type('ta');
-    cy.wait(100);
     cy.get('#sidebar').contains('taakse');
   });
 
   it('clicking command does not show searchbar', function() {
     cy.get("#sidebar").contains("eteen").click();
-    cy.wait(100);
     cy.get('#sidebar').should('not.contain', '#searchbar');
 });
 
@@ -56,13 +52,11 @@ describe('sidebar Functionality', function() {
 
     it('clicking command reveals documentation in english', function() {
       cy.get("#sidebar").contains("forward").click();
-      cy.wait(100);
       cy.get('#sidebar').contains("expr fd expr");
     });
 
     it('clicking return revels commands in english', function() {
     cy.get("#sidebar").contains("forward").click();
-    cy.wait(100);
     cy.get("#sidebar").contains("Return").click();
     cy.get('#sidebar').contains("forward");
     });
@@ -74,19 +68,16 @@ describe('sidebar Functionality', function() {
 
     it('searchbar does not show not searched commands in english', function() {
     cy.get("#searchbar").type('{selectall}').type('fd');
-    cy.wait(100);
     cy.get('#sidebar').should('not.contain', "right");
     });
 
     it('searchbar contains right commands in english', function() {
     cy.get("#searchbar").type('{selectall}').type('fo');
-    cy.wait(100);
     cy.get('#sidebar').contains('forward');
     });
 
     it('clicking command does not show searchbar in english', function() {
     cy.get("#sidebar").contains("forward").click();
-    cy.wait(100);
     cy.get('#sidebar').should('not.contain', '#searchbar');
     });
 

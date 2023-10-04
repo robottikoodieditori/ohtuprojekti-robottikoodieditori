@@ -15,7 +15,6 @@ describe('Hover Functionality', function() {
 
         cy.get("#editor").type('{selectall}').type('nonCommandWord');
         cy.get("#editor").contains('nonCommandWord').click();
-        cy.wait(100);
         commands.forEach(command => {
             cy.get('#editor').should('not.contain', command);
         });
