@@ -1,4 +1,4 @@
-import React, { useContext, useRef, useCallback } from 'react';
+import { useContext, useRef, useCallback } from 'react';
 import { useDispatch } from 'react-redux';
 import { setContent, setHighlightedWord } from '../reducers/editorReducer';
 import { extensions as syntax_style } from '../services/highlight';
@@ -42,12 +42,12 @@ const Editor = ({ doc }) => {
                 extensions={[
                     extensions, 
                     hover, 
-                    placeholder(translations.editorPlaceholder || 'Kirjoita koodia tähän')  // <-- Use the translation
+                    placeholder(translations?.editorPlaceholder || 'Kirjoita koodia tähän')  // <-- Use the translation
                 ]}
                 theme={syntax_style}
                 onChange={onChange}
                 onClick={handleClick}
-                height='30vw'
+                height='20vw'
             />
         </div>
     );
