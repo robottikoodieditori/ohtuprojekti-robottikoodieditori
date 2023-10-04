@@ -4,7 +4,7 @@
 import datetime
 import json
 from flask import Flask, request
-
+from mockcompiler import MockCompiler
 
 
 from uselogomotion import main as uselogomotion
@@ -30,9 +30,10 @@ def send_to_compiler():
     data = request.data
     data = data.decode('UTF-8').replace("'", '"')
     data = json.loads(data)
-    #print(data['data'])
-    #print(f"{data['data']}, | {str(data['data'])}")
-    uselogomotion(data['data'], 'eetvartti/ompi')
+    # print(data['data'])
+    # print(f"{data['data']}, | {str(data['data'])}")
+    errors = MockCompiler.compile(data['data'], 'eetvartti/ompi')
+    print(errors)
     return data
 
 
