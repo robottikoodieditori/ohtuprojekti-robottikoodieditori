@@ -9,7 +9,7 @@ const Navbar = () => {
     
     return (
         <div className={'navbar'} id='navbar'>
-            <p>navbar</p>
+            <h1>Koodieditori</h1>
             <button onClick={toggleLanguage}>  {/* Directly using toggleLanguage from context */}
                 {language === 'fi' ? 'Switch to English' : 'Vaihda suomeksi'}
             </button>
