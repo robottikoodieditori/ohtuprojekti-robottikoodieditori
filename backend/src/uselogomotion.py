@@ -81,7 +81,7 @@ def main(LOGO_CODE, path):
         else:
             #error_handler.create_json_file()
             error_handler.write_errors_to_console()
-            print(error_handler.errors)
+            return error_handler.errors
 
     # Create required classes for the compiler
     console_io = ConsoleIO()
@@ -96,7 +96,7 @@ def main(LOGO_CODE, path):
     symbol_tables.functions = initialize_logo_functions(symbol_tables.functions)
 
     # Compile from logo to language defined with CODE_GEN .env variable
-    compile_logo()
+    return compile_logo()
 
 
 # if __name__ == "__main__":
