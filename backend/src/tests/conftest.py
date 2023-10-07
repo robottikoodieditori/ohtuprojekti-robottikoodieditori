@@ -1,10 +1,10 @@
+from server import app
 import os
 import pytest
 import sys
 
 CURR_DIR = os.path.dirname(__file__)
 sys.path.append(os.path.join(CURR_DIR, ".."))
-from server import app
 
 
 @pytest.fixture()

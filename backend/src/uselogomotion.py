@@ -19,11 +19,11 @@ dotenv.load_dotenv()
 MESSAGE_LANG = 'FIN'
 CODE_GEN_LANG = 'Java'
 
-#MESSAGE_LANG = os.getenv("MESSAGE_LANG")
-#ODE_GEN_LANG = os.getenv("CODE_GEN_LANG")
+# MESSAGE_LANG = os.getenv("MESSAGE_LANG")
+# ODE_GEN_LANG = os.getenv("CODE_GEN_LANG")
 
 # Get command line arguments
-#args = get_cmd_line_args()
+# args = get_cmd_line_args()
 # Get logo code from file. Filepath is given as a command line argument
 LOGO_CODE = "et 20"  # load_file(args.filepath)
 
@@ -75,11 +75,11 @@ def main(LOGO_CODE, path):
         # Code generation, if there are no errors
         if start_node and not error_handler.errors:
             logger.debug("Generated code:")
-            #print('jahuu')
+            # print('jahuu')
             start_node.generate_code()
             code_generator.write(f'javafiles/{path}')
         else:
-            #error_handler.create_json_file()
+            # error_handler.create_json_file()
             error_handler.write_errors_to_console()
             return error_handler.errors
 
@@ -93,7 +93,8 @@ def main(LOGO_CODE, path):
     code_generator = get_code_generator()
     parser = Parser(lexer, logger, symbol_tables, code_generator)
 
-    symbol_tables.functions = initialize_logo_functions(symbol_tables.functions)
+    symbol_tables.functions = initialize_logo_functions(
+        symbol_tables.functions)
 
     # Compile from logo to language defined with CODE_GEN .env variable
     return compile_logo()

@@ -5,7 +5,7 @@ import datetime
 import json
 from flask import Flask, request, render_template
 from random import randint
-
+from mockcompiler import MockCompiler
 
 
 from uselogomotion import main as uselogomotion
@@ -31,10 +31,10 @@ def send_to_compiler():
     data = request.data 
     data = data.decode('UTF-8').replace("'", '"')
     data = json.loads(data)
-    #print(data['data'])
-    #print(f"{data['data']}, | {str(data['data'])}")
-    print(data)
-    #uselogomotion(data['data'], f'{str(randint(1, 5000))}')
+    # print(data['data'])
+    # print(f"{data['data']}, | {str(data['data'])}")
+    errors = MockCompiler.compile(data['data'], 'eetvartti/ompi')
+    print(errors)
     return data
 
 @app.route('/')
