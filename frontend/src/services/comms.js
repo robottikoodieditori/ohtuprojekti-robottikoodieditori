@@ -7,6 +7,7 @@ const getData = () => {
 
 const sendToCompile = async (code) => {
     const res = await axios.post('/send/compiler', {'data': code})
+    console.log(res)
     return res.data
 }
 
