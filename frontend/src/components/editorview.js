@@ -15,8 +15,8 @@ const EditorView = () => {
             </header>
             <Editor doc=""/>
             <br></br>
-            <Button function={'COMPILE'} text={translations.editorView.sendToCompilerBtn} /> 
-            <Button function={'SEND'} text={translations.editorView.sendToRobotBtn} /> 
+            <Button function={'COMPILE'} text={translations?.editorView.sendToCompilerBtn} /> 
+            <Button function={'SEND'} text={translations?.editorView.sendToRobotBtn} /> 
             {serverResponse !== ''
                 ? <div id='sResponse'>Server responded: {serverResponse}</div>
                 : ''
