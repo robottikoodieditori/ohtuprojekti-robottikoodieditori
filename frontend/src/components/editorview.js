@@ -7,6 +7,7 @@ import { LanguageContext } from '../contexts/languagecontext';
 const EditorView = () => {
     const serverResponse = useSelector(state => state.editor.responseFromServer)
     const { translations } = useContext(LanguageContext);
+    console.log(translations);
 
     const Response = () => {
         return (
@@ -15,15 +16,18 @@ const EditorView = () => {
             </div>
         )
     }
+    
     return (
         <div className='editorview' id='editorview'>
             <header className="App-header">
-                <br></br>
+                <br/>
             </header>
             <Editor doc=""/>
-            <br/>
-            <Button function={'COMPILE'} text={translations.editorView.sendToCompilerBtn} /> 
-            <Button function={'SEND'} text={translations.editorView.sendToRobotBtn} /> 
+            <div className="button-container">
+                <Button function={'COMPILE'} text={translations.editorView.sendToCompilerBtn} /> 
+                <div style={{ margin: '10px' }} />
+                <Button function={'SEND'} text={translations.editorView.sendToRobotBtn} /> 
+            </div>
             {serverResponse !== ''
                 ? <div id='sResponse'>Server responded:<Response/> </div>
                 : ''
