@@ -45,7 +45,7 @@ const Editor = ({ doc }) => {
                     extensions, 
                     hover, 
                     placeholder(translations?.editorPlaceholder || 'Kirjoita koodia tähän'),  // <-- Use the translation
-                    autocompletion({override: [autoComplete]})
+                    autocompletion({override: [autoComplete]}) // autocomplete
                 ]}
                 theme={syntax_style}
                 onChange={onChange}
