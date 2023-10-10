@@ -1,7 +1,7 @@
 describe('sidebar Functionality', function() {
   beforeEach(function() {
       cy.visit('http://localhost:3000');
-      cy.get('#popup').contains('Kirjaudu').click(500)
+      cy.get('#popup').contains('Kirjaudu').click()
   });
 
   it('clicking command reveals documentation', function() {
