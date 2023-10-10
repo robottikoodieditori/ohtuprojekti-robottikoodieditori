@@ -2,6 +2,7 @@
 describe('Communication between Front- and backend', function() {
     beforeEach(function() {
         cy.visit('http://localhost:3000');
+        cy.get('#popup').contains('Kirjaudu').click(500)
     });
 
     it('typing in editor and pressing send displays server response on screen', function() {

@@ -2,6 +2,8 @@ describe('Syntax Highlighting', function() {
 
     beforeEach(function() {
         cy.visit('http://localhost:3000');
+        cy.get('#popup').contains('Kirjaudu').click()
+
     });
 
     it('syntax is highlighted', function() {
