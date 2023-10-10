@@ -22,8 +22,8 @@ export default {
     },
     returnbutton: "Takaisin",
     editorPlaceholder: "Kirjoita koodia tähän",
+    navbar: "Koodieditori",
     editorView: {
-        title: "Koodieditori",
         writeCode: "Kirjoita koodia:",
         sendToCompilerBtn: "Lähetä koodi kääntäjälle",
         sendToRobotBtn: "Lähetä koodi robotille",
