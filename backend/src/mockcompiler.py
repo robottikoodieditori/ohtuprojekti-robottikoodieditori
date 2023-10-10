@@ -27,28 +27,31 @@ class MockCompiler:
         with open(path, "w") as file:
             print(hash(code), file=file)
         return errors
-    
+
     @staticmethod
     def compile2(code: str, output_file: str):
         errors = []
         wordlist = code.split('\n')
-        for i, v in enumerate(wordlist):
+        # pylint: disable=too-many-nested-blocks
+        for index, value in enumerate(wordlist):
             error_start = None
 
-            for m_i, m_v in enumerate(v):
+            for m_i, m_v in enumerate(value):
                 if not error_start:
                     if m_v == m_v.upper() and m_v != ' ':
                         error_start = m_i+1
                 else:
-                    if m_v == ' ' or m_i == len(v) - 1:
-                        errors.append({"line":i+1, "message":"errorror",
+                    if m_v == ' ' or m_i == len(value) - 1:
+                        errors.append({"line":index+1, "message":"errorror",
                                        "start":error_start, "end": m_i})
                         error_start = None
-            
+
             if error_start:
-                errors.append({"line":i+1, "message":"errorror",
+                # pylint: disable=undefined-loop-variable
+                errors.append({"line":index+1, "message":"errorror",
                                "start":error_start, "end":m_i})
                 error_start = None
+            print(output_file)
 
         print(errors)
 
