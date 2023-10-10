@@ -6,9 +6,7 @@ const Button = (props) => {
     const dispatch = useDispatch();
     const handleClick = () => {
         if (props.function === 'SEND') {
-            if (confirm('Oletko varma?') == true) {
-                dispatch(sendToServer(editorContent));
-            }
+            dispatch(sendToServer(editorContent));
         } 
         if (props.function === 'COMPILE') {
             dispatch(sendToCompiler());
