@@ -19,6 +19,13 @@ h1 {
   padding: 0 20px;
 }
 
+.navbar-button-container {
+  position: absolute;
+  right: 0;
+  top: 2%;
+  padding: 0 20px;
+}
+
 .sidebar {
   margin-left: auto;
   width: 300px;
@@ -57,7 +64,7 @@ h1 {
 }
 
 .buttonsidebar:hover {
-  text-shadow: 0px 0px 5px #FFF;
+  text-shadow: 0px 0px 5px #0400ff;
 }
 
 .editorview {
