@@ -22,8 +22,8 @@ export default {
     },
     returnbutton: "Return",
     editorPlaceholder: "Write code here",
+    navbar: "Code Editor",
     editorView: {
-        title: "Code Editor",
         writeCode: "Write code:",
         sendToCompilerBtn: "Send code to compiler",
         sendToRobotBtn: "Send code to robot",
