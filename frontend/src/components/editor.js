@@ -48,7 +48,7 @@ const Editor = ({ doc }) => {
                 onChange={onChange}
                 onClick={handleClick}
                 height='20vw'
-                width='80vw'
+                width='78vw'
             />
         </div>
     );
