@@ -6,8 +6,15 @@ import { LanguageContext } from '../contexts/languagecontext';
 
 const EditorView = () => {
     const serverResponse = useSelector(state => state.editor.responseFromServer)
-    const { translations } = useContext(LanguageContext); 
-    console.log(translations);
+    const { translations } = useContext(LanguageContext);
+
+    const Response = () => {
+        return (
+            <div>
+                {serverResponse.map(res => <p key={res.start}>{res.start}, {res.end}, {res.message}</p> )}
+            </div>
+        )
+    }
     return (
         <div className='editorview' id='editorview'>
             <header className="App-header">
@@ -18,7 +25,7 @@ const EditorView = () => {
             <Button function={'COMPILE'} text={translations?.editorView.sendToCompilerBtn} /> 
             <Button function={'SEND'} text={translations?.editorView.sendToRobotBtn} /> 
             {serverResponse !== ''
-                ? <div id='sResponse'>Server responded: {serverResponse}</div>
+                ? <div id='sResponse'>Server responded:<Response/> </div>
                 : ''
             }
         </div>
