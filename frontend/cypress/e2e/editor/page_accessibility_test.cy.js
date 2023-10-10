@@ -12,6 +12,7 @@ describe('Editor Page Accessibility', function() {
     })
 
     it('front page can be opened (ENGLISH)', function() {
+        cy.get('[data-testid=toggleLanguageButton]').contains('Switch to English').click();
         cy.get("#navbar").contains('Code Editor')
         cy.get("#editor").contains('Write code here')
         cy.get("#editorview").contains('Send code to compiler')
