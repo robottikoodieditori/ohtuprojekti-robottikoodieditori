@@ -30,8 +30,8 @@ def send_to_compiler():
     data = request.data
     data = data.decode('UTF-8').replace("'", '"')
     data = json.loads(data)
-    errors = MockCompiler.compile(data['data'], 'eetvartti/ompi')
-    print(errors)
+    errors = MockCompiler.compile2(data['data'], 'eetvartti/ompi')
+    #print(errors)
     return errors
 
 

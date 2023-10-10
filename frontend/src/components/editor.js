@@ -6,6 +6,8 @@ import { extensions } from '../utils/cmConfig';
 import CodeMirror, { placeholder } from '@uiw/react-codemirror';
 import { wordHover } from './hoverTooltip';
 import { LanguageContext } from '../contexts/languagecontext';  // <-- Import the LanguageContext
+import { autoComplete } from './autocomplete';
+import { autocompletion } from '@codemirror/autocomplete';
 
 const Editor = ({ doc }) => {
     const dispatch = useDispatch();
@@ -42,7 +44,8 @@ const Editor = ({ doc }) => {
                 extensions={[
                     extensions, 
                     hover, 
-                    placeholder(translations?.editorPlaceholder || 'Kirjoita koodia tähän')  // <-- Use the translation
+                    placeholder(translations?.editorPlaceholder || 'Kirjoita koodia tähän'),  // <-- Use the translation
+                    autocompletion({override: [autoComplete]})
                 ]}
                 theme={syntax_style}
                 onChange={onChange}

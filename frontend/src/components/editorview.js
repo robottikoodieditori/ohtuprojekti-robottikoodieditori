@@ -12,7 +12,7 @@ const EditorView = () => {
     const Response = () => {
         return (
             <div>
-                {serverResponse.map(res => <p key={res.start}>{res.start}, {res.end}, {res.message}</p> )}
+                {serverResponse.map(res => <p key={res.start}>line:{res.line} {res.start}, {res.end}, {res.message}</p> )}
             </div>
         )
     }
@@ -20,7 +20,7 @@ const EditorView = () => {
     return (
         <div className='editorview' id='editorview'>
             <header className="App-header">
-                <br></br>
+                <br/>
             </header>
             <Editor doc=""/>
             <div className="button-container">
