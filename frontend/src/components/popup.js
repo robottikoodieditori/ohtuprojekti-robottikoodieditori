@@ -27,8 +27,11 @@ const Tokenpopup = () => {
 
     return (
         <div>
-            <Popup open={open}>            
-                <div id="popup">
+            <Popup 
+                open={open} 
+                closeOnDocumentClick={false}
+            >            
+                <div className='popup' id="popup">
                     <div className='content'>
                         <h2>Anna nimesi</h2>
                         <input

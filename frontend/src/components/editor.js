@@ -6,14 +6,15 @@ import { extensions } from '../utils/cmConfig';
 import CodeMirror, { placeholder } from '@uiw/react-codemirror';
 import { wordHover } from './hoverTooltip';
 import { LanguageContext } from '../contexts/languagecontext';  // <-- Import the LanguageContext
-import { autoComplete } from './autocomplete';
+import { autoComplete_en } from './autocomplete_english';
+import { autoComplete_fi } from './autocomplete_finnish';
 import { autocompletion } from '@codemirror/autocomplete';
 
 const Editor = ({ doc }) => {
     const dispatch = useDispatch();
     const curWord = useRef('');
     const ref = useRef(null);
-    const { translations } = useContext(LanguageContext); // <-- Use the LanguageContext
+    const { language, translations } = useContext(LanguageContext); // Include translations here
 
     const onChange = useCallback((value) => {
         dispatch(setContent(value));
@@ -28,6 +29,8 @@ const Editor = ({ doc }) => {
     }
 
     const hover = wordHover(updateLocal, resetLocal);
+
+    const autoCompleteModule = language === 'en' ? autoComplete_en : autoComplete_fi;
 
     const handleClick = () => {
         if (curWord.current !== '') {
@@ -45,7 +48,7 @@ const Editor = ({ doc }) => {
                     extensions, 
                     hover, 
                     placeholder(translations?.editorPlaceholder || 'Kirjoita koodia tähän'),  // <-- Use the translation
-                    autocompletion({override: [autoComplete]}) // autocomplete
+                    autocompletion({override: [autoCompleteModule]}) // autocomplete
                 ]}
                 theme={syntax_style}
                 onChange={onChange}
