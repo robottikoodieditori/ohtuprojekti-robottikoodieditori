@@ -1,19 +1,15 @@
 # pylint: skip-file
 
 # Import flask and datetime module for showing date and time
-import datetime
 import json
-from flask import Flask, request
+from flask import Flask, request, render_template, session
+from random import randint
 from mockcompiler import MockCompiler
 from users import User
 
 
-from uselogomotion import main as uselogomotion
-
-x = datetime.datetime.now().strftime("%H:%M:%S")
-
 # Initializing flask app
-app = Flask(__name__)
+app = Flask(__name__, static_folder='../build/static', template_folder='../build')
 app.secret_key = "123"
 
 # Route for seeing a data
@@ -22,20 +18,18 @@ def get_time():
 
     # Returning an api for showing in  reactjs
     return {
-        "Date": x,
+        "Date": ""
     }
 
 
 @app.route('/send/compiler', methods=['POST'])
 def send_to_compiler():
-    data = request.data
+    data = request.data 
     data = data.decode('UTF-8').replace("'", '"')
     data = json.loads(data)
-    # print(data['data'])
-    # print(f"{data['data']}, | {str(data['data'])}")
     errors = MockCompiler.compile(data['data'], 'eetvartti/ompi')
     print(errors)
-    return data
+    return errors
 
 @app.route('/send/name', methods=['POST'])
 def send_name():
@@ -47,4 +41,4 @@ def send_name():
 
 # Running app
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host='0.0.0.0', debug=True)

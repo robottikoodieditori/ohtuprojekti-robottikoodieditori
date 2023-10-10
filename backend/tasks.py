@@ -29,3 +29,7 @@ def coverage(ctx):
 @task(coverage)
 def coveragereport(ctx):
     ctx.run("coverage html", pty=True)
+
+@task
+def gunicorn(ctx):
+    ctx.run('cd src && gunicorn -w 4 server:app --bind 0.0.0.0:8000')

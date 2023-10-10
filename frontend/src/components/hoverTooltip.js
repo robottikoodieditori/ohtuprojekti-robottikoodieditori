@@ -1,5 +1,6 @@
 import { hoverTooltip } from "@codemirror/view"
 import docs from "../services/tooltips.json"
+
 import {parse} from 'marked';
 
 export const wordHover = ( updateCurWord ) => hoverTooltip((view, pos, side) => {

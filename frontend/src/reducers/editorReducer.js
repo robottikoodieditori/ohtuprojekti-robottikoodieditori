@@ -34,7 +34,7 @@ const editorSlice = createSlice({
         },
         setResponseFromServer(state, action) {
             state.responseFromServer = action.payload
-            console.log(`SERVER RESPONDED WITH: ${state.responseFromServer}`)
+            console.log(`SERVER RESPONDED WITH: ${action.payload}`)
             return state
         },
         sendName(state) {
@@ -52,7 +52,7 @@ export const {
 export const sendToServer = code => {
     return async dispatch => {
         const res = await commService.sendToCompile(code)
-        dispatch(setResponseFromServer(res.data))
+        dispatch(setResponseFromServer(res))
     }
 }
 
