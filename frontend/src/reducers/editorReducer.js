@@ -40,13 +40,18 @@ const editorSlice = createSlice({
         sendName(state) {
             console.log(`Send to server placeholder ${state}`)
             return state
+        },
+        setNameFromServer(state, action) {
+            state.nameFromServer = action.payload
+            console.log(`SERVER RESPONDED WITH NAME: ${action.payload}`)
+            return state
         }
     }
 })
 
 export const { 
     setContent, sendToCompiler, sendToRobot, setHighlightedWord,
-    resetHighlightedWord, setResponseFromServer
+    resetHighlightedWord, setResponseFromServer, setNameFromServer
 } = editorSlice.actions
 
 export const sendToServer = code => {
@@ -59,7 +64,7 @@ export const sendToServer = code => {
 export const sendName = code => {
     return async dispatch => {
         const res = await commService.sendName(code)
-        dispatch(setResponseFromServer(res))
+        dispatch(setNameFromServer(res))
     }
 }
 
