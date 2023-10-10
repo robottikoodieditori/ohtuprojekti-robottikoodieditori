@@ -10,7 +10,13 @@ const sendToCompile = async (code) => {
     return res.data
 }
 
+const sendName = async (name) => {
+    const res = await axios.post('/send/name', {'name': name})
+    return res.data
+}
+
 export default {
     getData: getData,
-    sendToCompile: sendToCompile
+    sendToCompile: sendToCompile,
+    sendName: sendName
 }

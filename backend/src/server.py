@@ -5,6 +5,7 @@ import datetime
 import json
 from flask import Flask, request
 from mockcompiler import MockCompiler
+from users import User
 
 
 from uselogomotion import main as uselogomotion
@@ -13,7 +14,7 @@ x = datetime.datetime.now().strftime("%H:%M:%S")
 
 # Initializing flask app
 app = Flask(__name__)
-
+app.secret_key = "123"
 
 # Route for seeing a data
 @app.route('/data')
@@ -36,6 +37,13 @@ def send_to_compiler():
     print(errors)
     return data
 
+@app.route('/send/name', methods=['POST'])
+def send_name():
+    data = request.data
+    data = data.decode()
+    data = json.loads(data)
+    User(data['name'])
+    return User.get_user()
 
 # Running app
 if __name__ == '__main__':
