@@ -2,6 +2,7 @@ from random import randint
 import re
 import os
 
+
 class MockCompiler:
     def __init__(self):
         self.all_errors = []
@@ -21,7 +22,7 @@ class MockCompiler:
                 errors.append({"message": "errorroror", "start": summa,
                                "end": summa + len(wordlist[i])})
         path = os.getcwd()
-        path = os.path.join(path,"javafiles" , output_file)
+        path = os.path.join(path, "javafiles", output_file)
         # pylint: disable=unspecified-encoding
         with open(path, "w") as file:
             print(hash(code), file=file)

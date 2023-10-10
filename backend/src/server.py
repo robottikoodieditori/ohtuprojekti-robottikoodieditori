@@ -9,10 +9,13 @@ from users import User
 
 
 # Initializing flask app
-app = Flask(__name__, static_folder='../build/static', template_folder='../build')
+app = Flask(__name__, static_folder='../build/static',
+            template_folder='../build')
 app.secret_key = "123"
 
 # Route for seeing a data
+
+
 @app.route('/data')
 def get_time():
 
@@ -24,12 +27,13 @@ def get_time():
 
 @app.route('/send/compiler', methods=['POST'])
 def send_to_compiler():
-    data = request.data 
+    data = request.data
     data = data.decode('UTF-8').replace("'", '"')
     data = json.loads(data)
     errors = MockCompiler.compile(data['data'], 'eetvartti/ompi')
     print(errors)
     return errors
+
 
 @app.route('/send/name', methods=['POST'])
 def send_name():
@@ -38,6 +42,7 @@ def send_name():
     data = json.loads(data)
     User(data['name'])
     return User.get_user()
+
 
 # Running app
 if __name__ == '__main__':
