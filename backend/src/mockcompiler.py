@@ -24,9 +24,9 @@ class MockCompiler:
                 errors.append({"message": "errorroror", "start": summa,
                                "end": summa + len(wordlist[i])})
 
-        if session.get("username", 0)=="": 
-            name="Tuntematon" 
-        else: 
+        if session.get("username", 0)=="":
+            name="Tuntematon"
+        else:
             name=session.get("username", 0)
 
         path = os.getcwd()
