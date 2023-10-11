@@ -2,8 +2,7 @@
 
 # Import flask and datetime module for showing date and time
 import json
-from flask import Flask, request, render_template, session
-from random import randint
+from flask import Flask, request
 from mockcompiler import MockCompiler
 from users import User
 
@@ -30,7 +29,7 @@ def send_to_compiler():
     data = request.data
     data = data.decode('UTF-8').replace("'", '"')
     data = json.loads(data)
-    errors = MockCompiler.compile2(data['data'], 'eetvartti/ompi')
+    errors = MockCompiler.compile2(data['data'], 'Koodi')
     #print(errors)
     return errors
 
