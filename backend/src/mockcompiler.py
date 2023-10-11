@@ -1,6 +1,7 @@
 from random import randint
 import re
 import os
+from flask import session
 
 
 class MockCompiler:
@@ -22,8 +23,19 @@ class MockCompiler:
                     summa += len(wordlist[j])
                 errors.append({"message": "errorroror", "start": summa,
                                "end": summa + len(wordlist[i])})
+
+        if session.get("username", 0)=="":
+            name="Tuntematon"
+        else:
+            name=session.get("username", 0)
+
         path = os.getcwd()
-        path = os.path.join(path, "javafiles", output_file)
+        path = os.path.join(path, "javafiles", name)
+        if not os.path.exists(path):
+            os.makedirs(path)
+
+        path = os.path.join(path, output_file)
+
         # pylint: disable=unspecified-encoding
         with open(path, "w") as file:
             print(hash(code), file=file)
