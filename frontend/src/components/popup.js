@@ -32,7 +32,7 @@ const Tokenpopup = () => {
                 closeOnDocumentClick={false}
             >            
                 <div className='popup' id="popup">
-                    <div className='content'>
+                    <div className='content-popup'>
                         <h2>Anna nimesi</h2>
                         <input
                             type="text"
