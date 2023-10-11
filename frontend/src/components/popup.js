@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import Popup from 'reactjs-popup';
-import { sendName} from "../reducers/editorReducer";
+import { sendName} from "../reducers/commsReducer";
 import { useDispatch } from 'react-redux';
 
 

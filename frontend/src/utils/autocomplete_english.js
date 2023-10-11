@@ -1,10 +1,9 @@
-export function autoComplete_en(context) {
-    let word = context.matchBefore(/\w*/)
-    if (word.from == word.to && !context.explicit)
-        return null
-    return {
-        from: word.from,
-        options: [
+export function autoComplete_en(customWords) {
+    return (context) => {
+        let word = context.matchBefore(/\w*/)
+        if (word.from == word.to && !context.explicit)
+            return null
+        let options = [
             {label: "show", type: "keyword"},
             {label: "forward", type: "keyword"},
             {label: "fd", type: "keyword"},
@@ -23,5 +22,12 @@ export function autoComplete_en(context) {
             {label: "for", type: "keyword"},
             {label: "output", type: "keyword"},
         ]
+
+        options = customWords.length > 0 ? options.concat(customWords) : options
+
+        return {
+            from: word.from,
+            options
+        }
     }
 }
