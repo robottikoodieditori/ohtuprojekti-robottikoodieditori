@@ -1,8 +1,10 @@
 import { setResponseFromServer } from "../reducers/editorReducer"
 import { useDispatch } from "react-redux"
+import { useSelector } from "react-redux"
 
-const Response = ({ serverResponse }) => {
+const Response = () => {
     const dispatch = useDispatch()
+    const serverResponse = useSelector(state => state.editor.responseFromServer)
     const handleClick = () => {
         dispatch(setResponseFromServer(''))
     }
@@ -11,7 +13,7 @@ const Response = ({ serverResponse }) => {
 
     return (
         <div id='sResponse' className="sResponse" onClick={handleClick}>
-            Server responded with:
+            Server responded:
             {serverResponse.map(res => <p key={res.start}>
                 line: {res.line}<br/>
                 start: {res.start}<br/>
