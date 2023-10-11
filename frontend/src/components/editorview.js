@@ -5,7 +5,7 @@ import { useSelector } from "react-redux";
 import { LanguageContext } from '../contexts/languagecontext'; 
 
 const EditorView = () => {
-    const serverResponse = useSelector(state => state.editor.responseFromServer)
+    const serverResponse = useSelector(state => state.comms.responseFromServer)
     const { translations } = useContext(LanguageContext);
     console.log(translations);
 

@@ -1,10 +1,9 @@
-export function autoComplete_fi(context) {
-    let word = context.matchBefore(/\w*/)
-    if (word.from == word.to && !context.explicit)
-        return null
-    return {
-        from: word.from,
-        options: [
+export function autoComplete_fi(customWords) {
+    return (context) => {
+        let word = context.matchBefore(/\w*/)
+        if (word.from == word.to && !context.explicit)
+            return null
+        let options = [
             {label: "tulosta", type: "keyword"},
             {label: "eteen", type: "keyword"},
             {label: "et", type: "keyword"},
@@ -23,5 +22,12 @@ export function autoComplete_fi(context) {
             {label: "luvuille", type: "keyword"},
             {label: "anna", type: "keyword"},
         ]
+
+        options = customWords.length > 0 ? options.concat(customWords) : options
+
+        return {
+            from: word.from,
+            options
+        }
     }
 }
