@@ -33,13 +33,13 @@ h1 {
 
 .sidebar {
   margin-left: auto;
-  width: 30vh;
+  width: 35vh;
   background-color:rgb(170, 206, 253);
 }
 
 .content {
   background-color: rgb(170, 206, 253);
-  padding: 30px;
+  padding: 2vw;
 }
 
 .search-bar input {
@@ -60,6 +60,7 @@ h1 {
 }
 
 .editor {
+  display: flex;
   flex: 1;
 }
 
@@ -73,8 +74,8 @@ h1 {
 }
 
 .editorview {
-  padding-left: 20px;
-  padding-right: 50px;
+  padding-left: 2vw;
+  padding-right: 1vw;
 }
 
 .popup {
