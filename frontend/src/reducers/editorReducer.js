@@ -49,7 +49,7 @@ const editorSlice = createSlice({
     }
 })
 
-export const { 
+export const {
     setContent, sendToCompiler, sendToRobot, setHighlightedWord,
     resetHighlightedWord, setResponseFromServer, setNameFromServer
 } = editorSlice.actions
