@@ -25,9 +25,7 @@ const editorSlice = createSlice({
     }
 })
 
-
-
-export const { 
+export const {
     setContent, sendToCompiler, sendToRobot, setHighlightedWord,
     resetHighlightedWord
 } = editorSlice.actions
