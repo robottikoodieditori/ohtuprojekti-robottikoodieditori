@@ -11,7 +11,7 @@ describe('Error Message Translation Functionality', () => {
             if(text.includes('Vaihda suomeksi')) {
                 // If English, send a message and check response text
                 cy.get('#editor').type('{selectall}').type('This message will be sent.');
-                cy.get('#SENDBUTTON').click().wait(100);
+                cy.get('#COMPILEBUTTON').click().wait(100);
                 cy.get('#sResponse').should('contain', 'Palvelin vastasi:');
             }
         });
@@ -22,7 +22,7 @@ describe('Error Message Translation Functionality', () => {
 
         // Check the message in Finnish
         cy.get('#editor').type('{selectall}').type('Tämä viesti lähetetään.');
-        cy.get('#SENDBUTTON').click().wait(100);
+        cy.get('#COMPILEBUTTON').click().wait(100);
         cy.get('#sResponse').should('contain', 'Server responded:');
     });
 });

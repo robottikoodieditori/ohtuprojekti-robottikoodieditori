@@ -10,7 +10,7 @@ describe('Error Message Functionality', () => {
             if(text.includes('Switch to English')) {
                 // If English, send a message and check response text
                 cy.get('#editor').type('{selectall}').type('Tämä viesti lähetetään.');
-                cy.get('#SENDBUTTON').click().wait(100);
+                cy.get('#COMPILEBUTTON').click().wait(100);
                 cy.get('#sResponse').should('contain', 'Palvelin vastasi:');
             }
         });
