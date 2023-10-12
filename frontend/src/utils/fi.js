@@ -27,5 +27,12 @@ export default {
         writeCode: "Kirjoita koodia:",
         sendToCompilerBtn: "Lähetä koodi kääntäjälle",
         sendToRobotBtn: "Lähetä koodi robotille",
+    },
+    response: {
+        serverResponded: "Palvelin vastasi:",
+        line: "rivi:",
+        start: "alku:",
+        end: "loppu:",
+        message: "viesti:",
     }
 };

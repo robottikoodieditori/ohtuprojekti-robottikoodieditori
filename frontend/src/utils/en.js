@@ -27,5 +27,12 @@ export default {
         writeCode: "Write code:",
         sendToCompilerBtn: "Send code to compiler",
         sendToRobotBtn: "Send code to robot",
+    },
+    response: {
+        serverResponded: "Server responded:",
+        line: "line:",
+        start: "start:",
+        end: "end:",
+        message: "message:",
     }
 };
