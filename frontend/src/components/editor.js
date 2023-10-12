@@ -2,7 +2,7 @@ import { useContext, useRef, useCallback } from 'react';
 import { useDispatch } from 'react-redux';
 import { setContent, setHighlightedWord } from '../reducers/editorReducer';
 import { extensions as syntaxStyle } from '../services/highlight';
-import { extensions } from '../utils/cmConfig';
+import { extensions, options } from '../utils/cmConfig';
 import CodeMirror, { placeholder } from '@uiw/react-codemirror';
 import { wordHover } from './hoverTooltip';
 import { LanguageContext } from '../contexts/languagecontext';  // <-- Import the LanguageContext
@@ -44,16 +44,19 @@ const Editor = ({ doc }) => {
         }
     }
 
+    console.log(ref.current.editor)
+
     return (
-        <div ref={ref}>
+        <div>
             <CodeMirror
+                ref={ref}
                 id='editor'
                 value={doc}
                 extensions={[
                     extensions, 
                     hover, 
                     placeholder(translations?.editorPlaceholder || 'Kirjoita koodia tähän'),  // <-- Use the translation
-                    autocompletion({override: [autoCompleteModule(customKeywords)]}) // autocomplete
+                    autocompletion({override: [autoCompleteModule(customKeywords)]}), // autocomplete
                 ]}
                 theme={syntaxStyle}
                 onChange={onChange}

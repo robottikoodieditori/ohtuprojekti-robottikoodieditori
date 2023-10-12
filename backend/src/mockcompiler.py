@@ -47,23 +47,25 @@ class MockCompiler:
         wordlist = code.split('\n')
         # pylint: disable=too-many-nested-blocks
         for index, value in enumerate(wordlist):
+            #value = value.strip()
             error_start = None
 
             for m_i, m_v in enumerate(value):
                 if not error_start:
-                    if m_v == m_v.upper() and m_v != ' ':
-                        error_start = m_i+1
+                    if m_v not in '1234567890':
+                        if m_v == m_v.upper() and m_v != ' ':
+                            error_start = m_i+1
                 else:
                     if m_v == ' ' or m_i == len(value) - 1:
                         errors.append({"line":index+1, "message":"errorror",
-                                       "start":error_start, "end": m_i})
+                                       "start":error_start, "end": m_i+1})
                         error_start = None
 
             if error_start:
                 # pylint: disable=undefined-loop-variable
                 errors.append({"line":index+1, "message":"errorror",
-                               "start":error_start, "end":m_i})
-                error_start = None
+                               "start":error_start, "end":m_i+1})
+
             print(output_file)
 
         print(errors)
