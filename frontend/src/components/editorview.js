@@ -5,13 +5,22 @@ import { useSelector } from "react-redux";
 import { LanguageContext } from '../contexts/languagecontext'; 
 
 const EditorView = () => {
-    const serverResponse = useSelector(state => state.editor.responseFromServer)
-    const { translations } = useContext(LanguageContext); 
+    const serverResponse = useSelector(state => state.comms.responseFromServer)
+    const { translations } = useContext(LanguageContext);
     console.log(translations);
+
+    const Response = () => {
+        return (
+            <div>
+                {serverResponse.map(res => <p key={res.start}>line:{res.line} {res.start}, {res.end}, {res.message}</p> )}
+            </div>
+        )
+    }
+    
     return (
         <div className='editorview' id='editorview'>
             <header className="App-header">
-                <br></br>
+                <br/>
             </header>
             <Editor doc=""/>
             <div className="button-container">
@@ -20,7 +29,7 @@ const EditorView = () => {
                 <Button function={'SEND'} text={translations.editorView.sendToRobotBtn} /> 
             </div>
             {serverResponse !== ''
-                ? <div id='sResponse'>Server responded: {serverResponse}</div>
+                ? <div id='sResponse'>Server responded:<Response/> </div>
                 : ''
             }
         </div>

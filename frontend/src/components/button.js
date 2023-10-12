@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { sendToCompiler, sendToServer } from "../reducers/editorReducer";
+import { sendToCompiler, sendToServer } from "../reducers/commsReducer";
 
 const Button = (props) => {
     const editorContent = useSelector(state => state.editor.textContent)

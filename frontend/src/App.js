@@ -4,6 +4,7 @@ import EditorView from "./components/editorview";
 import Sidebar from "./components/sidebar";
 import Navbar from "./components/navbar";  
 import { LanguageProvider } from './contexts/languagecontext';
+import Tokenpopup from "./components/popup"
 
 function App() {
     const [data, setdata] = useState({
@@ -21,6 +22,9 @@ function App() {
     return (
         <LanguageProvider>
             <div className="app">
+                <div>
+                    <Tokenpopup/>
+                </div>
                 <div className="navbar">
                     <Navbar/>
                 </div>
