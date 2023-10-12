@@ -5,11 +5,13 @@ import { Provider } from 'react-redux';
 
 import App from './App';
 import editorReducer from './reducers/editorReducer';
+import commsReducer from './reducers/commsReducer';
 
 
 const store = configureStore({
     reducer: {
-        editor: editorReducer
+        editor: editorReducer,
+        comms: commsReducer
     }
 })
 

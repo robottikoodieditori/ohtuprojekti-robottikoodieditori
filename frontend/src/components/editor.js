@@ -1,23 +1,28 @@
 import { useContext, useRef, useCallback } from 'react';
 import { useDispatch } from 'react-redux';
 import { setContent, setHighlightedWord } from '../reducers/editorReducer';
-import { extensions as syntax_style } from '../services/highlight';
+import { extensions as syntaxStyle } from '../services/highlight';
 import { extensions } from '../utils/cmConfig';
 import CodeMirror, { placeholder } from '@uiw/react-codemirror';
 import { wordHover } from './hoverTooltip';
 import { LanguageContext } from '../contexts/languagecontext';  // <-- Import the LanguageContext
-import { autoComplete_en } from './autocomplete_english';
-import { autoComplete_fi } from './autocomplete_finnish';
+import { autoComplete_en } from '../utils/autocomplete_english';
+import { autoComplete_fi } from '../utils/autocomplete_finnish';
 import { autocompletion } from '@codemirror/autocomplete';
+import { useState } from 'react';
+import getCustomKeywords from '../utils/getCustomKeywords';
 
 const Editor = ({ doc }) => {
     const dispatch = useDispatch();
     const curWord = useRef('');
     const ref = useRef(null);
     const { language, translations } = useContext(LanguageContext); // Include translations here
+    const [customKeywords, setCustomKeywords] = useState([]);
 
     const onChange = useCallback((value) => {
         dispatch(setContent(value));
+        setCustomKeywords(getCustomKeywords(value))
+        
     }, [dispatch]);
 
     const updateLocal = (word) => {
@@ -48,13 +53,13 @@ const Editor = ({ doc }) => {
                     extensions, 
                     hover, 
                     placeholder(translations?.editorPlaceholder || 'Kirjoita koodia tähän'),  // <-- Use the translation
-                    autocompletion({override: [autoCompleteModule]}) // autocomplete
+                    autocompletion({override: [autoCompleteModule(customKeywords)]}) // autocomplete
                 ]}
-                theme={syntax_style}
+                theme={syntaxStyle}
                 onChange={onChange}
                 onClick={handleClick}
                 height='20vw'
-                width='78vw'
+                width='70vw'
             />
         </div>
     );

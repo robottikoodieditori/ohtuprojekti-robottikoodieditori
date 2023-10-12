@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import Popup from 'reactjs-popup';
-import { sendName} from "../reducers/editorReducer";
+import { sendName} from "../reducers/commsReducer";
 import { useDispatch } from 'react-redux';
 
 
@@ -32,7 +32,7 @@ const Tokenpopup = () => {
                 closeOnDocumentClick={false}
             >            
                 <div className='popup' id="popup">
-                    <div className='content'>
+                    <div className='content-popup'>
                         <h2>Anna nimesi</h2>
                         <input
                             type="text"

@@ -1,15 +1,15 @@
-import { setResponseFromServer } from "../reducers/editorReducer"
-import { useDispatch } from "react-redux"
-import { useSelector } from "react-redux"
+import { setResponseFromServer } from "../reducers/commsReducer"
+import { useDispatch, useSelector } from "react-redux"
 
 const Response = () => {
     const dispatch = useDispatch()
-    const serverResponse = useSelector(state => state.editor.responseFromServer)
+    const serverResponse = useSelector(state => state.comms.responseFromServer)
+
     const handleClick = () => {
         dispatch(setResponseFromServer(''))
     }
 
-    if (serverResponse.length == 0) return (<div></div>)
+    if (!serverResponse || serverResponse.length == 0) return (<div onClick={handleClick}></div>)
 
     return (
         <div id='sResponse' className="sResponse" onClick={handleClick}>
