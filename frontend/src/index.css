@@ -1,97 +1,115 @@
 body {
-    font-family: Arial, Helvetica, sans-serif;
-    margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
 }
 
 h1 {
-    color:rgb(0, 0, 0);
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 2em;
+  color:rgb(0, 0, 0);
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 2em;
 }
 
 .navbar {
-  background-color: rgb(134, 176, 226);
-  color: white;
-  height: 60px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0 20px;
+background-color: rgb(134, 176, 226);
+color: white;
+height: 60px;
+display: flex;
+justify-content: space-between;
+align-items: center;
+padding: 0 20px;
 }
 
 .navbar-button-container {
-  position: absolute;
-  right: 0;
-  top: 2%;
-  padding: 0 20px;
+position: absolute;
+right: 0;
+top: 2%;
+padding: 0 20px;
 }
 
 .button-container {
-  display: flex;
-  margin-top: 10px;
+display: flex;
+margin-top: 10px;
 }
 
 .sidebar {
-  width: 20vw;
-  height: 100%;
-  background-color:rgb(170, 206, 253);
+width: 20vw;
+height: 100%;
+background-color:rgb(170, 206, 253);
 }
 
 .content {
-  background-color: rgb(170, 206, 253);
-  padding-top: 2vh;
-  padding-left: 2vw;
-  padding-right: 1vw;
+background-color: rgb(170, 206, 253);
+padding-top: 2vh;
+padding-left: 2vw;
+padding-right: 1vw;
 }
 
 .search-bar {
-  display: flex;
-  width: 90%;
+display: flex;
+width: 90%;
 }
 
 .search-bar input {
-  width: 90%;
-  padding: 1vw;
-  margin-bottom: 10px;
+width: 90%;
+padding: 1vw;
+margin-bottom: 10px;
 }
 
 .app {
-  display: flex;
-  flex-direction: column;
-  height: 100vh;
+display: flex;
+flex-direction: column;
+height: 100vh;
 }
 
 .main-content {
-  flex: 1;
-  display: flex;
+flex: 1;
+display: flex;
 }
 
 .editor {
-  display: flex;
-  flex: 1;
+display: flex;
+flex: 1;
 }
 
 .buttonsidebar {
-  background-color:rgb(170, 206, 253);
-  border: none;
+background-color:rgb(170, 206, 253);
+border: none;
 }
 
 .buttonsidebar:hover {
-  text-shadow: 0px 0px 5px #0400ff;
+text-shadow: 0px 0px 5px #0400ff;
 }
 
 .editorview {
-  padding-left: 2vw;
-  padding-right: 1vw;
+padding-left: 2vw;
+padding-right: 1vw;
 }
 
 .popup {
-  border-radius: 5px;
-  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.2);
-  border: 2px solid #007bff; 
+border-radius: 1vw;
+box-shadow: 0 0 5vw 0 rgba(0, 0, 0, 0.2);
+border: 0.4vw solid #007bff;
+}
+
+.sResponse {
+position: absolute;
+max-height: 30%;
+overflow-y: auto;
+border-style: solid;
+border-width: 0.1vw;
+margin-top: 3vh;
+padding: 1vw;
+width: 30%;
+background-color: #FCC;
+}
+
+.sResponse:hover {
+background-color: #EBB;
+border: 0.2vw solid #007bff;
 }
 
 .content-popup {
-  background-color: rgb(170, 206, 253);
-  padding: 2vw
+border-radius: 0.5vw;
+background-color: rgb(170, 206, 253);
+padding: 2vw
 }
