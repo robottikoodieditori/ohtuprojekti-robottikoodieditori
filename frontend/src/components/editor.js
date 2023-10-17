@@ -2,7 +2,7 @@ import { useContext, useRef, useCallback } from 'react';
 import { useDispatch } from 'react-redux';
 import { setContent, setHighlightedWord } from '../reducers/editorReducer';
 import { extensions as syntaxStyle } from '../services/highlight';
-import { extensions, options } from '../utils/cmConfig';
+import { extensions } from '../utils/cmConfig';
 import CodeMirror, { placeholder } from '@uiw/react-codemirror';
 import { wordHover } from './hoverTooltip';
 import { LanguageContext } from '../contexts/languagecontext';  // <-- Import the LanguageContext
@@ -11,6 +11,7 @@ import { autoComplete_fi } from '../utils/autocomplete_finnish';
 import { autocompletion } from '@codemirror/autocomplete';
 import { useState } from 'react';
 import getCustomKeywords from '../utils/getCustomKeywords';
+import { underlineField, underlineKeymap, underlineTheme, underlineSelection} from '../utils/underlineExtension';
 
 const Editor = ({ doc }) => {
     const dispatch = useDispatch();
@@ -18,6 +19,7 @@ const Editor = ({ doc }) => {
     const ref = useRef(null);
     const { language, translations } = useContext(LanguageContext); // Include translations here
     const [customKeywords, setCustomKeywords] = useState([]);
+    const [errorList, setErrorList] = useState([])
 
     const onChange = useCallback((value) => {
         dispatch(setContent(value));
@@ -44,7 +46,14 @@ const Editor = ({ doc }) => {
         }
     }
 
-    console.log(ref.current.editor)
+    //console.log(ref.current.editor)
+
+    const error2List = [{from: 1, to: 2}]
+    const CLICK = () => {
+        console.log('asd')
+        setErrorList(error2List)
+    }
+
 
     return (
         <div>
@@ -57,6 +66,7 @@ const Editor = ({ doc }) => {
                     hover, 
                     placeholder(translations?.editorPlaceholder || 'Kirjoita koodia tähän'),  // <-- Use the translation
                     autocompletion({override: [autoCompleteModule(customKeywords)]}), // autocomplete
+                    underlineField, underlineKeymap, underlineTheme, underlineSelection(errorList)
                 ]}
                 theme={syntaxStyle}
                 onChange={onChange}
@@ -64,6 +74,7 @@ const Editor = ({ doc }) => {
                 height='20vw'
                 width='70vw'
             />
+            <button onClick={CLICK }>asd</button>
         </div>
     );
 }
