@@ -71,7 +71,7 @@ const Editor = ({ doc }) => {
                 theme={syntaxStyle}
                 onChange={onChange}
                 onClick={handleClick}
-                height='20vw'
+                height='26vw'
                 width='70vw'
             />
             <button onClick={CLICK }>asd</button>
