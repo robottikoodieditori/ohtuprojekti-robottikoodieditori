@@ -80,7 +80,7 @@ class MockCompiler:
 
         path = os.path.join(path, output_file)
 
-        with open(path, "w") as file:
+        with open(path, "w", encoding="utf-8") as file:
             file.write(code)
 
         print(errors)
