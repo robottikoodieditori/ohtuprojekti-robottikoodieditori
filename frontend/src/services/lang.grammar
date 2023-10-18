@@ -13,4 +13,3 @@ Parameters { "(" String ")"}
   @precedence {command, name}
 }
 @external propSource jsonHighlighting from "./highlight"
-

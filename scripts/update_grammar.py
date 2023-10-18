@@ -1,9 +1,8 @@
 import os, csv
 
 DIRNAME = os.path.dirname(__file__)
-KEYWORD_DIRNAME = os.path.join(DIRNAME, 'src', 'utils')
-LANG_DIRNAME = os.path.join(DIRNAME, 'frontend', 'src', 'services')
-print(os.listdir(LANG_DIRNAME))
+KEYWORD_DIRNAME = os.path.join(DIRNAME, '..', 'frontend', 'src', 'utils')
+LANG_DIRNAME = os.path.join(DIRNAME, '..', 'frontend', 'src', 'services')
 
 BASE_STRING = f"""@precedence {{ times @left, plus @left }}
 @top Program {{ expression* }}
@@ -32,11 +31,9 @@ def parse_keywords(keywords_finnish, keywords_english):
     keyword_string = ''
     keyword_string += f'"{keywords_finnish.pop(0)}"'
     for keyword_finnish in keywords_finnish:
-        print(keyword_string)
         keyword_string += f' | "{keyword_finnish}"'
 
     for keyword_english in keywords_english:
-        print(keyword_string)
         keyword_string += f' | "{keyword_english}"'
     return keyword_string
 
