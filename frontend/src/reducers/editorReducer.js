@@ -5,6 +5,7 @@ const editorSlice = createSlice({
     initialState: {
         textContent: '',
         currentlyHighlightedWord: '',
+        customKeywords: [],
     },
     reducers: {
         setContent(state, action) {
@@ -21,13 +22,18 @@ const editorSlice = createSlice({
             state.currentlyHighlightedWord = ''
             console.log(`RESET HIGHLIGHTED WORD; VALUE NOW: ${state.currentlyHighlightedWord}`)
             return state
+        },
+        setCustomKeywords(state, action) {
+            state.customKeywords = action.payload
+            console.log(state.customKeywords)
+            return state
         }
     }
 })
 
 export const {
     setContent, sendToCompiler, sendToRobot, setHighlightedWord,
-    resetHighlightedWord
+    resetHighlightedWord, setCustomKeywords
 } = editorSlice.actions
 
 
