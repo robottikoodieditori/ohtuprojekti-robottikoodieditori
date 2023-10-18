@@ -17,6 +17,9 @@ Ohjeet projektin kehitykseen osallistumiseen löydät [täältä](./docs/CONTRIB
 ## Kehitysympäriston pystyttäminen
 Kehitysympäristön saa pystytettyä paikallisesti käyttämällä valmista skriptiä. Skriptin ja tarkemmat ohjeet löydät [täältä](./docs/SETUP.md).
 
+## Testaaminen
+Ohjeet projektin testaamiseen löydät [täältä](./docs/testing.md).
+
 ## Definition Of Done
 - Ominaisuus toimii
 - Oltava merkityksellinen testi mikäli mahdollista ja järkevää
