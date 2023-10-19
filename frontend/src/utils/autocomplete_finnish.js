@@ -21,6 +21,7 @@ export function autoComplete_fi(customWords) {
             {label: "toista", type: "keyword"},
             {label: "luvuille", type: "keyword"},
             {label: "anna", type: "keyword"},
+
         ]
 
         options = customWords.length > 0 ? options.concat(customWords) : options
