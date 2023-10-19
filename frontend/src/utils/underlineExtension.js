@@ -33,7 +33,7 @@ export function underlineSelection(errorList) {
 
         view.dispatch({ effects });
         return true;
-}
+    }
 }
 
 const underlineTheme = EditorView.baseTheme({
