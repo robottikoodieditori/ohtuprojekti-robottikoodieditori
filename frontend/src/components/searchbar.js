@@ -6,7 +6,7 @@ const Searchbar = ({ searchTerm, handleSearchChange, translations }) => {
         <div className="search-bar" id='searchbar'>
             <input
                 type="text"
-                placeholder={translations.searchPlaceholder}  /* Here the placeholder is now dynamic */
+                placeholder={translations.searchPlaceholder}
                 value={searchTerm}
                 onChange={handleSearchChange}
             />

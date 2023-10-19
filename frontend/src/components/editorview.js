@@ -3,6 +3,7 @@ import Editor from "./editor";
 import Button from "./button";
 import { LanguageContext } from '../contexts/languagecontext';
 import Response from './response';
+//import { useSelector } from 'react-redux';
 
 const EditorView = () => {
     const { translations } = useContext(LanguageContext);
@@ -14,7 +15,7 @@ const EditorView = () => {
                 <br/>
             </header>
 
-            <Editor doc=""/>
+            <Editor textContent={''} /*style={{height: '30vw'}}*//>
 
             <div className="button-container">
                 <Button function={'COMPILE'} text={translations.editorView.sendToCompilerBtn} />

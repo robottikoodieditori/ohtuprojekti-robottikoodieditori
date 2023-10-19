@@ -5,7 +5,10 @@
   "proxy": "http://127.0.0.1:5000/",
   "dependencies": {
     "@codemirror/basic-setup": "^0.20.0",
+    "@codemirror/commands": "^6.3.0",
     "@codemirror/lang-javascript": "^6.2.1",
+    "@codemirror/state": "^6.3.0",
+    "@codemirror/view": "^6.21.3",
     "@lezer/common": "^1.0.4",
     "@lezer/generator": "^1.5.0",
     "@lezer/highlight": "^1.1.6",

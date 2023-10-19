@@ -1,6 +1,6 @@
 function getCustomKeywords(textContent) {
     
-    const keywords = [];
+    let keywords = [];
     const substrings = textContent.split('\n')
 
     substrings.forEach(substring => {

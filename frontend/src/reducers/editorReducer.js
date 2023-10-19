@@ -21,7 +21,7 @@ const editorSlice = createSlice({
             state.currentlyHighlightedWord = ''
             console.log(`RESET HIGHLIGHTED WORD; VALUE NOW: ${state.currentlyHighlightedWord}`)
             return state
-        }
+        },
     }
 })
 

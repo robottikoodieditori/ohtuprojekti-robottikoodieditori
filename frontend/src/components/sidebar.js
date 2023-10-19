@@ -8,7 +8,7 @@ import { resetHighlightedWord } from '../reducers/editorReducer';
 import { LanguageContext } from '../contexts/languagecontext';
 
 const Sidebar = () => {
-    const { language, translations } = useContext(LanguageContext); // Include translations here
+    const { language, translations } = useContext(LanguageContext);
 
     const clickedCommand = useSelector(state => state.editor.currentlyHighlightedWord)
     const dispatch = useDispatch();
@@ -37,7 +37,7 @@ const Sidebar = () => {
                         selectedCommand={selectedCommand} 
                         setSelectedCommand={setSelectedCommand} 
                         language={language} 
-                        translations={translations} // Pass translations
+                        translations={translations}
                     />
                 ) : (
                     <div>
@@ -45,13 +45,13 @@ const Sidebar = () => {
                             searchTerm={searchTerm} 
                             handleSearchChange={handleSearchChange} 
                             language={language} 
-                            translations={translations} // Pass translations
+                            translations={translations}
                         />
                         <CommandList 
                             searchTerm={searchTerm} 
                             handleCommandClick={handleCommandClick} 
                             language={language} 
-                            translations={translations} // Pass translations
+                            translations={translations}
                         />
                     </div>
                 )}

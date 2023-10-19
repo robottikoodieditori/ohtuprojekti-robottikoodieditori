@@ -7,9 +7,6 @@ export const jsonHighlighting = styleTags({
     Parameters: t.name,
 });
 
-// A very dim/dull syntax highlighting so you have something to look at, but also to trigger you to write your own ;)
-// Also shows that you can use `export let extension = [...]`, to add extensions to the "demo text" editor.
-
 const syntax_colors = syntaxHighlighting(
     HighlightStyle.define(
         [
@@ -20,4 +17,4 @@ const syntax_colors = syntaxHighlighting(
         ]  )
 );
 
-export let extensions = [syntax_colors];
+export let syntaxStyle = [syntax_colors];
