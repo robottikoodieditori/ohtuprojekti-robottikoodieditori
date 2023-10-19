@@ -167,3 +167,4 @@ cython_debug/
 frontend/src/services/parser.js
 frontend/src/servies/parser.terms.js
 backend/javafiles/**
+frontend/cypress/screenshots/**

@@ -1,9 +1,9 @@
 import { useContext } from 'react';
-import Editor from "./editor2";
+import Editor from "./editor";
 import Button from "./button";
 import { LanguageContext } from '../contexts/languagecontext';
 import Response from './response';
-import { useSelector } from 'react-redux';
+//import { useSelector } from 'react-redux';
 
 const EditorView = () => {
     const { translations } = useContext(LanguageContext);
