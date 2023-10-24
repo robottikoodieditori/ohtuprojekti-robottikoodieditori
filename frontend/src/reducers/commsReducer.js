@@ -4,7 +4,8 @@ import { createSlice } from '@reduxjs/toolkit'
 const commsSlice = createSlice({
     name: 'comms',
     initialState: {
-        responseFromServer: ''
+        responseFromServer: '',
+        notificationMessage: '',
     },
     reducers: {
         setResponseFromServer(state, action) {
@@ -25,12 +26,22 @@ const commsSlice = createSlice({
             console.log(`Send to robot placeholder ${state}`)
             return state
         },
+        setNotificationMessage(state, action) {
+            state.notificationMessage = action.payload
+            console.log(`SET NOTIFICATION MESSAGE OF: ${action.payload}`)
+            return state
+        },
+        resetNotificationMessage(state) {
+            state.notificationMessage = ''
+            console.log('RESET NOTIFICATION MESSAGE')
+            return state
+        }
     }
 })
 
 export const {
     setResponseFromServer, setNameFromServer, sendToCompiler,
-    sendToRobot
+    sendToRobot, setNotificationMessage, resetNotificationMessage
 } = commsSlice.actions
 
 

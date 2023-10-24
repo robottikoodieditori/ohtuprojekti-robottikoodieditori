@@ -19,7 +19,7 @@ const Response = () => {
     return (
         <div id='sResponse' className='sResponse' onClick={handleClick}>
             {translations.response.serverResponded}
-            {serverResponse.map((res) => (
+            {serverResponse.errors.map((res) => (
                 <p key={res.start}>
                     {`${translations.response.line} ${res.line}`}<br/>
                     {`${translations.response.start} ${res.start}`}<br/>

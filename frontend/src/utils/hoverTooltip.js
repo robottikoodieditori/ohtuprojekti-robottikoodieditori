@@ -1,7 +1,6 @@
 import { hoverTooltip } from "@codemirror/view"
 import docs from "../services/tooltips.json"
-
-import {parse} from 'marked';
+import { parse } from 'marked';
 
 export const wordHover = ( updateCurWord ) => hoverTooltip((view, pos, side) => {
     let { from, to, text } = view.state.doc.lineAt(pos);

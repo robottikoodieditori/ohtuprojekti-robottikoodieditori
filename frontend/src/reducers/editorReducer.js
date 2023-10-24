@@ -5,6 +5,7 @@ const editorSlice = createSlice({
     initialState: {
         textContent: '',
         currentlyHighlightedWord: '',
+        notificationMessage: '',
     },
     reducers: {
         setContent(state, action) {
