@@ -1,22 +1,23 @@
-import { useEffect, useRef } from 'react';
-import { EditorState } from '@codemirror/state';
+import { useEffect, useRef, useContext } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { EditorView, keymap, placeholder } from '@codemirror/view';
+import { EditorState, Compartment } from '@codemirror/state';
 import { defaultKeymap, insertTab } from '@codemirror/commands';
-import { syntaxStyle } from '../services/highlight';
-import { extensions } from '../utils/cmConfig'; 
-import { useDispatch } from 'react-redux';
-import { setContent, setHighlightedWord } from '../reducers/editorReducer';
-import { wordHover } from './hoverTooltip';
-import { useContext } from 'react';
-import { LanguageContext } from '../contexts/languagecontext';
 import { autocompletion } from '@codemirror/autocomplete';
+import { setContent, setHighlightedWord } from '../reducers/editorReducer';
+import { extensions } from '../utils/cmConfig'; 
+import { wordHover } from '../utils/hoverTooltip';
 import { autoComplete_en } from '../utils/autocomplete_english';
 import { autoComplete_fi } from '../utils/autocomplete_finnish';
+import { underlineSelection } from '../utils/underlineExtension';
 import getCustomKeywords from '../utils/getCustomKeywords';
-import { Compartment } from '@codemirror/state';
+import getErrorPositions from '../utils/getErrorPositions';
+import { LanguageContext } from '../contexts/languagecontext';
+
 
 const Editor = ({ textContent = '' }) => {
     const dispatch = useDispatch()
+    const serverResponse = useSelector((state) => state.comms.responseFromServer)
     const curWord = useRef('')
     const editor = useRef(null)
     const { language } = useContext(LanguageContext)
@@ -28,23 +29,17 @@ const Editor = ({ textContent = '' }) => {
         if (v.docChanged) {
             dispatch(setContent(v.state.doc.toString()))
             const curCustomKeywords = getCustomKeywords(v.state.doc.toString())
-            updateExtension(curCustomKeywords, v.view)
+            updateAutocompletes(curCustomKeywords, v.view)
         }
     })
 
-    const updateExtension = (newList, view) => {
+    const updateAutocompletes = (newList, view) => {
         const updatedConfig = { override: [currentAutoCompleteModule.current(newList)]}
         view.dispatch({effects: autoCompletionCompartment.reconfigure(autocompletion(updatedConfig))})
     }
 
-    const updateLocal = (word) => {
-        curWord.current = word;
-    }
-
-    const resetLocal = () => {
-        curWord.current = '';
-    }
-
+    const updateLocal = (word) => curWord.current = word;
+    const resetLocal = () => curWord.current = '';
     const hover = wordHover(updateLocal, resetLocal)
     
     const handleClick = () => {
@@ -53,6 +48,13 @@ const Editor = ({ textContent = '' }) => {
             resetLocal();
         }
     }
+    useEffect(() => {
+        if (serverResponse.raw_errors && editor.current && serverResponse) {
+            console.log('juuh')
+            const errorList = getErrorPositions(serverResponse.raw_errors)
+            underlineSelection(editor.current, errorList)
+        }
+    }, [serverResponse])
     
     useEffect(() => {
 
@@ -60,7 +62,6 @@ const Editor = ({ textContent = '' }) => {
             doc: textContent,
             extensions: [
                 extensions,
-                syntaxStyle,
                 languageCompartment.of(placeholder('Code...')),
                 onUpdate,
                 hover,
@@ -81,8 +82,7 @@ const Editor = ({ textContent = '' }) => {
         })
 
         let view = new EditorView({ state: state, parent: document.querySelector('#editor') })
-        editor.current.view = view
-        editor.current.state = state
+        editor.current = view
         
         return () => {
             view.destroy()
@@ -94,9 +94,7 @@ const Editor = ({ textContent = '' }) => {
     }, [language])
 
     return (
-        <div ref={editor} id='editor' onClick={handleClick}>
-
-        </div>
+        <div ref={editor} id='editor' onClick={handleClick}></div>
     )
 }
 

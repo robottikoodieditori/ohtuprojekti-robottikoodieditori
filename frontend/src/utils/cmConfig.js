@@ -1,10 +1,14 @@
-import { lineNumbers, highlightActiveLine, highlightSpecialChars, dropCursor, rectangularSelection, crosshairCursor, EditorView } from "@codemirror/view"
+import { 
+    lineNumbers, highlightActiveLine, highlightSpecialChars, dropCursor,
+    rectangularSelection, crosshairCursor, EditorView 
+} from "@codemirror/view"
 import { history } from "@codemirror/commands"
 import { bracketMatching } from '@codemirror/language'
 import { closeBrackets } from '@codemirror/autocomplete'
-import {parser} from "../services/parser"
-import {LRLanguage, foldGutter } from "@codemirror/language"
-
+import { LRLanguage, foldGutter } from "@codemirror/language"
+import { parser } from "../services/parser"
+import { underlines } from "./underlineExtension"
+import { syntaxStyle } from "../services/highlight"
 
 const Logo = LRLanguage.define({
     parser: parser,
@@ -25,8 +29,13 @@ const fixedHeightEditor = EditorView.theme({
 
 
 export const extensions = [
-    Logo, lineNumbers(), highlightActiveLine(), highlightSpecialChars(), History,
+    // basic setup extensions:
+    lineNumbers(), highlightActiveLine(), highlightSpecialChars(), 
     dropCursor(), bracketMatching(), closeBrackets(), rectangularSelection(),
-    crosshairCursor(), foldGutter(), fixedHeightEditor
+    crosshairCursor(), foldGutter(),
+    // language, syntax and editor configurations
+    History, Logo, syntaxStyle, fixedHeightEditor,
+    // custom extensions:
+    underlines()
 ]
 

@@ -3,11 +3,12 @@ import Editor from "./editor";
 import Button from "./button";
 import { LanguageContext } from '../contexts/languagecontext';
 import Response from './response';
+//import Notification from './notification';
 //import { useSelector } from 'react-redux';
 
 const EditorView = () => {
     const { translations } = useContext(LanguageContext);
-    console.log(translations);
+    //console.log(translations);
 
     return (
         <div className='editorview' id='editorview'>
@@ -24,6 +25,7 @@ const EditorView = () => {
             </div>
 
             <Response/>
+            {/*<Notification />*/}
         </div>
     )
 }

@@ -1,53 +1,49 @@
-import { StateEffect, StateField } from "@codemirror/state";
-import { EditorView, Decoration, keymap } from "@codemirror/view";
-
-const underlineMark = Decoration.mark({ class: "cm-underline" });
+import { EditorView, Decoration } from "@codemirror/view";
+import { StateField, StateEffect } from "@codemirror/state";
 
 const addUnderline = StateEffect.define();
-
 const underlineField = StateField.define({
-    create: () => Decoration.none,
+    create() {
+        return Decoration.none;
+    },
 
     update(underlines, tr) {
         underlines = underlines.map(tr.changes);
 
-        for (let effect of tr.effects) {
-            if (effect.is(addUnderline)) {
+        for (let e of tr.effects) {
+            if (e.is(addUnderline)) {
                 underlines = underlines.update({
-                    add: [underlineMark.range(effect.value.from, effect.value.to)]
+                    add: [underlineMark.range(e.value.from, e.value.to)]
                 });
             }
         }
+
         return underlines;
     },
 
-    provide: (field) => EditorView.decorations.from(field)
+    provide: (f) => EditorView.decorations.from(f)
 });
 
-export function underlineSelection(errorList) {
-    return(view) =>  {
-        let effects = errorList
-            .map(({ from, to }) => addUnderline.of({ from, to }));
-
-        if (!effects.length) return false;
-
-        view.dispatch({ effects });
-        return true;
-    }
-}
-
+const underlineMark = Decoration.mark({ class: "cm-underline" });
 const underlineTheme = EditorView.baseTheme({
     ".cm-underline": { textDecoration: "underline 3px red" }
 });
 
-const underlineKeymap = keymap.of([
-    {
-        key: "Mod-h",
-        preventDefault: true,
-        run: underlineSelection
+export function underlineSelection(view, selectionList) {
+    const effects = selectionList.map(({ from, to }) => addUnderline.of({ from, to }));
+    if (!effects.length) return false;
+
+    if (!view.state.field(underlineField, false)) {
+        effects.push(StateEffect.appendConfig.of([underlineField, underlineTheme]));
     }
-]);
 
+    view.dispatch(view.state.update({ effects }));
+    return true;
+}
 
-
-export {underlineField, underlineTheme, underlineKeymap}
+export function underlines() {
+    return [
+        underlineField,
+        underlineTheme
+    ]
+}

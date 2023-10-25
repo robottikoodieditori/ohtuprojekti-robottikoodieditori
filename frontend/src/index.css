@@ -116,3 +116,22 @@ border: 0.2vw solid #007bff;
 .custom-underline {
     text-decoration: underline red;
 }
+
+.notification {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    background-color: green;
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+    z-index: 999;
+    transition: opacity 0.5s; /* Add opacity transition */
+  }
+  
+  .notification.fade-out {
+    opacity: 0;
+    pointer-events: none; /* Disable clicks on a faded-out notification */
+  }
+  
