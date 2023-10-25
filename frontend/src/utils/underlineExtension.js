@@ -56,6 +56,5 @@ export function underlines() {
 }
 
 export function clearUnderlines(view) {
-    console.log(view.state.effects)
     view.dispatch(view.state.update({ effects: clearUnderlineEffect.of() }))
 }
