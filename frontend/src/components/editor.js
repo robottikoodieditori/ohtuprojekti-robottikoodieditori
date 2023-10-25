@@ -20,16 +20,18 @@ const Editor = ({ textContent = '' }) => {
     const serverResponse = useSelector((state) => state.comms.responseFromServer)
     const curWord = useRef('')
     const editor = useRef(null)
+    const errorListRef = useRef([])
     const { language } = useContext(LanguageContext)
     const currentAutoCompleteModule = useRef(language === 'en' ? autoComplete_en : autoComplete_fi)
     const autoCompletionCompartment = new Compartment
     const languageCompartment = new Compartment
+    const hoverCompartment = new Compartment
     
     const onUpdate = EditorView.updateListener.of((v) => {
         if (v.docChanged) {
             dispatch(setContent(v.state.doc.toString()))
             const curCustomKeywords = getCustomKeywords(v.state.doc.toString())
-            updateAutocompletes(curCustomKeywords, v.view)
+            if (curCustomKeywords) updateAutocompletes(curCustomKeywords, v.view)
         }
     })
 
@@ -38,9 +40,14 @@ const Editor = ({ textContent = '' }) => {
         view.dispatch({effects: autoCompletionCompartment.reconfigure(autocompletion(updatedConfig))})
     }
 
+    const updateHovering = (errorList, view) => {
+        errorListRef.current = errorList
+        const updatedConfig = hoverCompartment.of(wordHover(updateLocal, errorListRef))
+        view.dispatch({effects: hoverCompartment.reconfigure(updatedConfig)})
+    }
+
     const updateLocal = (word) => curWord.current = word;
     const resetLocal = () => curWord.current = '';
-    const hover = wordHover(updateLocal, resetLocal)
     
     const handleClick = () => {
         if (curWord.current !== '') {
@@ -52,6 +59,7 @@ const Editor = ({ textContent = '' }) => {
         if (serverResponse.raw_errors && editor.current && serverResponse) {
             clearUnderlines(editor.current)
             underlineSelection(editor.current, serverResponse.raw_errors)
+            updateHovering(serverResponse.raw_errors, editor.current)
         }
     }, [serverResponse])
     
@@ -63,7 +71,7 @@ const Editor = ({ textContent = '' }) => {
                 extensions,
                 languageCompartment.of(placeholder('Code...')),
                 onUpdate,
-                hover,
+                hoverCompartment.of(wordHover(updateLocal, errorListRef)),
                 autoCompletionCompartment.of(
                     autocompletion({override: [currentAutoCompleteModule.current([])]}
                     )),

@@ -2,7 +2,7 @@ import { hoverTooltip } from "@codemirror/view"
 import docs from "../services/tooltips.json"
 import { parse } from 'marked';
 
-export const wordHover = ( updateCurWord ) => hoverTooltip((view, pos, side) => {
+export const wordHover = ( updateCurWord, errorListRef ) => hoverTooltip((view, pos, side) => {
     let { from, to, text } = view.state.doc.lineAt(pos);
 
     let start = pos;
@@ -17,17 +17,26 @@ export const wordHover = ( updateCurWord ) => hoverTooltip((view, pos, side) => 
     if ((start === pos && side < 0) || (end === pos && side > 0)) {
         return null;
     }
-
+    
     const word = view.state.doc.slice(start, end).toString();
+    let definition = ''
+    let errorWord = ''
+    
+    const errorList = errorListRef.current
+    if (errorList)  {
+        errorWord = errorList.find((error) => error.from === start && error.to === end)
+    }
 
-    const definition = docs[word];
-
-    if (!definition) {
+    if (!docs[word] && !errorWord) {
         return null;
     }
 
-
-    updateCurWord(word)
+    if (docs[word] && !errorWord) {
+        definition = docs[word]
+        updateCurWord(word)
+    } else {
+        definition = errorWord.message
+    }
 
 
     return {
