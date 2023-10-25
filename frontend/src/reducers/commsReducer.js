@@ -1,4 +1,5 @@
 import commService from '../services/comms'
+import getErrorPositions from '../utils/getErrorPositions'
 import { createSlice } from '@reduxjs/toolkit'
 
 const commsSlice = createSlice({
@@ -47,7 +48,10 @@ export const {
 
 export const sendToServer = code => {
     return async dispatch => {
-        const res = await commService.sendToCompile(code)
+        let res = await commService.sendToCompile(code)
+        if (res.raw_errors) {
+            res = {errors: res.errors, raw_errors: getErrorPositions(res.raw_errors)}
+        }
         dispatch(setResponseFromServer(res))
     }
 }

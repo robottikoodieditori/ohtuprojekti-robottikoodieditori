@@ -11,7 +11,7 @@ import { autoComplete_en } from '../utils/autocomplete_english';
 import { autoComplete_fi } from '../utils/autocomplete_finnish';
 import { underlineSelection } from '../utils/underlineExtension';
 import getCustomKeywords from '../utils/getCustomKeywords';
-import getErrorPositions from '../utils/getErrorPositions';
+import { clearUnderlines } from '../utils/underlineExtension';
 import { LanguageContext } from '../contexts/languagecontext';
 
 
@@ -50,9 +50,8 @@ const Editor = ({ textContent = '' }) => {
     }
     useEffect(() => {
         if (serverResponse.raw_errors && editor.current && serverResponse) {
-            console.log('juuh')
-            const errorList = getErrorPositions(serverResponse.raw_errors)
-            underlineSelection(editor.current, errorList)
+            clearUnderlines(editor.current)
+            underlineSelection(editor.current, serverResponse.raw_errors)
         }
     }, [serverResponse])
     
