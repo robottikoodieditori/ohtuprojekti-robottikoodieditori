@@ -12,8 +12,12 @@ const Button = (props) => {
             dispatch(sendToServer(editorContent));
         }
     }
+
+    const buttonClass = props.function === 'SEND' ? 'button send-button' : 'button compile-button';
+
+
     return (
-        <button onClick={handleClick} id={`${props.function}BUTTON`} >
+        <button onClick={handleClick} className={buttonClass} id={`${props.function}BUTTON`} >
             {props.text}
         </button>
     )
