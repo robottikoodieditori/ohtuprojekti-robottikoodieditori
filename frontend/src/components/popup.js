@@ -31,6 +31,7 @@ const Tokenpopup = () => {
             <Popup 
                 open={open} 
                 closeOnDocumentClick={false}
+                overlayStyle={{ background: 'rgba(0,0,0,0.8)' }}
             >            
                 <div className='popup' id="popup">
                     <div className="popup-header">

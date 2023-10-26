@@ -13,78 +13,84 @@ h1 {
 }
 
 .navbar {
-background-color: rgb(134, 176, 226);
-color: white;
-height: 60px;
-display: flex;
-justify-content: space-between;
-align-items: center;
-padding: 0 20px;
+  background-color: rgb(134, 176, 226);
+  color: white;
+  height: 60px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
 }
 
 .navbar-button-container {
-position: absolute;
-right: 0;
-top: 2%;
-padding: 0 20px;
+  position: absolute;
+  right: 1%;
+  top: 1%;
+  bottom: 1%;
 }
 
 .button-container {
-display: flex;
-margin-top: 10px;
+  display: flex;
+  margin-top: 10px;
 }
 
 .sidebar {
-width: 20vw;
-height: 100%;
-background-color:rgb(170, 206, 253);
+  width: 20vw;
+  height: 100%;
+  background-color:rgb(170, 206, 253);
 }
 
 .content {
-background-color: rgb(170, 206, 253);
-padding-top: 2vh;
-padding-left: 2vw;
-padding-right: 1vw;
+  background-color: rgb(170, 206, 253);
+  padding-top: 2vh;
+  padding-left: 2vw;
+  padding-right: 1vw;
 }
 
 .search-bar {
-display: flex;
-width: 90%;
+  display: flex;
+  width: 90%;
 }
 
 .search-bar input {
-width: 90%;
-padding: 1vw;
-margin-bottom: 10px;
+  width: 90%;
+  padding: 1vw;
+  margin-bottom: 10px;
 }
 
 .app {
-display: flex;
-flex-direction: column;
-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
 }
 
 .main-content {
-flex: 1;
-display: flex;
+  flex: 1;
+  display: flex;
 }
 
 .editor {
-display: flex;
-flex: 1;
+  display: flex;
+  flex: 1;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e0e0e0;
+  background-color: #f5f5f5;
+  padding: 10px;
 }
+
+
 
 .sidebar {
   box-shadow: 2px 0px 5px rgba(0, 0, 0, 0.1);
 }
 
 .buttonsidebar {
-background-color:rgb(170, 206, 253);
-border: none;
+  background-color:rgb(170, 206, 253);
+  border: none;
 }
 
 .buttonsidebar:hover {
-text-shadow: 0px 0px 5px #0400ff;
+  text-shadow: 0px 0px 5px #0400ff;
 }
 
 .search-bar input {
@@ -97,65 +103,56 @@ text-shadow: 0px 0px 5px #0400ff;
   margin-bottom: 10px;
 }
 
-/* Style for the CommandList container */
 .command-list-container {
   padding: 10px 0;
   border-bottom: 2px solid rgba(255, 255, 255, 0.1);
   margin-bottom: 10px;
 }
 
-/* Styling for each command button */
 .command-button {
   display: block;  
-  width: 100%;  /* full width of the sidebar */
+  width: 100%;
   text-align: left;  
-  padding: 8px 10px;  /* comfortable padding */
+  padding: 8px 10px;
   border: none;
   border-radius: 5px;
-  background-color: rgba(255, 255, 255, 0.1);  /* slightly lighter than the sidebar */
-  color: rgb(7, 7, 7);  /* assuming a dark theme */
+  background-color: rgba(255, 255, 255, 0.1);
+  color: rgb(7, 7, 7);
   cursor: pointer;
   transition: background-color 0.3s;
-  margin: 3px 0; /* Add some vertical spacing between commands */
-  text-transform: capitalize; /* Capitalize the first letter of each command */
+  margin: 3px 0;
 }
 
 .command-button:hover {
-  background-color: rgba(255, 255, 255, 0.2);  /* a bit lighter on hover */
+  background-color: rgba(255, 255, 255, 0.2);
 }
 
 .command-button:active {
-  background-color: rgba(255, 255, 255, 0.3);  /* even lighter when clicked */
+  background-color: rgba(255, 255, 255, 0.3);
 }
 
-/* Styling for the command list itself */
 .command-list {
-  list-style-type: none; /* Removing bullet points */
-  padding-left: 0;  /* Removing default padding */
-  margin: 0;  /* Removing default margin */
+  list-style-type: none;
+  padding-left: 0;
+  margin: 0;
 }
 
 .editorview {
-padding-left: 2vw;
-padding-right: 1vw;
+  padding-left: 2vw;
+  padding-right: 1vw;
 }
 
-.popup {
-border-radius: 1vw;
-box-shadow: 0 0 5vw 0 rgba(0, 0, 0, 0.2);
-border: 0.4vw solid #007bff;
-}
 
 .sResponse {
-position: absolute;
-max-height: 30%;
-overflow-y: auto;
-border-style: solid;
-border-width: 0.1vw;
-margin-top: 3vh;
-padding: 1vw;
-width: 30%;
-background-color: #FCC;
+  position: absolute;
+  max-height: 30%;
+  overflow-y: auto;
+  border-style: solid;
+  border-width: 0.1vw;
+  margin-top: 3vh;
+  padding: 1vw;
+  width: 30%;
+  background-color: #FCC;
 }
 
 .sResponse:hover {
@@ -163,10 +160,6 @@ background-color: #EBB;
 border: 0.2vw solid #007bff;
 }
 
-.content-popup {
-  background-color: rgb(170, 206, 253);
-  padding: 2vw
-}
 
 .custom-underline {
     text-decoration: underline red;
@@ -189,9 +182,74 @@ border: 0.2vw solid #007bff;
   opacity: 0;
   pointer-events: none;
 }
-  
+
+/* Popup Styling */
+.popup {
+  background-color: #2c3e50;  /* Assuming a dark theme, you can change accordingly */
+  border-radius: 20px;
+  width: 300px;  /* Setting a fixed width */
+  box-shadow: 0px 0px 10px rgba(0,0,0,0.2);
+}
+
 .popup-header {
-  position: relative;
+  display: flex;
+  justify-content: flex-end;
+  padding: 10px;
+}
+
+.close-button {
+  background-color: transparent;
+  border: none;
+  font-size: 18px;
+  color: white;
+  cursor: pointer;
+  transition: color 0.3s;
+}
+
+.close-button:hover {
+  color: #e74c3c; /* Change the color on hover for some visual feedback */
+}
+
+.content-popup {
+  padding: 20px;
+}
+
+.content-popup h2 {
+  margin-top: 0;
+  color: white;
+}
+
+/* Text Field */
+.content-popup input[type="text"] {
+  width: 92.3%;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  background-color: #34495e; /* Slightly different shade for input field */
+  color: white;
+  margin-bottom: 10px;
+  outline: none; /* To remove the default blue outline */
+}
+
+.content-popup input[type="text"]::placeholder {
+  color: #95a5a6; /* Placeholder color */
+}
+
+/* Login Button */
+.content-popup button {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  background-color: #3498db; /* For a nice blue color */
+  border: none;
+  border-radius: 5px;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.content-popup button:hover {
+  background-color: #2980b9; /* Darker shade on hover */
 }
 
 .close-button {
@@ -199,7 +257,7 @@ border: 0.2vw solid #007bff;
     border: none;
     font-size: 24px;
     cursor: pointer;
-    color: #333;
+    color: #f0ebeb;
     position: absolute;
     top: 10px;
     right: 10px;
@@ -267,4 +325,8 @@ border: 0.2vw solid #007bff;
 
 .lang-toggle-button:active {
   transform: scale(0.97);
+}
+
+.ReactModal__Overlay {
+  transition: opacity 300ms ease-in-out;
 }
