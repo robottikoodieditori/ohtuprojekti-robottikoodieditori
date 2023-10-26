@@ -4,7 +4,7 @@ describe('Hover Functionality', function() {
         cy.get('#popup').contains('Kirjaudu').click(500)
     });
 
-    it('hovering reveals documentation', function() {
+    it('hovering keyword reveals documentation', function() {
         cy.get("#editor").type('{selectall}').type("eteen ja pois");
         cy.get('#editor').contains('eteen').click()
         cy.get('#tooltip').should('exist').should('contain', 'Liiku')
@@ -36,5 +36,13 @@ describe('Hover Functionality', function() {
         commands.forEach(command => {
             cy.get('#editor').should('not.contain', command);
         });
+    });
+
+
+    it('hovering error reveals documentation', function() {
+        cy.get('#editor').type('{selectall}').type('MITEN uusi');
+        cy.get('#COMPILEBUTTON').click().wait(100);
+        cy.get('#editor').contains('MITEN').click()
+        cy.get('#tooltip').should('exist').should('contain', 'errorror')
     });
 });
