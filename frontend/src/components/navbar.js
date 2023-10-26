@@ -11,7 +11,7 @@ const Navbar = () => {
         <div className="navbar" id="navbar">
             <h1>{translations.navbar}</h1>
             <div className="navbar-button-container">
-                <button onClick={toggleLanguage}  data-testid="toggleLanguageButton">
+                <button onClick={toggleLanguage} className="lang-toggle-button" data-testid="toggleLanguageButton">
                     {language === 'fi' ? 'Switch to English' : 'Vaihda suomeksi'}
                 </button>
             </div>

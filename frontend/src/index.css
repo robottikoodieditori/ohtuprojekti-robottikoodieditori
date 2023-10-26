@@ -197,3 +197,24 @@ border: 0.2vw solid #007bff;
 .compile-button:hover {
   background-color: rgb(110, 180, 80);  /* Hover color for COMPILE */
 }
+
+.lang-toggle-button {
+  font-family: 'Poppins', Arial, Helvetica, sans-serif;  
+  font-size: 14px; /* A bit smaller than our standard buttons to keep it unobtrusive */
+  padding: 8px 16px; 
+  border: none;
+  border-radius: 5px;
+  transition: background-color 0.3s, transform 0.2s;
+  cursor: pointer;
+  outline: none;
+  background-color: rgb(255, 233, 153);  /* A soft yellow for visibility */
+  color: rgb(60, 120, 180);  /* Using the default button color for text to maintain consistency */
+}
+
+.lang-toggle-button:hover {
+  background-color: rgb(255, 245, 180);  /* A slightly lighter shade of yellow for hover */
+}
+
+.lang-toggle-button:active {
+  transform: scale(0.97);
+}
