@@ -1,12 +1,15 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
+
 body {
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: 'Poppins',Arial, Helvetica, sans-serif;
   margin: 0;
 }
 
 h1 {
   color:rgb(0, 0, 0);
   font-family: Arial, Helvetica, sans-serif;
-  font-size: 2em;
+  font-size: 1.8em;
+  font-weight: 500;
 }
 
 .navbar {
@@ -130,8 +133,67 @@ border: 0.2vw solid #007bff;
     transition: opacity 0.5s; /* Add opacity transition */
   }
   
-  .notification.fade-out {
-    opacity: 0;
-    pointer-events: none; /* Disable clicks on a faded-out notification */
-  }
+.notification.fade-out {
+  opacity: 0;
+  pointer-events: none; /* Disable clicks on a faded-out notification */
+}
   
+.popup-header {
+  position: relative;
+}
+
+.close-button {
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    color: #333;
+    position: absolute;
+    top: 10px; /* Adjust these values for positioning */
+    right: 10px;
+    padding: 5px; /* Add padding for a larger click area */
+}
+
+.close-button:hover {
+    color: red;
+}
+
+.button {
+  font-family: 'Poppins', Arial, Helvetica, sans-serif;  /* Poppins font for consistency */
+  font-size: 16px;
+  padding: 10px 20px;  /* Adequate padding for touch targets */
+  border: none;
+  border-radius: 5px;  /* Rounded corners */
+  transition: background-color 0.3s, transform 0.2s;  /* Smooth transitions for hover effects */
+  cursor: pointer;
+  outline: none;  /* Remove default browser outline */
+  margin: 5px;  /* A little margin to avoid adjacent buttons touching */
+  background-color: rgb(60, 120, 180);  /* Default background color */
+  color: white;  /* Text color */
+}
+
+.button:hover {
+  background-color: rgb(80, 140, 200);  /* A slightly lighter shade for hover */
+}
+
+.button:active {
+  transform: scale(0.97);  /* Slightly reduce the size of the button when clicked for a "press" effect */
+}
+
+/* Specific styles for SEND button */
+.send-button {
+  background-color: rgb(60, 120, 180);  /* Color for SEND */
+}
+
+.send-button:hover {
+  background-color: rgb(80, 140, 200);  /* Hover color for SEND */
+}
+
+/* Specific styles for COMPILE button */
+.compile-button {
+  background-color: rgb(90, 160, 60);  /* Color for COMPILE */
+}
+
+.compile-button:hover {
+  background-color: rgb(110, 180, 80);  /* Hover color for COMPILE */
+}

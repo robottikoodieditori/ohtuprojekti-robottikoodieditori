@@ -1,15 +1,12 @@
 import { useEffect, useState } from 'react';
 import Popup from 'reactjs-popup';
-import { sendName} from "../reducers/commsReducer";
+import { sendName } from "../reducers/commsReducer";
 import { useDispatch } from 'react-redux';
-
-
 
 const Tokenpopup = () => {
     const [open, setOpen] = useState(false);
     const [username, setUsername] = useState('');
     const dispatch = useDispatch();
-
 
     const handleInputChange = (e) => {
         setUsername(e.target.value);
@@ -18,7 +15,11 @@ const Tokenpopup = () => {
     const handleSubmit = () => {
         dispatch(sendName(username));
         console.log(`Sending username to backend: ${username}`);
-        setOpen(false)
+        setOpen(false);
+    };
+
+    const handleClose = () => {
+        setOpen(false);
     }
 
     useEffect(() => {
@@ -32,6 +33,9 @@ const Tokenpopup = () => {
                 closeOnDocumentClick={false}
             >            
                 <div className='popup' id="popup">
+                    <div className="popup-header">
+                        <button className="close-button" onClick={handleClose}>X</button>
+                    </div>
                     <div className='content-popup'>
                         <h2>Anna nimesi</h2>
                         <input
