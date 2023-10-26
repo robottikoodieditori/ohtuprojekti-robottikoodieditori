@@ -1,5 +1,5 @@
-src/services/parser.terms.js
-src/services/parser.js
+src/utils/parser.terms.js
+src/utils/parser.js
 cypress.config.js
 **/**.test.js
 cypress/

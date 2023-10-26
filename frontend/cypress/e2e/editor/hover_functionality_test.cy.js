@@ -22,6 +22,7 @@ describe('Hover Functionality', function() {
     });
 
     it('hovering reveals documentation (ENGLISH)', function() {
+        cy.get('#navbar').contains('Switch to English').click()
         cy.get("#editor").type('{selectall}').type("forward");
         cy.get('#editor').contains('forward').click()
         cy.get('#tooltip').should('exist').should('contain', 'Move')
