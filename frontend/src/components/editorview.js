@@ -10,7 +10,6 @@ const EditorView = () => {
     return (
         <div className='editorview' id='editorview'>
             <header className="App-header">
-                <br/>
             </header>
 
             <Editor textContent={''} /*style={{height: '30vw'}}*//>
