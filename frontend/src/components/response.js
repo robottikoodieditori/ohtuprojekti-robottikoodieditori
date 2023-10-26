@@ -8,27 +8,31 @@ const Response = () => {
     const { translations } = useContext(LanguageContext);
     const serverResponse = useSelector((state) => state.comms.responseFromServer);
 
-    const handleClick = () => {
+    const handleClose = () => {
         dispatch(setResponseFromServer(''));
     }
 
     if (!serverResponse || serverResponse.length === 0) {
-        return <div onClick={handleClick}></div>;
+        return null;
     }
 
     return (
-        <div id='sResponse' className='sResponse' onClick={handleClick}>
-            {translations.response.serverResponded}
+        <div id='sResponse' className='sResponse'>
+            <div className="errorHeader">
+                <h4>{translations.response.serverResponded}</h4>
+                <button className="closeButton" onClick={handleClose}>X</button>
+            </div>
             {serverResponse.errors.map((res) => (
-                <p key={res.start}>
-                    {`${translations.response.line} ${res.line}`}<br/>
-                    {`${translations.response.start} ${res.start}`}<br/>
-                    {`${translations.response.end} ${res.end}`}<br/>
-                    {`${translations.response.message} ${res.message}`}<br/>
-                </p>
+                <div key={res.start} className="errorCard">
+                    <h5>{`${translations.response.message} ${res.message}`}</h5>
+                    <p>{`${translations.response.line} ${res.line}`}</p>
+                    <p>{`${translations.response.start} ${res.start} - ${translations.response.end} ${res.end}`}</p>
+                </div>
             ))}
         </div>
     );
+    
+    
 }
 
 export default Response;
