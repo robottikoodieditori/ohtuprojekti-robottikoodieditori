@@ -27,16 +27,16 @@ const CommandList = ({ searchTerm, handleCommandClick, translations }) => {
     };
 
     return (
-        <div>
+        <div className="command-list-container">
             <h2>{translations?.commandListTitle}</h2>
-            <ul>
+            <ul className="command-list">
                 {
                     commands
                         .filter(command => getTranslatedCommand(command).includes(searchTerm))
                         .map((command) => (
                             <li key={command}>
-                                <button className="buttonsidebar" onClick={() => handleCommandClick(command)}>
-                                    {getTranslatedCommand(command)} {/* Translate the command */}
+                                <button className="command-button" onClick={() => handleCommandClick(command)}>
+                                    {getTranslatedCommand(command)}
                                 </button>
                             </li>
                         ))
@@ -44,6 +44,7 @@ const CommandList = ({ searchTerm, handleCommandClick, translations }) => {
             </ul>
         </div>
     )
+    
 }
 
 export default CommandList;

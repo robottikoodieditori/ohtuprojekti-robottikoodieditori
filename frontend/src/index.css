@@ -8,7 +8,7 @@ body {
 h1 {
   color:rgb(0, 0, 0);
   font-family: Arial, Helvetica, sans-serif;
-  font-size: 1.8em;
+  font-size: 2.5em;
   font-weight: 500;
 }
 
@@ -74,6 +74,10 @@ display: flex;
 flex: 1;
 }
 
+.sidebar {
+  box-shadow: 2px 0px 5px rgba(0, 0, 0, 0.1);
+}
+
 .buttonsidebar {
 background-color:rgb(170, 206, 253);
 border: none;
@@ -81,6 +85,54 @@ border: none;
 
 .buttonsidebar:hover {
 text-shadow: 0px 0px 5px #0400ff;
+}
+
+.search-bar input {
+  border-radius: 20px;
+  border: 1px solid rgb(60, 120, 180);
+  padding-left: 15px;
+}
+
+.search-bar {
+  margin-bottom: 10px;
+}
+
+/* Style for the CommandList container */
+.command-list-container {
+  padding: 10px 0;
+  border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+  margin-bottom: 10px;
+}
+
+/* Styling for each command button */
+.command-button {
+  display: block;  
+  width: 100%;  /* full width of the sidebar */
+  text-align: left;  
+  padding: 8px 10px;  /* comfortable padding */
+  border: none;
+  border-radius: 5px;
+  background-color: rgba(255, 255, 255, 0.1);  /* slightly lighter than the sidebar */
+  color: rgb(7, 7, 7);  /* assuming a dark theme */
+  cursor: pointer;
+  transition: background-color 0.3s;
+  margin: 3px 0; /* Add some vertical spacing between commands */
+  text-transform: capitalize; /* Capitalize the first letter of each command */
+}
+
+.command-button:hover {
+  background-color: rgba(255, 255, 255, 0.2);  /* a bit lighter on hover */
+}
+
+.command-button:active {
+  background-color: rgba(255, 255, 255, 0.3);  /* even lighter when clicked */
+}
+
+/* Styling for the command list itself */
+.command-list {
+  list-style-type: none; /* Removing bullet points */
+  padding-left: 0;  /* Removing default padding */
+  margin: 0;  /* Removing default margin */
 }
 
 .editorview {
@@ -130,12 +182,12 @@ border: 0.2vw solid #007bff;
     border-radius: 5px;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
     z-index: 999;
-    transition: opacity 0.5s; /* Add opacity transition */
+    transition: opacity 0.5s;
   }
   
 .notification.fade-out {
   opacity: 0;
-  pointer-events: none; /* Disable clicks on a faded-out notification */
+  pointer-events: none;
 }
   
 .popup-header {
@@ -149,9 +201,9 @@ border: 0.2vw solid #007bff;
     cursor: pointer;
     color: #333;
     position: absolute;
-    top: 10px; /* Adjust these values for positioning */
+    top: 10px;
     right: 10px;
-    padding: 5px; /* Add padding for a larger click area */
+    padding: 5px;
 }
 
 .close-button:hover {
@@ -159,60 +211,58 @@ border: 0.2vw solid #007bff;
 }
 
 .button {
-  font-family: 'Poppins', Arial, Helvetica, sans-serif;  /* Poppins font for consistency */
+  font-family: 'Poppins', Arial, Helvetica, sans-serif;
   font-size: 16px;
-  padding: 10px 20px;  /* Adequate padding for touch targets */
+  padding: 10px 20px;
   border: none;
-  border-radius: 5px;  /* Rounded corners */
-  transition: background-color 0.3s, transform 0.2s;  /* Smooth transitions for hover effects */
+  border-radius: 5px;
+  transition: background-color 0.3s, transform 0.2s;
   cursor: pointer;
-  outline: none;  /* Remove default browser outline */
-  margin: 5px;  /* A little margin to avoid adjacent buttons touching */
-  background-color: rgb(60, 120, 180);  /* Default background color */
-  color: white;  /* Text color */
+  outline: none;
+  margin: 5px;
+  background-color: rgb(60, 120, 180);
+  color: white;
 }
 
 .button:hover {
-  background-color: rgb(80, 140, 200);  /* A slightly lighter shade for hover */
+  background-color: rgb(80, 140, 200);
 }
 
 .button:active {
-  transform: scale(0.97);  /* Slightly reduce the size of the button when clicked for a "press" effect */
+  transform: scale(0.97); 
 }
 
-/* Specific styles for SEND button */
 .send-button {
-  background-color: rgb(60, 120, 180);  /* Color for SEND */
+  background-color: rgb(60, 120, 180);
 }
 
 .send-button:hover {
-  background-color: rgb(80, 140, 200);  /* Hover color for SEND */
+  background-color: rgb(80, 140, 200);
 }
 
-/* Specific styles for COMPILE button */
 .compile-button {
-  background-color: rgb(90, 160, 60);  /* Color for COMPILE */
+  background-color: rgb(90, 160, 60);
 }
 
 .compile-button:hover {
-  background-color: rgb(110, 180, 80);  /* Hover color for COMPILE */
+  background-color: rgb(110, 180, 80);
 }
 
 .lang-toggle-button {
   font-family: 'Poppins', Arial, Helvetica, sans-serif;  
-  font-size: 14px; /* A bit smaller than our standard buttons to keep it unobtrusive */
+  font-size: 14px;
   padding: 8px 16px; 
   border: none;
   border-radius: 5px;
   transition: background-color 0.3s, transform 0.2s;
   cursor: pointer;
   outline: none;
-  background-color: rgb(255, 233, 153);  /* A soft yellow for visibility */
-  color: rgb(60, 120, 180);  /* Using the default button color for text to maintain consistency */
+  background-color: rgb(255, 233, 153);
+  color: rgb(60, 120, 180);
 }
 
 .lang-toggle-button:hover {
-  background-color: rgb(255, 245, 180);  /* A slightly lighter shade of yellow for hover */
+  background-color: rgb(255, 245, 180);
 }
 
 .lang-toggle-button:active {
