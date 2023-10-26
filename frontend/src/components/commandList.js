@@ -1,6 +1,6 @@
 import "../index.css";
 import { useState, useEffect } from 'react';
-import keywords from "../utils/keywords_finnish.txt"
+import keywords from "../static/keywords_finnish.txt"
 
 const CommandList = ({ searchTerm, handleCommandClick, translations }) => {
     const [commands, setCommands] = useState([]);

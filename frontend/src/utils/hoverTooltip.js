@@ -1,8 +1,12 @@
 import { hoverTooltip } from "@codemirror/view"
-import docs from "../services/tooltips.json"
+import docs from "../static/tooltips.json"
 import { parse } from 'marked';
+import en from '../utils/en';
+import fi from '../utils/fi';
 
-export const wordHover = ( updateCurWord, errorListRef ) => hoverTooltip((view, pos, side) => {
+export const wordHover = ( updateCurWord, errorListRef, language ) => hoverTooltip((view, pos, side) => {
+    const translations = language.current === 'fi' ? fi : en;
+
     let { from, to, text } = view.state.doc.lineAt(pos);
 
     let start = pos;
@@ -27,12 +31,12 @@ export const wordHover = ( updateCurWord, errorListRef ) => hoverTooltip((view, 
         errorWord = errorList.find((error) => error.from === start && error.to === end)
     }
 
-    if (!docs[word] && !errorWord) {
+    if (!docs[language.current][word] && !errorWord) {
         return null;
     }
 
-    if (docs[word] && !errorWord) {
-        definition = docs[word]
+    if (docs[language.current][word] && !errorWord) {
+        definition = docs[language.current][word]
         updateCurWord(word)
     } else {
         definition = errorWord.message
@@ -49,7 +53,7 @@ export const wordHover = ( updateCurWord, errorListRef ) => hoverTooltip((view, 
             'color:black; width:150px; overflow:auto; word-break: break-word; border-style: solid; border: 1px;';
 
             const markdown = parse(definition)
-            container.innerHTML = `<small>Click word to display on sidebar</small>${markdown}`
+            container.innerHTML = `<small>${translations?.tooltipOpenSidebar}</small>${markdown}`
 
   
             return { 

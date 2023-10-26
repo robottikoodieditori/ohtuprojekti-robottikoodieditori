@@ -35,7 +35,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "prepare": "lezer-generator src/services/lang.grammar -o src/services/parser.js",
+    "prepare": "lezer-generator src/static/lang.grammar -o src/utils/parser.js",
     "lint": "eslint .",
     "cypress:open": "cypress open",
     "test:e2e": "cypress run"

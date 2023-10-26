@@ -1,8 +1,8 @@
 import os, csv
 
 DIRNAME = os.path.dirname(__file__)
-KEYWORD_DIRNAME = os.path.join(DIRNAME, '..', 'frontend', 'src', 'utils')
-LANG_DIRNAME = os.path.join(DIRNAME, '..', 'frontend', 'src', 'services')
+KEYWORD_DIRNAME = os.path.join(DIRNAME, '..', 'frontend', 'src', 'static')
+LANG_DIRNAME = os.path.join(DIRNAME, '..', 'frontend', 'src', 'static')
 
 BASE_STRING = f"""@precedence {{ times @left, plus @left }}
 @top Program {{ expression* }}

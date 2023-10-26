@@ -34,5 +34,6 @@ export default {
         start: "start:",
         end: "end:",
         message: "message:",
-    }
+    },
+    tooltipOpenSidebar: "Click word to display on sidebar"
 };

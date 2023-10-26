@@ -26,6 +26,7 @@ const Editor = ({ textContent = '' }) => {
     const autoCompletionCompartment = new Compartment
     const languageCompartment = new Compartment
     const hoverCompartment = new Compartment
+    const languageRef = useRef('')
     
     const onUpdate = EditorView.updateListener.of((v) => {
         if (v.docChanged) {
@@ -40,9 +41,9 @@ const Editor = ({ textContent = '' }) => {
         view.dispatch({effects: autoCompletionCompartment.reconfigure(autocompletion(updatedConfig))})
     }
 
-    const updateHovering = (errorList, view) => {
+    const updateHovering = (errorList, view, language) => {
         errorListRef.current = errorList
-        const updatedConfig = hoverCompartment.of(wordHover(updateLocal, errorListRef))
+        const updatedConfig = hoverCompartment.of(wordHover(updateLocal, errorListRef, language))
         view.dispatch({effects: hoverCompartment.reconfigure(updatedConfig)})
     }
 
@@ -56,10 +57,11 @@ const Editor = ({ textContent = '' }) => {
         }
     }
     useEffect(() => {
+        //currentAutoCompleteModule.current = language === 'en' ? autoComplete_en : autoComplete_fi
         if (serverResponse.raw_errors && editor.current && serverResponse) {
             clearUnderlines(editor.current)
             underlineSelection(editor.current, serverResponse.raw_errors)
-            updateHovering(serverResponse.raw_errors, editor.current)
+            updateHovering(serverResponse.raw_errors, editor.current, languageRef)
         }
     }, [serverResponse])
     
@@ -71,7 +73,7 @@ const Editor = ({ textContent = '' }) => {
                 extensions,
                 languageCompartment.of(placeholder('Code...')),
                 onUpdate,
-                hoverCompartment.of(wordHover(updateLocal, errorListRef)),
+                hoverCompartment.of(wordHover(updateLocal, errorListRef, languageRef)),
                 autoCompletionCompartment.of(
                     autocompletion({override: [currentAutoCompleteModule.current([])]}
                     )),
@@ -98,6 +100,7 @@ const Editor = ({ textContent = '' }) => {
 
     useEffect(() => {
         currentAutoCompleteModule.current = language === 'en' ? autoComplete_en : autoComplete_fi
+        languageRef.current = language
     }, [language])
 
     return (

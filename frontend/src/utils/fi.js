@@ -34,5 +34,6 @@ export default {
         start: "alku:",
         end: "loppu:",
         message: "viesti:",
-    }
+    },
+    tooltipOpenSidebar: "Klikkaa sanaa avataksesi sen sivupalkissa"
 };

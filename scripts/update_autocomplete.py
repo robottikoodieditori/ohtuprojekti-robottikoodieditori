@@ -1,7 +1,7 @@
 import os, csv
 
 DIRNAME = os.path.dirname(__file__)
-KEYWORD_DIRNAME = os.path.join(DIRNAME, '..', 'frontend', 'src', 'utils')
+KEYWORD_DIRNAME = os.path.join(DIRNAME, '..', 'frontend', 'src', 'static')
 LANG_DIRNAME = os.path.join(DIRNAME, '..', 'frontend', 'src', 'utils')
 
 BASE_STRING_FI= '''export function autoComplete_fi(customWords) {

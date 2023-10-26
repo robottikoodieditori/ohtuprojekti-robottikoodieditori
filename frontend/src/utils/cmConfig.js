@@ -6,9 +6,9 @@ import { history } from "@codemirror/commands"
 import { bracketMatching } from '@codemirror/language'
 import { closeBrackets } from '@codemirror/autocomplete'
 import { LRLanguage, foldGutter } from "@codemirror/language"
-import { parser } from "../services/parser"
+import { parser } from "./parser"
 import { underlines } from "./underlineExtension"
-import { syntaxStyle } from "../services/highlight"
+import { syntaxStyle } from "./highlight"
 
 const Logo = LRLanguage.define({
     parser: parser,
