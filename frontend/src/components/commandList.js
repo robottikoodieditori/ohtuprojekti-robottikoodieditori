@@ -1,4 +1,6 @@
-import "../index.css";
+import "../css/index.css";
+import "../css/button.css";
+import '../css/sidebar.css';
 import { useState, useEffect } from 'react';
 import keywords from "../static/keywords_finnish.txt"
 

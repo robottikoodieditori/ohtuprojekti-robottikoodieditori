@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import Popup from 'reactjs-popup';
 import { sendName } from "../reducers/commsReducer";
 import { useDispatch } from 'react-redux';
+import '../css/popup.css'
 
 const Tokenpopup = () => {
     const [open, setOpen] = useState(false);
