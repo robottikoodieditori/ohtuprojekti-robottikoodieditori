@@ -22,9 +22,10 @@ describe('sidebar Functionality', function() {
     });
 
   it('searchbar does not show not searched commands', function() {
-    cy.get("#searchbar").type('{selectall}').type('ta');
-    cy.get('#sidebar').should('not.contain', "oikealle");
+      cy.get("#searchbar").type('{selectall}').type('ta');
+      cy.get('#sidebar').should('not.contain', "oikealle");
   });
+  
 
   it('searchbar contains right commands', function() {
     cy.get("#searchbar").type('{selectall}').type('ta');
@@ -34,13 +35,13 @@ describe('sidebar Functionality', function() {
   it('clicking command does not show searchbar', function() {
     cy.get("#sidebar").contains("eteen").click();
     cy.get('#sidebar').should('not.contain', '#searchbar');
-});
+  });
 
-    it('clicking on keyword in editor displays command on sidebar', function () {
-        cy.get("#editor").type('{selectall}').type("eteen");
-        cy.get("#editor").contains("eteen").click().wait(1500).click();
-        cy.get("#sidebar").should('contain', 'eteen lauseke')
-    })
+  it('clicking on keyword in editor displays command on sidebar', function () {
+      cy.get("#editor").type('{selectall}').type("eteen");
+      cy.get("#editor").contains("eteen").click().wait(1500).click();
+      cy.get("#sidebar").should('contain', 'eteen lauseke')
+  })
 
   });
 
@@ -48,8 +49,8 @@ describe('sidebar Functionality', function() {
 describe('sidebar Functionality', function() {
   beforeEach(function() {
       cy.visit('http://localhost:3000');
-      cy.get('#popup').contains('Kirjaudu').click(500)
-      cy.get("#navbar").contains("Switch to English").click(100);
+      cy.get('#popup').contains('Kirjaudu').click()
+      cy.get("#navbar").contains("Switch to English").click();
   });
 
     it('clicking command reveals documentation in english', function() {
@@ -84,7 +85,7 @@ describe('sidebar Functionality', function() {
     });
 
     it('clicking translate goes back to finnish', function() {
-      cy.get("#navbar").contains("Vaihda suomeksi").click(100);
+      cy.get("#navbar").contains("Vaihda suomeksi").click();
       cy.get('#sidebar').contains('eteen');
       });
 

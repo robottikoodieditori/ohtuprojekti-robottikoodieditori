@@ -41,6 +41,7 @@ const Sidebar = () => {
                     />
                 ) : (
                     <div>
+                        <h2>{translations?.commandListTitle}</h2>
                         <Searchbar 
                             searchTerm={searchTerm} 
                             handleSearchChange={handleSearchChange} 

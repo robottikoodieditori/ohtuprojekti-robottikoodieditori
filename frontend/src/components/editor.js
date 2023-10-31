@@ -104,7 +104,7 @@ const Editor = ({ textContent = '' }) => {
     }, [language])
 
     return (
-        <div ref={editor} id='editor' onClick={handleClick}></div>
+        <div ref={editor} className="editor" id='editor' onClick={handleClick}></div>
     )
 }
 
