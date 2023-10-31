@@ -2,6 +2,7 @@ import { useContext } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setResponseFromServer } from '../reducers/commsReducer';
 import { LanguageContext } from '../contexts/languagecontext';
+import '../css/error.css'
 
 const Response = () => {
     const dispatch = useDispatch();

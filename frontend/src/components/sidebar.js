@@ -1,4 +1,5 @@
-import '../index.css';
+import '../css/index.css';
+import '../css/sidebar.css'
 import { useState, useContext } from 'react';
 import CommandList from './commandList';
 import Searchbar from './searchbar';

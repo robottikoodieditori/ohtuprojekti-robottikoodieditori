@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { resetNotificationMessage } from '../reducers/commsReducer';
-import '../index.css'
+import '../css/index.css'
 
 const Notification = () => {
     const [showNotification, setShowNotification] = useState(false)

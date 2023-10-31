@@ -1,4 +1,4 @@
-import "../index.css"
+import "../css/index.css"
 import docs from "../static/tooltips.json"
 import ReactMarkdown from "react-markdown";
 

@@ -3,6 +3,8 @@ import Editor from "./editor";
 import Button from "./button";
 import { LanguageContext } from '../contexts/languagecontext';
 import Response from './response';
+import '../css/button.css'
+import '../css/editor.css'
 
 const EditorView = () => {
     const { translations } = useContext(LanguageContext);

@@ -3,6 +3,7 @@ import Popup from 'reactjs-popup';
 import { sendName } from "../reducers/commsReducer";
 import { useDispatch } from 'react-redux';
 import { LanguageContext } from '../contexts/languagecontext';
+import '../css/popup.css'
 
 const Tokenpopup = () => {
     const [open, setOpen] = useState(false);
