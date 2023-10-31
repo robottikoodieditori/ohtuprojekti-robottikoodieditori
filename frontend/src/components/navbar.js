@@ -1,6 +1,7 @@
 import { useContext } from 'react';
 import { LanguageContext } from '../contexts/languagecontext';
-import '../index.css';
+import '../css/index.css';
+import '../css/navbar.css'
 
 const Navbar = () => {
     const { language, toggleLanguage, translations } = useContext(LanguageContext);

@@ -1,4 +1,4 @@
-import "../index.css";
+import "../css/index.css";
 
 const Searchbar = ({ searchTerm, handleSearchChange, translations }) => {
     console.log("Translations in Searchbar:", translations);
