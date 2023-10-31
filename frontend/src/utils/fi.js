@@ -35,5 +35,11 @@ export default {
         end: "loppu:",
         message: "viesti:",
     },
-    tooltipOpenSidebar: "Klikkaa sanaa avataksesi sen sivupalkissa"
+    login: {
+        title: 'Anna nimesi',
+        loginButton: 'Kirjaudu',
+        nameInputPlaceholder: 'nimi',
+        notificationNameMissing: 'Et voi kirjautua nimettömänä!'
+    },
+    tooltipOpenSidebar: "Klikkaa sanaa avataksesi sen sivupalkissa",
 };

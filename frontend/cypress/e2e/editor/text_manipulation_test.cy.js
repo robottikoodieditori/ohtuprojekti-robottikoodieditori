@@ -1,8 +1,10 @@
 describe('Text Manipulation', function() {
     beforeEach(function() {
         cy.visit('http://localhost:3000');
-        cy.get('#popup').contains('Kirjaudu').click()
+        cy.get('#registration-name-input').type('example')
+        cy.get('#popup').contains('Kirjaudu').click(500)
     });
+
   
     it('allows text to be typed into the editor', function() {
         cy.get("#editor").type('Hello, world!').should('contain', 'Hello, world!');

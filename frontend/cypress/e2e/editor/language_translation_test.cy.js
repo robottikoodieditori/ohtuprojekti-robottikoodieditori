@@ -1,9 +1,10 @@
 describe('Language translation', function() {
     beforeEach(function() {
         cy.visit('http://localhost:3000');
-        cy.get('#popup').contains('Kirjaudu').click()
-
+        cy.get('#registration-name-input').type('example')
+        cy.get('#popup').contains('Kirjaudu').click(500)
     });
+
 
     it('should toggle to Finnish when clicking "Switch to English"', function() {
         cy.get('[data-testid=toggleLanguageButton]').contains('Switch to English').click();

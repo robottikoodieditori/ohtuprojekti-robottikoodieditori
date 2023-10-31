@@ -1,8 +1,10 @@
 describe('Hover Functionality', function() {
     beforeEach(function() {
         cy.visit('http://localhost:3000');
+        cy.get('#registration-name-input').type('example')
         cy.get('#popup').contains('Kirjaudu').click(500)
     });
+
 
     it('hovering keyword reveals documentation', function() {
         cy.get("#editor").type('{selectall}').type("eteen ja pois");

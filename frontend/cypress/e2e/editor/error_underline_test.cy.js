@@ -1,8 +1,10 @@
 describe('Text Manipulation', function() {
     beforeEach(function() {
         cy.visit('http://localhost:3000');
-        cy.get('#popup').contains('Kirjaudu').click()
+        cy.get('#registration-name-input').type('example')
+        cy.get('#popup').contains('Kirjaudu').click(500)
     });
+
 
     it('error is underlined and normal text is not', function() {
         cy.get('#editor').type('{selectall}').type('MITEN uusi');
