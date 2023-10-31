@@ -24,9 +24,10 @@ const Editor = ({ textContent = '' }) => {
     const { language } = useContext(LanguageContext)
     const currentAutoCompleteModule = useRef(language === 'en' ? autoComplete_en : autoComplete_fi)
     const autoCompletionCompartment = new Compartment
-    const languageCompartment = new Compartment
     const hoverCompartment = new Compartment
     const languageRef = useRef('')
+
+    const exampleString = 'Logo...'
     
     const onUpdate = EditorView.updateListener.of((v) => {
         if (v.docChanged) {
@@ -57,7 +58,6 @@ const Editor = ({ textContent = '' }) => {
         }
     }
     useEffect(() => {
-        //currentAutoCompleteModule.current = language === 'en' ? autoComplete_en : autoComplete_fi
         if (serverResponse.raw_errors && editor.current && serverResponse) {
             clearUnderlines(editor.current)
             underlineSelection(editor.current, serverResponse.raw_errors)
@@ -71,7 +71,7 @@ const Editor = ({ textContent = '' }) => {
             doc: textContent,
             extensions: [
                 extensions,
-                languageCompartment.of(placeholder('Code...')),
+                placeholder(exampleString),
                 onUpdate,
                 hoverCompartment.of(wordHover(updateLocal, errorListRef, languageRef)),
                 autoCompletionCompartment.of(

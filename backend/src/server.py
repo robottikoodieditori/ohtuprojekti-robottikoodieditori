@@ -2,7 +2,7 @@
 
 # Import flask and datetime module for showing date and time
 import json
-from flask import Flask, request
+from flask import Flask, request, send_from_directory
 from mockcompiler import MockCompiler
 from users import User
 
@@ -18,6 +18,10 @@ app.secret_key = "123"
 def get_time():
     # Returning an api for showing in  reactjs
     return {"Date": ""}
+
+@app.route('/')
+def main():
+    return send_from_directory(directory=app.template_folder, path='index.html')
 
 
 @app.route("/send/compiler", methods=["POST"])
