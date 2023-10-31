@@ -35,5 +35,11 @@ export default {
         end: "end:",
         message: "message:",
     },
-    tooltipOpenSidebar: "Click word to display on sidebar"
+    login: {
+        title: 'Your name',
+        loginButton: 'Log in',
+        nameInputPlaceholder: 'name',
+        notificationNameMissing: 'You can\'t login without a name!'
+    },
+    tooltipOpenSidebar: "Click word to display on sidebar",
 };

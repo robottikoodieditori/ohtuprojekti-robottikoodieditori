@@ -1,8 +1,10 @@
 describe('sidebar Functionality', function() {
-  beforeEach(function() {
-      cy.visit('http://localhost:3000');
-      cy.get('#popup').contains('Kirjaudu').click()
-  });
+    beforeEach(function() {
+        cy.visit('http://localhost:3000');
+        cy.get('#registration-name-input').type('example')
+        cy.get('#popup').contains('Kirjaudu').click(500)
+    });
+
 
   it('clicking command reveals documentation', function() {
       cy.get("#sidebar").contains("eteen").click();
@@ -48,9 +50,11 @@ describe('sidebar Functionality', function() {
 // in english
 describe('sidebar Functionality', function() {
   beforeEach(function() {
-      cy.visit('http://localhost:3000');
-      cy.get('#popup').contains('Kirjaudu').click()
-      cy.get("#navbar").contains("Switch to English").click();
+        cy.visit('http://localhost:3000');
+        cy.get('#registration-name-input').type('example')
+        cy.get('#popup').contains('Kirjaudu').click(500)
+
+        cy.get("#navbar").contains("Switch to English").click();
   });
 
     it('clicking command reveals documentation in english', function() {

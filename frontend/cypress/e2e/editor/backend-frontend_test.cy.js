@@ -1,6 +1,7 @@
 describe('Communication between Front- and backend', function() {
     beforeEach(function() {
         cy.visit('http://localhost:3000');
+        cy.get('#registration-name-input').type('example')
         cy.get('#popup').contains('Kirjaudu').click(500)
     });
 

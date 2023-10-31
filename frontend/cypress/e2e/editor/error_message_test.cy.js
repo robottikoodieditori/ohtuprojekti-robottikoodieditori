@@ -1,8 +1,10 @@
 describe('Error Message Functionality', () => {
-    beforeEach(() => {
+    beforeEach(function() {
         cy.visit('http://localhost:3000');
-        cy.get('#popup').contains('Kirjaudu').click(500);
+        cy.get('#registration-name-input').type('example')
+        cy.get('#popup').contains('Kirjaudu').click(500)
     });
+
 
     it('should display error messages appropriately', () => {
         // Scenario: Validate Error Message in Finnish
