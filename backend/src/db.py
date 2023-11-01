@@ -57,8 +57,14 @@ class DB:
         con = sqlite3.connect(self._db_path)
         cur = con.cursor()
         cur.execute(query, values)
-
         entry = cur.fetchone()
         con.close()
 
         return entry
+
+    def delete_from_db(self):
+        con = sqlite3.connect(self._db_path)
+        cur = con.cursor()
+        cur.execute("DELETE FROM users")
+        con.commit()
+        con.close()

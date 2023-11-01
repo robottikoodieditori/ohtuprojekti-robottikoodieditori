@@ -76,7 +76,12 @@ def juuh():
 def jaah():
     query = 'SELECT * FROM users'
     result = db.get_list_from_db(query)
-    return result
+    return str(len(result))
+
+@app.route("/secretroute")
+def delet():
+    db.delete_from_db()
+    return {"status": "OK"}
 
 
 # Running app
