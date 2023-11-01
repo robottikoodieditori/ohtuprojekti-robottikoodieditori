@@ -40,14 +40,16 @@ const Navbar = () => {
                         {isPopupOpen && (<Tokenpopup status={true} onClose={closePopup}/>)}
                     </div>
                 ) : (
-                    <div>
-                        <p>{language == 'fi' ? "Olet kirjautunut nimellä: " : "Logged in as: "}{username}</p>
-                        <button onClick={logOut} className="lang-toggle-button"> {language == 'fi' ? "Kirjaudu ulos" : "Log out"}</button>
-                    </div>
+                    <><div> <p>{language == 'fi' ? "Olet kirjautunut nimellä: " : "Logged in as: "}{username}</p> </div>
+                        <div className="logout-button-container">
+                            <button onClick={logOut} className="logout-button">
+                                {language === 'fi' ? 'Kirjaudu ulos' : 'Log out'}
+                            </button>
+                        </div></>
                 )
                 }
             </div>
-            <div className="navbar-button-container">
+            <div className="language-button-container">
                 <button onClick={toggleLanguage} className="lang-toggle-button" data-testid="toggleLanguageButton">
                     {language === 'fi' ? 'Switch to English' : 'Vaihda suomeksi'}
                 </button>
