@@ -1,3 +1,3 @@
 class User():
-    def validate(cursor, user):
+    def validate(self, cursor, user):
         pass

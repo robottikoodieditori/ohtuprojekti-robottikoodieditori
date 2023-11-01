@@ -23,14 +23,16 @@ class DB:
                 con.commit()
                 msg = 'Success'
 
-        except:
+        # pylint: disable=broad-exception-caught
+        except Exception:
             con.rollback()
             msg = 'Failure'
 
 
         finally:
             con.close()
-            return msg
+
+        return msg
 
     def get_list_from_db(self, query: str):
         """
@@ -50,7 +52,7 @@ class DB:
         con.close()
 
         return rows
-    
+
     def get_entry_from_db(self, query: str):
         con = sqlite3.connect(self._db_path)
         cur = con.cursor()
