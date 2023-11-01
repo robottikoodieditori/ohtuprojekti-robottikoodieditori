@@ -41,11 +41,11 @@ const Navbar = () => {
                     </div>
                 ) : (
                     <><div> <p>{language == 'fi' ? "Olet kirjautunut nimellä: " : "Logged in as: "}{username}</p> </div>
-                    <div className="logout-button-container">
-                        <button onClick={logOut} className="logout-button">
-                            {language === 'fi' ? 'Log out' : 'Kirjaudu ulos'}
-                        </button>
-                    </div></>
+                        <div className="logout-button-container">
+                            <button onClick={logOut} className="logout-button">
+                                {language === 'fi' ? 'Kirjaudu ulos' : 'Log out'}
+                            </button>
+                        </div></>
                 )
                 }
             </div>
