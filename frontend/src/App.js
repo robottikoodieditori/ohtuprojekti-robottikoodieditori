@@ -23,7 +23,7 @@ function App() {
         <LanguageProvider>
             <div className="app">
                 <div>
-                    <Tokenpopup/>
+                    <Tokenpopup status={true} onClose={""}/>
                 </div>
                 <div className="navbar">
                     <Navbar/>
