@@ -5,6 +5,7 @@ import json
 from flask import Flask, request, send_from_directory
 from mockcompiler import MockCompiler
 from users import User
+import user_service
 
 
 # Initializing flask app
@@ -42,6 +43,10 @@ def send_name():
     User(data["name"])
     return User.get_user()
 
+@app.route("/login", methods=["POST"])
+def login():
+    data = request.json
+    token = user_service.login(data["name"], data["password"])
 
 # Running app
 if __name__ == "__main__":
