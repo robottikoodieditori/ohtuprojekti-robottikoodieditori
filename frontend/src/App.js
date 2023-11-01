@@ -29,7 +29,7 @@ function App() {
                     <Navbar/>
                 </div>
                 <div className="main-content">
-                    <div className="editor">
+                    <div>
                         <EditorView date={data}/>
                     </div>  
                     <div className="sidebar">
