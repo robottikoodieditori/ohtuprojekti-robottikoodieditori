@@ -6,14 +6,17 @@ import user_service
 from db import DB
 
 
-app = Flask(__name__, static_folder="../build/static", template_folder="../build")
+app = Flask(__name__, static_folder="../build/static",
+            template_folder="../build")
 app.secret_key = "123"
 app.config['DB_PATH'] = "user_db.db"
 db = DB(app.config['DB_PATH'])
 
+
 @app.route('/')
 def main():
     return send_from_directory(directory=app.template_folder, path='index.html')
+
 
 @app.route('/data')
 def data():
@@ -35,7 +38,8 @@ def send_name():
     return jsonify({
         'status': 'OK',
         'name': data['name']
-        })
+    })
+
 
 @app.route("/login", methods=["POST"])
 def login():
@@ -49,6 +53,7 @@ def login():
     else:
         return "Invalid Credentials", 400
 
+
 @app.route("/register", methods=["POST"])
 def register():
     data = request.json
@@ -58,6 +63,7 @@ def register():
     else:
         return "Username already taken", 400
 
+
 @app.route('/asd')
 def juuh():
     data = 'INSERT INTO users (name, password) VALUES (?,?)'
@@ -65,11 +71,13 @@ def juuh():
     result = db.insert_entry(data, values)
     return f'asd {result}'
 
+
 @app.route('/asd1')
 def jaah():
     query = 'SELECT * FROM users'
     result = db.get_list_from_db(query)
     return result
+
 
 # Running app
 if __name__ == "__main__":
