@@ -7,6 +7,7 @@ const commsSlice = createSlice({
     initialState: {
         responseFromServer: '',
         notificationMessage: '',
+        nameFromServer: '',
     },
     reducers: {
         setResponseFromServer(state, action) {

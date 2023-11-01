@@ -11,13 +11,13 @@ function App() {
         <LanguageProvider>
             <div className="app">
                 <div>
-                    <Tokenpopup/>
+                    <Tokenpopup status={true} onClose={""}/>
                 </div>
                 <div className="navbar">
                     <Navbar/>
                 </div>
                 <div className="main-content">
-                    <div className="editor">
+                    <div>
                         <EditorView />
                     </div>  
                     <div className="sidebar">
