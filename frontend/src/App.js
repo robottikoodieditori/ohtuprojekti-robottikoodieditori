@@ -5,11 +5,14 @@ import Sidebar from "./components/sidebar";
 import Navbar from "./components/navbar";  
 import { LanguageProvider } from './contexts/languagecontext';
 import Tokenpopup from "./components/popup"
+import AdminView from "./components/adminView";
 
 function App() {
     const [data, setdata] = useState({
         Date: 'Loading...'
     })
+
+    const [showAdminView, setShowAdminView] = useState(false);
 
     useEffect(() => {
         commService
@@ -28,14 +31,21 @@ function App() {
                 <div className="navbar">
                     <Navbar/>
                 </div>
-                <div className="main-content">
-                    <div className="editor">
-                        <EditorView date={data}/>
-                    </div>  
-                    <div className="sidebar">
-                        <Sidebar/>
+                {showAdminView ? (
+                    <AdminView />
+                ) : (
+                    <div className="main-content">
+                        <div className="editor">
+                            <EditorView date={data}/>
+                        </div>  
+                        <div className="sidebar">
+                            <Sidebar/>
+                        </div>
                     </div>
-                </div>
+                )}
+                <button onClick={() => setShowAdminView(!showAdminView)}>
+                    Toggle Admin View
+                </button>
             </div>
         </LanguageProvider>
     );
