@@ -1,12 +1,12 @@
-import { useEffect, useState, useContext } from 'react';
+import { useState, useContext } from 'react';
 import Popup from 'reactjs-popup';
 import { sendName } from "../reducers/commsReducer";
 import { useDispatch } from 'react-redux';
 import { LanguageContext } from '../contexts/languagecontext';
 import '../css/popup.css'
 
-const Tokenpopup = () => {
-    const [open, setOpen] = useState(false);
+const Tokenpopup = ({status, onClose}) => {
+    const [open, setOpen] = useState(status);
     const { language, toggleLanguage, translations } = useContext(LanguageContext)
     const [username, setUsername] = useState('');
     const [notificationText, setNotificationText] = useState('')
@@ -31,15 +31,19 @@ const Tokenpopup = () => {
         dispatch(sendName(username));
         console.log(`Sending username to backend: ${username}`);
         setOpen(false);
+        if (onClose === "") {
+            return
+        }
+        onClose()
     };
 
     const handleClose = () => {
         setOpen(false);
+        if (onClose === "") {
+            return
+        }
+        onClose()
     }
-
-    useEffect(() => {
-        setOpen(true);
-    }, []);
 
     return (
         <div>
