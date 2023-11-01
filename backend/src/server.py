@@ -1,9 +1,7 @@
 # pylint: skip-file
-import json
 from flask import Flask, request, send_from_directory, jsonify
 from mockcompiler import MockCompiler
 from users import User
-import sqlite3
 from db import DB
 
 
@@ -15,6 +13,10 @@ db = DB(app.config['DB_PATH'])
 @app.route('/')
 def main():
     return send_from_directory(directory=app.template_folder, path='index.html')
+
+@app.route('/data')
+def data():
+    return {'status': 'OK'}
 
 
 @app.route("/send/compiler", methods=["POST"])
