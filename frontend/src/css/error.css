@@ -8,6 +8,8 @@
     width: 28%;        
     background-color: #FCC;
     border-radius: 5px;
+    right: 28%;
+    margin-left: auto;
   }
   
   .sResponse:hover {
@@ -45,7 +47,7 @@
     color: #e74c3c;
     font-weight: bold;
     margin: 5px 0;     
-    font-size: 0.9em;  
+    font-size: 0.9em
   }
   
   .errorCard p {

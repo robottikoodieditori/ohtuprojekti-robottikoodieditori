@@ -3,6 +3,7 @@
     height: 100%;
     background-color:rgb(170, 206, 253);
     box-shadow: 2px 0px 5px rgba(0, 0, 0, 0.1);
+    margin-left: auto;
   }
   
   .content {
@@ -14,7 +15,7 @@
   
   .search-bar {
     display: flex;
-    width: 90%;
+    width: 94%;
   }
   
   .search-bar input {
@@ -61,6 +62,7 @@
     padding: 10px 0;
     border-bottom: 2px solid rgba(255, 255, 255, 0.1);
     margin-bottom: 10px;
+    padding-right: 1vw;
   }
   
   .command-list {
