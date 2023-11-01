@@ -5,7 +5,6 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0 20px;
     width: 100%;
   }
   
@@ -33,4 +32,8 @@
   
   .lang-toggle-button:active {
     transform: scale(0.97);
+  }
+
+  h1{
+    padding: 0 20px;
   }
