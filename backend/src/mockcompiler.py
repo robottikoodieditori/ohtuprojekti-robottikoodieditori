@@ -23,7 +23,7 @@ class MockCompiler:
                     summa += len(wordlist[j])
                 errors.append(
                     {
-                        "message": "errorroror",
+                        "message": "error",
                         "start": summa,
                         "end": summa + len(wordlist[i]),
                     }
@@ -60,7 +60,7 @@ class MockCompiler:
                 errors.append(
                     {
                         "line": line_number + 1,
-                        "message": "errorror",
+                        "message": "error",
                         "start": match.start(1) + 1,
                         "end": match.end(1),
                     }
@@ -72,7 +72,7 @@ class MockCompiler:
         for match in matches:
             errors_with_raw_pos.append(
                 {
-                    "message": "errorror",
+                    "message": "error",
                     "start": match.start(1),
                     "end": match.end(1)
                 }

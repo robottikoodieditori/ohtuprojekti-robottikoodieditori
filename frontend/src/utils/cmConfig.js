@@ -23,7 +23,7 @@ const History = history({
 })
 
 const fixedHeightEditor = EditorView.theme({
-    "&": {height: '26vw', width: '70vw'},
+    "&": {height: '26vw', width: '75vw'},
     '.cm-scroller': {overflow: 'auto'}
 })
 

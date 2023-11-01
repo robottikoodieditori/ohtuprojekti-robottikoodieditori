@@ -1,6 +1,7 @@
 .button-container {
     display: flex;
     margin-top: 10px;
+    width: 40%;
   }
 
   .command-button {

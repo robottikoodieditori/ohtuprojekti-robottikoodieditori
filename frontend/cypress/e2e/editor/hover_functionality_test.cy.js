@@ -46,6 +46,6 @@ describe('Hover Functionality', function() {
         cy.get('#editor').type('{selectall}').type('MITEN uusi');
         cy.get('#COMPILEBUTTON').click().wait(100);
         cy.get('#editor').contains('MITEN').click()
-        cy.get('#tooltip').should('exist').should('contain', 'errorror')
+        cy.get('#tooltip').should('exist').should('contain', 'error')
     });
 });
