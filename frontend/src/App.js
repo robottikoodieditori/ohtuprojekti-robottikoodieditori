@@ -31,12 +31,16 @@ function App() {
                 <div className="navbar">
                     <Navbar/>
                 </div>
-                <div className="main-content">
-                    <div>
-                        <EditorView date={data}/>
-                    </div>  
-                    <div className="sidebar">
-                        <Sidebar/>
+                {showAdminView ? (
+                    <AdminView />
+                ) : (
+                    <div className="main-content">
+                        <div>
+                            <EditorView date={data}/>
+                        </div>  
+                        <div className="sidebar">
+                            <Sidebar/>
+                        </div>
                     </div>
                 )}
                 <button onClick={() => setShowAdminView(!showAdminView)}>
