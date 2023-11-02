@@ -1,5 +1,6 @@
 import sqlite3
 
+
 class DB:
     def __init__(self, db_path):
         self._db_path = db_path
@@ -7,7 +8,7 @@ class DB:
     def insert_entry(self, query: str, values: tuple):
         """
         Insert custom entry into db
-        
+
         Parameters:
             query: str: an sql insert query (IE. "INSERT INTO users (name, password) VALUES (?,?)") 
             values: tuple: tuple containing the values to be inputted into the entry
@@ -27,7 +28,6 @@ class DB:
         except Exception:
             con.rollback()
             msg = 'Failure'
-
 
         finally:
             con.close()
@@ -53,11 +53,10 @@ class DB:
 
         return rows
 
-    def get_entry_from_db(self, query: str):
+    def get_entry_from_db(self, query: str, values: tuple):
         con = sqlite3.connect(self._db_path)
         cur = con.cursor()
-        cur.execute(query)
-
+        cur.execute(query, values)
         entry = cur.fetchone()
         con.close()
 
