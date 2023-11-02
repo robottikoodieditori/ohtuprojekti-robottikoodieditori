@@ -61,10 +61,3 @@ class DB:
         con.close()
 
         return entry
-
-    def delete_from_db(self):
-        con = sqlite3.connect(self._db_path)
-        cur = con.cursor()
-        cur.execute("DELETE FROM users")
-        con.commit()
-        con.close()
