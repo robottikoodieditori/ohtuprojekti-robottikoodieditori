@@ -66,7 +66,7 @@ class MockCompiler:
                     }
                 )
 
-        #lines_of_logo = lines_of_logo.replace('\n', '')
+        # lines_of_logo = lines_of_logo.replace('\n', '')
         matches = re.finditer(pattern, lines_of_logo)
 
         for match in matches:
