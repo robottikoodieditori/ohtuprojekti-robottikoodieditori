@@ -1,10 +1,11 @@
 import unittest
 from db import DB
 from user_service import UserService
+from file_service import FileService
 import sqlite3
 import os
 
-class TestUser(unittest.TestCase):
+class TestFile(unittest.TestCase):
     def setUp(self):
         try:
             os.remove("test_db.db")
@@ -27,15 +28,16 @@ class TestUser(unittest.TestCase):
         
         con.commit()
         self.user_service = UserService(self.db)
-    
+        self.file_service = FileService(self.db)
+
     def tearDown(self):
         os.remove("test_db.db")
 
-    def test_register(self):
-        result = self.user_service.register("Arska", "choppah")
-        self.assertEqual(result, True)
-
-    def test_login(self):
-        self.user_service.register("Arska", "choppah")
-        result = self.user_service.login("Arska", "choppah")
-        self.assertTrue(result)
+    def test_save_file(self):
+        self.user_service.register("User", "Password")
+        result = self.user_service.login("User", "Password")
+        id = self.user_service.verify_token(result)
+        self.file_service.save_file('file', 'lorem ipsum', id)
+        result = self.user_service.get_user_files("User", "Password")
+        expected_list = [{'filename': 'file', 'textContent': 'lorem ipsum', 'name': 'User'}]
+        self.assertEqual(expected_list, result)
