@@ -13,7 +13,7 @@ class DB:
             values: tuple: tuple containing the values to be inputted into the entry
 
         Returns:
-            msg: str: message containing status info wheter action was succesful or no
+            msg: str: message containing status code (OK if succesful, FAIL else)
         """
         msg = ''
         try:
@@ -21,12 +21,11 @@ class DB:
                 cur = con.cursor()
                 cur.execute(query, values)
                 con.commit()
-                msg = 'Success'
+                msg = 'OK'
 
-        # pylint: disable=broad-exception-caught
         except Exception:
             con.rollback()
-            msg = 'Failure'
+            msg = 'FAIL'
 
 
         finally:

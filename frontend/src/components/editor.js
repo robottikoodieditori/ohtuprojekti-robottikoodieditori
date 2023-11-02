@@ -15,17 +15,17 @@ import { clearUnderlines } from '../utils/underlineExtension';
 import { LanguageContext } from '../contexts/languagecontext';
 
 
-const Editor = ({ textContent = '' }) => {
+const Editor = ({ textContent }) => {
     const dispatch = useDispatch()
-    const serverResponse = useSelector((state) => state.comms.responseFromServer)
+    const serverResponse = useSelector(state => state.comms.responseFromServer)
     const curWord = useRef('')
     const editor = useRef(null)
     const errorListRef = useRef([])
+    const languageRef = useRef('')
     const { language } = useContext(LanguageContext)
     const currentAutoCompleteModule = useRef(language === 'en' ? autoComplete_en : autoComplete_fi)
     const autoCompletionCompartment = new Compartment
     const hoverCompartment = new Compartment
-    const languageRef = useRef('')
 
     const exampleString = 'Logo...'
     

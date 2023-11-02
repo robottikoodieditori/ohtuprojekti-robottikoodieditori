@@ -1,7 +1,5 @@
-# pylint: skip-file
 from flask import Flask, request, send_from_directory, jsonify
 from mockcompiler import MockCompiler
-from users import User
 from db import DB
 
 
@@ -21,26 +19,26 @@ def data():
 
 @app.route("/send/compiler", methods=["POST"])
 def send_to_compiler():
-    data = request.json
+    content = request.json
     print(data)
-    errors = MockCompiler.compile2(data["code"], "Koodi")
+    errors = MockCompiler.compile2(content["code"], "Koodi")
     return jsonify(errors)
 
 
 @app.route("/send/name", methods=["POST"])
 def send_name():
-    data = request.json
+    content = request.json
     print(data)
     return jsonify({
         'status': 'OK',
-        'name': data['name']
+        'name': content['name']
         })
 
 @app.route('/asd')
 def juuh():
-    data = 'INSERT INTO users (name, password) VALUES (?,?)'
+    query = 'INSERT INTO users (name, password) VALUES (?,?)'
     values = ('Nimi', 'Salis')
-    result = db.insert_entry(data, values)
+    result = db.insert_entry(query, values)
     return f'asd {result}'
 
 @app.route('/asd1')
