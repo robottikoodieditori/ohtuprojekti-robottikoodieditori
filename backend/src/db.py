@@ -33,7 +33,7 @@ class DB:
 
         return msg
 
-    def get_list_from_db(self, query: str):
+    def get_list_from_db(self, query: str, values: tuple):
         """
         Get a list of entries with custom query from db
 
@@ -45,7 +45,7 @@ class DB:
         """
         con = sqlite3.connect(self._db_path)
         cur = con.cursor()
-        cur.execute(query)
+        cur.execute(query, values)
 
         rows = cur.fetchall()
         con.close()

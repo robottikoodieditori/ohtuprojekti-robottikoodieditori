@@ -2,35 +2,57 @@ import bcrypt
 import credentials
 
 
-def register(username, password, data_base):
-    pass_bytes = password.encode("utf-8")
-    salt = bcrypt.gensalt()
-    hashed = bcrypt.hashpw(pass_bytes, salt)
-    query = 'INSERT INTO users (name, password) VALUES (?,?)'
-    values = (username, hashed)
-    result = data_base.insert_entry(query, values)
-    if result == "OK":
-        return True
+class UserService:
+    def __init__(self, db):
+        self.db = db
 
-    return False
+    def register(self, username, password):
+        pass_bytes = password.encode("utf-8")
+        salt = bcrypt.gensalt()
+        hashed = bcrypt.hashpw(pass_bytes, salt)
+        query = 'INSERT INTO users (name, password) VALUES (?,?)'
+        values = (username, hashed)
+        result = self.db.insert_entry(query, values)
+        if result == "OK":
+            return True
 
-
-def login(username, password, data_base):
-    result = check_credentials(username, password, data_base)
-
-    if result:
-        token = credentials.get_token(username, password)
-        return token
-
-    return False
-
-
-def check_credentials(username, password, data_base):
-    db_entry = data_base.get_entry_from_db(
-        "SELECT name, password FROM users WHERE name = ?", (username,))
-    if not db_entry:
         return False
-    hashed = db_entry[1]
-    pass_bytes = password.encode("utf-8")
-    result = bcrypt.checkpw(pass_bytes, hashed)
-    return result
+
+
+    def login(self, username, password):
+        result = self.check_credentials(username, password)
+
+        if result:
+            token = credentials.get_token(username, result)
+            return token
+
+        return False
+    
+
+    def verify_token(self, token):
+        result = credentials.decode_token(token)
+        print(result)
+        if result['user_id']:
+            return result['user_id']
+        return False
+
+
+    def check_credentials(self, username, password):
+        db_entry = self.db.get_entry_from_db(
+            "SELECT name, password, id FROM users WHERE name = ?", (username,))
+        if not db_entry:
+            return False
+        hashed = db_entry[1]
+        pass_bytes = password.encode("utf-8")
+        result = bcrypt.checkpw(pass_bytes, hashed)
+        return db_entry[2] if result else False
+
+    def get_user_files(self, username, password):
+        if not self.check_credentials(username, password):
+            return 'FAIL'
+        query = 'SELECT l.filename, l.content, u.name FROM logofiles l, users u WHERE u.name=? AND l.user_id=u.id'
+        file_list = self.db.get_list_from_db(query, (username,))
+        file_list = [{'filename': row[0], 'textContent': row[1], 'name': row[2]} for row in file_list]
+        
+        return file_list
+    

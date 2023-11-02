@@ -1,0 +1,8 @@
+POST http://localhost:5000/user/save
+Content-Type: application/json
+
+{
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkFyc2thIiwicGFzc3dvcmQiOiJjaG9wcGFoIiwidXNlcl9pZCI6MX0.wtuvR8OJAknw6sQ_5GXiyANnJ4ts1lNoqgLJHLDVg1k",
+    "filename": "Äitis näkönen stönkmän",
+    "textContent": "Immun tuomio"
+}
