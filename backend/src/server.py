@@ -1,7 +1,5 @@
-# pylint: skip-file
 from flask import Flask, request, send_from_directory, jsonify
 from mockcompiler import MockCompiler
-from users import User
 import user_service
 from db import DB
 
@@ -25,29 +23,29 @@ def data():
 
 @app.route("/send/compiler", methods=["POST"])
 def send_to_compiler():
-    data = request.json
+    content = request.json
     print(data)
-    errors = MockCompiler.compile2(data["code"], "Koodi")
+    errors = MockCompiler.compile2(content["code"], "Koodi")
     return jsonify(errors)
 
 
 @app.route("/send/name", methods=["POST"])
 def send_name():
-    data = request.json
+    content = request.json
     print(data)
     return jsonify({
         'status': 'OK',
-        'name': data['name']
+        'name': content['name']
     })
 
 
 @app.route("/login", methods=["POST"])
 def login():
-    data = request.json
-    token = user_service.login(data["name"], data["password"], db)
+    content = request.json
+    token = user_service.login(content["name"], content["password"], db)
     if token:
         return jsonify({
-            "name": data["name"],
+            "name": content["name"],
             "token": token
         })
     else:
@@ -56,8 +54,8 @@ def login():
 
 @app.route("/register", methods=["POST"])
 def register():
-    data = request.json
-    result = user_service.register(data["name"], data["password"], db)
+    content = request.json
+    result = user_service.register(content["name"], content["password"], db)
     if result:
         return {"status": "OK"}
     else:

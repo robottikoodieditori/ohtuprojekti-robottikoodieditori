@@ -20,12 +20,15 @@ class TestUser(unittest.TestCase):
         )''')
         cur.execute('''CREATE TABLE logofiles (
             id INTEGER PRIMARY KEY,
+            filename TEXT,
             content TEXT,
             user_id INTEGER REFERENCES users
         )''')
         
         con.commit()
-        
+    
+    def tearDown(self):
+        os.remove("test_db.db")
 
     def test_register(self):
         result = user_service.register("Arska", "choppah", self.db)

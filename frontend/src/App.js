@@ -5,8 +5,7 @@ import { LanguageProvider } from './contexts/languagecontext';
 import Tokenpopup from "./components/popup"
 
 function App() {
-
-
+    document.title = 'Logomotion editor'
     return (
         <LanguageProvider>
             <div className="app">

@@ -9,7 +9,7 @@ def register(username, password, data_base):
     query = 'INSERT INTO users (name, password) VALUES (?,?)'
     values = (username, hashed)
     result = data_base.insert_entry(query, values)
-    if result == "Success":
+    if result == "OK":
         return True
 
     return False
