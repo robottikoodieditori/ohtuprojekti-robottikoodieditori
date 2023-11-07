@@ -30,7 +30,7 @@ jobs:
         run: touch user_db.db
       - name: Create database
         working-directory: ./backend
-        run: sqlite3 user_db.db" < schema.sql
+        run: sqlite3 user_db.db < schema.sql
       - name: Test backend
         working-directory: ./backend
         run: poetry run invoke test
