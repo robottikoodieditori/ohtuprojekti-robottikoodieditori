@@ -3,8 +3,9 @@ import credentials
 
 
 class UserService:
-    def __init__(self, db):
+    def __init__(self, db, SECRET):
         self.db = db
+        self.secret_key = SECRET
 
     def register(self, username, password):
         pass_bytes = password.encode("utf-8")
@@ -18,24 +19,20 @@ class UserService:
 
         return False
 
-
     def login(self, username, password):
         result = self.check_credentials(username, password)
 
         if result:
-            token = credentials.get_token(username, result)
+            token = credentials.get_token(username, result, self.secret_key)
             return token
 
         return False
-    
 
     def verify_token(self, token):
-        result = credentials.decode_token(token)
-        print(result)
+        result = credentials.decode_token(token, self.secret_key)
         if result['user_id']:
             return result['user_id']
         return False
-
 
     def check_credentials(self, username, password):
         db_entry = self.db.get_entry_from_db(
@@ -52,7 +49,7 @@ class UserService:
             return 'FAIL'
         query = 'SELECT l.filename, l.content, u.name FROM logofiles l, users u WHERE u.name=? AND l.user_id=u.id'
         file_list = self.db.get_list_from_db(query, (username,))
-        file_list = [{'filename': row[0], 'textContent': row[1], 'name': row[2]} for row in file_list]
-        
+        file_list = [{'filename': row[0], 'textContent': row[1],
+                      'name': row[2]} for row in file_list]
+
         return file_list
-    

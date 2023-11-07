@@ -14,6 +14,22 @@ ROOT_DIR="$PWD/.."
 # Determine OS
 OS="$(uname)"
 
+# Function to generate a random secret key
+generate_secret_key() {
+  openssl rand -hex 32
+}
+
+# Generate a secret key
+SECRET_KEY=$(generate_secret_key)
+
+# Write the secret key to the .env file in the backend directory
+echo "SECRET_KEY=$SECRET_KEY" > "$ROOT_DIR/backend/.env"
+
+# Create an empty user_db.db file in the backend directory
+touch "$ROOT_DIR/backend/user_db.db"
+
+sqlite3 "$ROOT_DIR/backend/user_db.db" < "$ROOT_DIR/backend/schema.sql"
+
 # Install and run frontend in a new terminal
 if [ "$OS" == "Darwin" ]; then  # macOS
     osascript <<EOD
@@ -33,7 +49,5 @@ if [ "$OS" == "Darwin" ]; then  # macOS
     end tell
 EOD
 elif [ "$OS" == "Linux" ]; then
-
     gnome-terminal -- bash -c "cd \"$ROOT_DIR/backend\" && poetry install; poetry run invoke start"
 fi
-
