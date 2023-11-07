@@ -9,8 +9,7 @@ const commsSlice = createSlice({
         notificationMessage: '',
         nameFromServer: window.localStorage.getItem('username') || '',
         fileContentFromServer: '',
-        userFilesFromServer: [],
-        userName: ''
+        userFilesFromServer: false,
     },
     reducers: {
         setResponseFromServer(state, action) {
@@ -45,24 +44,22 @@ const commsSlice = createSlice({
             return state
         },
         setFileContentFromServer(state, action) {
-            state.fileContentFromServer = action.payload
+            state.fileContentFromServer = action.payload.textContent
             console.log(`SERVER RESPONDED WITH FILE CONTENT: ${state.fileContentFromServer}`)
             return state
         },
         setUserFilesFromServer(state, action) {
-            console.log(action.payload[0])
             state.userFilesFromServer = action.payload
             console.log(`SERVER RESPONDED WITH USER FILES: ${state.userFilesFromServer}`)
             return state
         },
         resetLogin(state) {
             state.nameFromServer = ''
+            state.UserFilesFromServer = ''
             window.localStorage.removeItem('token')
             window.localStorage.removeItem('username')
             return state
         }
-
-
     }
 })
 
@@ -90,7 +87,6 @@ export const logout = () => {
     )
 }
 
-
 export const login = username => {
     const password = 'password'
     return async dispatch => {
@@ -102,10 +98,9 @@ export const login = username => {
 
 export const saveFile = (content, filename) => {
     return async dispatch => {
-        console.log(filename + ' kakka')
         const res = await commService.sendFileContent(content, filename, window.localStorage.getItem('token'))
         console.log(res)
-        dispatch(setResponseFromServer(res))
+        dispatch(setNotificationMessage(res))
     }
 }
 
@@ -114,15 +109,24 @@ export const getUserFiles = (username) => {
         const password = 'password'
         const res = await commService.getUserFiles(username, password)
         console.log(res)
-        dispatch(setUserFilesFromServer(res))
+        if (res === 'FAIL'){
+            dispatch(setUserFilesFromServer(false))
+        } else {
+            dispatch(setUserFilesFromServer(res))
+        }
     }
 }
 
 export const getFileContent = (username, filename) => {
     return async dispatch => {
-        const res = await commService.getFileContent(username, filename)
-        console.log(res)
-        dispatch(setFileContentFromServer(res))
+        const password = 'password'
+        const res = await commService.getUserFiles(username, password)
+        const file = res.find(file => file.filename === filename) 
+        if (file) {
+            dispatch(setFileContentFromServer(file))
+        } else {
+            dispatch(setFileContentFromServer(''))
+        }
     }
 }
 

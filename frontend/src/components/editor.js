@@ -101,9 +101,9 @@ const Editor = ({ textContent }) => {
     }, [fileName])
 
     useEffect(() => {
-        editor.current.dispatch({changes: {from: 0, to: editor.current.state.doc.length, insert: fileContent.content}})
+        editor.current.dispatch({changes: {from: 0, to: editor.current.state.doc.length, insert: fileContent}})
 
-    }, [fileContent.content])
+    }, [fileContent])
 
     useEffect(() => {
         currentAutoCompleteModule.current = language === 'en' ? autoComplete_en : autoComplete_fi
