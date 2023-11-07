@@ -1,12 +1,7 @@
 import axios from "axios";
 
-const getData = () => {
-    const req = axios.get("/data")
-    return req.then(res => res.data)
-}
-
 const sendToCompile = async (code) => {
-    const res = await axios.post('/send/compiler', {'data': code})
+    const res = await axios.post('/send/compiler', {'code': code})
     return res.data
 }
 
@@ -16,7 +11,6 @@ const sendName = async (name) => {
 }
 
 export default {
-    getData: getData,
     sendToCompile: sendToCompile,
     sendName: sendName
 }

@@ -7,6 +7,7 @@ const commsSlice = createSlice({
     initialState: {
         responseFromServer: '',
         notificationMessage: '',
+        nameFromServer: '',
     },
     reducers: {
         setResponseFromServer(state, action) {
@@ -15,8 +16,8 @@ const commsSlice = createSlice({
             return state
         },
         setNameFromServer(state, action) {
-            state.nameFromServer = action.payload
-            console.log(`SERVER RESPONDED WITH NAME: ${action.payload}`)
+            state.nameFromServer = action.payload.name
+            console.log(`SERVER RESPONDED WITH NAME: ${state.nameFromServer}`)
             return state
         },
         sendToCompiler(state) {
@@ -59,6 +60,7 @@ export const sendToServer = code => {
 export const sendName = code => {
     return async dispatch => {
         const res = await commService.sendName(code)
+        console.log(res)
         dispatch(setNameFromServer(res))
     }
 }
