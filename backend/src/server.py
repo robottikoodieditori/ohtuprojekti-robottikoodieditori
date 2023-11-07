@@ -7,7 +7,7 @@ from db import DB
 
 app = Flask(__name__, static_folder="../build/static",
             template_folder="../build")
-#app.secret_key = "123"
+# app.secret_key = "123"
 app.config['DB_PATH'] = "user_db.db"
 db = DB(app.config['DB_PATH'])
 user_service = UserService(db)
@@ -64,20 +64,24 @@ def register():
     else:
         return "Username already taken", 400
 
+
 @app.route("/user/files", methods=["POST"])
 def get_user_files():
     content = request.json
     files = user_service.get_user_files(content['name'], content['password'])
     return jsonify(files)
 
+
 @app.route("/user/save", methods=["POST"])
 def save_file():
     content = request.json
     id = user_service.verify_token(content['token'])
     if id:
-        result = file_service.save_file(content['filename'], content['textContent'], id)
+        result = file_service.save_file(
+            content['filename'], content['textContent'], id)
 
     return jsonify({result: result})
+
 
 # Running app
 if __name__ == "__main__":

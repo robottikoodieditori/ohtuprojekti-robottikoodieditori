@@ -5,6 +5,7 @@ from file_service import FileService
 import sqlite3
 import os
 
+
 class TestFile(unittest.TestCase):
     def setUp(self):
         try:
@@ -25,7 +26,7 @@ class TestFile(unittest.TestCase):
             content TEXT,
             user_id INTEGER REFERENCES users
         )''')
-        
+
         con.commit()
         self.user_service = UserService(self.db)
         self.file_service = FileService(self.db)
@@ -39,5 +40,6 @@ class TestFile(unittest.TestCase):
         id = self.user_service.verify_token(result)
         self.file_service.save_file('file', 'lorem ipsum', id)
         result = self.user_service.get_user_files("User", "Password")
-        expected_list = [{'filename': 'file', 'textContent': 'lorem ipsum', 'name': 'User'}]
+        expected_list = [{'filename': 'file',
+                          'textContent': 'lorem ipsum', 'name': 'User'}]
         self.assertEqual(expected_list, result)

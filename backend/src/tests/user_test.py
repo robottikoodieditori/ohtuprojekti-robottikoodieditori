@@ -4,6 +4,7 @@ from user_service import UserService
 import sqlite3
 import os
 
+
 class TestUser(unittest.TestCase):
     def setUp(self):
         try:
@@ -24,10 +25,10 @@ class TestUser(unittest.TestCase):
             content TEXT,
             user_id INTEGER REFERENCES users
         )''')
-        
+
         con.commit()
         self.user_service = UserService(self.db)
-    
+
     def tearDown(self):
         os.remove("test_db.db")
 
