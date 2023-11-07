@@ -1,11 +1,14 @@
+import { useState } from 'react';
 import EditorView from "./components/editorview";
 import Sidebar from "./components/sidebar";
 import Navbar from "./components/navbar";  
 import { LanguageProvider } from './contexts/languagecontext';
-import Tokenpopup from "./components/popup"
+import Tokenpopup from "./components/popup";
+import AdminView from "./components/adminView"; // Import AdminView
+import './css/footer.css'
 
 function App() {
-
+    const [isAdminView, setIsAdminView] = useState(false); // State to toggle admin view
 
     return (
         <LanguageProvider>
@@ -16,14 +19,26 @@ function App() {
                 <div className="navbar">
                     <Navbar/>
                 </div>
-                <div className="main-content">
-                    <div>
-                        <EditorView />
+                {isAdminView ? (
+                    <div className="admin-view">
+                        <AdminView />
                     </div>  
-                    <div className="sidebar">
-                        <Sidebar/>
+                ) : (
+                    <div className="main-content">
+                        <div>
+                            <EditorView />
+                        </div>  
+                        <div className="sidebar">
+                            <Sidebar/>
+                        </div>
                     </div>
-                </div>
+                )}
+                {/* Footer */}
+                <footer className="app-footer">
+                    <button onClick={() => setIsAdminView(!isAdminView)}>
+                        {isAdminView ? "Close Admin" : "Open Admin"}
+                    </button>
+                </footer>
             </div>
         </LanguageProvider>
     );
