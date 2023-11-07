@@ -8,6 +8,10 @@ const AdminView = () => {
     useEffect(() => {
         // Fetch users and files data here
     }, []);
+
+    const generatePin = () => {
+        return Math.floor(10000 + Math.random() * 90000).toString();
+    };
     
     return (
         <div className="admin-container">
@@ -24,6 +28,7 @@ const AdminView = () => {
                         value={pin}
                         onChange={(e) => setPin(e.target.value)}
                     />
+                    <button onClick={() => setPin(generatePin())}>Generate Random PIN</button>
                     <button onClick={() => {/* function to update PIN */}}>Update PIN</button>
                 </div>
             </section>
