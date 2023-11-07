@@ -8,6 +8,9 @@ const commsSlice = createSlice({
         responseFromServer: '',
         notificationMessage: '',
         nameFromServer: '',
+        fileContentFromServer: '',
+        userFilesFromServer: [],
+        userName: 'Tapio'
     },
     reducers: {
         setResponseFromServer(state, action) {
@@ -37,13 +40,31 @@ const commsSlice = createSlice({
             state.notificationMessage = ''
             console.log('RESET NOTIFICATION MESSAGE')
             return state
+        },
+        setFileContentFromServer(state, action) {
+            state.fileContentFromServer = action.payload
+            console.log(`SERVER RESPONDED WITH FILE CONTENT: ${state.fileContentFromServer}`)
+            return state
+        },
+        setUserFilesFromServer(state, action) {
+            state.userFilesFromServer = action.payload
+            console.log(`SERVER RESPONDED WITH USER FILES: ${state.userFilesFromServer}`)
+            return state
+        },
+        getUserName(state, action) {
+            state.userName = action.payload
+            console.log(`SERVER RESPONDED WITH USER FILES: ${state.userName}`)
+            return state
         }
+
+
     }
 })
 
 export const {
     setResponseFromServer, setNameFromServer, sendToCompiler,
-    sendToRobot, setNotificationMessage, resetNotificationMessage
+    sendToRobot, setNotificationMessage, resetNotificationMessage,
+    setFileContentFromServer, setUserFilesFromServer, getUserName
 } = commsSlice.actions
 
 
@@ -57,11 +78,35 @@ export const sendToServer = code => {
     }
 }
 
-export const sendName = code => {
+export const sendName = name => {
     return async dispatch => {
-        const res = await commService.sendName(code)
+        const res = await commService.sendName(name)
         console.log(res)
         dispatch(setNameFromServer(res))
+    }
+}
+
+export const saveFile = (content, filename, username) => {
+    return async dispatch => {
+        const res = await commService.sendFileContent(content, filename, username)
+        console.log(res)
+        //dispatch(setResponseFromServer(res))
+    }
+}
+
+export const getUserFiles = (username) => {
+    return async dispatch => {
+        const res = await commService.getUserFiles(username)
+        console.log(res)
+        dispatch(setUserFilesFromServer(res))
+    }
+}
+
+export const getFileContent = (username, filename) => {
+    return async dispatch => {
+        const res = await commService.getFileContent(username, filename)
+        console.log(res)
+        dispatch(setFileContentFromServer(res))
     }
 }
 

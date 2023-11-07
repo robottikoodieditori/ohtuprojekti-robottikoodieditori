@@ -21,7 +21,6 @@ const Editor = ({ textContent }) => {
     const curWord = useRef('')
     const editor = useRef(null)
     const errorListRef = useRef([])
-    const languageRef = useRef('')
     const { language } = useContext(LanguageContext)
     const currentAutoCompleteModule = useRef(language === 'en' ? autoComplete_en : autoComplete_fi)
     const autoCompletionCompartment = new Compartment
