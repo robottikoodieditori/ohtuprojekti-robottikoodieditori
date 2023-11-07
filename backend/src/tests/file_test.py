@@ -28,7 +28,7 @@ class TestFile(unittest.TestCase):
         )''')
 
         con.commit()
-        self.user_service = UserService(self.db)
+        self.user_service = UserService(self.db, 'mrsecret')
         self.file_service = FileService(self.db)
 
     def tearDown(self):

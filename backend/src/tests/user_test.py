@@ -27,7 +27,7 @@ class TestUser(unittest.TestCase):
         )''')
 
         con.commit()
-        self.user_service = UserService(self.db)
+        self.user_service = UserService(self.db, 'mrsecret')
 
     def tearDown(self):
         os.remove("test_db.db")

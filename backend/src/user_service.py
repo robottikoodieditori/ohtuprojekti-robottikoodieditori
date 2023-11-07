@@ -3,8 +3,9 @@ import credentials
 
 
 class UserService:
-    def __init__(self, db):
+    def __init__(self, db, SECRET):
         self.db = db
+        self.secret_key = SECRET
 
     def register(self, username, password):
         pass_bytes = password.encode("utf-8")
@@ -22,14 +23,13 @@ class UserService:
         result = self.check_credentials(username, password)
 
         if result:
-            token = credentials.get_token(username, result)
+            token = credentials.get_token(username, result, self.secret_key)
             return token
 
         return False
 
     def verify_token(self, token):
-        result = credentials.decode_token(token)
-        print(result)
+        result = credentials.decode_token(token, self.secret_key)
         if result['user_id']:
             return result['user_id']
         return False

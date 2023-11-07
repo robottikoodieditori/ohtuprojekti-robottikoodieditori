@@ -1,4 +1,5 @@
 from flask import Flask, request, send_from_directory, jsonify
+from os import getenv
 from mockcompiler import MockCompiler
 from user_service import UserService
 from file_service import FileService
@@ -7,10 +8,11 @@ from db import DB
 
 app = Flask(__name__, static_folder="../build/static",
             template_folder="../build")
-# app.secret_key = "123"
+
 app.config['DB_PATH'] = "user_db.db"
+app.config['SECRET_KEY'] = getenv('SECRET_KEY')
 db = DB(app.config['DB_PATH'])
-user_service = UserService(db)
+user_service = UserService(db, app.config['SECRET_KEY'])
 file_service = FileService(db)
 
 
