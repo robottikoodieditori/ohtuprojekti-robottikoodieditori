@@ -77,12 +77,23 @@ def get_user_files():
 @app.route("/user/save", methods=["POST"])
 def save_file():
     content = request.json
-    id = user_service.verify_token(content['token'])
-    if id:
+    user_id = user_service.verify_token(content['token'])
+    if user_id:
         result = file_service.save_file(
-            content['filename'], content['textContent'], id)
+            content['filename'], content['textContent'], user_id)
+        return jsonify({"result": result})
+    else:
+        return jsonify({"error": "Invalid or expired token"}), 401
 
-    return jsonify({result: result})
+
+@app.route('/admin/users', methods=['GET'])
+def list_users():
+    # Ensure only authorized admins can access this route
+    users = user_service.get_all_users()
+    print(users)
+    if users == 'FAIL':
+        return jsonify({'error': 'Unable to fetch users'}), 500
+    return jsonify(users)
 
 
 # Running app

@@ -51,5 +51,14 @@ class UserService:
         file_list = self.db.get_list_from_db(query, (username,))
         file_list = [{'filename': row[0], 'textContent': row[1],
                       'name': row[2]} for row in file_list]
-
         return file_list
+    
+    def get_all_users(self):
+        try:
+            query = 'SELECT id, name FROM users'
+            users = self.db.get_list_from_db(query, ())
+            return [{'id': user[0], 'name': user[1]} for user in users]
+        except Exception as e:
+            print(f"An error occurred: {e}")
+            return 'FAIL'
+
