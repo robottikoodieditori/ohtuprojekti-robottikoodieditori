@@ -36,6 +36,16 @@ def send_name():
         'name': data['name']
         })
 
+
+
+@app.route("/send/getfile", methods=["POST"])
+def send_content():
+    data = request.json
+    return jsonify({
+        'status': 'OK',
+        'content': data['filename']
+        })
+
 @app.route('/asd')
 def juuh():
     data = 'INSERT INTO users (name, password) VALUES (?,?)'

@@ -15,7 +15,7 @@ import { clearUnderlines } from '../utils/underlineExtension';
 import { LanguageContext } from '../contexts/languagecontext';
 
 
-const Editor = ({ textContent = '' }) => {
+const Editor = ({ textContent }) => {
     const dispatch = useDispatch()
     const serverResponse = useSelector((state) => state.comms.responseFromServer)
     const curWord = useRef('')
@@ -26,8 +26,10 @@ const Editor = ({ textContent = '' }) => {
     const autoCompletionCompartment = new Compartment
     const hoverCompartment = new Compartment
     const languageRef = useRef('')
-
+    const fileName = useSelector((state) => state.editor.fileName)
     const exampleString = 'Logo...'
+    const fileContent = useSelector((state) => state.comms.fileContentFromServer)
+
     
     const onUpdate = EditorView.updateListener.of((v) => {
         if (v.docChanged) {
@@ -96,7 +98,12 @@ const Editor = ({ textContent = '' }) => {
         return () => {
             view.destroy()
         }
-    }, [])
+    }, [fileName])
+
+    useEffect(() => {
+        editor.current.dispatch({changes: {from: 0, to: editor.current.state.doc.length, insert: fileContent.content}})
+
+    }, [fileContent.content])
 
     useEffect(() => {
         currentAutoCompleteModule.current = language === 'en' ? autoComplete_en : autoComplete_fi
