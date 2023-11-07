@@ -1,4 +1,4 @@
-import { useState, useContext } from 'react';
+import { useState, useContext, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { LanguageContext } from '../contexts/languagecontext';
 import '../css/index.css';
@@ -11,17 +11,15 @@ import { setFileName } from '../reducers/editorReducer';
 
 
 const EditorNavbar = () => {
+    const dispatch = useDispatch();
     const { language } = useContext(LanguageContext);
     const username = useSelector(state => state.comms.userName)
-    getUserFiles(username)
-    //const files = useSelector((state) => state.comms.userFiles)
-    const mockFile = ["File1", "File2", "File3"]
+    const files = useSelector((state) => state.comms.userFilesFromServer)
     const content = useSelector((state) => state.editor.textContent)
-    const dispatch = useDispatch();
     const [selectedFile, setSelectedFile] = useState("");
     const [showNewFileInput, setShowNewFileInput] = useState(false);
     const fileName = useSelector((state) => state.editor.fileName)
-
+    
     const setNewFileName = () => {
         if (fileName === '') {
             setShowNewFileInput(true);
@@ -29,9 +27,12 @@ const EditorNavbar = () => {
             saveToFile(fileName)
         }
     }
+    useEffect(() => {
+        dispatch(getUserFiles(window.localStorage.getItem('username')))
+    }, [])
 
     const saveToFile = (fileName) => {
-        dispatch(saveFile(content, fileName, username))
+        dispatch(saveFile(content, fileName))
     };
 
     const openFile = (filename) => {
@@ -56,7 +57,8 @@ const EditorNavbar = () => {
     const handleSaveAsClick = (event) => {
         event.preventDefault();
         dispatch(setFileName(event.target.elements.newFileNameInput.value))
-        dispatch(saveToFile(event.target.elements.newFileNameInput.value))
+        console.log(event.target.elements.newFileNameInput.value+ ' pissa')
+        dispatch(saveToFile(content, event.target.elements.newFileNameInput.value))
         setShowNewFileInput(false);
     };
 
@@ -82,16 +84,20 @@ const EditorNavbar = () => {
                     </form>
                 </div>
             )}
-            <p>{language === 'fi' ? "Avaa tiedosto" : "Open file"}</p>
-            <select name="files" id="fileSelect" value={selectedFile} onChange={handleFileSelect}>
-                <option value="">{""}</option>
-                {mockFile.map((file, index) => (
-                    <option key={index} value={file}>
-                        {file}
-                    </option>
-                ))}
-            </select>
-            <button onClick={() => openFile(selectedFile)}>{language === 'fi' ? "Avaa" : "Open"}</button>
+            { files && username && (
+                <div className='paska'>
+                    <p>{language === 'fi' ? "Avaa tiedosto" : "Open file"}</p>
+                    <select name="files" id="fileSelect" value={selectedFile} onChange={handleFileSelect}>
+                        <option value="">{""}</option>
+                        {files.map((file) => (
+                            <option key={file.filename} value={file.filename}>
+                                {file.filename}
+                            </option>
+                        ))}
+                    </select>
+                    <button onClick={() => openFile(selectedFile)}>{language === 'fi' ? "Avaa" : "Open"}</button>
+                </div>
+            )}
         </div>
     );
     

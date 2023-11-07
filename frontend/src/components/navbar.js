@@ -5,7 +5,7 @@ import '../css/index.css';
 import '../css/navbar.css'
 import Tokenpopup from "./popup"
 import { useDispatch } from 'react-redux';
-import { sendName } from "../reducers/commsReducer";
+import { logout } from "../reducers/commsReducer";
 
 
 
@@ -25,8 +25,8 @@ const Navbar = () => {
         setIsPopupOpen(false);
     };
 
-    const logOut = () => {
-        dispatch(sendName(""));
+    const logOutFromServer = () => {
+        dispatch(logout());
         setIsPopupOpen(false)
     };
 
@@ -44,7 +44,7 @@ const Navbar = () => {
                         <div className='logout'>
                             <div className='username'> <p>{language == 'fi' ? "Olet kirjautunut nimellä: " : "Logged in as: "}{username}</p> </div>
                             <div className="logout-button-container">
-                                <button onClick={logOut} className="logout-button">
+                                <button onClick={logOutFromServer} className="logout-button">
                                     {language === 'fi' ? 'Kirjaudu ulos' : 'Log out'}
                                 </button>
                             </div>

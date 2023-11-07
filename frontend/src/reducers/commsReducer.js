@@ -7,10 +7,10 @@ const commsSlice = createSlice({
     initialState: {
         responseFromServer: '',
         notificationMessage: '',
-        nameFromServer: '',
+        nameFromServer: window.localStorage.getItem('username') || '',
         fileContentFromServer: '',
         userFilesFromServer: [],
-        userName: 'Tapio'
+        userName: ''
     },
     reducers: {
         setResponseFromServer(state, action) {
@@ -18,9 +18,12 @@ const commsSlice = createSlice({
             console.log(`SERVER RESPONDED WITH: ${action.payload}`)
             return state
         },
-        setNameFromServer(state, action) {
-            state.nameFromServer = action.payload.name
+        setLoginFromServer(state, action) {
+            state.nameFromServer = action.payload.username
             console.log(`SERVER RESPONDED WITH NAME: ${state.nameFromServer}`)
+            window.localStorage.setItem('token', action.payload.token)
+            window.localStorage.setItem('username', action.payload.username)
+
             return state
         },
         sendToCompiler(state) {
@@ -47,13 +50,15 @@ const commsSlice = createSlice({
             return state
         },
         setUserFilesFromServer(state, action) {
+            console.log(action.payload[0])
             state.userFilesFromServer = action.payload
             console.log(`SERVER RESPONDED WITH USER FILES: ${state.userFilesFromServer}`)
             return state
         },
-        getUserName(state, action) {
-            state.userName = action.payload
-            console.log(`SERVER RESPONDED WITH USER FILES: ${state.userName}`)
+        resetLogin(state) {
+            state.nameFromServer = ''
+            window.localStorage.removeItem('token')
+            window.localStorage.removeItem('username')
             return state
         }
 
@@ -62,9 +67,10 @@ const commsSlice = createSlice({
 })
 
 export const {
-    setResponseFromServer, setNameFromServer, sendToCompiler,
+    setResponseFromServer, setLoginFromServer, sendToCompiler,
     sendToRobot, setNotificationMessage, resetNotificationMessage,
-    setFileContentFromServer, setUserFilesFromServer, getUserName
+    setFileContentFromServer, setUserFilesFromServer, getUserName,
+    resetLogin
 } = commsSlice.actions
 
 
@@ -78,25 +84,35 @@ export const sendToServer = code => {
     }
 }
 
-export const sendName = name => {
+export const logout = () => {
+    return async dispatch => (
+        dispatch(resetLogin())
+    )
+}
+
+
+export const login = username => {
+    const password = 'password'
     return async dispatch => {
-        const res = await commService.sendName(name)
+        const res = await commService.sendLogin(username, password)
         console.log(res)
-        dispatch(setNameFromServer(res))
+        dispatch(setLoginFromServer(res))
     }
 }
 
-export const saveFile = (content, filename, username) => {
+export const saveFile = (content, filename) => {
     return async dispatch => {
-        const res = await commService.sendFileContent(content, filename, username)
+        console.log(filename + ' kakka')
+        const res = await commService.sendFileContent(content, filename, window.localStorage.getItem('token'))
         console.log(res)
-        //dispatch(setResponseFromServer(res))
+        dispatch(setResponseFromServer(res))
     }
 }
 
 export const getUserFiles = (username) => {
     return async dispatch => {
-        const res = await commService.getUserFiles(username)
+        const password = 'password'
+        const res = await commService.getUserFiles(username, password)
         console.log(res)
         dispatch(setUserFilesFromServer(res))
     }
