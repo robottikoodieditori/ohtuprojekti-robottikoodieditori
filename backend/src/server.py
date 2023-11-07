@@ -19,9 +19,10 @@ def get_time():
     # Returning an api for showing in  reactjs
     return {"Date": ""}
 
-@app.route('/')
+
+@app.route("/")
 def main():
-    return send_from_directory(directory=app.template_folder, path='index.html')
+    return send_from_directory(directory=app.template_folder, path="index.html")
 
 
 @app.route("/send/compiler", methods=["POST"])
@@ -30,7 +31,7 @@ def send_to_compiler():
     data = data.decode("UTF-8").replace("'", '"')
     data = json.loads(data)
     errors = MockCompiler.compile2(data["data"], "Koodi")
-    # print(errors)
+    print(f"[server.py] errors: {errors}")
     return errors
 
 
