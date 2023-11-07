@@ -42,6 +42,15 @@ def send_name():
     })
 
 
+
+@app.route("/send/getfile", methods=["POST"])
+def send_content():
+    data = request.json
+    return jsonify({
+        'status': 'OK',
+        'content': data['filename']
+        })
+
 @app.route("/login", methods=["POST"])
 def login():
     content = request.json
