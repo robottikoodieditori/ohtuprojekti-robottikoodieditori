@@ -9,6 +9,7 @@ import './css/footer.css'
 
 function App() {
     const [isAdminView, setIsAdminView] = useState(false); // State to toggle admin view
+    document.title = 'Logomotion editor'; // Set the document title as received from origin/dev
 
     return (
         <LanguageProvider>
