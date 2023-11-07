@@ -25,15 +25,16 @@ const Response = () => {
             </div>
             {serverResponse.errors.map((res) => (
                 <div key={res.start} className="errorCard">
-                    <h5>{`${translations.response.message} ${res.message}`}</h5>
+                    <h5>{`${translations.response.message} ${res.fin}`}</h5>
                     <p>{`${translations.response.line} ${res.line}`}</p>
-                    <p>{`${translations.response.start} ${res.start} - ${translations.response.end} ${res.end}`}</p>
+                    <p>{`${translations.response.start} ${res.start} - ${translations.response.end} ${res.end-1}`}</p>
                 </div>
+
             ))}
         </div>
     );
-    
-    
+
+
 }
 
 export default Response;

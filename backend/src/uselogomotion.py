@@ -9,15 +9,17 @@ from logomotion.src.entities.symbol_tables import SymbolTables
 from logomotion.src.entities.preconfigured_functions import initialize_logo_functions
 from logomotion.src.lexer.lexer import Lexer
 from logomotion.src.code_generator.code_generator import JavaCodeGenerator
-from logomotion.src.code_generator.preconf_code_generator import JavaPreconfFuncsGenerator
+from logomotion.src.code_generator.preconf_code_generator import (
+    JavaPreconfFuncsGenerator,
+)
 from logomotion.src.utils.console_io import ConsoleIO
 from logomotion.src.utils.error_handler import ErrorHandler
 from logomotion.src.utils.logger import Logger
 
 # Load variables from .env file
 dotenv.load_dotenv()
-MESSAGE_LANG = 'FIN'
-CODE_GEN_LANG = 'Java'
+MESSAGE_LANG = "FIN"
+CODE_GEN_LANG = "Java"
 
 # MESSAGE_LANG = os.getenv("MESSAGE_LANG")
 # ODE_GEN_LANG = os.getenv("CODE_GEN_LANG")
@@ -52,8 +54,24 @@ def main(LOGO_CODE, path):
             )
             return jcg
 
-        err_msg = f"{CODE_GEN_LANG} is not an implemented" "programming language for code generator"
+        err_msg = (
+            f"{CODE_GEN_LANG} is not an implemented"
+            "programming language for code generator"
+        )
         raise Exception(err_msg)
+
+    def find_line_and_position_based_on_index(index: int):
+        lines_of_logo = LOGO_CODE.splitlines()
+        line_number = 1
+
+        for line in lines_of_logo:
+            if index - (len(line) + 1) < 0:
+                break
+
+            index -= len(line) + 1
+            line_number += 1
+
+        return (line_number, index + 1)
 
     def compile_logo():
         """Compiles a user given logo file and generates code if there are no errors.
@@ -77,11 +95,35 @@ def main(LOGO_CODE, path):
             logger.debug("Generated code:")
             # print('jahuu')
             start_node.generate_code()
-            code_generator.write(f'javafiles/{path}')
+
+            code_generator.write(f"javafiles/{path}")
+
+            return ([], [])
         else:
             # error_handler.create_json_file()
             error_handler.write_errors_to_console()
-            return error_handler.errors
+
+            # want to have error messages with format line, start, end
+            errors_with_pretty_position = []
+            for error in error_handler.errors:
+                start_index = error["start"]
+                end_index = error["end"]
+                length = end_index - start_index
+
+                line, position = find_line_and_position_based_on_index(start_index)
+
+                errors_with_pretty_position.append(
+                    {
+                        "fin": error["fin"],
+                        "eng": error["eng"],
+                        "start": position,
+                        "end": position + length,
+                        "line": line,
+                    }
+                )
+
+            return (errors_with_pretty_position, error_handler.errors)
+            #       pretty position              raw position
 
     # Create required classes for the compiler
     console_io = ConsoleIO()
@@ -93,14 +135,12 @@ def main(LOGO_CODE, path):
     code_generator = get_code_generator()
     parser = Parser(lexer, logger, symbol_tables, code_generator)
 
-    symbol_tables.functions = initialize_logo_functions(
-        symbol_tables.functions)
+    symbol_tables.functions = initialize_logo_functions(symbol_tables.functions)
 
     # Compile from logo to language defined with CODE_GEN .env variable
-    return compile_logo()
+    return compile_logo() or []
 
 
 # if __name__ == "__main__":
 def logo(LOGO_CODE, path):
-
     main(LOGO_CODE, path)

@@ -21,11 +21,11 @@ export const wordHover = ( updateCurWord, errorListRef, language ) => hoverToolt
     if ((start === pos && side < 0) || (end === pos && side > 0)) {
         return null;
     }
-    
+
     const word = view.state.doc.slice(start, end).toString();
     let definition = ''
     let errorWord = ''
-    
+
     const errorList = errorListRef.current
     if (errorList)  {
         errorWord = errorList.find((error) => error.from === start && error.to === end)
@@ -55,8 +55,8 @@ export const wordHover = ( updateCurWord, errorListRef, language ) => hoverToolt
             const markdown = parse(definition)
             container.innerHTML = `<small>${translations?.tooltipOpenSidebar}</small>${markdown}`
 
-  
-            return { 
+
+            return {
                 dom: container,
             };
         },
