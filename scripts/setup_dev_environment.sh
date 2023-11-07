@@ -29,6 +29,8 @@ echo "SECRET_KEY=$SECRET_KEY" > "$ROOT_DIR/backend/.env"
 touch "$ROOT_DIR/backend/user_db.db"
 
 sqlite3 "$ROOT_DIR/backend/user_db.db" < "$ROOT_DIR/backend/schema.sql"
+sqlite3 "$ROOT_DIR/backend/user_db.db" < "$ROOT_DIR/backend/test_data.sql"
+
 
 # Install and run frontend in a new terminal
 if [ "$OS" == "Darwin" ]; then  # macOS
