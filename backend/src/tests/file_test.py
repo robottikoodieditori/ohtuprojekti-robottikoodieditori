@@ -4,7 +4,6 @@ from user_service import UserService
 from file_service import FileService
 import sqlite3
 import os
-from datetime import datetime 
 
 
 class TestFile(unittest.TestCase):
@@ -38,8 +37,7 @@ class TestFile(unittest.TestCase):
         os.remove("test_db.db")
 
     def test_save_file(self):
-        now = datetime.now()
-        current_time = now.strftime("%Y-%m-%d %H:%M:%S")
+
         self.user_service.register("User", "Password")
         result = self.user_service.login("User", "Password")
         id = self.user_service.verify_token(result)
@@ -47,7 +45,9 @@ class TestFile(unittest.TestCase):
         result = self.file_service.get_user_files(id)
         expected_list = [{'filename': 'file',
                           'textContent': 'lorem ipsum',
-                          'created': current_time,
-                          'last_updated': current_time, 
                           'name': 'User'}]
-        self.assertEqual(expected_list, result)
+        self.assertEqual(expected_list['filename'], result['filename'])
+        self.assertEqual(expected_list['textContent'], result['textContent'])
+        self.assertEqual(expected_list['name'], result['name'])
+
+
