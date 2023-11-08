@@ -40,7 +40,7 @@ const Tokenpopup = ({status, onClose}) => {
     const handleClose = () => {
         setOpen(false);
         if (onClose === "") {
-            returneve
+            return
         }
         onClose()
     }
