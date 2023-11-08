@@ -46,8 +46,8 @@ class TestFile(unittest.TestCase):
         expected_list = [{'filename': 'file',
                           'textContent': 'lorem ipsum',
                           'name': 'User'}]
-        self.assertEqual(expected_list['filename'], result['filename'])
-        self.assertEqual(expected_list['textContent'], result['textContent'])
-        self.assertEqual(expected_list['name'], result['name'])
+        self.assertEqual(expected_list[0]['filename'], result[0]['filename'])
+        self.assertEqual(expected_list[0]['textContent'], result[0]['textContent'])
+        self.assertEqual(expected_list[0]['name'], result[0]['name'])
 
 
