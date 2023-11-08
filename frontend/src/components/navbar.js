@@ -5,7 +5,7 @@ import '../css/index.css';
 import '../css/navbar.css'
 import Tokenpopup from "./popup"
 import { useDispatch } from 'react-redux';
-import { sendName } from "../reducers/commsReducer";
+import { logout } from "../reducers/commsReducer";
 
 
 
@@ -25,8 +25,8 @@ const Navbar = () => {
         setIsPopupOpen(false);
     };
 
-    const logOut = () => {
-        dispatch(sendName(""));
+    const logOutFromServer = () => {
+        dispatch(logout());
         setIsPopupOpen(false)
     };
 
@@ -35,17 +35,22 @@ const Navbar = () => {
             <h1>{translations.navbar}</h1>
             <div>
                 { username === "" ? (
-                    <div>
+                    <div className='lang-toggle-button-container'>
                         <button onClick={openPopup} className="lang-toggle-button"> {language == 'fi' ? "Kirjaudu" : "Login"}</button>
                         {isPopupOpen && (<Tokenpopup status={true} onClose={closePopup}/>)}
                     </div>
                 ) : (
-                    <><div> <p>{language == 'fi' ? "Olet kirjautunut nimellä: " : "Logged in as: "}{username}</p> </div>
-                        <div className="logout-button-container">
-                            <button onClick={logOut} className="logout-button">
-                                {language === 'fi' ? 'Kirjaudu ulos' : 'Log out'}
-                            </button>
-                        </div></>
+                    <>
+                        <div className='logout'>
+                            <div className='username'> <p>{language == 'fi' ? "Olet kirjautunut nimellä: " : "Logged in as: "}{username}</p> </div>
+                            <div className="logout-button-container">
+                                <button onClick={logOutFromServer} className="logout-button">
+                                    {language === 'fi' ? 'Kirjaudu ulos' : 'Log out'}
+                                </button>
+                            </div>
+                        
+                        </div>
+                    </>
                 )
                 }
             </div>

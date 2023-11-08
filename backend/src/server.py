@@ -44,33 +44,45 @@ def send_name():
     })
 
 
+
+@app.route("/send/getfile", methods=["POST"])
+def send_content():
+    data = request.json
+    return jsonify({
+        'status': 'OK',
+        'content': data['filename']
+        })
+
 @app.route("/login", methods=["POST"])
 def login():
     content = request.json
-    token = user_service.login(content["name"], content["password"])
+    token = user_service.login(content["username"], content["password"])
     if token:
         return jsonify({
-            "name": content["name"],
+            "username": content["username"],
             "token": token
         })
     else:
-        return "Invalid Credentials", 400
+        result = user_service.register(content["username"], content["password"])
+        if result:
+            token = user_service.login(content["username"], content["password"])
+            if token:
+                return jsonify({
+                    "username": content["username"],
+                    "token": token
+                })
+            else:
+                return "Invalid Credentials", 400
 
-
-@app.route("/register", methods=["POST"])
-def register():
-    content = request.json
-    result = user_service.register(content["name"], content["password"])
-    if result:
-        return {"status": "OK"}
-    else:
-        return "Username already taken", 400
+        else:
+            return "Username already taken", 400
 
 
 @app.route("/user/files", methods=["POST"])
 def get_user_files():
     content = request.json
-    files = user_service.get_user_files(content['name'], content['password'])
+    files = user_service.get_user_files(content['username'], content['password'])
+    print(files)
     return jsonify(files)
 
 
