@@ -104,7 +104,9 @@ const Editor = ({ textContent }) => {
     }, [language])
 
     return (
-        <div ref={editor} className="editor" id='editor' onClick={handleClick}></div>
+        <div>
+            <div ref={editor} className="editor" id='editor' onClick={handleClick} aria-label="Code Editor"></div>
+        </div>
     )
 }
 
