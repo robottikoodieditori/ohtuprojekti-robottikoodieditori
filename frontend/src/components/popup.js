@@ -1,6 +1,6 @@
 import { useState, useContext } from 'react';
 import Popup from 'reactjs-popup';
-import { sendName } from "../reducers/commsReducer";
+import { login } from "../reducers/commsReducer";
 import { useDispatch } from 'react-redux';
 import { LanguageContext } from '../contexts/languagecontext';
 import '../css/popup.css'
@@ -28,7 +28,7 @@ const Tokenpopup = ({status, onClose}) => {
             updateNotificationText(translations?.login.notificationNameMissing)
             return
         }
-        dispatch(sendName(username));
+        dispatch(login(username));
         console.log(`Sending username to backend: ${username}`);
         setOpen(false);
         if (onClose === "") {

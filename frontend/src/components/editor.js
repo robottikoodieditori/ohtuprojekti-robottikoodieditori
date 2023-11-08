@@ -21,13 +21,15 @@ const Editor = ({ textContent }) => {
     const curWord = useRef('')
     const editor = useRef(null)
     const errorListRef = useRef([])
-    const languageRef = useRef('')
     const { language } = useContext(LanguageContext)
     const currentAutoCompleteModule = useRef(language === 'en' ? autoComplete_en : autoComplete_fi)
     const autoCompletionCompartment = new Compartment
     const hoverCompartment = new Compartment
-
+    const languageRef = useRef('')
+    const fileName = useSelector((state) => state.editor.fileName)
     const exampleString = 'Logo...'
+    const fileContent = useSelector((state) => state.comms.fileContentFromServer)
+
     
     const onUpdate = EditorView.updateListener.of((v) => {
         if (v.docChanged) {
@@ -96,7 +98,12 @@ const Editor = ({ textContent }) => {
         return () => {
             view.destroy()
         }
-    }, [])
+    }, [fileName])
+
+    useEffect(() => {
+        editor.current.dispatch({changes: {from: 0, to: editor.current.state.doc.length, insert: fileContent}})
+
+    }, [fileContent])
 
     useEffect(() => {
         currentAutoCompleteModule.current = language === 'en' ? autoComplete_en : autoComplete_fi
