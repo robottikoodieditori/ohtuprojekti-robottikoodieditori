@@ -3,12 +3,29 @@
   color: white;
   height: 60px;
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
   align-items: center;
   width: 100%;
 }
 
+.username {
+  color:rgb(0, 0, 0);
+  font-family: Verdana, Arial, Helvetica, sans-serif;
+  display: flex;
+  padding-right: 20px;
+}
+
+.logout {
+  display: flex;
+}
+
 .language-button-container {
+  display: flex;
+  padding-right: 20px;
+}
+
+.lang-toggle-button-container {
+  display: flex;
   padding-right: 20px;
 }
 
@@ -30,12 +47,19 @@
   background-color: rgb(65, 81, 172);
 }
 
+.lang-toggle-button:focus {
+  background-color: rgb(65, 81, 172);
+  border-style: solid;
+  border-color: black;
+}
+
 .lang-toggle-button:active {
   transform: scale(0.97);
 }
 
 .logout-button-container {
-  align-items: center;
+  padding-right: 20px;
+  padding-top: 9px;
 }
 
 .logout-button {
@@ -56,10 +80,18 @@
   background-color: rgb(65, 81, 172);
 }
 
+.logout-button:focus {
+  background-color: rgb(65, 81, 172);
+  border-style: solid;
+  border-color: black;
+}
+
 .logout-button:active {
   transform: scale(0.97);
 }
 
 h1{
+  position: absolute;
+  left: 0;
   padding: 0 20px;
 }

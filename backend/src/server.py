@@ -1,5 +1,5 @@
-from flask import Flask, request, send_from_directory, jsonify
 from os import getenv
+from flask import Flask, request, send_from_directory, jsonify
 from mockcompiler import MockCompiler
 from user_service import UserService
 from file_service import FileService
@@ -33,48 +33,44 @@ def send_to_compiler():
     return jsonify(errors)
 
 
-@app.route("/send/name", methods=["POST"])
-def send_name():
-    content = request.json
-    print(data)
-    return jsonify({"status": "OK", "name": content["name"]})
-
-
 @app.route("/login", methods=["POST"])
 def login():
     content = request.json
-    token = user_service.login(content["name"], content["password"])
+    token = user_service.login(content["username"], content["password"])
     if token:
-        return jsonify({"name": content["name"], "token": token})
-    else:
+        return jsonify({"username": content["username"], "token": token})
+
+    result = user_service.register(content["username"], content["password"])
+    if result:
+        token = user_service.login(content["username"], content["password"])
+        if token:
+            return jsonify({"username": content["username"], "token": token})
+
         return "Invalid Credentials", 400
 
-
-@app.route("/register", methods=["POST"])
-def register():
-    content = request.json
-    result = user_service.register(content["name"], content["password"])
-    if result:
-        return {"status": "OK"}
-    else:
-        return "Username already taken", 400
+    return "Username already taken", 400
 
 
 @app.route("/user/files", methods=["POST"])
 def get_user_files():
     content = request.json
-    files = user_service.get_user_files(content["name"], content["password"])
-    return jsonify(files)
+    user_id = user_service.verify_token(content["token"])
+    if user_id:
+        result = file_service.get_user_files(user_id)
+        return jsonify(result)
+    return "Invalid Credentials", 400
 
 
 @app.route("/user/save", methods=["POST"])
 def save_file():
     content = request.json
-    id = user_service.verify_token(content["token"])
-    if id:
-        result = file_service.save_file(content["filename"], content["textContent"], id)
-
-    return jsonify({result: result})
+    user_id = user_service.verify_token(content["token"])
+    if user_id:
+        result = file_service.save_file(
+            content["filename"], content["textContent"], user_id
+        )
+        return jsonify({result: result})
+    return "Invalid Credentials", 400
 
 
 # Running app

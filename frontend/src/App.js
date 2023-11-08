@@ -10,7 +10,7 @@ function App() {
         <LanguageProvider>
             <div className="app">
                 <div>
-                    <Tokenpopup status={true} onClose={""}/>
+                    {!window.localStorage.getItem('username') && <Tokenpopup status={true} onClose={""}/> }
                 </div>
                 <div className="navbar">
                     <Navbar/>
