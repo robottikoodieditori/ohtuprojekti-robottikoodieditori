@@ -39,7 +39,9 @@ export const wordHover = ( updateCurWord, errorListRef, language ) => hoverToolt
         definition = docs[language.current][word]
         updateCurWord(word)
     } else {
-        definition = errorWord.message
+        language.current === 'fi'
+            ? definition = errorWord.fin
+            : definition = errorWord.eng
     }
 
 

@@ -105,6 +105,7 @@ def main(LOGO_CODE, path):
 
             # want to have error messages with format line, start, end
             errors_with_pretty_position = []
+            errors_with_raw_position = []
             for error in error_handler.errors:
                 start_index = error["start"]
                 end_index = error["end"]
@@ -122,7 +123,17 @@ def main(LOGO_CODE, path):
                     }
                 )
 
-            return (errors_with_pretty_position, error_handler.errors)
+                errors_with_raw_position.append(
+                    {
+                        "fin": error["fin"],
+                        "eng": error["eng"],
+                        "start": start_index,
+                        "end": start_index + length,
+                    }
+                )
+
+            return (errors_with_pretty_position, errors_with_raw_position)
+            # return (errors_with_pretty_position, error_handler.errors)
             #       pretty position              raw position
 
     # Create required classes for the compiler
