@@ -19,6 +19,13 @@ const underlineField = StateField.define({
 
         for (let e of tr.effects) {
             if (e.is(addUnderlineEffect)) {
+
+                // decoration range will be empty and
+                // crash if from and to are the same
+                if (e.value.from === e.value.to) {
+                    e.value.to = e.value.from + 1
+                }
+
                 underlines = underlines.update({
                     add: [underlineMark.range(e.value.from, e.value.to)]
                 });

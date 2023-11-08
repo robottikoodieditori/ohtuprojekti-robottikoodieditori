@@ -15,6 +15,10 @@ const commsSlice = createSlice({
         setResponseFromServer(state, action) {
             state.responseFromServer = action.payload
             console.log(`SERVER RESPONDED WITH: ${action.payload}`)
+            for(var property in action.payload) {
+                console.log(action.payload[property])
+                // alert(property + "=" + action.payload[property]);
+            }
             return state
         },
         setLoginFromServer(state, action) {
@@ -78,6 +82,8 @@ export const sendToServer = code => {
             res = {errors: res.errors, raw_errors: getErrorPositions(res.raw_errors)}
         }
         dispatch(setResponseFromServer(res))
+        console.log("SEND TO SERVER:")
+        console.log(res.raw_errors)
     }
 }
 

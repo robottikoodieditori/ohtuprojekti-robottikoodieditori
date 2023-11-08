@@ -5,7 +5,7 @@ import { EditorState, Compartment } from '@codemirror/state';
 import { defaultKeymap, insertTab } from '@codemirror/commands';
 import { autocompletion } from '@codemirror/autocomplete';
 import { setContent, setHighlightedWord } from '../reducers/editorReducer';
-import { extensions } from '../utils/cmConfig'; 
+import { extensions } from '../utils/cmConfig';
 import { wordHover } from '../utils/hoverTooltip';
 import { autoComplete_en } from '../utils/autocomplete_english';
 import { autoComplete_fi } from '../utils/autocomplete_finnish';
@@ -30,7 +30,7 @@ const Editor = ({ textContent }) => {
     const exampleString = 'Logo...'
     const fileContent = useSelector((state) => state.comms.fileContentFromServer)
 
-    
+
     const onUpdate = EditorView.updateListener.of((v) => {
         if (v.docChanged) {
             dispatch(setContent(v.state.doc.toString()))
@@ -52,7 +52,7 @@ const Editor = ({ textContent }) => {
 
     const updateLocal = (word) => curWord.current = word;
     const resetLocal = () => curWord.current = '';
-    
+
     const handleClick = () => {
         if (curWord.current !== '') {
             dispatch(setHighlightedWord(curWord.current));
@@ -66,7 +66,7 @@ const Editor = ({ textContent }) => {
             updateHovering(serverResponse.raw_errors, editor.current, languageRef)
         }
     }, [serverResponse])
-    
+
     useEffect(() => {
 
         let state = EditorState.create({
@@ -94,7 +94,7 @@ const Editor = ({ textContent }) => {
 
         let view = new EditorView({ state: state, parent: document.querySelector('#editor') })
         editor.current = view
-        
+
         return () => {
             view.destroy()
         }
