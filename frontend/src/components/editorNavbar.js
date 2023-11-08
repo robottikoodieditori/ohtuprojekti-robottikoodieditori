@@ -1,54 +1,81 @@
-import { useState, useContext, useEffect } from 'react';
-import { useSelector } from 'react-redux';
-import { LanguageContext } from '../contexts/languagecontext';
+import { useState, useContext, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { LanguageContext } from "../contexts/languagecontext";
+import { saveFile } from '../reducers/commsReducer';
+import { setFileName, setContent } from "../reducers/editorReducer";
+import commService from "../services/comms";
 import '../css/index.css';
-import '../css/editornavbar.css'
-import { useDispatch } from 'react-redux';
-import { saveFile, getUserFiles, getFileContent, setFileContentFromServer } from "../reducers/commsReducer";
-import { setFileName } from '../reducers/editorReducer';
-
-
-
+import '../css/editornavbar.css';
 
 const EditorNavbar = () => {
-    const dispatch = useDispatch();
-    const { language } = useContext(LanguageContext);
-
-    const username = useSelector(state => state.comms.nameFromServer)
-    const files = useSelector((state) => state.comms.userFilesFromServer)
-    const content = useSelector((state) => state.editor.textContent)
-    const fileName = useSelector((state) => state.editor.fileName)
-
-    const [showFileSelectInput, setFileSelectInput] = useState(false)
-    const [showNewFileInput, setShowNewFileInput] = useState(false);
-
-
-
-    const saveFileContent = () => {
-        if (fileName === '') {
-            setShowNewFileInput(true);
-        } else {
-            dispatch(saveFile(content, fileName))
-        }
-    }
+    const dispatch = useDispatch()
+    const { language } = useContext(LanguageContext)
+    const [currentView, setCurrentView] = useState('main')
+    //const [selectedFile, setSelectedFile] = useState(null)
+    const [fileList, setFileList] = useState([])
+    const fileName = useSelector(state => state.editor.fileName)
+    const textContent = useSelector(state => state.editor.textContent)
+    const username = useSelector(state => state.comms.username)
 
     useEffect(() => {
-        dispatch(getUserFiles(window.localStorage.getItem('username')))
+        async function getData() {
+            if (window.localStorage.getItem('username')) {
+                const data = await commService.getUserFiles(window.localStorage.getItem('username'))
+                console.log(data)
+                setFileList(data)
+            }
+        }
+        getData()
     }, [username])
 
-    const FileSelectionScreen = ({ onClose, files, onFileClick }) => {
+    const handleNewFile = () => {
+        setCurrentView('main')
+        // clear current file's text contents
+        dispatch(setContent(''))
+        window.localStorage.removeItem('textContent')
+
+        // clear current filename
+        window.localStorage.removeItem('filename')
+        dispatch(setFileName('temp'))
+        setTimeout(() => (
+            dispatch(setFileName(''))
+        ), 1)
+    }
+
+    const handleSaveNew = (event) => {
+        event.preventDefault()
+        dispatch(setFileName(event.target.elements.newFileNameInput.value))
+        window.localStorage.setItem('textContent', textContent)
+        window.localStorage.setItem('filename', event.target.elements.newFileNameInput.value)
+        dispatch(saveFile(textContent, event.target.elements.newFileNameInput.value))
+        setCurrentView('main')
+    }
+
+    const handleSaveExisting = () => {
+        if (!fileName) {
+            console.log('...')
+            setCurrentView('newFile')
+            return
+        }
+        console.log('JAHUU')
+        console.log(textContent)
+        window.localStorage.setItem('textContent', textContent)
+        console.log(localStorage.getItem('textContent'))
+    }
+
+    const FileSelectionScreen = () => {
         return (
-            <div className="file-select-overlay">
-                <div className="file-select-content">
+            <div className='file-select-overlay'>
+                <div className='file-select-content'>
                     <div className='file-select-header'>
-                        <button className="close-button" onClick={onClose}>X</button>
+                        <button className='close-button' onClick={() => setCurrentView('main')}>X</button>
                     </div>
                     <div className='content-file-select'>
-                        { files && (
+                        { fileList && (
                             <div>
-                                <h2>{language === 'fi' ? 'Valitse tiedosto' : 'Choose file'}</h2>
-                                {files.map(file => (
-                                    <div key={file.filename} onClick={() => onFileClick(file.filename)}>                           
+                                <h2>{language === 'fi' ? 'Valitse Tiedosto' : 'Choose File'}</h2>
+                                {fileList.map(file => (
+                                    <div key={file.filename} onClick={() => console.log('File', file.filename)}>
                                         <span>{file.filename}</span>
                                     </div>
                                 ))}
@@ -57,92 +84,42 @@ const EditorNavbar = () => {
                     </div>
                 </div>
             </div>
-        );
-    }
-
-
-    const NewFileScreen = ({ onClose }) => {
-        return (
-            <div className="file-select-overlay">
-                <div className="file-select-content">
-                    <div className='file-select-header'>
-                        <button className="close-button" onClick={onClose}>X</button>
-                    </div>
-                    <div className='content-file-select'>
-                        <h2>{language === 'fi' ? 'Anna uusi tiedoston nimi' : 'Enter a new file name'}</h2>
-                        <form onSubmit={handleSaveAsClick}>
-                            <label>                    
-                                <input
-                                    type="text"
-                                    placeholder={
-                                        language === "fi" ? "Anna uusi tiedostonimi" : "Enter a new file name"
-                                    }
-                                    id='newFileNameInput'
-                                />
-                            </label>
-                            <button type='submit'>
-                                {language === "fi" ? "Tallenna nimellä" : "Save as"}
-                            </button>
-                        </form>
-                    </div>
-                </div>
-            </div>
         )
     }
 
-
-    const newFile = () => {
-        dispatch(setFileName('temp'))
-        setTimeout(() => {
-            dispatch(setFileName(''))
-        }, 1)
-        setShowNewFileInput(false);
-        dispatch(setFileContentFromServer(''))
-    }
-
-    const handleSaveAsClick = (event) => {
-        event.preventDefault();
-        dispatch(setFileName(event.target.elements.newFileNameInput.value))
-        dispatch(saveFile(content, event.target.elements.newFileNameInput.value))
-        setShowNewFileInput(false);
-    };
-
-    const fileOpen = (fileName) => {
-        dispatch(getFileContent(username, fileName))
-        dispatch(setFileName(fileName))    
-    }
-
     return (
-        <div className="editornavbar" id="editornavbar">
-            <button onClick={newFile}>{language === 'fi' ? "Uusi Tiedosto" : "New File"} </button>
-            <button onClick={saveFileContent}>{language === 'fi' ? "Tallenna" : "Save"}</button>
-            {showNewFileInput && (
+        <div className='editornavbar' id='editornavbar'>
+            <button onClick={handleNewFile}>{language === 'fi' ? 'Uusi Tiedosto' : 'New File'}</button>
+            <button onClick={handleSaveExisting}>{language === 'fi' ? 'Tallenna' : 'Save'}</button>
+            {currentView === 'newFile' && (
                 <div>
+                    <form onSubmit={handleSaveNew}>
+                        <label>
+                            <input
+                                type='text'
+                                placeholder={
+                                    language === 'fi' ? 'Anna uusi tiedostonimi' : 'Enter a new file name'
+                                }
+                                id='newFileNameInput'
+                            />
+                        </label>
+                        <button type='submit'>
+                            {language === 'fi' ? 'Tallenna nimellä' : 'Save as'}
+                        </button>
+                    </form>
+                </div>
+            )
+            }
+
+            <button onClick={() => setCurrentView('selectScreen')}>{language === 'fi' ? 'Avaa Tiedosto' : 'Open File'}</button>
+            { currentView === 'selectScreen' &&
                     <div className='modal-overlay'>
-                        <NewFileScreen
-                            onClose={() => setShowNewFileInput(false)}
-                        />
+                        <FileSelectionScreen/>
                     </div>
-                </div>
-            )}
-
-            <button onClick={() => setFileSelectInput(true)}>{language === 'fi' ? "Avaa tiedosto" : "Open a file"}</button>
-
-            { showFileSelectInput && (
-                <div className='modal-overlay'>
-                    <FileSelectionScreen
-                        onClose={() => setFileSelectInput(false)}
-                        files={files}
-                        onFileClick={filename => {
-                            setFileSelectInput(false)
-                            fileOpen(filename);
-                        }}
-                    />
-                </div>
-            )}
+            }
+            <p>{language === 'fi' ? 'Tiedosto: ' : 'File: '}{fileName}</p>
         </div>
-    );
-    
+    )
 }
 
-export default EditorNavbar;
+export default EditorNavbar

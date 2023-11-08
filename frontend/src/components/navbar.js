@@ -11,12 +11,10 @@ import { logout } from "../reducers/commsReducer";
 
 const Navbar = () => {
     const { language, toggleLanguage, translations } = useContext(LanguageContext);
-    const username = useSelector((state) => state.comms.nameFromServer)
+    const username = useSelector((state) => state.comms.username)
     const [isPopupOpen, setIsPopupOpen] = useState(false);
     const dispatch = useDispatch();
 
-
-    //console.log("Navbar is rendering with language:", language);
     const openPopup = () => {
         setIsPopupOpen(true);
     };

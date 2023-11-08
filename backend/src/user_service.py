@@ -44,12 +44,10 @@ class UserService:
         result = bcrypt.checkpw(pass_bytes, hashed)
         return db_entry[2] if result else False
 
-    def get_user_files(self, username, password):
-        if not self.check_credentials(username, password):
-            return 'FAIL'
-        query = 'SELECT l.filename, l.content, u.name FROM logofiles l, users u WHERE u.name=? AND l.user_id=u.id'
+    def get_user_files(self, username):
+        query = 'SELECT l.filename, l.content, u.name, l.id FROM logofiles l, users u WHERE u.name=? AND l.user_id=u.id'
         file_list = self.db.get_list_from_db(query, (username,))
         file_list = [{'filename': row[0], 'textContent': row[1],
-                      'name': row[2]} for row in file_list]
+                      'name': row[2], 'id': row[3]} for row in file_list]
 
         return file_list
