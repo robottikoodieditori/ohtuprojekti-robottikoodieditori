@@ -24,6 +24,8 @@ class TestFile(unittest.TestCase):
             id INTEGER PRIMARY KEY,
             filename TEXT,
             content TEXT,
+            created TIME,
+            last_updated TIME,
             user_id INTEGER REFERENCES users
         )''')
 
@@ -39,7 +41,7 @@ class TestFile(unittest.TestCase):
         result = self.user_service.login("User", "Password")
         id = self.user_service.verify_token(result)
         self.file_service.save_file('file', 'lorem ipsum', id)
-        result = self.user_service.get_user_files("User", "Password")
+        result = self.file_service.get_user_files(id)
         expected_list = [{'filename': 'file',
                           'textContent': 'lorem ipsum', 'name': 'User'}]
         self.assertEqual(expected_list, result)
