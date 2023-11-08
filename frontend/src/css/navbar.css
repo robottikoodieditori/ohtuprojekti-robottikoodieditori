@@ -47,6 +47,12 @@
   background-color: rgb(65, 81, 172);
 }
 
+.lang-toggle-button:focus {
+  background-color: rgb(65, 81, 172);
+  border-style: solid;
+  border-color: black;
+}
+
 .lang-toggle-button:active {
   transform: scale(0.97);
 }
@@ -72,6 +78,12 @@
 
 .logout-button:hover {
   background-color: rgb(65, 81, 172);
+}
+
+.logout-button:focus {
+  background-color: rgb(65, 81, 172);
+  border-style: solid;
+  border-color: black;
 }
 
 .logout-button:active {
