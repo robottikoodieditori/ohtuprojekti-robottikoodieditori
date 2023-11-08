@@ -104,10 +104,9 @@ export const saveFile = (content, filename) => {
     }
 }
 
-export const getUserFiles = (username) => {
+export const getUserFiles = () => {
     return async dispatch => {
-        const password = 'password'
-        const res = await commService.getUserFiles(username, password)
+        const res = await commService.getUserFiles(window.localStorage.getItem('token'))
         console.log(res)
         if (res === 'FAIL'){
             dispatch(setUserFilesFromServer(false))
@@ -117,11 +116,10 @@ export const getUserFiles = (username) => {
     }
 }
 
-export const getFileContent = (username, filename) => {
+export const getFileContent = (filename) => {
     return async dispatch => {
-        const password = 'password'
-        const res = await commService.getUserFiles(username, password)
-        const file = res.find(file => file.filename === filename) 
+        const res = await commService.getUserFiles(window.localStorage.getItem('token'))
+        const file = res.find(file => file.filename === filename)
         if (file) {
             dispatch(setFileContentFromServer(file))
         } else {

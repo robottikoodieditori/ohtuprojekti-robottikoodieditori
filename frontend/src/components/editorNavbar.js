@@ -33,7 +33,9 @@ const EditorNavbar = () => {
     }
 
     useEffect(() => {
-        dispatch(getUserFiles(window.localStorage.getItem('username')))
+        if (username) {
+            dispatch(getUserFiles())
+        }
     }, [username])
 
     const FileSelectionScreen = ({ onClose, files, onFileClick }) => {
@@ -108,7 +110,7 @@ const EditorNavbar = () => {
     };
 
     const fileOpen = (fileName) => {
-        dispatch(getFileContent(username, fileName))
+        dispatch(getFileContent(fileName))
         dispatch(setFileName(fileName))    
     }
 
