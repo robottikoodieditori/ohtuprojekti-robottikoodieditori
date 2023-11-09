@@ -11,6 +11,7 @@ const sendLogin = async (username, password) => {
 }
 
 const sendFileContent = async (content, filename ) => {
+    console.log(content, 'asd')
     const res = await axios.post('/file/save', {
         'textContent': content, 'filename': filename,
         'token': window.localStorage.getItem('token')

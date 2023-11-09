@@ -11,24 +11,23 @@ const EditorNavbar = () => {
     const dispatch = useDispatch()
     const { language } = useContext(LanguageContext)
     const [currentView, setCurrentView] = useState('main')
-    //const [selectedFile, setSelectedFile] = useState(null)
     const [fileList, setFileList] = useState([])
     const fileName = useSelector(state => state.editor.fileName)
     const textContent = useSelector(state => state.editor.textContent)
     const username = useSelector(state => state.comms.username)
 
     useEffect(() => {
-        async function getData() {
-            if (window.localStorage.getItem('username')) {
-                const data = await commService.getUserFiles(window.localStorage.getItem('username'))
-                console.log(data)
-                setFileList(data)
-            } else {
-                setFileList([])
-            }
-        }
         getData()
     }, [username])
+
+    async function getData() {
+        if (window.localStorage.getItem('username')) {
+            const data = await commService.getUserFiles()
+            setFileList(data)
+        } else {
+            setFileList([])
+        }
+    }
 
     const handleNewFile = () => {
         setCurrentView('main')
@@ -42,27 +41,37 @@ const EditorNavbar = () => {
         setTimeout(() => (
             dispatch(setFileName(''))
         ), 1)
+        getData()
     }
 
     const handleSaveNew = (event) => {
         event.preventDefault()
-        dispatch(setFileName(event.target.elements.newFileNameInput.value))
-        window.localStorage.setItem('textContent', textContent)
-        window.localStorage.setItem('filename', event.target.elements.newFileNameInput.value)
-        dispatch(saveFile(textContent, event.target.elements.newFileNameInput.value))
-        setCurrentView('main')
+        if (username) {
+            dispatch(setFileName(event.target.elements.newFileNameInput.value))
+            window.localStorage.setItem('textContent', textContent)
+            window.localStorage.setItem('filename', event.target.elements.newFileNameInput.value)
+            dispatch(saveFile(textContent, event.target.elements.newFileNameInput.value))
+            setCurrentView('main')
+            getData()            
+        }
     }
 
     const handleSaveExisting = () => {
         if (!fileName) {
-            console.log('...')
             setCurrentView('newFile')
             return
         }
-        console.log('JAHUU')
-        console.log(textContent)
         window.localStorage.setItem('textContent', textContent)
-        console.log(localStorage.getItem('textContent'))
+        dispatch(saveFile(textContent, fileName))
+        getData()
+    }
+
+    const handleFileSelection = (file) => {
+        dispatch(setContent(file.textContent))
+        window.localStorage.setItem('textContent', file.textContent)
+        dispatch(setFileName(file.filename))
+        window.localStorage.setItem('filename', file.filename)
+        setCurrentView('main')
     }
 
     const FileSelectionScreen = () => {
@@ -76,11 +85,24 @@ const EditorNavbar = () => {
                         { fileList && (
                             <div>
                                 <h2>{language === 'fi' ? 'Valitse Tiedosto' : 'Choose File'}</h2>
-                                {fileList.map(file => (
-                                    <div key={file.filename} onClick={() => console.log('File', file.filename)}>
-                                        <span>{file.filename}</span>
-                                    </div>
-                                ))}
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <td>{language === 'fi' ? 'Tiedostonimi' : 'Filename'}</td>
+                                            <td>{language === 'fi' ? 'Luotu' : 'Created at'}</td>
+                                            <td>{language === 'fi' ? 'Viimeksi muokattu' : 'Last edited'}</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {fileList.map(file => (
+                                            <tr key={file.filename} className='' onClick={() => handleFileSelection(file)}>
+                                                <td>{file.filename}</td>
+                                                <td>{file.created}</td>
+                                                <td>{file.last_updated}</td>
+                                            </tr>
+                                        ))}
+                                    </tbody>
+                                </table>
                             </div>
                         )}
                     </div>
