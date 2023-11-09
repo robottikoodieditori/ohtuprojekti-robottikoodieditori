@@ -21,9 +21,9 @@ describe('Login functionality', function() {
     })
 
     it('Attempting to open a file', function() {
-        cy.get('#editornavbar').contains('Avaa Tiedosto').click(500)
+        cy.get('#editornavbar').contains('Avaa Tiedosto').click(500).wait(500)
         cy.get("#overlay").contains('Valitse tiedosto')
-        cy.get("#overlay").contains('testi').click(500)
+        cy.get("#overlay").contains('testi').click(1000)
         cy.get("#editor").should('contain', 'eteen 10')
     })
 })
