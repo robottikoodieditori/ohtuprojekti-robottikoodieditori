@@ -76,9 +76,39 @@ const EditorNavbar = () => {
         setCurrentView('main')
     }
 
+
+    const NewFileScreen = () => {
+        return (
+            <div className="file-select-overlay" id="file-select-overlay">
+                <div className="file-select-content">
+                    <div className='file-select-header'>
+                        <button className="close-button" onClick={() => setCurrentView('main')}>X</button>
+                    </div>
+                    <div className='content-file-select' id='content-file-select'>
+                        <h2>{translations?.editorNavbar.filenamePlaceholder}</h2>
+                        <form onSubmit={handleSaveNew}>
+                            <label>                    
+                                <input
+                                    type="text"
+                                    placeholder={
+                                        translations?.editorNavbar.filenamePlaceholder
+                                    }
+                                    id='newFileNameInput'
+                                />
+                            </label>
+                            <button type='submit'>
+                                {translations?.editorNavbar.saveWithName}
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        )
+    }
+
     const FileSelectionScreen = () => {
         return (
-            <div className='file-select-overlay'>
+            <div className='file-select-overlay' id="file-select-overlay">
                 <div className='file-select-content'>
                     <div className='file-select-header'>
                         <button className='close-button' onClick={() => setCurrentView('main')}>X</button>
@@ -117,24 +147,10 @@ const EditorNavbar = () => {
         <div className='editornavbar' id='editornavbar'>
             <button onClick={handleNewFile}>{translations?.editorNavbar.newFile}</button>
             <button onClick={handleSaveExisting}>{translations?.editorNavbar.saveFile}</button>
-            {currentView === 'newFile' && (
-                <div>
-                    <form onSubmit={handleSaveNew}>
-                        <label>
-                            <input
-                                type='text'
-                                placeholder={
-                                    translations?.editorNavbar.filenamePlaceholder
-                                }
-                                id='newFileNameInput'
-                            />
-                        </label>
-                        <button type='submit'>
-                            {translations?.editorNavbar.saveWithName}
-                        </button>
-                    </form>
+            {currentView === 'newFile' && 
+                <div className='modal-overlay'>
+                    <NewFileScreen/>
                 </div>
-            )
             }
 
             <button onClick={() => setCurrentView('selectScreen')}>{translations?.editorNavbar.openFile}</button>
