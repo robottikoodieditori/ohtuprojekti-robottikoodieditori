@@ -4,89 +4,96 @@
     height: 40px;
     display: flex;
     align-items: left;
-    width: 100%;
+    width: 76vw;
     padding: 5px;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.4);
+    border-radius: 5px 5px 0 0;
+    border-top: 1px solid #e0e0e0;
+    border-right: 1px solid #e0e0e0;
+    border-left: 1px solid #e0e0e0;
 
   }
 
-  
 
-  .file-select-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;    
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 999;
-    background-color: rgba(0, 0, 0, 0.5);
-  }
-  
+
+.file-select-overlay {
+position: fixed;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;    
+display: flex;
+justify-content: center;
+align-items: center;
+z-index: 999;
+background-color: rgba(0, 0, 0, 0.8);
+}
+
 .file-select-content{
-    background-color: #2c3e50; 
-    border-radius: 20px;
-    padding: 10px;
+background-color: #2c3e50; 
+border-radius: 20px;
+padding: 10px;
 
 }
 
-  .file-select-header {
-    display: flex;
-    justify-content: flex-end;
-    padding: 10px;
-  }
-  
-  .close-button {
-    background-color: transparent;
-    border: none;
-    font-size: 18px;
-    color: white;
-    cursor: pointer;
-    transition: color 0.3s;
-  }
-  
-  .close-button:hover {
-    color: #e74c3c;
-  }
-  
-  .content-file-select {
-    padding: 10px;
-  }
-  
-  .content-popup h2 {
-    margin-top: 0;
-    color: white;
-  }
-  
-  .content-popup input[type="text"] {
-    width: 92.3%;
-    padding: 10px;
-    border: none;
-    border-radius: 5px;
-    background-color: #34495e; 
-    color: white;
-    margin-bottom: 10px;
-    outline: none; 
-  }
-  
-  .content-popup input[type="text"]::placeholder {
-    color: #95a5a6;
-  }
+.file-select-header {
+padding: 10px;
+}
 
-  .content-popup button {
-    display: block;
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 10px;
-    background-color: #3498db; 
-    border: none;
-    border-radius: 5px;
-    color: white;
-    cursor: pointer;
-    transition: background-color 0.3s;
-  }
-  
-  .content-popup button:hover {
-    background-color: #2980b9;
-  }
+.close-button {
+background-color: transparent;
+border: none;
+font-size: 18px;
+color: white;
+cursor: pointer;
+transition: color 0.3s;
+position: absolute;
+top: -5px; 
+right: -5px;
+}
+
+.close-button:hover {
+color: #e74c3c;
+}
+
+.content-file-select{
+padding: 10px;
+}
+
+.content-file-select-header {
+display: flex;
+position: relative;
+}
+
+
+.content-file-select input[type="text"] {
+width: 94.5%;
+padding: 10px;
+border: none;
+border-radius: 5px;
+background-color: #34495e; 
+color: rgb(209, 209, 209);
+margin-bottom: 10px;
+outline: none; 
+}
+
+.content-file-select input[type="text"]::placeholder {
+color: #cccccc;
+}
+
+.content-file-submit-button button {
+display: block;
+width: 100%;
+padding: 10px;
+margin-bottom: 10px;
+background-color: #0072be; 
+border: none;
+border-radius: 5px;
+color: rgb(255, 255, 255);
+cursor: pointer;
+transition: background-color 0.3s;
+}
+
+.content-file-submit-button  button:hover {
+background-color: #2980b9;
+}

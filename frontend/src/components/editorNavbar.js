@@ -79,11 +79,13 @@ const EditorNavbar = () => {
         return (
             <div className="file-select-overlay">
                 <div className="file-select-content">
-                    <div className='file-select-header'>
-                        <button className="close-button" onClick={() => setCurrentView('main')}>X</button>
-                    </div>
                     <div className='content-file-select'>
-                        <h2>{language === 'fi' ? 'Anna uusi tiedoston nimi' : 'Enter a new file name'}</h2>
+                        <div className="content-file-select-header ">
+                            <h2>{language === 'fi' ? 'Anna uusi tiedoston nimi' : 'Enter a new file name'}</h2>
+                            <div className='file-select-header'>
+                                <button className="close-button" onClick={() => setCurrentView('main')}>X</button>
+                            </div>
+                        </div>
                         <form onSubmit={handleSaveNew}>
                             <label>                    
                                 <input
@@ -94,9 +96,11 @@ const EditorNavbar = () => {
                                     id='newFileNameInput'
                                 />
                             </label>
-                            <button type='submit'>
-                                {language === "fi" ? "Tallenna nimellä" : "Save as"}
-                            </button>
+                            <div className="content-file-submit-button">
+                                <button type='submit'>
+                                    {language === "fi" ? "Tallenna nimellä" : "Save as"}
+                                </button>
+                            </div>
                         </form>
                     </div>
                 </div>
