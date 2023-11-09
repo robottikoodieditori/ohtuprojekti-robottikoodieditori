@@ -9,7 +9,7 @@ import '../css/editornavbar.css';
 
 const EditorNavbar = () => {
     const dispatch = useDispatch()
-    const { language } = useContext(LanguageContext)
+    const { translations } = useContext(LanguageContext)
     const [currentView, setCurrentView] = useState('main')
     const [fileList, setFileList] = useState([])
     const fileName = useSelector(state => state.editor.fileName)
@@ -61,9 +61,11 @@ const EditorNavbar = () => {
             setCurrentView('newFile')
             return
         }
-        window.localStorage.setItem('textContent', textContent)
-        dispatch(saveFile(textContent, fileName))
-        getData()
+        if (username) {
+            window.localStorage.setItem('textContent', textContent)
+            dispatch(saveFile(textContent, fileName))
+            getData()
+        }
     }
 
     const handleFileSelection = (file) => {
@@ -84,13 +86,13 @@ const EditorNavbar = () => {
                     <div className='content-file-select'>
                         { fileList && (
                             <div>
-                                <h2>{language === 'fi' ? 'Valitse Tiedosto' : 'Choose File'}</h2>
+                                <h2>{translations?.editorNavbar.chooseFile}</h2>
                                 <table>
                                     <thead>
                                         <tr>
-                                            <td>{language === 'fi' ? 'Tiedostonimi' : 'Filename'}</td>
-                                            <td>{language === 'fi' ? 'Luotu' : 'Created at'}</td>
-                                            <td>{language === 'fi' ? 'Viimeksi muokattu' : 'Last edited'}</td>
+                                            <td>{translations?.editorNavbar.fileName}</td>
+                                            <td>{translations?.editorNavbar.createdAt}</td>
+                                            <td>{translations?.editorNavbar.lastEdited}</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -113,8 +115,8 @@ const EditorNavbar = () => {
 
     return (
         <div className='editornavbar' id='editornavbar'>
-            <button onClick={handleNewFile}>{language === 'fi' ? 'Uusi Tiedosto' : 'New File'}</button>
-            <button onClick={handleSaveExisting}>{language === 'fi' ? 'Tallenna' : 'Save'}</button>
+            <button onClick={handleNewFile}>{translations?.editorNavbar.newFile}</button>
+            <button onClick={handleSaveExisting}>{translations?.editorNavbar.saveFile}</button>
             {currentView === 'newFile' && (
                 <div>
                     <form onSubmit={handleSaveNew}>
@@ -122,26 +124,26 @@ const EditorNavbar = () => {
                             <input
                                 type='text'
                                 placeholder={
-                                    language === 'fi' ? 'Anna uusi tiedostonimi' : 'Enter a new file name'
+                                    translations?.editorNavbar.filenamePlaceholder
                                 }
                                 id='newFileNameInput'
                             />
                         </label>
                         <button type='submit'>
-                            {language === 'fi' ? 'Tallenna nimellä' : 'Save as'}
+                            {translations?.editorNavbar.saveWithName}
                         </button>
                     </form>
                 </div>
             )
             }
 
-            <button onClick={() => setCurrentView('selectScreen')}>{language === 'fi' ? 'Avaa Tiedosto' : 'Open File'}</button>
+            <button onClick={() => setCurrentView('selectScreen')}>{translations?.editorNavbar.openFile}</button>
             { currentView === 'selectScreen' &&
                     <div className='modal-overlay'>
                         <FileSelectionScreen/>
                     </div>
             }
-            <p>{language === 'fi' ? 'Tiedosto: ' : 'File: '}{fileName}</p>
+            <p>{translations?.editorNavbar.file}{fileName}</p>
         </div>
     )
 }
