@@ -8,7 +8,6 @@ const commsSlice = createSlice({
     initialState: {
         responseFromServer: '',
         username: window.localStorage.getItem('username') || '',
-        fileContent: window.localStorage.getItem('') || '',
         userFiles: JSON.parse(window.localStorage.getItem('userFiles')) || [],
     },
     reducers: {
@@ -32,11 +31,6 @@ const commsSlice = createSlice({
         },
         sendToRobot(state) {
             console.log(`Send to robot placeholder ${state}`)
-            return state
-        },
-        setFileContent(state, action) {
-            state.fileContentFromServer = action.payload
-            console.log(`SERVER RESPONDED WITH FILE CONTENT: ${state.fileContentFromServer}`)
             return state
         },
         setUserFiles(state, action) {
@@ -94,6 +88,7 @@ export const login = username => {
 }
 
 export const saveFile = (content, filename) => {
+    console.log('aaa')
     return async dispatch => {
         const res = await commService.sendFileContent(content, filename)
         console.log(res)

@@ -27,7 +27,7 @@ const Editor = ({ textContent }) => {
     const autoCompletionCompartment = new Compartment
     const hoverCompartment = new Compartment
     const fileName = useSelector((state) => state.editor.fileName)
-    //const fileContent = useSelector((state) => state.comms.fileContentFromServer)
+    const fileContent = useSelector((state) => state.editor.textContent)
     const exampleString = 'Logo...'
 
 
@@ -100,10 +100,12 @@ const Editor = ({ textContent }) => {
     }, [])
 
     useEffect(() => {
-        console.log(fileName)
         if (fileName === '') {
-            console.log('apas')
             editor.current.dispatch({changes: {from: 0, to: editor.current.state.doc.length, insert: ''}})
+            dispatch(setContent(''))
+        } else {
+            editor.current.dispatch({changes: {from: 0, to: editor.current.state.doc.length, insert: fileContent}})
+            dispatch(setContent(fileContent))
         }
 
     }, [fileName])
