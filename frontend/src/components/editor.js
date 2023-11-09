@@ -27,7 +27,7 @@ const Editor = ({ textContent }) => {
     const autoCompletionCompartment = new Compartment
     const hoverCompartment = new Compartment
     const fileName = useSelector((state) => state.editor.fileName)
-    const fileContent = useSelector((state) => state.comms.fileContentFromServer)
+    //const fileContent = useSelector((state) => state.comms.fileContentFromServer)
     const exampleString = 'Logo...'
     
 

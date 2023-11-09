@@ -5,7 +5,7 @@ import { LanguageContext } from '../contexts/languagecontext';
 import Response from './response';
 import '../css/button.css'
 import '../css/editor.css'
-import EditorNavbar from './editorNavbar2';
+import EditorNavbar from './editorNavbar';
 
 const EditorView = () => {
     const { translations } = useContext(LanguageContext);
