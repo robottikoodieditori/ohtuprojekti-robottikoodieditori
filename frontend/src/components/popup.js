@@ -47,12 +47,15 @@ const Tokenpopup = ({status, onClose}) => {
 
     return (
         <div>
-            <Popup 
-                open={open} 
+            <Popup
+                open={open}
                 closeOnDocumentClick={false}
                 overlayStyle={{ background: 'rgba(0,0,0,0.8)' }}
-            >            
-                <div className='popup' id="popup" style={{height: '300px'}}>
+            >
+                <label htmlFor="popup" style={{ display: 'none' }}>
+                    Popup Dialog Label
+                </label>
+                <div className='popup' id="popup" role="dialog" style={{ height: '300px' }}>
                     <div className="popup-header">
                         <button className="close-button" onClick={handleClose}>X</button>
                     </div>

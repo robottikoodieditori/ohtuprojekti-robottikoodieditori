@@ -15,6 +15,10 @@ const commsSlice = createSlice({
         setResponseFromServer(state, action) {
             state.responseFromServer = action.payload
             console.log(`SERVER RESPONDED WITH: ${action.payload}`)
+            for(var property in action.payload) {
+                console.log(action.payload[property])
+                // alert(property + "=" + action.payload[property]);
+            }
             return state
         },
         setLoginFromServer(state, action) {
@@ -66,6 +70,9 @@ export const sendToServer = code => {
             //todo
             //dispatch()
         }
+        dispatch(setResponseFromServer(res))
+        console.log("SEND TO SERVER:")
+        console.log(res.raw_errors)
     }
 }
 
@@ -95,17 +102,28 @@ export const saveFile = (content, filename) => {
     }
 }
 
-export const getUserFiles = username => {
+export const getUserFiles = () => {
     return async dispatch => {
-        const res = await commService.getUserFiles(username)
-        if (res === 'FAIL') {
-            dispatch(setUserFiles([]))
+        const res = await commService.getUserFiles(window.localStorage.getItem('token'))
+        console.log(res)
+        if (res === 'FAIL'){
+            dispatch(setUserFilesFromServer(false))
         } else {
             dispatch(setUserFiles(res))
         }
     }
 }
 
-
+export const getFileContent = (filename) => {
+    return async dispatch => {
+        const res = await commService.getUserFiles(window.localStorage.getItem('token'))
+        const file = res.find(file => file.filename === filename)
+        if (file) {
+            dispatch(setFileContentFromServer(file))
+        } else {
+            dispatch(setFileContentFromServer(''))
+        }
+    }
+}
 
 export default commsSlice.reducer

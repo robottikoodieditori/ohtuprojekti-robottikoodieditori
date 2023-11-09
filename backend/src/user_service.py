@@ -3,9 +3,9 @@ import credentials
 
 
 class UserService:
-    def __init__(self, db, SECRET):
+    def __init__(self, db, secret):
         self.db = db
-        self.secret_key = SECRET
+        self.secret_key = secret
 
     def register(self, username, password):
         pass_bytes = password.encode("utf-8")
@@ -43,11 +43,3 @@ class UserService:
         pass_bytes = password.encode("utf-8")
         result = bcrypt.checkpw(pass_bytes, hashed)
         return db_entry[2] if result else False
-
-    def get_user_files(self, username):
-        query = 'SELECT l.filename, l.content, u.name, l.id FROM logofiles l, users u WHERE u.name=? AND l.user_id=u.id'
-        file_list = self.db.get_list_from_db(query, (username,))
-        file_list = [{'filename': row[0], 'textContent': row[1],
-                      'name': row[2], 'id': row[3]} for row in file_list]
-
-        return file_list

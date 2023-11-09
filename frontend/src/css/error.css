@@ -6,7 +6,7 @@
     margin-top: 1vh;  
     padding: 0.5vw;   
     width: 28%;        
-    background-color: #FCC;
+    background-color: rgb(255, 191, 191);
     border-radius: 5px;
     right: 28%;
     margin-left: auto;
@@ -36,17 +36,17 @@
   }
   
   .errorCard {
-    border: 1px solid #ffc7c7;
+    border: 1px solid #ffd8d8;
     border-radius: 4px;
-    padding: 5px;      
-    margin: 3px 0;     
-    background-color: #fff5f5;
+    padding: 5px;
+    margin: 3px 0;
+    background-color: #fde4e4;
   }
   
   .errorCard h5 {
-    color: #e74c3c;
+    color: #cf1500;
     font-weight: bold;
-    margin: 5px 0;     
+    margin: 5px 0;
     font-size: 0.9em
   }
   
