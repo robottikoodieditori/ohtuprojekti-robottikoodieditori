@@ -10,6 +10,8 @@ Flask = "^2.3.3"
 python-dotenv = "^1.0.0"
 logomotion = { git = "https://github.com/theJSZ/logomotion.git" }
 gunicorn = "^21.2.0"
+bcrypt = "^4.0.1"
+pyjwt = "^2.8.0"
 
 [tool.poetry.dev-dependencies]
 pytest = "^5.2"

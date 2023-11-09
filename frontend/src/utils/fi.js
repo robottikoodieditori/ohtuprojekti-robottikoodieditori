@@ -22,7 +22,12 @@ export default {
     },
     returnbutton: "Takaisin",
     editorPlaceholder: "Kirjoita koodia tähän",
-    navbar: "Koodieditori",
+    navbar: {
+        title: "Koodieditori",
+        login: 'Kirjaudu sisään',
+        loggedInAs: 'Olet kirjautunut nimellä: ',
+        logOut: 'Kirjaudu ulos'
+    },
     editorView: {
         writeCode: "Kirjoita koodia:",
         sendToCompilerBtn: "Lähetä koodi kääntäjälle",
@@ -41,5 +46,18 @@ export default {
         nameInputPlaceholder: 'nimi',
         notificationNameMissing: 'Et voi kirjautua nimettömänä!'
     },
+    editorNavbar: {
+        chooseFile: 'Valitse tiedosto',
+        fileName: 'Tiedostonimi',
+        createdAt: 'Luotu',
+        lastEdited: 'Viimeksi muokattu',
+        newFile: 'Uusi Tiedosto',
+        saveFile: 'Tallenna',
+        filenamePlaceholder: 'Anna uusi tiedostonimi',
+        saveWithName: 'Tallenna nimellä',
+        openFile: 'Avaa Tiedosto',
+        file: 'Tiedosto: '
+    },
     tooltipOpenSidebar: "Klikkaa sanaa avataksesi sen sivupalkissa",
+    toggleLanguage: 'Switch to English'
 };

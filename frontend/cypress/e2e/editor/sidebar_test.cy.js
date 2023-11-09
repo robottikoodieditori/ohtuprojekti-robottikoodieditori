@@ -89,7 +89,7 @@ describe('sidebar Functionality', function() {
     });
 
     it('clicking translate goes back to finnish', function() {
-      cy.get("#navbar").contains("Vaihda suomeksi").click();
+      cy.get("#navbar").contains("Vaihda Suomeksi").click();
       cy.get('#sidebar').contains('eteen');
       });
 

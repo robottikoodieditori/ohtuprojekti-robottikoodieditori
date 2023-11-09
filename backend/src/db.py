@@ -1,5 +1,6 @@
 import sqlite3
 
+
 class DB:
     def __init__(self, db_path):
         self._db_path = db_path
@@ -7,13 +8,13 @@ class DB:
     def insert_entry(self, query: str, values: tuple):
         """
         Insert custom entry into db
-        
+
         Parameters:
             query: str: an sql insert query (IE. "INSERT INTO users (name, password) VALUES (?,?)") 
             values: tuple: tuple containing the values to be inputted into the entry
 
         Returns:
-            msg: str: message containing status info wheter action was succesful or no
+            msg: str: message containing status code (OK if succesful, FAIL else)
         """
         msg = ''
         try:
@@ -21,20 +22,18 @@ class DB:
                 cur = con.cursor()
                 cur.execute(query, values)
                 con.commit()
-                msg = 'Success'
+                msg = 'OK'
 
-        # pylint: disable=broad-exception-caught
         except Exception:
             con.rollback()
-            msg = 'Failure'
-
+            msg = 'FAIL'
 
         finally:
             con.close()
 
         return msg
 
-    def get_list_from_db(self, query: str):
+    def get_list_from_db(self, query: str, values: tuple):
         """
         Get a list of entries with custom query from db
 
@@ -46,18 +45,17 @@ class DB:
         """
         con = sqlite3.connect(self._db_path)
         cur = con.cursor()
-        cur.execute(query)
+        cur.execute(query, values)
 
         rows = cur.fetchall()
         con.close()
 
         return rows
 
-    def get_entry_from_db(self, query: str):
+    def get_entry_from_db(self, query: str, values: tuple):
         con = sqlite3.connect(self._db_path)
         cur = con.cursor()
-        cur.execute(query)
-
+        cur.execute(query, values)
         entry = cur.fetchone()
         con.close()
 
