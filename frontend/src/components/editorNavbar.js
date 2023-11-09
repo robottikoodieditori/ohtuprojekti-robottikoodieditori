@@ -77,12 +77,12 @@ const EditorNavbar = () => {
 
     const NewFileScreen = () => {
         return (
-            <div className="file-select-overlay">
+            <div className="file-select-overlay" id="file-select-overlay">
                 <div className="file-select-content">
                     <div className='file-select-header'>
                         <button className="close-button" onClick={() => setCurrentView('main')}>X</button>
                     </div>
-                    <div className='content-file-select'>
+                    <div className='content-file-select' id='content-file-select'>
                         <h2>{language === 'fi' ? 'Anna uusi tiedoston nimi' : 'Enter a new file name'}</h2>
                         <form onSubmit={handleSaveNew}>
                             <label>                    
@@ -106,7 +106,7 @@ const EditorNavbar = () => {
 
     const FileSelectionScreen = () => {
         return (
-            <div className='file-select-overlay'>
+            <div className='file-select-overlay' id="file-select-overlay">
                 <div className='file-select-content'>
                     <div className='file-select-header'>
                         <button className='close-button' onClick={() => setCurrentView('main')}>X</button>
