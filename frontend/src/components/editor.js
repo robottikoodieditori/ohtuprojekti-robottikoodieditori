@@ -18,17 +18,17 @@ import { LanguageContext } from '../contexts/languagecontext';
 const Editor = ({ textContent }) => {
     const dispatch = useDispatch()
     const serverResponse = useSelector(state => state.comms.responseFromServer)
+    const { language } = useContext(LanguageContext)
     const curWord = useRef('')
     const editor = useRef(null)
     const errorListRef = useRef([])
-    const { language } = useContext(LanguageContext)
+    const languageRef = useRef('')
     const currentAutoCompleteModule = useRef(language === 'en' ? autoComplete_en : autoComplete_fi)
     const autoCompletionCompartment = new Compartment
     const hoverCompartment = new Compartment
-    const languageRef = useRef('')
     const fileName = useSelector((state) => state.editor.fileName)
+    //const fileContent = useSelector((state) => state.comms.fileContentFromServer)
     const exampleString = 'Logo...'
-    const fileContent = useSelector((state) => state.comms.fileContentFromServer)
 
 
     const onUpdate = EditorView.updateListener.of((v) => {
@@ -91,19 +91,22 @@ const Editor = ({ textContent }) => {
                 EditorState.tabSize.of(4),
             ]
         })
-
         let view = new EditorView({ state: state, parent: document.querySelector('#editor') })
         editor.current = view
 
         return () => {
             view.destroy()
         }
-    }, [fileName])
+    }, [])
 
     useEffect(() => {
-        editor.current.dispatch({changes: {from: 0, to: editor.current.state.doc.length, insert: fileContent}})
+        console.log(fileName)
+        if (fileName === '') {
+            console.log('apas')
+            editor.current.dispatch({changes: {from: 0, to: editor.current.state.doc.length, insert: ''}})
+        }
 
-    }, [fileContent])
+    }, [fileName])
 
     useEffect(() => {
         currentAutoCompleteModule.current = language === 'en' ? autoComplete_en : autoComplete_fi

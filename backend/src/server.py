@@ -51,7 +51,7 @@ def login():
     return "Username already taken", 400
 
 
-@app.route("/user/files", methods=["POST"])
+@app.route("/files", methods=["POST"])
 def get_user_files():
     content = request.json
     user_id = user_service.verify_token(content["token"])
@@ -61,9 +61,11 @@ def get_user_files():
     return "Invalid Credentials", 400
 
 
-@app.route("/user/save", methods=["POST"])
+@app.route("/file/save", methods=["POST"])
 def save_file():
     content = request.json
+    if not content.get('token', None):
+        return "Invalid Credentials", 400
     user_id = user_service.verify_token(content["token"])
     if user_id:
         result = file_service.save_file(

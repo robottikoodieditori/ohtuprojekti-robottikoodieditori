@@ -9,14 +9,14 @@ import EditorNavbar from './editorNavbar';
 
 const EditorView = () => {
     const { translations } = useContext(LanguageContext);
-    const textContent = ""
+    const textContent = window.localStorage.getItem('textContent') || ''
 
     return (
         <div className='editorview' id='editorview'>
             <header className="App-header">
             </header>
             <EditorNavbar/>
-            <Editor textContent={textContent} /*style={{height: '30vw'}}*//>
+            <Editor textContent={textContent} />
 
             <div className="button-container">
                 <Button function={'COMPILE'} text={translations.editorView.sendToCompilerBtn} />
@@ -25,7 +25,6 @@ const EditorView = () => {
             </div>
 
             <Response/>
-            {/*<Notification />*/}
         </div>
     )
 }

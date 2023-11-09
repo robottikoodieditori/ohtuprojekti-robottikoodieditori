@@ -3,10 +3,9 @@ import { createSlice } from '@reduxjs/toolkit'
 const editorSlice = createSlice({
     name: 'editor',
     initialState: {
-        textContent: '',
+        textContent: window.localStorage.getItem('textContent') || '',
         currentlyHighlightedWord: '',
-        notificationMessage: '',
-        fileName: '',
+        fileName: window.localStorage.getItem('filename') || '',
     },
     reducers: {
         setContent(state, action) {
