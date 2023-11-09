@@ -107,7 +107,7 @@ export const getUserFiles = () => {
         const res = await commService.getUserFiles(window.localStorage.getItem('token'))
         console.log(res)
         if (res === 'FAIL'){
-            dispatch(setUserFilesFromServer(false))
+            dispatch(setUserFiles(false))
         } else {
             dispatch(setUserFiles(res))
         }
@@ -119,9 +119,9 @@ export const getFileContent = (filename) => {
         const res = await commService.getUserFiles(window.localStorage.getItem('token'))
         const file = res.find(file => file.filename === filename)
         if (file) {
-            dispatch(setFileContentFromServer(file))
+            dispatch(setContent(file))
         } else {
-            dispatch(setFileContentFromServer(''))
+            dispatch(setContent(''))
         }
     }
 }

@@ -64,6 +64,8 @@ def get_user_files():
 @app.route("/file/save", methods=["POST"])
 def save_file():
     content = request.json
+    if not content.get('token', None):
+        return "Invalid Credentials", 400
     user_id = user_service.verify_token(content["token"])
     if user_id:
         result = file_service.save_file(

@@ -11,4 +11,4 @@ CREATE TABLE logofiles (
     created TIME,
     last_updated TIME,
     user_id INTEGER REFERENCES users
-)
+);

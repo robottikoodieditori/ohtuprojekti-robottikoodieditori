@@ -23,6 +23,8 @@ const EditorNavbar = () => {
                 const data = await commService.getUserFiles(window.localStorage.getItem('username'))
                 console.log(data)
                 setFileList(data)
+            } else {
+                setFileList([])
             }
         }
         getData()

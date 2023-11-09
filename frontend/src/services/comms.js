@@ -18,8 +18,8 @@ const sendFileContent = async (content, filename ) => {
     return res.data
 }
 
-const getUserFiles = async ( token ) => {
-    const res = await axios.post('/user/files', {'token': token})
+const getUserFiles = async () => {
+    const res = await axios.post('/files', {'token': window.localStorage.getItem('token')})
     return res.data
 }
 
