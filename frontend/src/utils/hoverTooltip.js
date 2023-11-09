@@ -12,10 +12,10 @@ export const wordHover = ( updateCurWord, errorListRef, language ) => hoverToolt
     let start = pos;
     let end = pos;
 
-    while (start > from && /\w/.test(text[start - from - 1])) {
+    while (start > from && /[\wäöåÄÖÅ]/.test(text[start - from - 1])) {
         start--;
     }
-    while (end < to && /\w/.test(text[end - from])) {
+    while (end < to && /[\wäöåÄÖÅ]/.test(text[end - from])) {
         end++;
     }
     if ((start === pos && side < 0) || (end === pos && side > 0)) {

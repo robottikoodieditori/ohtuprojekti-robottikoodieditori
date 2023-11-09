@@ -10,7 +10,7 @@ import { logout } from "../reducers/commsReducer";
 
 
 const Navbar = () => {
-    const { language, toggleLanguage, translations } = useContext(LanguageContext);
+    const { toggleLanguage, translations } = useContext(LanguageContext);
     const username = useSelector((state) => state.comms.username)
     const [isPopupOpen, setIsPopupOpen] = useState(false);
     const dispatch = useDispatch();
@@ -30,20 +30,20 @@ const Navbar = () => {
 
     return (
         <div className="navbar" id="navbar">
-            <h1>{translations.navbar}</h1>
+            <h1>{translations.navbar.title}</h1>
             <div>
                 { username === "" ? (
                     <div className='lang-toggle-button-container'>
-                        <button onClick={openPopup} className="lang-toggle-button"> {language == 'fi' ? "Kirjaudu" : "Login"}</button>
+                        <button onClick={openPopup} className="lang-toggle-button"> {translations?.navbar.login}</button>
                         {isPopupOpen && (<Tokenpopup status={true} onClose={closePopup}/>)}
                     </div>
                 ) : (
                     <>
                         <div className='logout'>
-                            <div className='username'> <p>{language == 'fi' ? "Olet kirjautunut nimellä: " : "Logged in as: "}{username}</p> </div>
+                            <div className='username'> <p>{translations?.navbar.loggedInAs}{username}</p> </div>
                             <div className="logout-button-container">
                                 <button onClick={logOutFromServer} className="logout-button">
-                                    {language === 'fi' ? 'Kirjaudu ulos' : 'Log out'}
+                                    {translations?.navbar.logOut}
                                 </button>
                             </div>
                         
@@ -54,7 +54,7 @@ const Navbar = () => {
             </div>
             <div className="language-button-container">
                 <button onClick={toggleLanguage} className="lang-toggle-button" data-testid="toggleLanguageButton">
-                    {language === 'fi' ? 'Switch to English' : 'Vaihda suomeksi'}
+                    {translations?.toggleLanguage}
                 </button>
             </div>
         </div>
