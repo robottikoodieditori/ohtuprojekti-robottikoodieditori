@@ -74,6 +74,36 @@ const EditorNavbar = () => {
         setCurrentView('main')
     }
 
+
+    const NewFileScreen = () => {
+        return (
+            <div className="file-select-overlay">
+                <div className="file-select-content">
+                    <div className='file-select-header'>
+                        <button className="close-button" onClick={() => setCurrentView('main')}>X</button>
+                    </div>
+                    <div className='content-file-select'>
+                        <h2>{language === 'fi' ? 'Anna uusi tiedoston nimi' : 'Enter a new file name'}</h2>
+                        <form onSubmit={handleSaveNew}>
+                            <label>                    
+                                <input
+                                    type="text"
+                                    placeholder={
+                                        language === "fi" ? "Anna uusi tiedostonimi" : "Enter a new file name"
+                                    }
+                                    id='newFileNameInput'
+                                />
+                            </label>
+                            <button type='submit'>
+                                {language === "fi" ? "Tallenna nimellä" : "Save as"}
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        )
+    }
+
     const FileSelectionScreen = () => {
         return (
             <div className='file-select-overlay'>
@@ -115,24 +145,10 @@ const EditorNavbar = () => {
         <div className='editornavbar' id='editornavbar'>
             <button onClick={handleNewFile}>{language === 'fi' ? 'Uusi Tiedosto' : 'New File'}</button>
             <button onClick={handleSaveExisting}>{language === 'fi' ? 'Tallenna' : 'Save'}</button>
-            {currentView === 'newFile' && (
-                <div>
-                    <form onSubmit={handleSaveNew}>
-                        <label>
-                            <input
-                                type='text'
-                                placeholder={
-                                    language === 'fi' ? 'Anna uusi tiedostonimi' : 'Enter a new file name'
-                                }
-                                id='newFileNameInput'
-                            />
-                        </label>
-                        <button type='submit'>
-                            {language === 'fi' ? 'Tallenna nimellä' : 'Save as'}
-                        </button>
-                    </form>
+            {currentView === 'newFile' && 
+                <div className='modal-overlay'>
+                    <NewFileScreen/>
                 </div>
-            )
             }
 
             <button onClick={() => setCurrentView('selectScreen')}>{language === 'fi' ? 'Avaa Tiedosto' : 'Open File'}</button>
