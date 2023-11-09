@@ -7,7 +7,7 @@ Parameters { leftPar+ String* rightPar+}
 @skip { space }
 @tokens {
   space { @whitespace+ }
-  name { (@asciiLetter | "ä" | "ö" | "å")+ }
+  name { (@asciiLetter | "ä" | "ö" | "å" | "Ä" | "Ö" | "Å")+ }
   number { @digit+ }
   leftPar { "(" | "{" | "[" }
   rightPar { ")" | "}" | "]"}

@@ -4,7 +4,6 @@ import { LanguageContext } from "../contexts/languagecontext";
 import { saveFile } from '../reducers/commsReducer';
 import { setFileName, setContent } from "../reducers/editorReducer";
 import commService from "../services/comms";
-import '../css/index.css';
 import '../css/editornavbar.css';
 
 const EditorNavbar = () => {
@@ -79,28 +78,30 @@ const EditorNavbar = () => {
 
     const NewFileScreen = () => {
         return (
-            <div className="file-select-overlay" id="file-select-overlay">
-                <div className="file-select-content">
-                    <div className='file-select-header'>
-                        <button className="close-button" onClick={() => setCurrentView('main')}>X</button>
-                    </div>
-                    <div className='content-file-select' id='content-file-select'>
+            <div className="overlay" id="overlay">
+                <div className='content-saveNew' id="content-saveNew">
+                    <div className="content-saveNew-header ">
                         <h2>{translations?.editorNavbar.filenamePlaceholder}</h2>
-                        <form onSubmit={handleSaveNew}>
-                            <label>                    
-                                <input
-                                    type="text"
-                                    placeholder={
-                                        translations?.editorNavbar.filenamePlaceholder
-                                    }
-                                    id='newFileNameInput'
-                                />
-                            </label>
+                        <div className='saveNew-header'>
+                            <button className="close-button-saveNew" onClick={() => setCurrentView('main')}>X</button>
+                        </div>
+                    </div>
+                    <form onSubmit={handleSaveNew}>
+                        <label>                    
+                            <input
+                                type="text"
+                                placeholder={
+                                    translations?.editorNavbar.filenamePlaceholder
+                                }
+                                id='newFileNameInput'
+                            />
+                        </label>
+                        <div className="content-saveNew-submit-button">
                             <button type='submit'>
                                 {translations?.editorNavbar.saveWithName}
                             </button>
-                        </form>
-                    </div>
+                        </div>
+                    </form>
                 </div>
             </div>
         )
@@ -108,36 +109,34 @@ const EditorNavbar = () => {
 
     const FileSelectionScreen = () => {
         return (
-            <div className='file-select-overlay' id="file-select-overlay">
-                <div className='file-select-content'>
-                    <div className='file-select-header'>
-                        <button className='close-button' onClick={() => setCurrentView('main')}>X</button>
+            <div className='overlay' id="overlay">
+                <div className='content-file-select'>
+                    <div className="content-file-select-header">
+                        <h2>{translations?.editorNavbar.chooseFile}</h2>
+                        <button className='close-button-file-select' onClick={() => setCurrentView('main')}>X</button>
                     </div>
-                    <div className='content-file-select'>
-                        { fileList && (
-                            <div>
-                                <h2>{translations?.editorNavbar.chooseFile}</h2>
-                                <table>
-                                    <thead>
-                                        <tr>
-                                            <td>{translations?.editorNavbar.fileName}</td>
-                                            <td>{translations?.editorNavbar.createdAt}</td>
-                                            <td>{translations?.editorNavbar.lastEdited}</td>
+                    { fileList && (
+                        <div>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>{translations?.editorNavbar.fileName}</th>
+                                        <th>{translations?.editorNavbar.createdAt}</th>
+                                        <th>{translations?.editorNavbar.lastEdited}</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {fileList.map(file => (
+                                        <tr key={file.filename} className='file-row' onClick={() => handleFileSelection(file)}>
+                                            <td>{file.filename}</td>
+                                            <td>{file.created}</td>
+                                            <td>{file.last_updated}</td>
                                         </tr>
-                                    </thead>
-                                    <tbody>
-                                        {fileList.map(file => (
-                                            <tr key={file.filename} className='' onClick={() => handleFileSelection(file)}>
-                                                <td>{file.filename}</td>
-                                                <td>{file.created}</td>
-                                                <td>{file.last_updated}</td>
-                                            </tr>
-                                        ))}
-                                    </tbody>
-                                </table>
-                            </div>
-                        )}
-                    </div>
+                                    ))}
+                                </tbody>
+                            </table>
+                        </div>
+                    )}
                 </div>
             </div>
         )
@@ -145,19 +144,15 @@ const EditorNavbar = () => {
 
     return (
         <div className='editornavbar' id='editornavbar'>
-            <button onClick={handleNewFile}>{translations?.editorNavbar.newFile}</button>
-            <button onClick={handleSaveExisting}>{translations?.editorNavbar.saveFile}</button>
+            <button className='editornavbar-button' onClick={handleNewFile}>{translations?.editorNavbar.newFile}</button>
+            <button className="editornavbar-button" onClick={handleSaveExisting}>{translations?.editorNavbar.saveFile}</button>
             {currentView === 'newFile' && 
-                <div className='modal-overlay'>
-                    <NewFileScreen/>
-                </div>
+                <NewFileScreen/>
             }
 
-            <button onClick={() => setCurrentView('selectScreen')}>{translations?.editorNavbar.openFile}</button>
+            <button className="editornavbar-button" onClick={() => setCurrentView('selectScreen')}>{translations?.editorNavbar.openFile}</button>
             { currentView === 'selectScreen' &&
-                    <div className='modal-overlay'>
-                        <FileSelectionScreen/>
-                    </div>
+                <FileSelectionScreen/>
             }
             <p>{translations?.editorNavbar.file}{fileName}</p>
         </div>
