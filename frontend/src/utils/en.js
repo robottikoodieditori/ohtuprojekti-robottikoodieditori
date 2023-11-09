@@ -22,7 +22,13 @@ export default {
     },
     returnbutton: "Return",
     editorPlaceholder: "Write code here",
-    navbar: "Code Editor",
+    navbar: {
+        title: "Code Editor",
+        login: 'Log in',
+        loggedInAs: 'Logged in as: ',
+        logOut: 'Log out'
+
+    },
     editorView: {
         writeCode: "Write code:",
         sendToCompilerBtn: "Send code to compiler",
@@ -39,7 +45,20 @@ export default {
         title: 'Your name',
         loginButton: 'Log in',
         nameInputPlaceholder: 'name',
-        notificationNameMissing: 'You can\'t login without a name!'
+        notificationNameMissing: 'You can\'t login without a name!',
+    },
+    editorNavbar: {
+        chooseFile: 'Choose File',
+        fileName: 'Filename',
+        createdAt: 'Created at',
+        lastEdited: 'Last edited',
+        newFile: 'New File',
+        saveFile: 'Save',
+        filenamePlaceholder: 'Enter a new filename',
+        saveWithName: 'Save as',
+        openFile: 'Open File',
+        file: 'File: '
     },
     tooltipOpenSidebar: "Click word to display on sidebar",
+    toggleLanguage: 'Vaihda Suomeksi'
 };

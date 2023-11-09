@@ -7,7 +7,7 @@ import '../css/popup.css'
 
 const Tokenpopup = ({status, onClose}) => {
     const [open, setOpen] = useState(status);
-    const { language, toggleLanguage, translations } = useContext(LanguageContext)
+    const { toggleLanguage, translations } = useContext(LanguageContext)
     const [username, setUsername] = useState('');
     const [notificationText, setNotificationText] = useState('')
     const dispatch = useDispatch();
@@ -73,7 +73,7 @@ const Tokenpopup = ({status, onClose}) => {
                             onClick={handleLanguageChange}
                             id='registration-language-toggle-button'
                         >
-                            {language === 'fi' ? 'Switch to English' : 'Vaihda suomeksi'}
+                            {translations?.toggleLanguage}
                         </button>
                         <p style={{color:'white'}}>{notificationText}</p>
                     </div>

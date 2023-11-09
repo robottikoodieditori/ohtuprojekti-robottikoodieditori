@@ -4,12 +4,11 @@ import { LanguageContext } from "../contexts/languagecontext";
 import { saveFile } from '../reducers/commsReducer';
 import { setFileName, setContent } from "../reducers/editorReducer";
 import commService from "../services/comms";
-import '../css/index.css';
 import '../css/editornavbar.css';
 
 const EditorNavbar = () => {
     const dispatch = useDispatch()
-    const { language } = useContext(LanguageContext)
+    const { translations } = useContext(LanguageContext)
     const [currentView, setCurrentView] = useState('main')
     const [fileList, setFileList] = useState([])
     const fileName = useSelector(state => state.editor.fileName)
@@ -61,9 +60,11 @@ const EditorNavbar = () => {
             setCurrentView('newFile')
             return
         }
-        window.localStorage.setItem('textContent', textContent)
-        dispatch(saveFile(textContent, fileName))
-        getData()
+        if (username) {
+            window.localStorage.setItem('textContent', textContent)
+            dispatch(saveFile(textContent, fileName))
+            getData()
+        }
     }
 
     const handleFileSelection = (file) => {
@@ -77,32 +78,30 @@ const EditorNavbar = () => {
 
     const NewFileScreen = () => {
         return (
-            <div className="file-select-overlay">
-                <div className="file-select-content">
-                    <div className='content-file-select'>
-                        <div className="content-file-select-header ">
-                            <h2>{language === 'fi' ? 'Anna uusi tiedoston nimi' : 'Enter a new file name'}</h2>
-                            <div className='file-select-header'>
-                                <button className="close-button" onClick={() => setCurrentView('main')}>X</button>
-                            </div>
+            <div className="overlay" id="overlay">
+                <div className='content-saveNew' id="content-saveNew">
+                    <div className="content-saveNew-header ">
+                        <h2>{translations?.editorNavbar.filenamePlaceholder}</h2>
+                        <div className='saveNew-header'>
+                            <button className="close-button-saveNew" onClick={() => setCurrentView('main')}>X</button>
                         </div>
-                        <form onSubmit={handleSaveNew}>
-                            <label>                    
-                                <input
-                                    type="text"
-                                    placeholder={
-                                        language === "fi" ? "Anna uusi tiedostonimi" : "Enter a new file name"
-                                    }
-                                    id='newFileNameInput'
-                                />
-                            </label>
-                            <div className="content-file-submit-button">
-                                <button type='submit'>
-                                    {language === "fi" ? "Tallenna nimellä" : "Save as"}
-                                </button>
-                            </div>
-                        </form>
                     </div>
+                    <form onSubmit={handleSaveNew}>
+                        <label>                    
+                            <input
+                                type="text"
+                                placeholder={
+                                    translations?.editorNavbar.filenamePlaceholder
+                                }
+                                id='newFileNameInput'
+                            />
+                        </label>
+                        <div className="content-saveNew-submit-button">
+                            <button type='submit'>
+                                {translations?.editorNavbar.saveWithName}
+                            </button>
+                        </div>
+                    </form>
                 </div>
             </div>
         )
@@ -110,36 +109,34 @@ const EditorNavbar = () => {
 
     const FileSelectionScreen = () => {
         return (
-            <div className='file-select-overlay'>
-                <div className='file-select-content'>
-                    <div className='file-select-header'>
-                        <button className='close-button' onClick={() => setCurrentView('main')}>X</button>
+            <div className='overlay' id="overlay">
+                <div className='content-file-select'>
+                    <div className="content-file-select-header">
+                        <h2>{translations?.editorNavbar.chooseFile}</h2>
+                        <button className='close-button-file-select' onClick={() => setCurrentView('main')}>X</button>
                     </div>
-                    <div className='content-file-select'>
-                        { fileList && (
-                            <div>
-                                <h2>{language === 'fi' ? 'Valitse Tiedosto' : 'Choose File'}</h2>
-                                <table>
-                                    <thead>
-                                        <tr>
-                                            <td>{language === 'fi' ? 'Tiedostonimi' : 'Filename'}</td>
-                                            <td>{language === 'fi' ? 'Luotu' : 'Created at'}</td>
-                                            <td>{language === 'fi' ? 'Viimeksi muokattu' : 'Last edited'}</td>
+                    { fileList && (
+                        <div>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>{translations?.editorNavbar.fileName}</th>
+                                        <th>{translations?.editorNavbar.createdAt}</th>
+                                        <th>{translations?.editorNavbar.lastEdited}</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {fileList.map(file => (
+                                        <tr key={file.filename} className='file-row' onClick={() => handleFileSelection(file)}>
+                                            <td>{file.filename}</td>
+                                            <td>{file.created}</td>
+                                            <td>{file.last_updated}</td>
                                         </tr>
-                                    </thead>
-                                    <tbody>
-                                        {fileList.map(file => (
-                                            <tr key={file.filename} className='' onClick={() => handleFileSelection(file)}>
-                                                <td>{file.filename}</td>
-                                                <td>{file.created}</td>
-                                                <td>{file.last_updated}</td>
-                                            </tr>
-                                        ))}
-                                    </tbody>
-                                </table>
-                            </div>
-                        )}
-                    </div>
+                                    ))}
+                                </tbody>
+                            </table>
+                        </div>
+                    )}
                 </div>
             </div>
         )
@@ -147,21 +144,17 @@ const EditorNavbar = () => {
 
     return (
         <div className='editornavbar' id='editornavbar'>
-            <button onClick={handleNewFile}>{language === 'fi' ? 'Uusi Tiedosto' : 'New File'}</button>
-            <button onClick={handleSaveExisting}>{language === 'fi' ? 'Tallenna' : 'Save'}</button>
+            <button className='editornavbar-button' onClick={handleNewFile}>{translations?.editorNavbar.newFile}</button>
+            <button className="editornavbar-button" onClick={handleSaveExisting}>{translations?.editorNavbar.saveFile}</button>
             {currentView === 'newFile' && 
-                <div className='modal-overlay'>
-                    <NewFileScreen/>
-                </div>
+                <NewFileScreen/>
             }
 
-            <button onClick={() => setCurrentView('selectScreen')}>{language === 'fi' ? 'Avaa Tiedosto' : 'Open File'}</button>
+            <button className="editornavbar-button" onClick={() => setCurrentView('selectScreen')}>{translations?.editorNavbar.openFile}</button>
             { currentView === 'selectScreen' &&
-                    <div className='modal-overlay'>
-                        <FileSelectionScreen/>
-                    </div>
+                <FileSelectionScreen/>
             }
-            <p>{language === 'fi' ? 'Tiedosto: ' : 'File: '}{fileName}</p>
+            <p>{translations?.editorNavbar.file}{fileName}</p>
         </div>
     )
 }

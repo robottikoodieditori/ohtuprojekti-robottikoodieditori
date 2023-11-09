@@ -37,7 +37,7 @@ describe('Login functionality', function() {
     it('Attempting to login afterwards (ENGLISH)', function() {
         cy.get('#popup').contains('X').click(500)
         cy.get('#navbar').contains('Switch to English').click(500)
-        cy.get('#navbar').contains('Login').click(500)
+        cy.get('#navbar').contains('Log in').click(500)
         cy.get('#registration-name-input').type('Jaakko')
         cy.get('#popup').contains('Log in').click(500)
         cy.get('#navbar').should('contain', 'Jaakko')
@@ -57,6 +57,6 @@ describe('Login functionality', function() {
         cy.get('#popup').contains('Log in').click(500)
         cy.get('#navbar').should('contain', 'Jaakko')
         cy.get('#navbar').contains('Log out').click(500)
-        cy.get('#navbar').should('contain', 'Login')
+        cy.get('#navbar').should('contain', 'Log in')
     })
 })

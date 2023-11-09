@@ -39,7 +39,6 @@
     border-radius: 5px;
     transition: background-color 0.3s, transform 0.2s;
     cursor: pointer;
-    outline: none;
     margin: 5px;
     background-color: rgb(60, 120, 180);
     color: white;
