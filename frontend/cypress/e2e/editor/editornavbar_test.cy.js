@@ -19,7 +19,6 @@ describe('Login functionality', function() {
         cy.get('#content-saveNew').contains('Tallenna nimellä').click(500)
         cy.get("#editor").should('contain', 'eteen 10')
     })
-
     it('Attempting to open a file', function() {
         cy.get('#editornavbar').contains('Avaa Tiedosto').click(500).wait(500)
         cy.get("#overlay").contains('Valitse tiedosto')
