@@ -1,0 +1,71 @@
+/* adminview.css */
+.admin-container {
+    display: flex;
+    padding: 20px;
+    gap: 20px;
+}
+
+.user-list-section, .file-list-section {
+    border: 1px solid #ccc;
+    padding: 20px;
+    border-radius: 5px;
+    overflow: auto;
+}
+
+.user-list-section {
+    flex: 1;
+}
+
+.file-list-section {
+    flex: 2;
+    min-width: 0; /* For flexbox overflow */
+}
+
+.user-list {
+    list-style: none;
+    padding: 0;
+}
+
+.user-list li {
+    cursor: pointer;
+    padding: 5px 10px;
+    border-bottom: 1px solid #eee;
+}
+
+.user-list li:hover {
+    background-color: #f5f5f5;
+}
+
+.file-list {
+    list-style: none;
+    padding: 0;
+}
+
+.file-list li {
+    padding: 5px 10px;
+    border-bottom: 1px solid #eee;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* adminview.css */
+
+/* Existing styles... */
+
+.all-files-section, .user-files-section {
+    border: 1px solid #ccc;
+    padding: 20px;
+    border-radius: 5px;
+    overflow: auto;
+    margin-top: 20px; /* Add space between user list and file lists */
+}
+
+.all-files-section {
+    flex: 3; /* Adjust as needed to give more room for all files */
+}
+
+.user-files-section {
+    flex: 2; /* Adjust as needed for selected user's files */
+}
+
