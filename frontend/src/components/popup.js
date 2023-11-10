@@ -1,13 +1,13 @@
 import { useState, useContext } from 'react';
 import Popup from 'reactjs-popup';
-import { sendName } from "../reducers/commsReducer";
+import { login } from "../reducers/commsReducer";
 import { useDispatch } from 'react-redux';
 import { LanguageContext } from '../contexts/languagecontext';
 import '../css/popup.css'
 
 const Tokenpopup = ({status, onClose}) => {
     const [open, setOpen] = useState(status);
-    const { language, toggleLanguage, translations } = useContext(LanguageContext)
+    const { toggleLanguage, translations } = useContext(LanguageContext)
     const [username, setUsername] = useState('');
     const [notificationText, setNotificationText] = useState('')
     const dispatch = useDispatch();
@@ -28,7 +28,7 @@ const Tokenpopup = ({status, onClose}) => {
             updateNotificationText(translations?.login.notificationNameMissing)
             return
         }
-        dispatch(sendName(username));
+        dispatch(login(username));
         console.log(`Sending username to backend: ${username}`);
         setOpen(false);
         if (onClose === "") {
@@ -47,12 +47,15 @@ const Tokenpopup = ({status, onClose}) => {
 
     return (
         <div>
-            <Popup 
-                open={open} 
+            <Popup
+                open={open}
                 closeOnDocumentClick={false}
                 overlayStyle={{ background: 'rgba(0,0,0,0.8)' }}
-            >            
-                <div className='popup' id="popup" style={{height: '300px'}}>
+            >
+                <label htmlFor="popup" style={{ display: 'none' }}>
+                    Popup Dialog Label
+                </label>
+                <div className='popup' id="popup" role="dialog" style={{ height: '300px' }}>
                     <div className="popup-header">
                         <button className="close-button" onClick={handleClose}>X</button>
                     </div>
@@ -70,7 +73,7 @@ const Tokenpopup = ({status, onClose}) => {
                             onClick={handleLanguageChange}
                             id='registration-language-toggle-button'
                         >
-                            {language === 'fi' ? 'Switch to English' : 'Vaihda suomeksi'}
+                            {translations?.toggleLanguage}
                         </button>
                         <p style={{color:'white'}}>{notificationText}</p>
                     </div>

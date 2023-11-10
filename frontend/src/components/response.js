@@ -6,7 +6,7 @@ import '../css/error.css'
 
 const Response = () => {
     const dispatch = useDispatch();
-    const { translations } = useContext(LanguageContext);
+    const { language, translations } = useContext(LanguageContext);
     const serverResponse = useSelector((state) => state.comms.responseFromServer);
 
     const handleClose = () => {
@@ -25,15 +25,14 @@ const Response = () => {
             </div>
             {serverResponse.errors.map((res) => (
                 <div key={res.start} className="errorCard">
-                    <h5>{`${translations.response.message} ${res.message}`}</h5>
+                    <h5>{`${translations.response.message} ${language === 'en' ? res.eng : res.fin}`}</h5>
                     <p>{`${translations.response.line} ${res.line}`}</p>
-                    <p>{`${translations.response.start} ${res.start} - ${translations.response.end} ${res.end}`}</p>
+                    <p>{`${translations.response.start} ${res.start} - ${translations.response.end} ${res.end-1}`}</p>
                 </div>
+
             ))}
         </div>
     );
-    
-    
 }
 
 export default Response;

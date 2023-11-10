@@ -8,5 +8,5 @@ def get_token(username, user_id, secret_key):
 
 
 def decode_token(token, secret_key):
-    credentials = jwt.decode(token, "mrsecret", algorithms=["HS256"])
+    credentials = jwt.decode(token, secret_key, algorithms=["HS256"])
     return credentials

@@ -1,28 +1,19 @@
-import React, { useState, useEffect } from 'react';
-import comms from '../services/comms';
-import '../css/adminView.css'; // Import the CSS file
+import { useState, useEffect } from 'react'; 
+import { users as mockUsers, logofiles as mockLogofiles } from './mockData'; // Import mock data
+import '../css/adminView.css'; 
 
 const AdminView = () => {
     const [users, setUsers] = useState([]);
     const [selectedUser, setSelectedUser] = useState(null);
+    const [allFiles, setAllFiles] = useState([]); // State to hold all files
     const [userFiles, setUserFiles] = useState([]);
     const [searchQuery, setSearchQuery] = useState("");
 
     useEffect(() => {
-        comms.getUsers()
-            .then(fetchedUsers => {
-                console.log('Users fetched', fetchedUsers); // Debug: log fetched users
-                setUsers(fetchedUsers);
-            })
-            .catch(error => {
-                console.error('Failed to fetch users:', error);
-            });
-    }, []);
-
-    useEffect(() => {
-        comms.getUserFiles()
-            .then(files => setUserFiles(files))
-            .catch(error => console.error('Failed to fetch files:', error));
+        // Initialize users with mock data
+        setUsers(mockUsers);
+        // Initialize allFiles with all mock logofiles
+        setAllFiles(mockLogofiles);
     }, []);
 
     const handleSearchChange = (event) => {
@@ -35,17 +26,12 @@ const AdminView = () => {
             user.name.toLowerCase().includes(searchQuery.toLowerCase())
         );
 
-        const handleUserClick = (user) => {
-            setSelectedUser(user);
-            comms.getUserFiles(user.id) // Call the function with the selected user's ID
-                .then(files => {
-                    console.log('User files fetched', files); // Debug: log fetched files
-                    setUserFiles(files); // Update the userFiles state with the fetched files
-                })
-                .catch(error => {
-                    console.error('Failed to fetch files for user:', error);
-                });
-        };
+    const handleUserClick = (user) => {
+        setSelectedUser(user);
+        // Fetching files for the selected user from mock data
+        const filesForUser = mockLogofiles.filter(file => file.user_id === user.id);
+        setUserFiles(filesForUser);
+    };
 
     return (
         <div className="admin-container">
@@ -74,8 +60,8 @@ const AdminView = () => {
                 <section className="all-files-section">
                     <h3>All Files</h3>
                     <ul className="all-files-list">
-                        {userFiles.length > 0 ? (
-                            userFiles.map(file => (
+                        {allFiles.length > 0 ? (
+                            allFiles.map(file => (
                                 <li key={file.id}>
                                     {file.filename}
                                     {/* Render the filename or other attributes as needed */}
@@ -90,7 +76,7 @@ const AdminView = () => {
                 {/* Selected user's files section */}
                 {selectedUser && (
                     <section className="user-files-section">
-                        <h3>{selectedUser.name}'s Files</h3>
+                        <h3>{selectedUser.name}&apos;s Files</h3>
                         <ul className="user-specific-files-list">
                             {userFiles.length > 0 ? (
                                 userFiles.map(file => (

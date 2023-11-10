@@ -25,6 +25,15 @@ jobs:
       - name: Run pylint
         working-directory: ./backend
         run: poetry run invoke lint
+      - name: Create database file
+        working-directory: ./backend
+        run: touch user_db.db
+      - name: Create database
+        working-directory: ./backend
+        run: sqlite3 user_db.db < schema.sql
+      - name: Create .env
+        working-directory: ./backend
+        run: echo "SECRET_KEY=123" > .env
       - name: Test backend
         working-directory: ./backend
         run: poetry run invoke test

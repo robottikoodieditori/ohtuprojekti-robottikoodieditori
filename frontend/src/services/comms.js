@@ -5,8 +5,22 @@ const sendToCompile = async (code) => {
     return res.data
 }
 
-const sendName = async (name) => {
-    const res = await axios.post('/send/name', {'name': name})
+const sendLogin = async (username, password) => {
+    const res = await axios.post('/login', {'username': username, 'password': password})
+    return res.data
+}
+
+const sendFileContent = async (content, filename ) => {
+    console.log(content, 'asd')
+    const res = await axios.post('/file/save', {
+        'textContent': content, 'filename': filename,
+        'token': window.localStorage.getItem('token')
+    })
+    return res.data
+}
+
+const getUserFiles = async () => {
+    const res = await axios.post('/files', {'token': window.localStorage.getItem('token')})
     return res.data
 }
 
@@ -18,6 +32,8 @@ const getUsers = async () => {
 
 export default {
     sendToCompile: sendToCompile,
-    sendName: sendName,
-    getUsers: getUsers
+    sendLogin: sendLogin,
+    sendFileContent: sendFileContent,
+    getUserFiles: getUserFiles,
+    getUsers:getUsers
 }

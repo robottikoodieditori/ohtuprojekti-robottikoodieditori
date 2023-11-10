@@ -169,3 +169,4 @@ frontend/src/servies/parser.terms.js
 backend/javafiles/**
 frontend/cypress/screenshots/**
 *.db
+.python-version

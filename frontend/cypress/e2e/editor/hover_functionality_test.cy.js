@@ -43,9 +43,17 @@ describe('Hover Functionality', function() {
 
 
     it('hovering error reveals documentation', function() {
-        cy.get('#editor').type('{selectall}').type('MITEN uusi');
+        cy.get('#editor').type('{selectall}').type('asdf eteen 1');
         cy.get('#COMPILEBUTTON').click().wait(100);
-        cy.get('#editor').contains('MITEN').click()
-        cy.get('#tooltip').should('exist').should('contain', 'error')
+        cy.get('#editor').contains('asdf').click()
+        cy.get('#tooltip').should('exist').should('contain', 'En ymmärrä')
+    });
+
+    it('hovering error reveals documentation (ENGLISH)', function() {
+        cy.get('#navbar').contains('Switch to English').click();
+        cy.get('#editor').type('{selectall}').type('asdf forward 1');
+        cy.get('#COMPILEBUTTON').click().wait(100);
+        cy.get('#editor').contains('asdf').click();
+        cy.get('#tooltip').should('exist').should('contain', 'I could not understand');
     });
 });

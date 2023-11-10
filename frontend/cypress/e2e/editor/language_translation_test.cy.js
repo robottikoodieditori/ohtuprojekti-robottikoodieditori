@@ -8,12 +8,12 @@ describe('Language translation', function() {
 
     it('should toggle to Finnish when clicking "Switch to English"', function() {
         cy.get('[data-testid=toggleLanguageButton]').contains('Switch to English').click();
-        cy.get('[data-testid=toggleLanguageButton]').should('contain', 'Vaihda suomeksi');
+        cy.get('[data-testid=toggleLanguageButton]').should('contain', 'Vaihda Suomeksi');
     });
 
     it('should toggle to English when clicking "Vaihda suomeksi"', function() {
         cy.get('[data-testid=toggleLanguageButton]').contains('Switch to English').click();
-        cy.get('[data-testid=toggleLanguageButton]').contains('Vaihda suomeksi').click();
+        cy.get('[data-testid=toggleLanguageButton]').contains('Vaihda Suomeksi').click();
         
         // Pausing here to manually inspect the state
         cy.pause();

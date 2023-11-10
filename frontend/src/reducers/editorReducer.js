@@ -3,14 +3,14 @@ import { createSlice } from '@reduxjs/toolkit'
 const editorSlice = createSlice({
     name: 'editor',
     initialState: {
-        textContent: '',
+        textContent: window.localStorage.getItem('textContent') || '',
         currentlyHighlightedWord: '',
-        notificationMessage: '',
+        fileName: window.localStorage.getItem('filename') || '',
     },
     reducers: {
         setContent(state, action) {
             state.textContent = action.payload
-            console.log(state.textContent)
+            console.log(`EDITOR CONTENT: ${state.textContent}`)
             return state
         },
         setHighlightedWord(state, action) {
@@ -23,12 +23,17 @@ const editorSlice = createSlice({
             console.log(`RESET HIGHLIGHTED WORD; VALUE NOW: ${state.currentlyHighlightedWord}`)
             return state
         },
+        setFileName(state, action) {
+            state.fileName = action.payload
+            console.log(`FILE NAME IS ${state.fileName}`)
+            return state
+        }
     }
 })
 
 export const {
     setContent, sendToCompiler, sendToRobot, setHighlightedWord,
-    resetHighlightedWord
+    resetHighlightedWord, setFileName
 } = editorSlice.actions
 
 
