@@ -5,7 +5,7 @@ import { EditorState, Compartment } from '@codemirror/state';
 import { defaultKeymap, insertTab } from '@codemirror/commands';
 import { autocompletion } from '@codemirror/autocomplete';
 import { setContent, setHighlightedWord } from '../reducers/editorReducer';
-import { extensions } from '../utils/cmConfig'; 
+import { extensions } from '../utils/cmConfig';
 import { wordHover } from '../utils/hoverTooltip';
 import { autoComplete_en } from '../utils/autocomplete_english';
 import { autoComplete_fi } from '../utils/autocomplete_finnish';
@@ -15,20 +15,22 @@ import { clearUnderlines } from '../utils/underlineExtension';
 import { LanguageContext } from '../contexts/languagecontext';
 
 
-const Editor = ({ textContent = '' }) => {
+const Editor = ({ textContent }) => {
     const dispatch = useDispatch()
-    const serverResponse = useSelector((state) => state.comms.responseFromServer)
+    const serverResponse = useSelector(state => state.comms.responseFromServer)
+    const { language } = useContext(LanguageContext)
     const curWord = useRef('')
     const editor = useRef(null)
     const errorListRef = useRef([])
-    const { language } = useContext(LanguageContext)
+    const languageRef = useRef('')
     const currentAutoCompleteModule = useRef(language === 'en' ? autoComplete_en : autoComplete_fi)
     const autoCompletionCompartment = new Compartment
     const hoverCompartment = new Compartment
-    const languageRef = useRef('')
-
+    const fileName = useSelector((state) => state.editor.fileName)
+    const fileContent = useSelector((state) => state.editor.textContent)
     const exampleString = 'Logo...'
-    
+
+
     const onUpdate = EditorView.updateListener.of((v) => {
         if (v.docChanged) {
             dispatch(setContent(v.state.doc.toString()))
@@ -50,7 +52,7 @@ const Editor = ({ textContent = '' }) => {
 
     const updateLocal = (word) => curWord.current = word;
     const resetLocal = () => curWord.current = '';
-    
+
     const handleClick = () => {
         if (curWord.current !== '') {
             dispatch(setHighlightedWord(curWord.current));
@@ -64,7 +66,7 @@ const Editor = ({ textContent = '' }) => {
             updateHovering(serverResponse.raw_errors, editor.current, languageRef)
         }
     }, [serverResponse])
-    
+
     useEffect(() => {
 
         let state = EditorState.create({
@@ -89,14 +91,24 @@ const Editor = ({ textContent = '' }) => {
                 EditorState.tabSize.of(4),
             ]
         })
-
         let view = new EditorView({ state: state, parent: document.querySelector('#editor') })
         editor.current = view
-        
+
         return () => {
             view.destroy()
         }
     }, [])
+
+    useEffect(() => {
+        if (fileName === '') {
+            editor.current.dispatch({changes: {from: 0, to: editor.current.state.doc.length, insert: ''}})
+            dispatch(setContent(''))
+        } else {
+            editor.current.dispatch({changes: {from: 0, to: editor.current.state.doc.length, insert: fileContent}})
+            dispatch(setContent(fileContent))
+        }
+
+    }, [fileName])
 
     useEffect(() => {
         currentAutoCompleteModule.current = language === 'en' ? autoComplete_en : autoComplete_fi
@@ -104,7 +116,9 @@ const Editor = ({ textContent = '' }) => {
     }, [language])
 
     return (
-        <div ref={editor} className="editor" id='editor' onClick={handleClick}></div>
+        <div>
+            <div ref={editor} className="editor" id='editor' onClick={handleClick} aria-label="Code Editor"></div>
+        </div>
     )
 }
 
