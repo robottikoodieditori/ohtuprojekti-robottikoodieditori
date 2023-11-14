@@ -9,14 +9,14 @@ from db import DB
 
 app = Flask(__name__, static_folder="../build/static", template_folder="../build")
 
-app.config["DB_PATH"] = "user_db.db"
-
+DB_PATH = getenv('DB_PATH')
 if len(argv) > 1:
     if argv[1] == 'test':
-        app.config["DB_PATH"] = "test_db.db"
+        DB_PATH = getenv('TEST_DB_PATH')
+
 app.config["SECRET_KEY"] = getenv("SECRET_KEY")
 
-db = DB(app.config["DB_PATH"])
+db = DB(DB_PATH)
 user_service = UserService(db, app.config["SECRET_KEY"])
 file_service = FileService(db)
 

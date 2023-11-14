@@ -9,11 +9,11 @@ import os
 class TestFile(unittest.TestCase):
     def setUp(self):
         try:
-            os.remove("test_db.db")
+            os.remove("test_case_db.db")
         except:
             pass
-        self.database = DB("test_db.db")
-        con = sqlite3.connect("test_db.db")
+        self.database = DB("test_case_db.db")
+        con = sqlite3.connect("test_case_db.db")
         cur = con.cursor()
         cur.execute('''CREATE TABLE users (
             id INTEGER PRIMARY KEY,
@@ -38,7 +38,7 @@ class TestFile(unittest.TestCase):
         self.id = self.user_service.verify_token(result)
 
     def tearDown(self):
-        os.remove("test_db.db")
+        os.remove("test_case_db.db")
 
     def test_save_file(self):
         self.file_service.save_file('file', 'lorem ipsum', self.id)
