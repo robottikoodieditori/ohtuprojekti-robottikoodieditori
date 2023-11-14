@@ -71,6 +71,7 @@ const AdminView = () => {
                             allFiles.map(file => (
                                 <li key={file.id} onClick={() => handleFileClick(file)}>
                                     {file.filename}
+                                    {file.content}
                                     {/* Render the filename or other attributes as needed */}
                                 </li>
                             ))
@@ -92,8 +93,9 @@ const AdminView = () => {
                         <ul className="user-specific-files-list">
                             {userFiles.length > 0 ? (
                                 userFiles.map(file => (
-                                    <li key={file.id}>
+                                    <li key={file.id} onClick={() => handleFileClick(file)}>
                                         {file.filename}
+                                        {file.content}
                                         {/* Render the filename or other attributes as needed */}
                                     </li>
                                 ))
