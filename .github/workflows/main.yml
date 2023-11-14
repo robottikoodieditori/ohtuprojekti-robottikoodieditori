@@ -28,7 +28,6 @@ jobs:
       - name: Create database file
         working-directory: ./backend
         run: touch test_db.db
-        touch users_db.db
       - name: Create database
         working-directory: ./backend
         run: sqlite3 test_db.db < schema.sql
