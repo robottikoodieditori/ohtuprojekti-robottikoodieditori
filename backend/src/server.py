@@ -9,11 +9,11 @@ from db import DB
 
 app = Flask(__name__, static_folder="../build/static", template_folder="../build")
 
+app.config["DB_PATH"] = "user_db.db"
+
 if len(argv) > 1:
     if argv[1] == 'test':
         app.config["DB_PATH"] = "test_db.db"
-else:
-    app.config["DB_PATH"] = "user_db.db"
 app.config["SECRET_KEY"] = getenv("SECRET_KEY")
 
 db = DB(app.config["DB_PATH"])
