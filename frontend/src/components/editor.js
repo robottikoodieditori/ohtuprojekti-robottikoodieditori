@@ -115,6 +115,19 @@ const Editor = ({ textContent }) => {
         languageRef.current = language
     }, [language])
 
+    //adminView.js editor useEffect
+    useEffect(() => {
+        if (editor.current && textContent !== undefined) {
+            editor.current.dispatch({
+                changes: {
+                    from: 0,
+                    to: editor.current.state.doc.length,
+                    insert: textContent
+                }
+            });
+        }
+    }, [textContent]); // Dependency array includes textContent
+
     return (
         <div>
             <div ref={editor} className="editor" id='editor' onClick={handleClick} aria-label="Code Editor"></div>

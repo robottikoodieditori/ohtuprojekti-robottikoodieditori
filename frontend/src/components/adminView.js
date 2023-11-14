@@ -70,8 +70,7 @@ const AdminView = () => {
                         {allFiles.length > 0 ? (
                             allFiles.map(file => (
                                 <li key={file.id} onClick={() => handleFileClick(file)}>
-                                    {file.filename}
-                                    {file.content}
+                                    {file.filename}                                   
                                     {/* Render the filename or other attributes as needed */}
                                 </li>
                             ))
@@ -95,7 +94,6 @@ const AdminView = () => {
                                 userFiles.map(file => (
                                     <li key={file.id} onClick={() => handleFileClick(file)}>
                                         {file.filename}
-                                        {file.content}
                                         {/* Render the filename or other attributes as needed */}
                                     </li>
                                 ))
