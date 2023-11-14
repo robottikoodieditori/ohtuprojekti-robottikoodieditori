@@ -28,14 +28,13 @@ jobs:
       - name: Create database file
         working-directory: ./backend
         run: touch test_db.db
+        touch users_db.db
       - name: Create database
         working-directory: ./backend
         run: sqlite3 test_db.db < schema.sql
       - name: Create .env
         working-directory: ./backend
-        run: echo "SECRET_KEY=123" > .env
-        run: echo "DB_PATH=users_db.db" >> .env
-        run: echo "TEST_DB_PATH=test_db.db" >> .env
+        run: echo "SECRET_KEY=123 DB_PATH=users_db.db TEST_DB_PATH=test_db.db" > .env
       - name: Test backend
         working-directory: ./backend
         run: poetry run invoke test
