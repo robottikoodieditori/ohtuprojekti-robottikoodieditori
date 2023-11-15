@@ -1,4 +1,5 @@
 from os import getenv
+from sys import argv
 from flask import Flask, request, send_from_directory, jsonify
 from mockcompiler import MockCompiler
 from user_service import UserService
@@ -8,9 +9,14 @@ from db import DB
 
 app = Flask(__name__, static_folder="../build/static", template_folder="../build")
 
-app.config["DB_PATH"] = "user_db.db"
+DB_PATH = getenv('DB_PATH')
+if len(argv) > 1:
+    if argv[1] == 'test':
+        DB_PATH = getenv('TEST_DB_PATH')
+
 app.config["SECRET_KEY"] = getenv("SECRET_KEY")
-db = DB(app.config["DB_PATH"])
+
+db = DB(DB_PATH)
 user_service = UserService(db, app.config["SECRET_KEY"])
 file_service = FileService(db)
 
@@ -61,17 +67,25 @@ def get_user_files():
     return "Invalid Credentials", 400
 
 
-@app.route("/file/save", methods=["POST"])
+@app.route("/file", methods=["POST"])
 def save_file():
     content = request.json
     if not content.get('token', None):
         return "Invalid Credentials", 400
     user_id = user_service.verify_token(content["token"])
     if user_id:
-        result = file_service.save_file(
-            content["filename"], content["textContent"], user_id
-        )
-        return jsonify({result: result})
+        if content['action'] == 'save':
+            result = file_service.save_file(
+                content["filename"], content["textContent"], user_id
+            )
+            return jsonify(result)
+        elif content['action'] == 'hide':
+            # logic to hide
+            pass
+        elif content['action'] == 'delete':
+            # logic to delete
+            pass
+
     return "Invalid Credentials", 400
 
 

@@ -1,7 +1,7 @@
 import { useState, useContext, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { LanguageContext } from "../contexts/languagecontext";
-import { saveFile } from '../reducers/commsReducer';
+import { handleFile } from '../reducers/commsReducer';
 import { setFileName, setContent } from "../reducers/editorReducer";
 import commService from "../services/comms";
 import '../css/editornavbar.css';
@@ -22,6 +22,7 @@ const EditorNavbar = () => {
     async function getData() {
         if (window.localStorage.getItem('username')) {
             const data = await commService.getUserFiles()
+            console.log(data)
             setFileList(data)
         } else {
             setFileList([])
@@ -49,7 +50,7 @@ const EditorNavbar = () => {
             dispatch(setFileName(event.target.elements.newFileNameInput.value))
             window.localStorage.setItem('textContent', textContent)
             window.localStorage.setItem('filename', event.target.elements.newFileNameInput.value)
-            dispatch(saveFile(textContent, event.target.elements.newFileNameInput.value))
+            dispatch(handleFile(textContent, event.target.elements.newFileNameInput.value, 'save'))
             setCurrentView('main')
             getData()            
         }
@@ -62,7 +63,7 @@ const EditorNavbar = () => {
         }
         if (username) {
             window.localStorage.setItem('textContent', textContent)
-            dispatch(saveFile(textContent, fileName))
+            dispatch(handleFile(textContent, fileName, 'save'))
             getData()
         }
     }
@@ -75,6 +76,16 @@ const EditorNavbar = () => {
         setCurrentView('main')
     }
 
+    const handleFileHiding = (file) => {
+        if ( fileName == file.filename) {
+            dispatch(handleFile(textContent, file, 'hide'))
+            handleNewFile()
+        } else {
+            dispatch(handleFile(textContent, file, 'hide'))
+            getData()            
+        }
+
+    }
 
     const NewFileScreen = () => {
         return (
@@ -120,17 +131,21 @@ const EditorNavbar = () => {
                             <table>
                                 <thead>
                                     <tr>
-                                        <th>{translations?.editorNavbar.fileName}</th>
-                                        <th>{translations?.editorNavbar.createdAt}</th>
-                                        <th>{translations?.editorNavbar.lastEdited}</th>
+                                        <th></th>
+                                        <th className="center-th">{translations?.editorNavbar.fileName}</th>
+                                        <th className="center-th">{translations?.editorNavbar.createdAt}</th>
+                                        <th className="center-th">{translations?.editorNavbar.lastEdited}</th>
+                                        <th></th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     {fileList.map(file => (
-                                        <tr key={file.filename} className='file-row' onClick={() => handleFileSelection(file)}>
-                                            <td>{file.filename}</td>
-                                            <td>{file.created}</td>
-                                            <td>{file.last_updated}</td>
+                                        <tr key={file.filename} className='file-row'>
+                                            <td className="file-open-td" onClick={() => handleFileSelection(file)}>{translations?.editorNavbar.open}</td>
+                                            <td className="left-td">{file.filename}</td>
+                                            <td className="center-td">{file.created}</td>
+                                            <td className="right-td">{file.last_updated}</td>
+                                            <td className="file-hide-td" onClick={() => handleFileHiding(file)}>{translations?.editorNavbar.delete}</td>
                                         </tr>
                                     ))}
                                 </tbody>

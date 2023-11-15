@@ -87,13 +87,15 @@ export const login = username => {
     }
 }
 
-export const saveFile = (content, filename) => {
+export const handleFile = (content, filename, action) => {
     console.log('aaa')
     return async dispatch => {
-        const res = await commService.sendFileContent(content, filename)
+        const res = await commService.handleFile(content, filename, action)
         console.log(res)
-        dispatch(setFileName(filename))
-        dispatch(setContent(content))
+        if (res.action == 'save'){
+            dispatch(setFileName(filename))
+            dispatch(setContent(content))
+        }
     }
 }
 
