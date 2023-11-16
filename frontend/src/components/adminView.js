@@ -45,12 +45,12 @@ const AdminView = () => {
     const handleDownloadClick = () => alert('Download functionality coming soon!');
     const handleModifyClick = () => alert('Modify functionality coming soon!');
     const handleDeleteClick = () => alert('Delete functionality coming soon!');
-
+    const handleShowUserInfo = () => alert('Delete functionality coming soon!');
 
     return (
         <div className="admin-container">
             <h2>Admin Dashboard</h2>
-            <div className="sections-container"> {/* Flex container */}
+            <div className="sections-container">
 
                 {/* User list section */}
                 <section className="admin-section user-list-section">
@@ -61,49 +61,57 @@ const AdminView = () => {
                         value={searchQuery}
                         onChange={handleSearchChange}
                     />
-                    <ul>
+                    <div className="user-list">
                         {filteredUsers.map(user => (
-                            <li key={user.id} onClick={() => handleUserClick(user)}>
-                                {user.name}
-                            </li>
+                            <div key={user.id} className="user-item">
+                                <span className="user-name">{user.name}</span>
+                                <div className="user-action-buttons">
+                                    <button className="user-action-button" onClick={() => handleUserClick(user)}>Show Files</button>
+                                    <button className="user-action-button" onClick={() => handleShowUserInfo(user)}>Show User Info</button>
+                                </div>
+                            </div>
                         ))}
-                    </ul>
+                    </div>
                 </section>
 
                 {/* Selected user's files section */}
                 {selectedUser && (
                     <section className="admin-section user-files-section">
                         <h3>{selectedUser.name}&apos;s Files</h3>
-                        <ul>
-                            {userFiles.length > 0 ? (
-                                userFiles.map(file => (
-                                    <li key={file.id} onClick={() => handleFileClick(file)}>
-                                        {file.filename}
-                                        {/* Render the filename or other attributes as needed */}
-                                    </li>
-                                ))
-                            ) : (
-                                <p>No files found for this user.</p>
-                            )}
-                        </ul>
+                        <div>
+                            <ul>
+                                {userFiles.length > 0 ? (
+                                    userFiles.map(file => (
+                                        <li key={file.id} onClick={() => handleFileClick(file)}>
+                                            {file.filename}
+                                            {/* Render the filename or other attributes as needed */}
+                                        </li>
+                                    ))
+                                ) : (
+                                    <p>No files found for this user.</p>
+                                )}
+                            </ul>
+                        </div>
                     </section>
                 )}
 
                 {/* All files section */}
                 <section className="admin-section all-files-section">
                     <h3>All Files</h3>
-                    <ul>
-                        {allFiles.length > 0 ? (
-                            allFiles.map(file => (
-                                <li key={file.id} onClick={() => handleFileClick(file)}>
-                                    {file.filename}                                   
-                                    {/* Render the filename or other attributes as needed */}
-                                </li>
-                            ))
-                        ) : (
-                            <p>No files found.</p>
-                        )}
-                    </ul>
+                    <div>
+                        <ul>
+                            {allFiles.length > 0 ? (
+                                allFiles.map(file => (
+                                    <li key={file.id} onClick={() => handleFileClick(file)}>
+                                        {file.filename}                                   
+                                        {/* Render the filename or other attributes as needed */}
+                                    </li>
+                                ))
+                            ) : (
+                                <p>No files found.</p>
+                            )}
+                        </ul>
+                    </div>
                 </section>
 
 
