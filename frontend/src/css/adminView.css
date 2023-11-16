@@ -1,71 +1,52 @@
-/* adminview.css */
+/* adminView.css */
 .admin-container {
+    padding: 20px;
+}
+
+.sections-container {
     display: flex;
-    padding: 20px;
-    gap: 20px;
+    gap: 20px; /* Adjust the space between the sections */
+    margin-bottom: 20px; /* Add space above the editor */
 }
 
-.user-list-section, .file-list-section {
-    border: 1px solid #ccc;
-    padding: 20px;
-    border-radius: 5px;
-    overflow: auto;
+.admin-section {
+    flex: 1; /* Each section takes equal width */
+    padding: 10px;
+    border: 1px solid #ddd; /* Light border for the section */
+    border-radius: 8px; /* Slight rounding of corners */
+    background-color: #f9f9f9; /* Light background for the section */
+    overflow: auto; /* In case of overflow, add scroll */
+    height: 300px; /* Set a fixed height or use a value that fits your design */
+    overflow-y: auto; /* Adds a vertical scrollbar when needed */
 }
 
-.user-list-section {
-    flex: 1;
+.file-editor-container {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    padding: 10px;
+    /* If you need a specific height, you can set it here */
+    height: 500px; /* For example, set a fixed height */
+    overflow-y: auto; /* Adds a vertical scrollbar when needed */
 }
 
-.file-list-section {
-    flex: 2;
-    min-width: 0; /* For flexbox overflow */
+/* Add additional styling for inputs, lists, etc., as needed */
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .sections-container {
+        flex-direction: column;
+    }
 }
 
-.user-list {
-    list-style: none;
-    padding: 0;
+/* Apply similar overflow rules to the specific lists if needed */
+.user-list, .all-files-list, .user-specific-files-list {
+    max-height: 250px; /* Adjust max-height as needed */
+    overflow-y: auto;
 }
 
-.user-list li {
-    cursor: pointer;
-    padding: 5px 10px;
-    border-bottom: 1px solid #eee;
+/* You might want to remove the margin-bottom from the list items, 
+   or adjust it, so that the spacing is consistent inside the scrollable area */
+.user-list li, .all-files-list li, .user-specific-files-list li {
+    margin-bottom: 5px; /* Adjust as necessary */
 }
-
-.user-list li:hover {
-    background-color: #f5f5f5;
-}
-
-.file-list {
-    list-style: none;
-    padding: 0;
-}
-
-.file-list li {
-    padding: 5px 10px;
-    border-bottom: 1px solid #eee;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-
-/* adminview.css */
-
-/* Existing styles... */
-
-.all-files-section, .user-files-section {
-    border: 1px solid #ccc;
-    padding: 20px;
-    border-radius: 5px;
-    overflow: auto;
-    margin-top: 20px; /* Add space between user list and file lists */
-}
-
-.all-files-section {
-    flex: 3; /* Adjust as needed to give more room for all files */
-}
-
-.user-files-section {
-    flex: 2; /* Adjust as needed for selected user's files */
-}
-

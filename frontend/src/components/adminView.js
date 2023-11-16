@@ -43,10 +43,10 @@ const AdminView = () => {
     return (
         <div className="admin-container">
             <h2>Admin Dashboard</h2>
-            <div> {/* Flex container */}
+            <div className="sections-container"> {/* Flex container */}
 
                 {/* User list section */}
-                <section className="user-list-section">
+                <section className="admin-section user-list-section">
                     <h3>User Management</h3>
                     <input
                         type="text"
@@ -54,7 +54,7 @@ const AdminView = () => {
                         value={searchQuery}
                         onChange={handleSearchChange}
                     />
-                    <ul className="user-list">
+                    <ul>
                         {filteredUsers.map(user => (
                             <li key={user.id} onClick={() => handleUserClick(user)}>
                                 {user.name}
@@ -63,33 +63,11 @@ const AdminView = () => {
                     </ul>
                 </section>
 
-                {/* All files section */}
-                <section className="all-files-section">
-                    <h3>All Files</h3>
-                    <ul className="all-files-list">
-                        {allFiles.length > 0 ? (
-                            allFiles.map(file => (
-                                <li key={file.id} onClick={() => handleFileClick(file)}>
-                                    {file.filename}                                   
-                                    {/* Render the filename or other attributes as needed */}
-                                </li>
-                            ))
-                        ) : (
-                            <p>No files found.</p>
-                        )}
-                    </ul>
-                </section>
-
-                {/* Editor section to display the selected file */}
-                <div className="file-editor-container">
-                    <Editor textContent={fileContent} />
-                </div>
-
                 {/* Selected user's files section */}
                 {selectedUser && (
-                    <section className="user-files-section">
+                    <section className="admin-section user-files-section">
                         <h3>{selectedUser.name}&apos;s Files</h3>
-                        <ul className="user-specific-files-list">
+                        <ul>
                             {userFiles.length > 0 ? (
                                 userFiles.map(file => (
                                     <li key={file.id} onClick={() => handleFileClick(file)}>
@@ -104,7 +82,31 @@ const AdminView = () => {
                     </section>
                 )}
 
+                {/* All files section */}
+                <section className="admin-section all-files-section">
+                    <h3>All Files</h3>
+                    <ul>
+                        {allFiles.length > 0 ? (
+                            allFiles.map(file => (
+                                <li key={file.id} onClick={() => handleFileClick(file)}>
+                                    {file.filename}                                   
+                                    {/* Render the filename or other attributes as needed */}
+                                </li>
+                            ))
+                        ) : (
+                            <p>No files found.</p>
+                        )}
+                    </ul>
+                </section>
+
+
             </div>
+            {/* Editor section to display the selected file */}
+            <div className="file-editor-container">
+                <Editor textContent={fileContent} />
+            </div>
+
+            
         </div>
     );
 };
