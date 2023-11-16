@@ -1,4 +1,3 @@
-from random import randint
 import re
 import os
 from flask import session
