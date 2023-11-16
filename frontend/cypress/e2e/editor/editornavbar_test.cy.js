@@ -21,9 +21,29 @@ describe('Login functionality', function() {
     })
 
     it('Attempting to open a file', function() {
-        cy.get('#editornavbar').contains('Avaa Tiedosto').click(50)
+        cy.get('#editornavbar').contains('Avaa Tiedosto').click(500).wait(800)
         cy.get("#overlay").contains('Valitse tiedosto')
-        cy.get("#overlay").contains('testi').click(50)
+        cy.get("#overlay").contains('testi').click(1000)
         cy.get("#editor").should('contain', 'eteen 10')
+    })
+
+    it('Attempting to save an existing file', function() {
+        cy.get('#editor').type('taakse 10')
+        cy.get('#editornavbar').contains('Tallenna').click()
+        cy.get('#content-saveNew').contains('Anna uusi tiedostonimi')
+        cy.get('#newFileNameInput').type('testi2', {force:true})
+        cy.get('#content-saveNew').contains('Tallenna nimellä').click()
+        cy.wait(500)
+
+        cy.get('#editor').type('{selectall}eteen 10')
+        cy.get('#editornavbar').contains('Tallenna').click().wait(800)
+
+        cy.get('#editornavbar').contains('Uusi Tiedosto').click()
+        cy.get('#editor').contains('Logo...')
+
+        cy.get('#editornavbar').contains('Avaa Tiedosto').click().wait(800)
+        cy.get('#overlay').contains('Valitse tiedosto')
+        cy.get('#overlay').contains('testi2').click()
+        cy.get('#editor').should('contain', 'eteen 10')
     })
 })

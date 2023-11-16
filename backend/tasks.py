@@ -1,20 +1,20 @@
 from invoke import task
 
-
 @task
 def start(ctx):
     ctx.run("python3 src/server.py")
 
+@task
+def testing(ctx):
+    ctx.run("python3 src/server.py test")
 
 @task
 def test(ctx):
     ctx.run("pytest src/tests", pty=True)
 
-
 @task
 def lint(ctx):
     ctx.run("pylint src", pty=True)
-
 
 @task
 def format(ctx):

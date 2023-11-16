@@ -8,11 +8,11 @@ import os
 class TestUser(unittest.TestCase):
     def setUp(self):
         try:
-            os.remove("test_db.db")
+            os.remove("test_case_db.db")
         except:
             pass
-        self.db = DB("test_db.db")
-        con = sqlite3.connect("test_db.db")
+        self.db = DB("test_case_db.db")
+        con = sqlite3.connect("test_case_db.db")
         cur = con.cursor()
         cur.execute('''CREATE TABLE users (
             id INTEGER PRIMARY KEY,
@@ -30,7 +30,7 @@ class TestUser(unittest.TestCase):
         self.user_service = UserService(self.db, 'mrsecret')
 
     def tearDown(self):
-        os.remove("test_db.db")
+        os.remove("test_case_db.db")
 
     def test_register(self):
         result = self.user_service.register("Arska", "choppah")
