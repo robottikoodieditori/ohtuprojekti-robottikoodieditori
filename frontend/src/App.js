@@ -1,11 +1,16 @@
+import { useState } from 'react';
 import EditorView from "./components/editorview";
 import Sidebar from "./components/sidebar";
 import Navbar from "./components/navbar";  
 import { LanguageProvider } from './contexts/languagecontext';
-import Tokenpopup from "./components/popup"
+import Tokenpopup from "./components/popup";
+import AdminView from "./components/adminView"; 
+import './css/footer.css'
 
 function App() {
-    document.title = 'Logomotion editor'
+    const [isAdminView, setIsAdminView] = useState(false); // State to toggle admin view
+    document.title = 'Logomotion editor'; // Set the document title as received from origin/dev
+
     return (
         <LanguageProvider>
             <div className="app">
@@ -15,14 +20,26 @@ function App() {
                 <div className="navbar">
                     <Navbar/>
                 </div>
-                <div className="main-content">
-                    <div>
-                        <EditorView />
+                {isAdminView ? (
+                    <div className="admin-view">
+                        <AdminView />
                     </div>  
-                    <div className="sidebar">
-                        <Sidebar/>
+                ) : (
+                    <div className="main-content">
+                        <div>
+                            <EditorView />
+                        </div>  
+                        <div className="sidebar">
+                            <Sidebar/>
+                        </div>
                     </div>
-                </div>
+                )}
+                {/* Footer */}
+                <footer className="app-footer">
+                    <button onClick={() => setIsAdminView(!isAdminView)}>
+                        {isAdminView ? "Close Admin" : "Open Admin"}
+                    </button>
+                </footer>
             </div>
         </LanguageProvider>
     );

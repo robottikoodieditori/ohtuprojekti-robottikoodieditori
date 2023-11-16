@@ -10,5 +10,6 @@ CREATE TABLE logofiles (
     content TEXT,
     created TIME,
     last_updated TIME,
+    visible INTEGER DEFAULT 1,
     user_id INTEGER REFERENCES users
 );
