@@ -40,6 +40,13 @@ const AdminView = () => {
         setFileContent(file.content);
     };
 
+    // Dummy functions for button actions
+    const handleUploadClick = () => alert('Upload functionality coming soon!');
+    const handleDownloadClick = () => alert('Download functionality coming soon!');
+    const handleModifyClick = () => alert('Modify functionality coming soon!');
+    const handleDeleteClick = () => alert('Delete functionality coming soon!');
+
+
     return (
         <div className="admin-container">
             <h2>Admin Dashboard</h2>
@@ -102,9 +109,17 @@ const AdminView = () => {
 
             </div>
             {/* Editor section to display the selected file */}
-            <div className="file-editor-container">
+            
+            <div className="editor-section">
+                <div className="editor-toolbar">
+                    <button onClick={handleUploadClick}>Upload</button>
+                    <button onClick={handleDownloadClick}>Download</button>
+                    <button onClick={handleModifyClick}>Modify</button>
+                    <button onClick={handleDeleteClick}>Delete</button>
+                </div>
                 <Editor textContent={fileContent} />
             </div>
+            
 
             
         </div>

@@ -50,3 +50,61 @@
 .user-list li, .all-files-list li, .user-specific-files-list li {
     margin-bottom: 5px; /* Adjust as necessary */
 }
+
+.file-editor-container {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    padding: 0; /* Remove padding to allow editor-toolbar to attach directly */
+    /* If you need a specific height, you can set it here */
+    /* height: 500px; For example, set a fixed height */
+    /* overflow-y: auto; Adds a vertical scrollbar when needed */
+}
+
+.editor-section {
+    /* Remove border if you want no separation */
+    background-color: #fff;
+    padding: 0; /* Remove padding */
+    /* Adjust border-radius if you want the editor corners rounded */
+}
+
+.editor-toolbar {
+    background-color: #007bff; /* Button background color */
+    padding: 10px 15px; /* Padding for the button area */
+    display: flex;
+    gap: 10px; /* Adjust space between buttons */
+    border-top-left-radius: 8px; /* Match the border-radius of .file-editor-container */
+    border-top-right-radius: 8px; /* Match the border-radius of .file-editor-container */
+}
+
+.editor-toolbar button {
+    background-color: #003366; /* Blue background */
+    color: white; /* White text */
+    border: none; /* No border */
+    border-radius: 4px; /* Rounded corners */
+    padding: 10px 15px; /* Padding inside the button */
+    margin-right: 10px; /* Space between buttons */
+    cursor: pointer; /* Cursor indicates button */
+    transition: background-color 0.3s ease; /* Smooth transition for hover effect */
+}
+
+.editor-toolbar button:hover {
+    background-color: #0056b3; /* Darker blue when hovering */
+}
+
+.editor-toolbar button:active {
+    background-color: #003865; /* Even darker blue when active/clicked */
+    box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.2); /* Inner shadow for clicked effect */
+}
+
+/* Ensure the Editor component takes the full width available */
+.editor-section .Editor {
+    width: 100%;
+    /* additional styles for the editor */
+}
+
+.EditorClassName { /* Replace with actual class or ID */
+    margin-top: 0;
+    padding-top: 0;
+    /* Other styles */
+}
