@@ -9,10 +9,10 @@ from db import DB
 
 app = Flask(__name__, static_folder="../build/static", template_folder="../build")
 
-DB_PATH = getenv('DB_PATH')
+DB_PATH = getenv("DB_PATH")
 if len(argv) > 1:
-    if argv[1] == 'test':
-        DB_PATH = getenv('TEST_DB_PATH')
+    if argv[1] == "test":
+        DB_PATH = getenv("TEST_DB_PATH")
 
 app.config["SECRET_KEY"] = getenv("SECRET_KEY")
 
@@ -57,6 +57,12 @@ def login():
     return "Username already taken", 400
 
 
+@app.route("/file/hide", methods=["POST"])
+def hide_file():
+    content = request.json
+    file_id = content["file_id"]
+
+
 @app.route("/files", methods=["POST"])
 def get_user_files():
     content = request.json
@@ -70,7 +76,7 @@ def get_user_files():
 @app.route("/file/save", methods=["POST"])
 def save_file():
     content = request.json
-    if not content.get('token', None):
+    if not content.get("token", None):
         return "Invalid Credentials", 400
     user_id = user_service.verify_token(content["token"])
     if user_id:
