@@ -25,6 +25,8 @@ touch "$ROOT_DIR/backend/user_db.db"
 touch "$ROOT_DIR/backend/test_db.db"
 
 sqlite3 "$ROOT_DIR/backend/user_db.db" < "$ROOT_DIR/backend/schema.sql"
+sqlite3 "$ROOT_DIR/backend/user_db.db" < "$ROOT_DIR/backend/test_data.sql"
+
 
 if [ "$OS" == "Darwin" ]; then
     osascript <<EOD

@@ -24,9 +24,16 @@ const getUserFiles = async () => {
     return res.data
 }
 
+const getUsers = async () => {
+    const res = await axios.get('/admin/users')
+    console.log("Comms",res)
+    return res.data;
+}
+
 export default {
     sendToCompile: sendToCompile,
     sendLogin: sendLogin,
     sendFileContent: sendFileContent,
     getUserFiles: getUserFiles,
+    getUsers:getUsers
 }
