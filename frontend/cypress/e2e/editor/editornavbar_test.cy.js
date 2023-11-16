@@ -23,7 +23,12 @@ describe('Login functionality', function() {
     it('Attempting to open a file', function() {
         cy.get('#editornavbar').contains('Avaa Tiedosto').click(500).wait(800)
         cy.get("#overlay").contains('Valitse tiedosto')
-        cy.get("#overlay").contains('testi').click(1000)
+        cy.get('.file-row')
+        .contains('.left-td', 'testi')
+        .parent('.file-row')
+        .within(() => {
+          cy.get('.file-open-td').click();
+        });        
         cy.get("#editor").should('contain', 'eteen 10')
     })
 
@@ -43,7 +48,26 @@ describe('Login functionality', function() {
 
         cy.get('#editornavbar').contains('Avaa Tiedosto').click().wait(800)
         cy.get('#overlay').contains('Valitse tiedosto')
-        cy.get('#overlay').contains('testi2').click()
+        cy.get('.file-row')
+        .contains('.left-td', 'testi2')
+        .parent('.file-row')
+        .within(() => {
+          cy.get('.file-open-td').click();
+        });    
         cy.get('#editor').should('contain', 'eteen 10')
+    })
+
+    it('Attempting to hide a file', function() {
+        cy.get('#editornavbar').contains('Avaa Tiedosto').click().wait(800)
+        cy.get('#overlay').contains('Valitse tiedosto')
+        cy.get('.file-row')
+        .contains('.left-td', 'testi2')
+        .parent('.file-row')
+        .within(() => {
+          cy.get('.file-hide-td').click();
+        });    
+        cy.get('#editornavbar').contains('Avaa Tiedosto').click().wait(800)
+        cy.get('.file-row')
+        .should('not.contain', '.left-td', 'testi2')
     })
 })

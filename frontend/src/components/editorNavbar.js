@@ -2,7 +2,7 @@ import { useState, useContext, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { LanguageContext } from "../contexts/languagecontext";
 import { handleFile } from '../reducers/commsReducer';
-import { setFileName, setContent } from "../reducers/editorReducer";
+import { setFileName, setContent, setFileId } from "../reducers/editorReducer";
 import commService from "../services/comms";
 import '../css/editornavbar.css';
 
@@ -12,6 +12,7 @@ const EditorNavbar = () => {
     const [currentView, setCurrentView] = useState('main')
     const [fileList, setFileList] = useState([])
     const fileName = useSelector(state => state.editor.fileName)
+    const fileId = useSelector(state => state.editor.fileId)
     const textContent = useSelector(state => state.editor.textContent)
     const username = useSelector(state => state.comms.username)
 
@@ -41,6 +42,10 @@ const EditorNavbar = () => {
         setTimeout(() => (
             dispatch(setFileName(''))
         ), 1)
+        
+        // clear current fileId
+        dispatch(setFileId(''))
+        window.localStorage.removeItem('fileId')
         getData()
     }
 
@@ -50,7 +55,7 @@ const EditorNavbar = () => {
             dispatch(setFileName(event.target.elements.newFileNameInput.value))
             window.localStorage.setItem('textContent', textContent)
             window.localStorage.setItem('filename', event.target.elements.newFileNameInput.value)
-            dispatch(handleFile(textContent, event.target.elements.newFileNameInput.value, 'save'))
+            dispatch(handleFile(textContent, event.target.elements.newFileNameInput.value, 'new', 'save'))
             setCurrentView('main')
             getData()            
         }
@@ -63,7 +68,7 @@ const EditorNavbar = () => {
         }
         if (username) {
             window.localStorage.setItem('textContent', textContent)
-            dispatch(handleFile(textContent, fileName, 'save'))
+            dispatch(handleFile(textContent, fileName,  fileId, 'save'))
             getData()
         }
     }
@@ -73,17 +78,20 @@ const EditorNavbar = () => {
         window.localStorage.setItem('textContent', file.textContent)
         dispatch(setFileName(file.filename))
         window.localStorage.setItem('filename', file.filename)
+        window.localStorage.setItem('fileId', file.file_id)
+        dispatch(setFileId(file.file_id))
         setCurrentView('main')
     }
 
     const handleFileHiding = (file) => {
         if ( fileName == file.filename) {
-            dispatch(handleFile(textContent, file, 'hide'))
+            dispatch(handleFile(textContent, file.filename, file.file_id, 'hide'))
             handleNewFile()
         } else {
-            dispatch(handleFile(textContent, file, 'hide'))
-            getData()            
+            dispatch(handleFile(textContent, file.filename, file.file_id, 'hide'))
+            getData()
         }
+        setCurrentView('main')        
 
     }
 

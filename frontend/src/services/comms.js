@@ -10,12 +10,13 @@ const sendLogin = async (username, password) => {
     return res.data
 }
 
-const handleFile = async (content, filename, action) => {
+const handleFile = async (content, filename, fileId, action) => {
     console.log(content, 'asd')
     const res = await axios.post('/file', {
         'textContent': content, 'filename': filename,
         'token': window.localStorage.getItem('token'),
-        'action': action
+        'action': action,
+        'fileId': fileId
     })
     return res.data
 }

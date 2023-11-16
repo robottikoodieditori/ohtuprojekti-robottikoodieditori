@@ -26,13 +26,16 @@ class FileService:
         if file_exists[0] == 0:
             query = """INSERT INTO logofiles (filename, content, created, last_updated, user_id)
              VALUES (?, ?, DateTime("now", "localtime"), DateTime("now", "localtime"), ?)"""
-            result = self.database.insert_entry(query, (filename, content, user_id))
+            result = self.database.insert_entry(query, (filename, content, user_id))            
+            query = """SELECT id FROM logofiles WHERE user_id=? AND filename=?"""
+            file_id = self.database.get_entry_from_db(query, (user_id, filename))
+            return {'result': result, 'action': 'save', 'file_id': file_id}
+
         else:
             query = """UPDATE logofiles SET content = ?, last_updated = DateTime("now", "localtime")
              WHERE filename = ? AND user_id = ?"""
             result = self.database.insert_entry(query, (content, filename, user_id))
-
-        return {'result': result, 'action': 'save'}
+            return {'result': result, 'action': 'save'}
 
     def get_user_files(self, user_id: int) -> list:
         """
@@ -72,4 +75,4 @@ class FileService:
         query = "UPDATE logofiles SET visible=0 WHERE id=?"
         result = self.database.insert_entry(query, (str(file_id)))
 
-        return result
+        return {'result':result, 'action': 'hide'}

@@ -1,7 +1,7 @@
 import commService from '../services/comms'
 import getErrorPositions from '../utils/getErrorPositions'
 import { createSlice } from '@reduxjs/toolkit'
-import { setFileName, setContent } from './editorReducer'
+import { setFileName, setContent, setFileId } from './editorReducer'
 
 const commsSlice = createSlice({
     name: 'comms',
@@ -87,14 +87,23 @@ export const login = username => {
     }
 }
 
-export const handleFile = (content, filename, action) => {
+export const handleFile = (content, filename, fileId, action) => {
     console.log('aaa')
     return async dispatch => {
-        const res = await commService.handleFile(content, filename, action)
+        const res = await commService.handleFile(content, filename, fileId, action)
         console.log(res)
-        if (res.action == 'save'){
+        if (res.action === 'save'){
             dispatch(setFileName(filename))
             dispatch(setContent(content))
+            if (res.file_id){
+                console.log(res.file_id)
+                dispatch(setFileId(res.file_id))
+            }
+        } 
+        if (res.action === 'hide') {
+            console.log(res)
+            //todo
+            //dispatch
         }
     }
 }
@@ -107,18 +116,6 @@ export const getUserFiles = () => {
             dispatch(setUserFiles(false))
         } else {
             dispatch(setUserFiles(res))
-        }
-    }
-}
-
-export const getFileContent = (filename) => {
-    return async dispatch => {
-        const res = await commService.getUserFiles(window.localStorage.getItem('token'))
-        const file = res.find(file => file.filename === filename)
-        if (file) {
-            dispatch(setContent(file))
-        } else {
-            dispatch(setContent(''))
         }
     }
 }

@@ -56,13 +56,6 @@ def login():
 
     return "Username already taken", 400
 
-
-@app.route("/file/hide", methods=["POST"])
-def hide_file():
-    content = request.json
-    file_id = content["file_id"]
-
-
 @app.route("/files", methods=["POST"])
 def get_user_files():
     content = request.json
@@ -86,8 +79,9 @@ def save_file():
             )
             return jsonify(result)
         elif content['action'] == 'hide':
-            # logic to hide
-            pass
+            result = file_service.hide_logo_file(content['fileId'])
+            return jsonify(result)
+
         elif content['action'] == 'delete':
             # logic to delete
             pass
@@ -97,4 +91,4 @@ def save_file():
 
 # Running app
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(host="0.0.0.0", debug=True)
