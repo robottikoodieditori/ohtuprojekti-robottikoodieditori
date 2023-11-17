@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import { LanguageContext } from '../contexts/languagecontext';
 import '../css/index.css';
 import '../css/navbar.css'
-import Tokenpopup from "./popup"
+import LoginPopUp from "./loginPopUp"
 import { useDispatch } from 'react-redux';
 import { logout } from "../reducers/commsReducer";
 
@@ -35,7 +35,7 @@ const Navbar = () => {
                 { username === "" ? (
                     <div className='lang-toggle-button-container'>
                         <button onClick={openPopup} className="lang-toggle-button"> {translations?.navbar.login}</button>
-                        {isPopupOpen && (<Tokenpopup status={true} onClose={closePopup}/>)}
+                        {isPopupOpen && (<LoginPopUp status={true} onClose={closePopup}/>)}
                     </div>
                 ) : (
                     <>

@@ -22,7 +22,7 @@ describe('Login functionality', function() {
 
     it('Attempting to open a file', function() {
         cy.get('#editornavbar').contains('Avaa Tiedosto').click(500).wait(800)
-        cy.get("#overlay").contains('Valitse tiedosto')
+        cy.get("#content-file-select").contains('Valitse tiedosto')
         cy.get('.file-row')
         .contains('.left-td', 'testi')
         .parent('.file-row')
@@ -47,7 +47,7 @@ describe('Login functionality', function() {
         cy.get('#editor').contains('Logo...')
 
         cy.get('#editornavbar').contains('Avaa Tiedosto').click().wait(800)
-        cy.get('#overlay').contains('Valitse tiedosto')
+        cy.get("#content-file-select").contains('Valitse tiedosto')
         cy.get('.file-row')
         .contains('.left-td', 'testi2')
         .parent('.file-row')
@@ -59,7 +59,7 @@ describe('Login functionality', function() {
 
     it('Attempting to hide a file', function() {
         cy.get('#editornavbar').contains('Avaa Tiedosto').click().wait(800)
-        cy.get('#overlay').contains('Valitse tiedosto')
+        cy.get("#content-file-select").contains('Valitse tiedosto')
         cy.get('.file-row')
         .contains('.left-td', 'testi2')
         .parent('.file-row')

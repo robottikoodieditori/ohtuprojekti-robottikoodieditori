@@ -5,7 +5,7 @@ import { useDispatch } from 'react-redux';
 import { LanguageContext } from '../contexts/languagecontext';
 import '../css/popup.css'
 
-const Tokenpopup = ({status, onClose}) => {
+const LoginPopUp = ({status, onClose}) => {
     const [open, setOpen] = useState(status);
     const { toggleLanguage, translations } = useContext(LanguageContext)
     const [username, setUsername] = useState('');
@@ -83,4 +83,4 @@ const Tokenpopup = ({status, onClose}) => {
     )
 }
 
-export default Tokenpopup;
+export default LoginPopUp;
