@@ -56,13 +56,6 @@ def login():
 
     return "Username already taken", 400
 
-
-@app.route("/file/hide", methods=["POST"])
-def hide_file():
-    content = request.json
-    file_id = content["file_id"]
-
-
 @app.route("/files", methods=["POST"])
 def get_user_files():
     content = request.json
@@ -73,20 +66,29 @@ def get_user_files():
     return "Invalid Credentials", 400
 
 
-@app.route("/file/save", methods=["POST"])
+@app.route("/file", methods=["POST"])
 def save_file():
     content = request.json
     if not content.get("token", None):
         return "Invalid Credentials", 400
     user_id = user_service.verify_token(content["token"])
     if user_id:
-        result = file_service.save_file(
-            content["filename"], content["textContent"], user_id
-        )
-        return jsonify({result: result})
+        if content['action'] == 'save':
+            result = file_service.save_file(
+                content["filename"], content["textContent"], user_id
+            )
+            return jsonify(result)
+        elif content['action'] == 'hide':
+            result = file_service.hide_logo_file(content['fileId'])
+            return jsonify(result)
+
+        elif content['action'] == 'delete':
+            # logic to delete
+            pass
+
     return "Invalid Credentials", 400
 
 
 # Running app
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(host="0.0.0.0", debug=True)

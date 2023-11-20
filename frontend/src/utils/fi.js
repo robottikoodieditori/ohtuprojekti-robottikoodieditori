@@ -56,7 +56,9 @@ export default {
         filenamePlaceholder: 'Anna uusi tiedostonimi',
         saveWithName: 'Tallenna nimellä',
         openFile: 'Avaa Tiedosto',
-        file: 'Tiedosto: '
+        file: 'Tiedosto: ',
+        open: 'Avaa',
+        delete: 'Poista'
     },
     tooltipOpenSidebar: "Klikkaa sanaa avataksesi sen sivupalkissa",
     toggleLanguage: 'Switch to English'

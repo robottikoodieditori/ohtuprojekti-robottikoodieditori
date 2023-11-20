@@ -57,7 +57,9 @@ export default {
         filenamePlaceholder: 'Enter a new filename',
         saveWithName: 'Save as',
         openFile: 'Open File',
-        file: 'File: '
+        file: 'File: ',
+        open: 'Open',
+        delete: 'Delete'
     },
     tooltipOpenSidebar: "Click word to display on sidebar",
     toggleLanguage: 'Vaihda Suomeksi'
