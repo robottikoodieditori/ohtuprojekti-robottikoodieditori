@@ -3,7 +3,7 @@ import EditorView from "./components/editorview";
 import Sidebar from "./components/sidebar";
 import Navbar from "./components/navbar";  
 import { LanguageProvider } from './contexts/languagecontext';
-import Tokenpopup from "./components/popup";
+import LoginPopUp from "./components/loginPopUp";
 import AdminView from "./components/adminView"; 
 import './css/footer.css'
 
@@ -15,7 +15,7 @@ function App() {
         <LanguageProvider>
             <div className="app">
                 <div>
-                    {!window.localStorage.getItem('username') && <Tokenpopup status={true} onClose={""}/> }
+                    {!window.localStorage.getItem('username') && <LoginPopUp status={true} onClose={""}/> }
                 </div>
                 <div className="navbar">
                     <Navbar/>

@@ -6,6 +6,7 @@ const editorSlice = createSlice({
         textContent: window.localStorage.getItem('textContent') || '',
         currentlyHighlightedWord: '',
         fileName: window.localStorage.getItem('filename') || '',
+        fileId: window.localStorage.getItem('fileId') || '',
     },
     reducers: {
         setContent(state, action) {
@@ -27,13 +28,18 @@ const editorSlice = createSlice({
             state.fileName = action.payload
             console.log(`FILE NAME IS ${state.fileName}`)
             return state
+        },
+        setFileId(state, action) {
+            state.fileId = action.payload
+            console.log(`FILE ID IS ${state.fileId}`)
+            return state
         }
     }
 })
 
 export const {
     setContent, sendToCompiler, sendToRobot, setHighlightedWord,
-    resetHighlightedWord, setFileName
+    resetHighlightedWord, setFileName, setFileId
 } = editorSlice.actions
 
 
