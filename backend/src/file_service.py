@@ -1,3 +1,5 @@
+import subprocess, paramiko
+
 class FileService:
     """
     Class for handling file-related operations. Communicates with the database.
@@ -76,3 +78,55 @@ class FileService:
         result = self.database.insert_entry(query, (str(file_id)))
 
         return {'result':result, 'action': 'hide'}
+
+def send_to_robot() -> int:
+    '''
+    Executes a script which transfers a compiled Java file to the robot if robot is connected and
+    its connection is configured
+
+    returns:
+        return_code (int): indicates the success of operation
+    '''
+    dir_path = 'logomotion_gradle'
+    bash_command = f"cd {dir_path} && ./gradlew deploy"
+    process = subprocess.Popen(bash_command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    return_code = process.wait()
+
+    return return_code
+
+def remote_create_start_script() -> bool:
+    '''
+    Establishes an ssh connection to robot if connected via cable and configured,
+    creates a bash script, grants execution rights for it, which when executed
+    runs the compiled Java program
+
+    returns:
+        bool: True if succesful, False otherwise
+    '''
+    ssh = paramiko.SSHClient()
+    ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+    
+    try:
+        ssh.connect('ev3dev.local', username='robot', password='maker')
+    except paramiko.AuthenticationException:
+        print('Authentication failed')
+        return False
+
+    script_content = '''
+    #!/bin/bash
+    java -jar template_project_gradle-2.6.0.jar
+    exit $?
+    '''
+
+    script_filename = 'start.sh'
+
+    with ssh.open_sftp() as stfp:
+        with stfp.file(script_filename, 'w') as script_file:
+            script_file.write(script_content)
+
+    ssh.exec_command(f'chmod +x {script_filename}')
+    ssh.close()
+    return True
+
+if __name__ == '__main__':
+    remote_create_start_script()
