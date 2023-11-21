@@ -1,0 +1,6 @@
+POST http://localhost:5000/deploy/robot
+Content-Type: application/json
+
+{
+    "content": "toista 10 {\neteen 1\ntaakse 1\n}"    
+}
