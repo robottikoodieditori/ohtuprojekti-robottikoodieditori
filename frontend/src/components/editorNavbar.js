@@ -87,15 +87,24 @@ const EditorNavbar = () => {
     }
 
     const handleFileHiding = (file) => {
-        if ( fileName == file.filename) {
-            dispatch(handleFile(textContent, file.filename, file.file_id, 'hide'))
-            handleNewFile()
-        } else {
-            dispatch(handleFile(textContent, file.filename, file.file_id, 'hide'))
-            getData()
-        }
-        setisFileSelectOpen(false)        
+        const confirmMessage = translations?.editorNavbar.confirmDeleteMessage;
 
+        const formattedMessage = confirmMessage
+            ? confirmMessage.replace('{filename}', file.filename)
+            : ""
+
+        const confirmDelete = window.confirm(formattedMessage)
+    
+        if (confirmDelete) {
+            if (fileName === file.filename) {
+                dispatch(handleFile(textContent, file.filename, file.file_id, 'hide'))
+                handleNewFile()
+            } else {
+                dispatch(handleFile(textContent, file.filename, file.file_id, 'hide'))
+                getData()
+            }
+            setisFileSelectOpen(false)
+        }
     }
 
     const NewFileScreen = () => {
