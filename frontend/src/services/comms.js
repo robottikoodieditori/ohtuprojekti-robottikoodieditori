@@ -31,6 +31,24 @@ const getUsers = async () => {
     return res.data;
 }
 
+const deployToRobot = async (content) => {
+    const res = await axios.post('/deploy/robot',
+        {
+            'token': window.localStorage.getItem('token'),
+            'content': content
+        })
+    return res.data
+}
+
+const deployToRobot = async (content) => {
+    const res = await axios.post('/deploy/robot',
+        {
+            'token': window.localStorage.getItem('token'),
+            'content': content
+        })
+    return res.data
+}
+
 const uploadFile = async (file) => {
     console.log(file)
     const res = await axios.post('/upload', file)
@@ -42,5 +60,6 @@ export default {
     handleFile: handleFile,
     getUserFiles: getUserFiles,
     getUsers: getUsers,
-    uploadFile: uploadFile
+    uploadFile: uploadFile,
+    deployToRobot: deployToRobot
 }

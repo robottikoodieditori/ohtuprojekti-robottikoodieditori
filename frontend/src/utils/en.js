@@ -59,7 +59,29 @@ export default {
         openFile: 'Open File',
         file: 'File: ',
         open: 'Open',
-        delete: 'Delete'
+        delete: 'Delete',
+        confirmDeleteMessage: 'Are you sure you want to delete the file: {filename} ?'
+    },
+    adminView:{
+        adminDashboard: 'Admin Dashboard',
+        userManagement: 'User Management',
+        back: 'Back',
+        showFiles:'Show Files',
+        showUserInfo:'Show User Info',
+        searchUser:'Search user...',
+        username:'Username:',
+        password:'Password:',
+        deleteUser:'Delete User',
+        noUserFilesFound:'No files found for this user.',
+        noFilesFound:'No files found',
+        allFiles:'All Files',
+        upload:'Upload',
+        download:'Download',
+        save:'Save',
+        delete:'Delete',
+        info:'Info',
+        files:'Files',
+
     },
     tooltipOpenSidebar: "Click word to display on sidebar",
     toggleLanguage: 'Vaihda Suomeksi'

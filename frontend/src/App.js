@@ -21,7 +21,7 @@ function App() {
                     <Navbar/>
                 </div>
                 {isAdminView ? (
-                    <div className="admin-view">
+                    <div className="admin-view" id="admin-view">
                         <AdminView />
                     </div>  
                 ) : (
@@ -35,7 +35,7 @@ function App() {
                     </div>
                 )}
                 {/* Footer */}
-                <footer className="app-footer">
+                <footer className="app-footer" id="app-footer">
                     <button onClick={() => setIsAdminView(!isAdminView)}>
                         {isAdminView ? "Close Admin" : "Open Admin"}
                     </button>
