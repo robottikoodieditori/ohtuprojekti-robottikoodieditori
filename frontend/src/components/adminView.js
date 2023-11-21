@@ -85,6 +85,9 @@ const AdminView = () => {
                 {selectedUser && (
                     <section className="admin-section user-files-section">
                         <h3>{selectedUser.name}&apos;s {viewMode === 'info' ? 'Info' : 'Files'}</h3>
+                        <button className="back-button" onClick={() => setSelectedUser(null)}>
+                            Back
+                        </button>
                         <div>
                             {viewMode === 'info' ? (
                                 // Render user info
@@ -140,7 +143,7 @@ const AdminView = () => {
                 <div className="editor-toolbar">
                     <button onClick={handleUploadClick}>Upload</button>
                     <button onClick={handleDownloadClick}>Download</button>
-                    <button onClick={handleModifyClick}>Modify</button>
+                    <button onClick={handleModifyClick}>Save</button>
                     <button onClick={handleDeleteClick}>Delete</button>
                 </div>
                 <Editor textContent={fileContent} />
