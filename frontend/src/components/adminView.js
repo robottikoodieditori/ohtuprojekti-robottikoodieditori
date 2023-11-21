@@ -58,22 +58,24 @@ const AdminView = () => {
 
     return (
         <div className="admin-container">
+      
             <h2>{translations?.adminView.adminDashboard}</h2>
             <div className="sections-container">
 
                 {/* User list section */}
                 <section className="admin-section user-list-section">
                     <h3>{translations?.adminView.userManagement}</h3>
+
                     <input
                         type="text"
                         placeholder={translations?.adminView.searchUser}
                         value={searchQuery}
                         onChange={handleSearchChange}
                     />
-                    <div className="user-list">
+                    <div className="user-list" aria-label="list of users">
                         {filteredUsers.map(user => (
                             <div key={user.id} className="user-item">
-                                <span className="user-name">{user.name}</span>
+                                <span className="user-name" tabIndex="0">{user.name}</span>
                                 <div className="user-action-buttons">
                                     <button className="user-action-button" onClick={() => handleUserClick(user)}>{translations?.adminView.showFiles}</button>
                                     <button className="user-action-button" onClick={() => handleShowUserInfo(user)}>{translations?.adminView.showUserInfo}</button>
@@ -86,7 +88,9 @@ const AdminView = () => {
                 {/* Selected user's files section */}
                 {selectedUser && (
                     <section className="admin-section user-files-section">
+
                         <h3>{selectedUser.name}&apos;s {viewMode === 'info' ? translations?.adminView.info : translations?.adminView.files}</h3>
+
                         <button className="back-button" onClick={() => setSelectedUser(null)}>
                             {translations?.adminView.back}
                         </button>
@@ -94,8 +98,10 @@ const AdminView = () => {
                             {viewMode === 'info' ? (
                                 // Render user info
                                 <div className="user-info">
+
                                     <p>{translations?.adminView.username} {selectedUser.name}</p>
                                     <p>{translations?.adminView.password} {selectedUser.password}</p>
+
                                     <button className="delete-user-button" onClick={() => handleDeleteUser(selectedUser.id)}>
                                         {translations?.adminView.deleteUser}
                                     </button>
@@ -105,7 +111,7 @@ const AdminView = () => {
                                 <ul>
                                     {userFiles.length > 0 ? (
                                         userFiles.map(file => (
-                                            <li key={file.id} onClick={() => handleFileClick(file)}>
+                                            <li tabIndex="0" key={file.id} onClick={() => handleFileClick(file)}>
                                                 {file.filename}
                                             </li>
                                         ))
@@ -119,13 +125,15 @@ const AdminView = () => {
                 )}
 
                 {/* All files section */}
+
                 <section className="admin-section all-files-section">
                     <h3>{translations?.adminView.allFiles}</h3>
+
                     <div>
                         <ul>
                             {allFiles.length > 0 ? (
                                 allFiles.map(file => (
-                                    <li key={file.id} onClick={() => handleFileClick(file)}>
+                                    <li tabIndex="0" key={file.id} onClick={() => handleFileClick(file)}>
                                         {file.filename}                                   
                                         {/* Render the filename or other attributes as needed */}
                                     </li>
