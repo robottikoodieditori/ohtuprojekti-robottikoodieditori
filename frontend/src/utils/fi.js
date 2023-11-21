@@ -58,7 +58,8 @@ export default {
         openFile: 'Avaa Tiedosto',
         file: 'Tiedosto: ',
         open: 'Avaa',
-        delete: 'Poista'
+        delete: 'Poista',
+        confirmDeleteMessage: 'Haluatko varmasti poistaa tiedoston: {filename} ?'
     },
     tooltipOpenSidebar: "Klikkaa sanaa avataksesi sen sivupalkissa",
     toggleLanguage: 'Switch to English'
