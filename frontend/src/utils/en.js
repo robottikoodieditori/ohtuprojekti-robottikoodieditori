@@ -59,7 +59,8 @@ export default {
         openFile: 'Open File',
         file: 'File: ',
         open: 'Open',
-        delete: 'Delete'
+        delete: 'Delete',
+        confirmDeleteMessage: 'Are you sure you want to delete the file: {filename} ?'
     },
     tooltipOpenSidebar: "Click word to display on sidebar",
     toggleLanguage: 'Vaihda Suomeksi'
