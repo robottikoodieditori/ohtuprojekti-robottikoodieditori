@@ -100,15 +100,15 @@ const EditorNavbar = () => {
 
     const NewFileScreen = () => {
         return (
-            <div className="overlay" id="overlay">
+            <div className="overlay" id="overlay" >
                 <Popup
                     open= {isNewFileOpen}
                     closeOnDocumentClick={false}
                     overlayStyle={{ background: 'rgba(0,0,0,0.8'}}
                 >
-                    <div className='content-saveNew' id="content-saveNew">
+                    <div className='content-saveNew' id="content-saveNew" role = "dialog" aria-label="new file window">
                         <div className="content-saveNew-header ">
-                            <h2>{translations?.editorNavbar.filenamePlaceholder}</h2>
+                            <h2 tabIndex="0">{translations?.editorNavbar.filenamePlaceholder}</h2>
                             <div className='saveNew-header'>
                                 <button className="close-button-saveNew" onClick={() => setisNewFileOpen(false)}>X</button>
                             </div>
@@ -143,9 +143,9 @@ const EditorNavbar = () => {
                     closeOnDocumentClick={false}
                     overlayStyle={{ background: 'rgba(0,0,0,0.8'}}
                 >
-                    <div className='content-file-select' id="content-file-select">
+                    <div className='content-file-select' id="content-file-select" role = "dialog" aria-label="choose file window">
                         <div className="content-file-select-header">
-                            <h2>{translations?.editorNavbar.chooseFile}</h2>
+                            <h2 tabIndex="0">{translations?.editorNavbar.chooseFile}</h2>
                             <button className='close-button-file-select' onClick={() => setisFileSelectOpen(false)}>X</button>
                         </div>
                         { fileList && (
@@ -192,7 +192,7 @@ const EditorNavbar = () => {
             { isFileSelectOpen &&
                 <FileSelectionScreen/>
             }
-            <p>{translations?.editorNavbar.file}{fileName}</p>
+            <p tabIndex="0">{translations?.editorNavbar.file}{fileName}</p>
         </div>
     )
 }

@@ -30,7 +30,7 @@ const Navbar = () => {
 
     return (
         <div className="navbar" id="navbar">
-            <h1>{translations.navbar.title}</h1>
+            <h1 tabIndex="0">{translations.navbar.title}</h1>
             <div>
                 { username === "" ? (
                     <div className='lang-toggle-button-container'>
@@ -40,7 +40,7 @@ const Navbar = () => {
                 ) : (
                     <>
                         <div className='logout'>
-                            <div className='username'> <p>{translations?.navbar.loggedInAs}{username}</p> </div>
+                            <div className='username'> <p tabIndex="0">{translations?.navbar.loggedInAs}{username}</p> </div>
                             <div className="logout-button-container">
                                 <button onClick={logOutFromServer} className="logout-button">
                                     {translations?.navbar.logOut}
