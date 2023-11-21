@@ -1,9 +1,11 @@
-import { useState, useEffect } from 'react'; 
+import { useState, useContext, useEffect } from 'react'; 
 import { users as mockUsers, logofiles as mockLogofiles } from './mockData'; // Import mock data
+import { LanguageContext } from "../contexts/languagecontext";
 import Editor from './editor';
 import '../css/adminView.css'; 
 
 const AdminView = () => {
+    const { translations } = useContext(LanguageContext)
     const [users, setUsers] = useState([]);
     const [selectedUser, setSelectedUser] = useState(null);
     const [allFiles, setAllFiles] = useState([]); // State to hold all files
@@ -56,15 +58,15 @@ const AdminView = () => {
 
     return (
         <div className="admin-container">
-            <h2>Admin Dashboard</h2>
+            <h2>{translations?.adminView.adminDashboard}</h2>
             <div className="sections-container">
 
                 {/* User list section */}
                 <section className="admin-section user-list-section">
-                    <h3>User Management</h3>
+                    <h3>{translations?.adminView.userManagement}</h3>
                     <input
                         type="text"
-                        placeholder="Search User..."
+                        placeholder={translations?.adminView.searchUser}
                         value={searchQuery}
                         onChange={handleSearchChange}
                     />
@@ -73,8 +75,8 @@ const AdminView = () => {
                             <div key={user.id} className="user-item">
                                 <span className="user-name">{user.name}</span>
                                 <div className="user-action-buttons">
-                                    <button className="user-action-button" onClick={() => handleUserClick(user)}>Show Files</button>
-                                    <button className="user-action-button" onClick={() => handleShowUserInfo(user)}>Show User Info</button>
+                                    <button className="user-action-button" onClick={() => handleUserClick(user)}>{translations?.adminView.showFiles}</button>
+                                    <button className="user-action-button" onClick={() => handleShowUserInfo(user)}>{translations?.adminView.showUserInfo}</button>
                                 </div>
                             </div>
                         ))}
@@ -84,18 +86,18 @@ const AdminView = () => {
                 {/* Selected user's files section */}
                 {selectedUser && (
                     <section className="admin-section user-files-section">
-                        <h3>{selectedUser.name}&apos;s {viewMode === 'info' ? 'Info' : 'Files'}</h3>
+                        <h3>{selectedUser.name}&apos;s {viewMode === 'info' ? translations?.adminView.info : translations?.adminView.files}</h3>
                         <button className="back-button" onClick={() => setSelectedUser(null)}>
-                            Back
+                            {translations?.adminView.back}
                         </button>
                         <div>
                             {viewMode === 'info' ? (
                                 // Render user info
                                 <div className="user-info">
-                                    <p>Username: {selectedUser.name}</p>
-                                    <p>Password: {selectedUser.password}</p>
+                                    <p>{translations?.adminView.username} {selectedUser.name}</p>
+                                    <p>{translations?.adminView.password} {selectedUser.password}</p>
                                     <button className="delete-user-button" onClick={() => handleDeleteUser(selectedUser.id)}>
-                                        Delete User
+                                        {translations?.adminView.deleteUser}
                                     </button>
                                 </div>
                             ) : (
@@ -108,7 +110,7 @@ const AdminView = () => {
                                             </li>
                                         ))
                                     ) : (
-                                        <p>No files found for this user.</p>
+                                        <p>{translations?.adminView.noUserFilesFound}</p>
                                     )}
                                 </ul>
                             )}
@@ -118,7 +120,7 @@ const AdminView = () => {
 
                 {/* All files section */}
                 <section className="admin-section all-files-section">
-                    <h3>All Files</h3>
+                    <h3>{translations?.adminView.allFiles}</h3>
                     <div>
                         <ul>
                             {allFiles.length > 0 ? (
@@ -129,7 +131,7 @@ const AdminView = () => {
                                     </li>
                                 ))
                             ) : (
-                                <p>No files found.</p>
+                                <p>{translations?.adminView.noFilesFound}</p>
                             )}
                         </ul>
                     </div>
@@ -141,10 +143,10 @@ const AdminView = () => {
             
             <div className="editor-section">
                 <div className="editor-toolbar">
-                    <button onClick={handleUploadClick}>Upload</button>
-                    <button onClick={handleDownloadClick}>Download</button>
-                    <button onClick={handleModifyClick}>Save</button>
-                    <button onClick={handleDeleteClick}>Delete</button>
+                    <button onClick={handleUploadClick}>{translations?.adminView.upload}</button>
+                    <button onClick={handleDownloadClick}>{translations?.adminView.download}</button>
+                    <button onClick={handleModifyClick}>{translations?.adminView.save}</button>
+                    <button onClick={handleDeleteClick}>{translations?.adminView.delete}</button>
                 </div>
                 <Editor textContent={fileContent} />
             </div>

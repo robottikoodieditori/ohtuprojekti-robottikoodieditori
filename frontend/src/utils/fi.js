@@ -60,6 +60,27 @@ export default {
         open: 'Avaa',
         delete: 'Poista'
     },
+    adminView:{
+        adminDashboard: 'Admin näkymä',
+        userManagement: 'Käyttäjien hallinta',
+        back: 'Takaisin',
+        showFiles:'Näytä tiedostot',
+        showUserInfo:'Näytä käyttäjän tiedot',
+        searchUser:'Etsi käyttäjää...',
+        username:'Käyttäjä:',
+        password:'Salasana:',
+        deleteUser:'Poista Käyttäjä',
+        noUserFilesFound:'Käyttäjälle ei löytynyt tiedostoja.',
+        noFilesFound: 'Tiedostoja ei löytynyt.',
+        allFiles:'Kaikki tiedostot',
+        upload:'Vie Tiedosto',
+        download:'Lataa Tiedosto',
+        save:'Tallenna',
+        delete:'Poista',
+        info:'Tiedot',
+        files:'Tiedostot',
+    },
+
     tooltipOpenSidebar: "Klikkaa sanaa avataksesi sen sivupalkissa",
     toggleLanguage: 'Switch to English'
 };
