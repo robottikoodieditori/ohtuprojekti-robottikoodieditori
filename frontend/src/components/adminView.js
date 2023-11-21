@@ -56,11 +56,11 @@ const AdminView = () => {
 
     return (
         <div className="admin-container">
-            <h2>Admin Dashboard</h2>
+            <h2 tabIndex="0">Admin Dashboard</h2>
             <div className="sections-container">
 
                 {/* User list section */}
-                <section className="admin-section user-list-section">
+                <section className="admin-section user-list-section" aria-label="User management section">
                     <h3>User Management</h3>
                     <input
                         type="text"
@@ -68,10 +68,10 @@ const AdminView = () => {
                         value={searchQuery}
                         onChange={handleSearchChange}
                     />
-                    <div className="user-list">
+                    <div className="user-list" aria-label="list of users">
                         {filteredUsers.map(user => (
                             <div key={user.id} className="user-item">
-                                <span className="user-name">{user.name}</span>
+                                <span className="user-name" tabIndex="0">{user.name}</span>
                                 <div className="user-action-buttons">
                                     <button className="user-action-button" onClick={() => handleUserClick(user)}>Show Files</button>
                                     <button className="user-action-button" onClick={() => handleShowUserInfo(user)}>Show User Info</button>
@@ -84,7 +84,7 @@ const AdminView = () => {
                 {/* Selected user's files section */}
                 {selectedUser && (
                     <section className="admin-section user-files-section">
-                        <h3>{selectedUser.name}&apos;s {viewMode === 'info' ? 'Info' : 'Files'}</h3>
+                        <h3 tabIndex="0">{selectedUser.name}&apos;s {viewMode === 'info' ? 'Info' : 'Files'}</h3>
                         <button className="back-button" onClick={() => setSelectedUser(null)}>
                             Back
                         </button>
@@ -92,8 +92,8 @@ const AdminView = () => {
                             {viewMode === 'info' ? (
                                 // Render user info
                                 <div className="user-info">
-                                    <p>Username: {selectedUser.name}</p>
-                                    <p>Password: {selectedUser.password}</p>
+                                    <p tabIndex="0">Username: {selectedUser.name}</p>
+                                    <p tabIndex="0">Password: {selectedUser.password}</p>
                                     <button className="delete-user-button" onClick={() => handleDeleteUser(selectedUser.id)}>
                                         Delete User
                                     </button>
@@ -103,7 +103,7 @@ const AdminView = () => {
                                 <ul>
                                     {userFiles.length > 0 ? (
                                         userFiles.map(file => (
-                                            <li key={file.id} onClick={() => handleFileClick(file)}>
+                                            <li tabIndex="0" key={file.id} onClick={() => handleFileClick(file)}>
                                                 {file.filename}
                                             </li>
                                         ))
@@ -117,13 +117,13 @@ const AdminView = () => {
                 )}
 
                 {/* All files section */}
-                <section className="admin-section all-files-section">
+                <section className="admin-section all-files-section" aria-label="list of all files">
                     <h3>All Files</h3>
                     <div>
                         <ul>
                             {allFiles.length > 0 ? (
                                 allFiles.map(file => (
-                                    <li key={file.id} onClick={() => handleFileClick(file)}>
+                                    <li tabIndex="0" key={file.id} onClick={() => handleFileClick(file)}>
                                         {file.filename}                                   
                                         {/* Render the filename or other attributes as needed */}
                                     </li>
