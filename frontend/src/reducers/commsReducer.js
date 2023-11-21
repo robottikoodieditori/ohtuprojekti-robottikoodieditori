@@ -87,8 +87,15 @@ export const login = username => {
     }
 }
 
+export const uploadFile =  file => {
+    return async dispatch => {
+        console.log(file.name + ' upload ')
+        const res = await commService.uploadFile(file)
+        console.log(res)
+    }
+} 
+
 export const handleFile = (content, filename, fileId, action) => {
-    console.log('aaa')
     return async dispatch => {
         const res = await commService.handleFile(content, filename, fileId, action)
         console.log(res)

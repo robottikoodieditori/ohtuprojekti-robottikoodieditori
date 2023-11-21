@@ -5,6 +5,8 @@ from mockcompiler import MockCompiler
 from user_service import UserService
 from file_service import FileService
 from db import DB
+import json
+import base64
 
 
 app = Flask(__name__, static_folder="../build/static", template_folder="../build")
@@ -87,6 +89,24 @@ def save_file():
             pass
 
     return "Invalid Credentials", 400
+
+@app.route("/upload", methods=["POST"])
+def upload_file():
+    content_file = request.files['file']
+    content = json.loads(request.form.get('json_data'))
+    if not content['token']:
+        return "Invalid Credentials", 400
+
+    user_id = user_service.verify_token(content["token"])
+    if user_id:
+        print('ok')
+        print(content_file)
+        file_content = content_file.read()
+        print(file_content)
+        decoded = file_content.decode()
+        print(decoded)
+        
+        return jsonify({'message':'ok'})
 
 
 # Running app

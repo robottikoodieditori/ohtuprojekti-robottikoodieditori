@@ -2,6 +2,10 @@ import { useState, useEffect } from 'react';
 import { users as mockUsers, logofiles as mockLogofiles } from './mockData'; // Import mock data
 import Editor from './editor';
 import '../css/adminView.css'; 
+import { useDispatch } from "react-redux";
+import { uploadFile } from '../reducers/commsReducer';
+import Popup from 'reactjs-popup';
+
 
 const AdminView = () => {
     const [users, setUsers] = useState([]);
@@ -11,6 +15,10 @@ const AdminView = () => {
     const [searchQuery, setSearchQuery] = useState("");
     const [fileContent, setFileContent] = useState(''); // State for the content of the selected file
     const [viewMode, setViewMode] = useState('files'); // 'files' or 'info' on middle container
+    const dispatch = useDispatch()
+
+
+
 
     useEffect(() => {
         // Initialize users with mock data
@@ -48,7 +56,55 @@ const AdminView = () => {
     };
 
     // Dummy functions for button actions
-    const handleUploadClick = () => alert('Upload functionality coming soon!');
+    const handleUploadClick = (event) => {
+        const file = event.target.files[0];
+        if (file) {
+            handleUpload(file);
+        }
+    }
+    
+    const [isUploadOpen, setisUploadOpen] = useState(false)
+    const uploadScreen = () => {
+        return (
+            <div>
+                <Popup
+                    open= {isUploadOpen}
+                    closeOnDocumentClick={false}
+                    overlayStyle={{ background: 'rgba(0,0,0,0.8'}}
+                >
+                    <div>
+                        <h1>Tuo tiedosto</h1>
+                        <form onSubmit={handleUpload(file, username)}>
+                            <label for="usernames">Valitse omistaja</label>
+                            <select id="usernames" name="usernames">
+                                <option value="">Valitse käyttäjä</option>
+                                {filteredUsers.map(user => (
+                                    <option value={user.name}>{user.name}</option>
+                                ))}
+                            </select>
+
+                            <input type="file" 
+                            accept='.logo' 
+                            required
+                            />
+                        </form>
+
+                    </div>
+                </Popup>
+            </div>
+        )
+    }
+    const handleUpload = ({file, username}) => {
+        const formData = new FormData()
+        formData.append('file', file)
+        formData.append('json_data', JSON.stringify({'token': window.localStorage.getItem('token'), 'name':username}))
+        console.log(formData)
+        console.log("File uploaded:", file);
+        dispatch(uploadFile(formData))
+        setisUploadOpen(false)
+
+    }
+      
     const handleDownloadClick = () => alert('Download functionality coming soon!');
     const handleModifyClick = () => alert('Modify functionality coming soon!');
     const handleDeleteClick = () => alert('Delete functionality coming soon!');
@@ -141,7 +197,21 @@ const AdminView = () => {
             
             <div className="editor-section">
                 <div className="editor-toolbar">
-                    <button onClick={handleUploadClick}>Upload</button>
+                    <input 
+                        type="file" 
+                        accept=".logo" 
+                        onChange={(event) => handleUploadClick(event)} 
+                        required
+                        style={{ display: 'none' }}
+                        id="fileInput" 
+                    />
+                    <label htmlFor="fileInput" className='editor-toolbar-input'>
+                        Upload
+                    </label>
+                    <button onClick={() => setisUploadOpen(true)}>Upload</button>
+                    { isUploadOpen && 
+                        <uploadScreen/>
+}
                     <button onClick={handleDownloadClick}>Download</button>
                     <button onClick={handleModifyClick}>Save</button>
                     <button onClick={handleDeleteClick}>Delete</button>
