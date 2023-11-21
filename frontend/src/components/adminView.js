@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'; 
 import { users as mockUsers, logofiles as mockLogofiles } from './mockData'; // Import mock data
-import Editor from './editor'; // Import the Editor component
+import Editor from './editor';
 import '../css/adminView.css'; 
 
 const AdminView = () => {
@@ -10,6 +10,7 @@ const AdminView = () => {
     const [userFiles, setUserFiles] = useState([]);
     const [searchQuery, setSearchQuery] = useState("");
     const [fileContent, setFileContent] = useState(''); // State for the content of the selected file
+    const [viewMode, setViewMode] = useState('files'); // 'files' or 'info' on middle container
 
     useEffect(() => {
         // Initialize users with mock data
@@ -30,8 +31,9 @@ const AdminView = () => {
 
     const handleUserClick = (user) => {
         setSelectedUser(user);
-        // Fetching files for the selected user from mock data
-        const filesForUser = mockLogofiles.filter(file => file.user_id === user.id);
+        setViewMode('files'); // Show files by default
+
+        const filesForUser = mockLogofiles.filter(file => file.user_id === user.id);// Fetching files for the selected user from mock data
         setUserFiles(filesForUser);
     };
 
@@ -40,12 +42,17 @@ const AdminView = () => {
         setFileContent(file.content);
     };
 
+    const handleShowUserInfo = (user) => {
+        setSelectedUser(user);
+        setViewMode('info'); // Change view mode to show user info
+    };
+
     // Dummy functions for button actions
     const handleUploadClick = () => alert('Upload functionality coming soon!');
     const handleDownloadClick = () => alert('Download functionality coming soon!');
     const handleModifyClick = () => alert('Modify functionality coming soon!');
     const handleDeleteClick = () => alert('Delete functionality coming soon!');
-    const handleShowUserInfo = () => alert('Delete functionality coming soon!');
+    const handleDeleteUser = () => alert('Delete user functionality coming soon!');
 
     return (
         <div className="admin-container">
@@ -77,20 +84,34 @@ const AdminView = () => {
                 {/* Selected user's files section */}
                 {selectedUser && (
                     <section className="admin-section user-files-section">
-                        <h3>{selectedUser.name}&apos;s Files</h3>
+                        <h3>{selectedUser.name}&apos;s {viewMode === 'info' ? 'Info' : 'Files'}</h3>
+                        <button className="back-button" onClick={() => setSelectedUser(null)}>
+                            Back
+                        </button>
                         <div>
-                            <ul>
-                                {userFiles.length > 0 ? (
-                                    userFiles.map(file => (
-                                        <li key={file.id} onClick={() => handleFileClick(file)}>
-                                            {file.filename}
-                                            {/* Render the filename or other attributes as needed */}
-                                        </li>
-                                    ))
-                                ) : (
-                                    <p>No files found for this user.</p>
-                                )}
-                            </ul>
+                            {viewMode === 'info' ? (
+                                // Render user info
+                                <div className="user-info">
+                                    <p>Username: {selectedUser.name}</p>
+                                    <p>Password: {selectedUser.password}</p>
+                                    <button className="delete-user-button" onClick={() => handleDeleteUser(selectedUser.id)}>
+                                        Delete User
+                                    </button>
+                                </div>
+                            ) : (
+                                // Render files list
+                                <ul>
+                                    {userFiles.length > 0 ? (
+                                        userFiles.map(file => (
+                                            <li key={file.id} onClick={() => handleFileClick(file)}>
+                                                {file.filename}
+                                            </li>
+                                        ))
+                                    ) : (
+                                        <p>No files found for this user.</p>
+                                    )}
+                                </ul>
+                            )}
                         </div>
                     </section>
                 )}
@@ -122,7 +143,7 @@ const AdminView = () => {
                 <div className="editor-toolbar">
                     <button onClick={handleUploadClick}>Upload</button>
                     <button onClick={handleDownloadClick}>Download</button>
-                    <button onClick={handleModifyClick}>Modify</button>
+                    <button onClick={handleModifyClick}>Save</button>
                     <button onClick={handleDeleteClick}>Delete</button>
                 </div>
                 <Editor textContent={fileContent} />

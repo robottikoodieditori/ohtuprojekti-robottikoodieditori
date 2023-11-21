@@ -199,3 +199,45 @@
     background-color: #003885;
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
 }
+
+
+/* User info styling */
+.user-info {
+    padding: 10px;
+    background-color: #eef;
+    border-radius: 5px;
+}
+
+.delete-user-button {
+    padding: 8px 12px;
+    background-color: #dc3545; /* Bootstrap danger color for delete */
+    color: white;
+    border: none;
+    border-radius: 4px;
+    margin-top: 10px; /* Spacing from the info text */
+    cursor: pointer;
+}
+
+.delete-user-button:hover {
+    background-color: #c82333; /* A slightly darker shade for hover state */
+}
+
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px; /* Add some space between header and content */
+}
+
+.back-button {
+    padding: 8px 15px;
+    background-color: #6c757d; /* A neutral color */
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.back-button:hover {
+    background-color: #5a6268; /* A slightly darker shade for hover state */
+}
