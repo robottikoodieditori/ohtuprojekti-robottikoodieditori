@@ -3,7 +3,7 @@ from sys import argv
 from flask import Flask, request, send_from_directory, jsonify
 from mockcompiler import MockCompiler
 from user_service import UserService
-from file_service import FileService
+from file_service import FileService, send_to_robot, remote_create_start_script
 from db import DB
 
 
@@ -87,6 +87,30 @@ def save_file():
             pass
 
     return "Invalid Credentials", 400
+
+@app.route("/deploy/robot", methods=["POST"])
+def deploy_to_robot():
+    content = request.json
+    
+    if not content.get("token", None):
+        return "Invalid Credentials", 400
+    
+    user_id = user_service.verify_token(content["token"])
+    if not user_id:
+        return "Invalid Credentials", 400
+    
+    if not content.get("content", None):
+        return "Content Missing", 400
+    
+    MockCompiler.compile2(content['content'], '')
+    return_code = send_to_robot()
+
+    if return_code != 0:
+        return "FAIL", 400
+    success = remote_create_start_script()
+    if not success:
+        return "FAIL", 400
+    return "OK", 200
 
 
 # Running app

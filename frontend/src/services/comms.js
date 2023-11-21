@@ -32,10 +32,20 @@ const getUsers = async () => {
     return res.data;
 }
 
+const deployToRobot = async (content) => {
+    const res = await axios.post('/deploy/robot',
+        {
+            'token': window.localStorage.getItem('token'),
+            'content': content
+        })
+    return res.data
+}
+
 export default {
     sendToCompile: sendToCompile,
     sendLogin: sendLogin,
     handleFile: handleFile,
     getUserFiles: getUserFiles,
-    getUsers:getUsers
+    getUsers:getUsers,
+    deployToRobot: deployToRobot
 }
