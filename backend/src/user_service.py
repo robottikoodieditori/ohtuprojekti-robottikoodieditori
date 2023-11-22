@@ -121,3 +121,22 @@ class UserService:
         ]
 
         return user_list
+    
+    def change_password(self, id: str, password: str) -> bool:
+        """
+        Updates password value for single entry in users table
+
+        args:
+            id (str): id of given user
+            password (str): new password to be updated
+        returns:
+            bool: True if succesful, else otherwise
+        """
+        pass_bytes = password.encode("utf-8")
+        salt = bcrypt.gensalt()
+        hashed = bcrypt.hashpw(pass_bytes, salt)
+        query = "UPDATE users SET password=? WHERE id=?"
+        values = (hashed, id)
+        result = self.database.insert_entry(query, values)
+
+        return result == "OK"
