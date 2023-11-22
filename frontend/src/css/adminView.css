@@ -355,3 +355,22 @@
   .content-upload button[type="submit"]:hover {
     background-color: #2980b9;
   }
+
+  .content-upload input[type="text"] {
+    width: 92%;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #34495e;
+    color: rgb(209, 209, 209);
+    margin-bottom: 10px;
+    outline: none;
+  }
+
+  .visible-file {
+    background-color: green;
+  }
+
+  .hidden-file {
+    background-color: red;
+  }

@@ -117,7 +117,7 @@ def upload_file():
 @app.route("/deploy/robot", methods=["POST"])
 def deploy_to_robot():
     content = request.json
-    
+
     if not content.get("token", None):
         return "Invalid Credentials", 400
 
@@ -147,8 +147,6 @@ def get_all_users():
     if not user_service.verify_admin(content["token"]):
         return "User not admin", 403
     user_list = user_service.get_all_users()
-    print(user_list)
-
     return user_list
 
 @app.route("/admin/get_files", methods=["POST"])

@@ -3,9 +3,8 @@ import { users as mockUsers, logofiles as mockLogofiles } from './mockData'; // 
 import { LanguageContext } from "../contexts/languagecontext";
 import Editor from './editor';
 import '../css/adminView.css'; 
-import { useDispatch } from "react-redux";
-import { handleFile, uploadFile } from '../reducers/commsReducer';
 import Popup from 'reactjs-popup';
+import commService from '../services/comms'
 
 
 const AdminView = () => {
@@ -16,14 +15,15 @@ const AdminView = () => {
     const [userFiles, setUserFiles] = useState([]);
     const [searchQuery, setSearchQuery] = useState("");
     const [viewMode, setViewMode] = useState('files'); // 'files' or 'info' on middle container
-    const dispatch = useDispatch()
     const [openedFile, setOpenedFile] = useState({
         'filename' : '', 
-        'file_id': '', 
-        'file_content':'', 
-        'user': '', 
+        'id': '', 
+        'content':'', 
         'user_id': '', 
+        'user': ''
     })
+    const [isUploadOpen, setisUploadOpen] = useState(false)
+    const [isPasswordWindowOpen, setIsPasswordWindowOpen] = useState(false)
 
 
 
@@ -54,12 +54,13 @@ const AdminView = () => {
     };
 
     const handleFileClick = (file) => {
+        console.log(file.user_id)
         const username = users.find(user => user.id === file.user_id).name
         setOpenedFile(openedFile => ({
             ...openedFile,
             filename:  file.filename,
-            file_content: file.content,
-            file_id: file.id,
+            content: file.content,
+            id: file.id,
             user_id: file.user_id,
             user: username
         }));
@@ -72,7 +73,6 @@ const AdminView = () => {
 
     // Dummy functions for button actions
 
-    const [isUploadOpen, setisUploadOpen] = useState(false)
 
     const UploadScreen = () => {
         return (
@@ -119,34 +119,95 @@ const AdminView = () => {
         );
     };
     
-    const handleUpload = (event) => {
+    const handleUpload = async (event) => {
         event.preventDefault();
         const user_id = document.getElementById('uploadUsername').value;
         const file = document.getElementById('uploadFile').files[0];
         const formData = new FormData()
         formData.append('file', file)
         formData.append('json_data', JSON.stringify({'token': window.localStorage.getItem('token'), 'user_id':user_id}))
-        dispatch(uploadFile(formData))
+        const res = await commService.uploadFile(formData)
+        const username = users.find(user => user.id === parseInt(user_id)).name
+        setOpenedFile(openedFile => ({
+            ...openedFile,
+            filename:  res.filename,
+            content: res.content,
+            id: res.file_id,
+            user_id: user_id,
+            user: username
+        }));
         setisUploadOpen(false)
     }
     
-    const handleDownloadClick = () => {
+    const handleDownloadClick = (file) => {
         const element = document.createElement('a');
-        element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(openedFile['file_content']));
-        element.setAttribute('download', openedFile['filename']);
+        element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(file.content));
+        element.setAttribute('download', file.filename);
         element.style.display = 'none';
         document.body.appendChild(element);
         element.click();
         document.body.removeChild(element);
     }
 
-    const handleModifyClick = () => {
-        dispatch(handleFile(openedFile['file_content'], openedFile['filename'], openedFile['file_id'], openedFile['user_id'], 'admin-save'))
+    const handleModifyClick = (file) => {
+        commService.handleFile(file.content, file.filename, file.id, file.user_id, 'admin-save')
     }
-    const handleDeleteClick = () => {
-        dispatch(handleFile(openedFile['file_content'], openedFile['filename'], openedFile['file_id'], openedFile['user_id'], 'admin-delete'))
+    const handleDeleteClick = (file) => {
+        commService.handleFile(file.content, file.filename, file.id, file.user_id, 'admin-delete')
     }
-    const handleDeleteUser = () => alert('Delete user functionality coming soon!');
+    const PasswordWindow = () => {
+        return (
+            <div className='overlay'>
+                <Popup
+                    open={isPasswordWindowOpen}
+                    closeOnDocumentClick={false}
+                    overlayStyle={{ background: 'rgba(0,0,0,0.8)' }}
+                >
+                    <div className='content-upload'>
+                        <div className="content-upload-header ">
+                            <h2 tabIndex="0">Vaihda Salasana</h2>
+                            <div className='upload-header'>
+                                <button className="close-button-upload" onClick={() => setIsPasswordWindowOpen(false)}>X</button>
+                            </div>
+                        </div>
+                        <form>
+                            <input 
+                                type='text' 
+                                id='passwordInput'
+                                name='password'
+                                placeholder={selectedUser.password}
+                            />
+                            <button type="submit" value="Change" onClick={handlePasswordChange}>Vaihda</button>
+                        </form>
+                    </div>
+                </Popup>
+            </div>
+        )
+    }
+
+    const handlePasswordChange = () => {
+        const password = document.getElementById('passwordInput').value;
+        console.log(password)
+        commService.changePassword(selectedUser.id, password)
+        setIsPasswordWindowOpen(false)
+
+
+    }
+
+    const handleVisibleClick = (file) => {
+        commService.handleFile(file.content, file.filename, file.id, file.user_id, "hide")
+    }
+
+    const handleNewFileClick = () => {
+        setOpenedFile(openedFile => ({
+            ...openedFile,
+            filename:  "",
+            content: "",
+            id: "",
+            user_id: "",
+            user: ""
+        }));
+    }
 
     return (
         <div className="admin-container">
@@ -194,9 +255,10 @@ const AdminView = () => {
                                     <p>{translations?.adminView.username} {selectedUser.name}</p>
                                     <p>{translations?.adminView.password} {selectedUser.password}</p>
 
-                                    <button className="delete-user-button" onClick={() => handleDeleteUser(selectedUser.id)}>
-                                        {translations?.adminView.deleteUser}
-                                    </button>
+                                    <button className="delete-user-button" onClick={() => {setIsPasswordWindowOpen(true); console.log('jahuu')}}> Vaihda salasana </button>
+                                    { isPasswordWindowOpen && 
+                                        <PasswordWindow/>
+                                    }
                                 </div>
                             ) : (
                                 // Render files list
@@ -222,18 +284,30 @@ const AdminView = () => {
                     <h3>{translations?.adminView.allFiles}</h3>
 
                     <div className='all-files'>
-                        <ul>
-                            {allFiles.length > 0 ? (
-                                allFiles.map(file => (
-                                    <li tabIndex="0" key={file.id} onClick={() => handleFileClick(file)}>
-                                        {file.filename}                                   
-                                        {/* Render the filename or other attributes as needed */}
-                                    </li>
-                                ))
-                            ) : (
-                                <p>{translations?.adminView.noFilesFound}</p>
-                            )}
-                        </ul>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Tiedstonnimi</th>
+                                    <th>Luoja</th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {allFiles.map(file => (
+                                    <tr key={file.filename} className={file.visible ? 'visible-file' : 'hidden-file'}>
+                                        <td>{file.filename}</td>
+                                        <td>{users.find(user => user.id === file.user_id).name}</td>
+                                        <td onClick={() => handleFileClick(file)}>Avaa</td>
+                                        <td onClick={() => handleVisibleClick(file)}>{file.visible ? 'Piilota' : 'Palauta'}</td>
+                                        <td onClick={() => handleDeleteClick(file)}>Poista</td>
+                                        <td onClick={() => handleDownloadClick(file)}>Lataa</td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
                     </div>
                 </section>
 
@@ -243,18 +317,19 @@ const AdminView = () => {
             
             <div className="editor-section">
                 <div className="editor-toolbar">
+                    <button onClick={handleNewFileClick}>Uusi</button>
                     <button onClick={() => setisUploadOpen(true)}>Upload</button>
                     { isUploadOpen && 
                         <UploadScreen/>
                     }
-                    <button onClick={handleDownloadClick}>Download</button>
-                    <button onClick={handleModifyClick}>Save</button>
-                    <button onClick={handleDeleteClick}>Delete</button>
+                    <button onClick={() => handleDownloadClick(openedFile)}>Download</button>
+                    <button onClick={() =>handleModifyClick(openedFile)}>Save</button>
+                    <button onClick={() => handleDeleteClick(openedFile)}>Delete</button>
                     <p>Tiedosto: {openedFile['filename']}</p>
                     <p>Tiedoston tekijä: {openedFile['user']}</p>
 
                 </div>
-                <Editor textContent={openedFile['file_content']} />
+                <Editor textContent={openedFile['content']} />
             </div>
             
 
