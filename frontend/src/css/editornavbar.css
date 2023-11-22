@@ -24,13 +24,19 @@
     transition: background-color 0.3s, transform 0.2s;
     cursor: pointer;
     margin: 0 5px 0px 5px;
-    background-color: rgb(51, 101, 151);
+    background-color: rgb(47, 63, 133);
     color: white;
 }
 
 .editornavbar-button:hover {
-    background-color: rgb(80, 140, 200);
+    background-color: rgb(65, 81, 172);
 }
+
+.editornavbar-button:focus-visible {
+    background-color: rgb(65, 81, 172);
+    border-style: solid;
+    border-color: black;
+  }
 
 .editornavbar p {
     margin-left: auto;

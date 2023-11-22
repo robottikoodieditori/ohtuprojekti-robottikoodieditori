@@ -12,9 +12,9 @@ describe('Error Message Translation Functionality', () => {
         cy.get('[data-testid="toggleLanguageButton"]').invoke('text').then((text) => {
             if(text.includes('Vaihda suomeksi')) {
                 // If English, send a message and check response text
-                cy.get('#editor').type('{selectall}').type('This message will be sent.');
+                cy.get('#editor').type('{selectall}').type('fd 10');
                 cy.get('#COMPILEBUTTON').click().wait(100);
-                cy.get('#error').should('contain', 'Palvelin vastasi:');
+                cy.get('#confirmation').should('contain', 'Palvelin vastasi:');
             }
         });
 
@@ -23,8 +23,8 @@ describe('Error Message Translation Functionality', () => {
         cy.get('[data-testid="toggleLanguageButton"]').click();
 
         // Check the message in Finnish
-        cy.get('#editor').type('{selectall}').type('Tämä viesti lähetetään.');
+        cy.get('#editor').type('{selectall}').type('eteen 10');
         cy.get('#COMPILEBUTTON').click().wait(100);
-        cy.get('#error').should('contain', 'Server responded:');
+        cy.get('#confirmation').should('contain', 'Server responded:');
     });
 });

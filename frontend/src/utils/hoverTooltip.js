@@ -55,7 +55,11 @@ export const wordHover = ( updateCurWord, errorListRef, language ) => hoverToolt
             'color:black; width:150px; overflow:auto; word-break: break-word; border-style: solid; border: 1px;';
 
             const markdown = parse(definition)
-            container.innerHTML = `<small>${translations?.tooltipOpenSidebar}</small>${markdown}`
+            if (!errorWord) {
+                container.innerHTML = `<small>${translations?.tooltipOpenSidebar}</small>${markdown}`
+            } else {
+                container.innerHTML = markdown
+            }
 
 
             return {

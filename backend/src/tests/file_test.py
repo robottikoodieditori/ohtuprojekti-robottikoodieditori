@@ -101,3 +101,42 @@ class TestFile(unittest.TestCase):
 
         # assert file list is empty
         self.assertEqual([], result)
+
+    def test_get_all_files(self):
+        self.file_service.save_file('file1', 'blob', self.id)
+        self.file_service.save_file('file2', 'bloba', self.id)
+        self.file_service.save_file('file3', 'blob', self.id)
+        result = self.file_service.get_all_files()
+
+        result_list = [
+            {
+                "filename": row["filename"],
+                "textContent": row["textContent"],
+                "user_id": row["user_id"],
+                "username": row["username"]
+            }
+            for row in result
+        ]
+
+        expeted_list = [
+            {
+                "filename": "file1",
+                "textContent": "blob",
+                "user_id": self.id,
+                "username": "User"
+            },
+            {
+                "filename": "file2",
+                "textContent": "bloba",
+                "user_id": self.id,
+                "username": "User"
+            },
+            {
+                "filename": "file3",
+                "textContent": "blob",
+                "user_id": self.id,
+                "username": "User"
+            },
+        ]
+
+        self.assertListEqual(expeted_list, result_list)

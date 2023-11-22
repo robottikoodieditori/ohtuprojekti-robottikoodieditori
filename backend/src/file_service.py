@@ -78,6 +78,34 @@ class FileService:
         result = self.database.insert_entry(query, (str(file_id)))
 
         return {'result':result, 'action': 'hide'}
+    
+    def get_all_files(self) -> list:
+        """
+        Fetches all files from database
+
+        returns:
+            file_list (list)
+        """
+        query = """
+            SELECT f.id, f.filename, f.content, f.created, f.last_updated,
+            f.visible, f.user_id, u.name FROM logofiles f, users u WHERE f.user_id=u.id
+        """
+        file_list = self.database.get_list_from_db(query, ())
+        file_list = [
+            {
+                "id": row[0],
+                "filename": row[1],
+                "textContent": row[2],
+                "created": str(row[3]),
+                "last_updated": str(row[4]),
+                "visible": row[5],
+                "user_id": row[6],
+                "username": row[7]
+            }
+            for row in file_list
+        ]
+        
+        return file_list
 
     def delete_logo_file(self, file_id: int):
         """
