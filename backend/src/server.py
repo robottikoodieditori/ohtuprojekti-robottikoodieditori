@@ -15,6 +15,7 @@ if len(argv) > 1:
         DB_PATH = getenv("TEST_DB_PATH")
 
 app.config["SECRET_KEY"] = getenv("SECRET_KEY")
+app.config["PASS_REQ"] = True
 
 db = DB(DB_PATH)
 user_service = UserService(db, app.config["SECRET_KEY"])
@@ -136,6 +137,19 @@ def get_all_files():
     file_list = file_service.get_all_files()
 
     return jsonify(file_list), 200
+
+@app.route("/config/password", methods=["POST"])
+def toggle_password_required():
+    content = request.json
+    if user_service.verify_admin(content["token"]):
+        app.config["PASS_REQ"] = not app.config["PASS_REQ"]
+        return "OK", 200
+    else:
+        return "Invalid Credentials", 400
+    
+@app.route("/config/get", methods=["GET"])
+def get_password_required():
+    return jsonify(app.config["PASS_REQ"])
 
 
 # Running app

@@ -2,6 +2,7 @@ import { useState, useContext, useEffect } from 'react';
 import { users as mockUsers, logofiles as mockLogofiles } from './mockData'; // Import mock data
 import { LanguageContext } from "../contexts/languagecontext";
 import Editor from './editor';
+import comms from '../services/comms';
 import '../css/adminView.css'; 
 
 const AdminView = () => {
@@ -13,6 +14,19 @@ const AdminView = () => {
     const [searchQuery, setSearchQuery] = useState("");
     const [fileContent, setFileContent] = useState(''); // State for the content of the selected file
     const [viewMode, setViewMode] = useState('files'); // 'files' or 'info' on middle container
+    const [passReq, setPassReq] = useState(true)
+
+    const getReq = async () => {
+        const res = await comms.getPassReq()
+        setPassReq(res)
+    }
+
+    const toggleReq = async () => {
+        const res = await comms.togglePassReq()
+        if (res) {
+            setPassReq(!passReq)
+        }
+    }
 
     useEffect(() => {
         // Initialize users with mock data
@@ -20,6 +34,10 @@ const AdminView = () => {
         // Initialize allFiles with all mock logofiles
         setAllFiles(mockLogofiles);
     }, []);
+
+    useEffect(() => {
+        getReq()
+    }, [])
 
     const handleSearchChange = (event) => {
         setSearchQuery(event.target.value);
@@ -58,6 +76,7 @@ const AdminView = () => {
 
     return (
         <div className="admin-container">
+            <button onClick={toggleReq}> passReq </button>
       
             <h2>{translations?.adminView.adminDashboard}</h2>
             <div className="sections-container">
