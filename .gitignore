@@ -170,3 +170,4 @@ backend/javafiles/**
 frontend/cypress/screenshots/**
 *.db
 .python-version
+backend/logomotion_gradle/src/main/java/logo/Logo.java
