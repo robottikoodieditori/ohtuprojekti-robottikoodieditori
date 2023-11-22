@@ -40,6 +40,7 @@ export default {
         start: "start:",
         end: "end:",
         message: "message:",
+        confirmation: "Sent to compiler!",
     },
     login: {
         title: 'Your name',

@@ -62,7 +62,6 @@ export const sendToServer = code => {
             dispatch(setResponseFromServer(res))
         } else {
             //todo
-            //dispatch()
         }
         dispatch(setResponseFromServer(res))
         console.log("SEND TO SERVER:")
