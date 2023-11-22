@@ -36,7 +36,7 @@ def send_to_compiler():
     content = request.json
     print(data)
     errors = MockCompiler.compile2(content["code"], "Koodi")
-    return jsonify(errors)
+    return jsonify(errors), 200
 
 
 @app.route("/login", methods=["POST"])
@@ -44,30 +44,30 @@ def login():
     content = request.json
     token = user_service.login(content["username"], content["password"])
     if token:
-        return jsonify({"username": content["username"], "token": token})
+        return jsonify({"username": content["username"], "token": token}), 200
 
     result = user_service.register(content["username"], content["password"])
     if result:
         token = user_service.login(content["username"], content["password"])
         if token:
-            return jsonify({"username": content["username"], "token": token})
+            return jsonify({"username": content["username"], "token": token}), 200
 
         return "Invalid Credentials", 400
 
     return "Username already taken", 400
 
-@app.route("/files", methods=["POST"])
+@app.route("/get_user_files", methods=["POST"])
 def get_user_files():
     content = request.json
     user_id = user_service.verify_token(content["token"])
     if user_id:
         result = file_service.get_user_files(user_id)
-        return jsonify(result)
+        return jsonify(result), 200
     return "Invalid Credentials", 400
 
 
-@app.route("/file", methods=["POST"])
-def save_file():
+@app.route("/file_service", methods=["POST"])
+def handle_file_request():
     content = request.json
     if not content.get("token", None):
         return "Invalid Credentials", 400
@@ -77,10 +77,10 @@ def save_file():
             result = file_service.save_file(
                 content["filename"], content["textContent"], user_id
             )
-            return jsonify(result)
+            return jsonify(result), 200
         elif content['action'] == 'hide':
             result = file_service.hide_logo_file(content['fileId'])
-            return jsonify(result)
+            return jsonify(result), 200
 
         elif content['action'] == 'delete':
             # logic to delete
@@ -106,11 +106,36 @@ def deploy_to_robot():
     return_code = send_to_robot()
 
     if return_code != 0:
-        return "FAIL", 400
+        return "FAIL", 500
     success = remote_create_start_script()
     if not success:
-        return "FAIL", 400
+        return "FAIL", 500
     return "OK", 200
+
+@app.route("/admin/get_users", methods=["POST"])
+def get_all_users():
+    content = request.json
+
+    if not content.get("token", None):
+        return "Missing Credentials", 400
+    if not user_service.verify_admin(content["token"]):
+        return "User not admin", 403
+    user_list = user_service.get_all_users()
+    print(user_list)
+
+    return user_list
+
+@app.route("/admin/get_files", methods=["POST"])
+def get_all_files():
+    content = request.json
+
+    if not content.get("token", None):
+        return "Missing Credentials", 400
+    if not user_service.verify_admin(content["token"]):
+        return "User not admin", 403
+    file_list = file_service.get_all_files()
+
+    return jsonify(file_list), 200
 
 
 # Running app
