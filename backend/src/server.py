@@ -137,6 +137,20 @@ def get_all_files():
 
     return jsonify(file_list), 200
 
+@app.route("/admin/change_password", methods=["POST"])
+def change_password():
+    content = request.json
+    print(type(content['id']))
+
+    if not content.get("token", None):
+        return "Missing Credentials", 400
+    if not user_service.verify_admin(content["token"]):
+        return "User not admin", 403
+    result = user_service.change_password(content["id"], content["password"])
+
+    if result:
+        return "OK", 200
+    return "FAIL", 400
 
 # Running app
 if __name__ == "__main__":
