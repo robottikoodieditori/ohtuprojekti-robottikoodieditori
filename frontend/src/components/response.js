@@ -2,7 +2,8 @@ import { useContext } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setResponseFromServer } from '../reducers/commsReducer';
 import { LanguageContext } from '../contexts/languagecontext';
-import '../css/error.css'
+import '../css/response.css'
+
 
 const Response = () => {
     const dispatch = useDispatch();
@@ -13,26 +14,37 @@ const Response = () => {
         dispatch(setResponseFromServer(''));
     }
 
-    if (!serverResponse || serverResponse.length === 0) {
-        return null;
+    if (serverResponse && serverResponse.errors && serverResponse.errors.length > 0) {
+        return (
+            <div id='error' className='error' role="dialog" aria-label="error message">
+                <div className="errorHeader">
+                    <h4 tabIndex="0">{translations.response.serverResponded}</h4>
+                    <button className="closeButton" onClick={handleClose}>X</button>
+                </div>
+                {serverResponse.errors.map((res) => (
+                    <div key={res.start} className="errorCard">
+                        <h5 tabIndex="0">{`${translations.response.message} ${language === 'en' ? res.eng : res.fin}`}</h5>
+                        <p tabIndex="0">{`${translations.response.line} ${res.line}`}</p>
+                        <p>{`${translations.response.start} ${res.start} - ${translations.response.end} ${res.end-1}`}</p>
+                    </div>
+                ))}
+            </div>
+        );
     }
 
-    return (
-        <div id='sResponse' className='sResponse'>
-            <div className="errorHeader">
-                <h4>{translations.response.serverResponded}</h4>
-                <button className="closeButton" onClick={handleClose}>X</button>
-            </div>
-            {serverResponse.errors.map((res) => (
-                <div key={res.start} className="errorCard">
-                    <h5>{`${translations.response.message} ${language === 'en' ? res.eng : res.fin}`}</h5>
-                    <p>{`${translations.response.line} ${res.line}`}</p>
-                    <p>{`${translations.response.start} ${res.start} - ${translations.response.end} ${res.end-1}`}</p>
+    if (serverResponse && serverResponse.errors.length < 1) {
+        return (
+            <div id='confirmation' className='confirmation' role = "dialog" aria-label="confirmation message">
+                <div className="confirmationHeader">
+                    <h4 tabIndex="0">{translations?.response.serverResponded}</h4>
+                    <button className="closeButton" onClick={handleClose}>X</button>
                 </div>
-
-            ))}
-        </div>
-    );
+                <div className="confirmationCard">
+                    <h5 tabIndex="0">{translations?.response.confirmation}</h5>
+                </div>
+            </div>
+        );
+    }
 }
 
 export default Response;
