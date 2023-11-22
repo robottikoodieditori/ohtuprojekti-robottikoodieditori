@@ -2,7 +2,7 @@
 @top Program { expression* }
 expression { String | Keyword | Parameters}
 String { number |  name  | '"' | "'" }
-Keyword { command !times String* ")" | !plus command}
+Keyword { command !times String* rightPar | !plus command}
 Parameters { leftPar+ String* rightPar+}
 @skip { space }
 @tokens {
@@ -11,7 +11,7 @@ Parameters { leftPar+ String* rightPar+}
   number { @digit+ }
   leftPar { "(" | "{" | "[" }
   rightPar { ")" | "}" | "]"}
-  command { ("tulosta" | "eteen" | "et" | "taakse" | "ta" | "vasemmalle" | "va" | "oikealle" | "oi" | "jos" | "riippuen" | "olkoon" | "miten" | "valmis" | "toista" | "luvuille" | "anna" | "show" | "forward" | "fd" | "backward" | "bk" | "left" | "lt" | "right" | "rt" | "if" | "ifelse" | "make" | "to" | "end" | "repeat" | "for" | "output") ((@eof | @whitespace) | "(")}
+  command { ("tulosta" | "eteen" | "et" | "taakse" | "ta" | "vasemmalle" | "va" | "oikealle" | "oi" | "jos" | "riippuen" | "olkoon" | "miten" | "valmis" | "toista" | "luvuille" | "anna" | "show" | "forward" | "fd" | "backward" | "bk" | "left" | "lt" | "right" | "rt" | "if" | "ifelse" | "make" | "to" | "end" | "repeat" | "for" | "output") ((@eof | @whitespace) | ("(" | "[" | "{")+ | ( ")" | "]" | "}")+ )}
   @precedence {command, name}
 }
 @external propSource jsonHighlighting from "./highlight"

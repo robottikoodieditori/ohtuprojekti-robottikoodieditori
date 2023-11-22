@@ -5,6 +5,7 @@ export const jsonHighlighting = styleTags({
     Keyword: t.keyword,
     String: t.string,
     Parameters: t.name,
+    Command: t.number
 });
 
 const syntax_colors = syntaxHighlighting(
