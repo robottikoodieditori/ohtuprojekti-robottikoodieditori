@@ -40,3 +40,26 @@ class TestUser(unittest.TestCase):
         self.user_service.register("Arska", "choppah")
         result = self.user_service.login("Arska", "choppah")
         self.assertTrue(result)
+
+    def test_get_all_users(self):
+        self.user_service.register("user", "pass")
+        self.user_service.register("user1", "pass")
+        self.user_service.register("user2", "pass")
+        self.user_service.register("user3", "pass")
+        self.user_service.login("user", "pass")
+
+        expected_list = [
+            {"name": "user"},
+            {"name": "user1"},
+            {"name": "user2"},
+            {"name": "user3"},
+        ]
+
+        result = self.user_service.get_all_users()
+
+        result_list = [
+            {"name": row['name']}
+            for row in result
+        ]
+
+        self.assertListEqual(expected_list, result_list)

@@ -1,11 +1,13 @@
 .sidebar {
-    width: 20vw;
+    width: 100%;
     height: 100%;
+    max-height: 100%;
     background-color:rgb(170, 206, 253);
     box-shadow: 2px 0px 5px rgba(0, 0, 0, 0.1);
     margin-left: auto;
+    overflow-y: auto;
   }
-  
+
   .content {
     background-color: rgb(170, 206, 253);
     padding-top: 2vh;
@@ -63,6 +65,8 @@
     border-bottom: 2px solid rgba(255, 255, 255, 0.1);
     margin-bottom: 10px;
     padding-right: 1vw;
+    overflow-y: auto;
+    height: 60vh;
   }
   
   .command-list {
@@ -74,3 +78,15 @@
   .command-button {
     z-index: 10;
   }
+
+  .command-button:focus-visible {
+    background-color: rgb(140, 175, 221);
+    border-style: solid;
+    border-color: black;
+  }
+
+  @media (max-width: 768px) {
+    .sidebar {
+        overflow-y: auto;
+    }
+}

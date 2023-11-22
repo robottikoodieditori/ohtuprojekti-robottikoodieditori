@@ -39,6 +39,7 @@ export default {
         start: "alku:",
         end: "loppu:",
         message: "viesti:",
+        confirmation: "Lähetetty kääntäjälle!"
     },
     login: {
         title: 'Anna nimesi',
