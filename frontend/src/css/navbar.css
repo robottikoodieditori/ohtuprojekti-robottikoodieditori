@@ -47,7 +47,7 @@
   background-color: rgb(65, 81, 172);
 }
 
-.lang-toggle-button:focus {
+.lang-toggle-button:focus-visible {
   background-color: rgb(65, 81, 172);
   border-style: solid;
   border-color: black;
@@ -80,7 +80,7 @@
   background-color: rgb(65, 81, 172);
 }
 
-.logout-button:focus {
+.logout-button:focus-visible {
   background-color: rgb(65, 81, 172);
   border-style: solid;
   border-color: black;
