@@ -55,7 +55,7 @@ class DB:
         """
         con = sqlite3.connect(self._db_path)
         cur = con.cursor()
-        cur.execute(query, values)
+        cur.execute(query, values) if len(values) > 0 else cur.execute(query)
 
         rows = cur.fetchall()
         con.close()
@@ -75,7 +75,7 @@ class DB:
         """
         con = sqlite3.connect(self._db_path)
         cur = con.cursor()
-        cur.execute(query, values)
+        cur.execute(query, values) if len(values) > 0 else cur.execute(query)
         entry = cur.fetchone()
         con.close()
 

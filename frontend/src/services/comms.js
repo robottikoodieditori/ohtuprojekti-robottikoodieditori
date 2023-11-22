@@ -12,7 +12,7 @@ const sendLogin = async (username, password) => {
 
 const handleFile = async (content, filename, fileId, action) => {
     console.log(content, 'asd')
-    const res = await axios.post('/file', {
+    const res = await axios.post('/file_service', {
         'textContent': content, 'filename': filename,
         'token': window.localStorage.getItem('token'),
         'action': action,
@@ -22,12 +22,16 @@ const handleFile = async (content, filename, fileId, action) => {
 }
 
 const getUserFiles = async () => {
-    const res = await axios.post('/files', {'token': window.localStorage.getItem('token')})
+    const res = await axios.post('/get_user_files', {'token': window.localStorage.getItem('token')})
     return res.data
 }
 
-const getUsers = async () => {
-    const res = await axios.get('/admin/users')
+const getAllUsers = async () => {
+    const res = await axios.post('/admin/get_users',
+        {
+            'token': window.localStorage.getItem('token')
+        }
+    )
     console.log("Comms",res)
     return res.data;
 }
@@ -46,6 +50,6 @@ export default {
     sendLogin: sendLogin,
     handleFile: handleFile,
     getUserFiles: getUserFiles,
-    getUsers:getUsers,
+    getUsers: getAllUsers,
     deployToRobot: deployToRobot
 }
