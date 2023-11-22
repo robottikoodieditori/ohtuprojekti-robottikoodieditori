@@ -10,12 +10,13 @@ const sendLogin = async (username, password) => {
     return res.data
 }
 
-const handleFile = async (content, filename, fileId, action) => {
+const handleFile = async (content, filename, fileId, userId, action) => {
     const res = await axios.post('/file', {
         'textContent': content, 'filename': filename,
         'token': window.localStorage.getItem('token'),
         'action': action,
-        'fileId': fileId
+        'fileId': fileId,
+        'userId': userId
     })
     return res.data
 }
@@ -40,18 +41,8 @@ const deployToRobot = async (content) => {
     return res.data
 }
 
-const deployToRobot = async (content) => {
-    const res = await axios.post('/deploy/robot',
-        {
-            'token': window.localStorage.getItem('token'),
-            'content': content
-        })
-    return res.data
-}
-
-const uploadFile = async (file) => {
-    console.log(file)
-    const res = await axios.post('/upload', file)
+const uploadFile = async (data) => {
+    const res = await axios.post('/upload', data)
     return res.data
 }
 export default {

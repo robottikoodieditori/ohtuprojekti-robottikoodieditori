@@ -94,17 +94,17 @@ export const login = username => {
     }
 }
 
-export const uploadFile =  file => {
+export const uploadFile =  data => {
     return async dispatch => {
-        console.log(file.name + ' upload ')
-        const res = await commService.uploadFile(file)
+        const res = await commService.uploadFile(data)
         console.log(res)
+        dispatch()
     }
 } 
 
-export const handleFile = (content, filename, fileId, action) => {
+export const handleFile = (content, filename, fileId, userId, action) => {
     return async dispatch => {
-        const res = await commService.handleFile(content, filename, fileId, action)
+        const res = await commService.handleFile(content, filename, fileId, userId, action)
         console.log(res)
         if (res.action === 'save'){
             dispatch(setFileName(filename))

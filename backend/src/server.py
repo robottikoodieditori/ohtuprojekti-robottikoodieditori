@@ -84,10 +84,16 @@ def save_file():
             result = file_service.hide_logo_file(content['fileId'])
             return jsonify(result)
 
-        elif content['action'] == 'delete':
-            # logic to delete
+        elif content['action'] == 'admin-delete':
+            result = file_service.delete_logo_file(content["fileId"])
+            return jsonify(result)
             pass
 
+        elif content['action'] == 'admin-save':
+            result = file_service.save_file(
+                content["filename"], content["textContent"], content["userId"]
+            )
+            return jsonify(result)
     return "Invalid Credentials", 400
 
 @app.route("/upload", methods=["POST"])
@@ -99,14 +105,14 @@ def upload_file():
 
     user_id = user_service.verify_token(content["token"])
     if user_id:
-        print('ok')
-        print(content_file)
         file_content = content_file.read()
-        print(file_content)
-        decoded = file_content.decode()
-        print(decoded)
-        
-        return jsonify({'message':'ok'})
+        decoded_file_content = file_content.decode()
+        result = file_service.save_file(
+            content_file.filename, decoded_file_content, content['user_id']
+        )
+        result['content'] = decoded_file_content
+        result['filename'] = content_file.filename
+        return jsonify(result)
 
 @app.route("/deploy/robot", methods=["POST"])
 def deploy_to_robot():
@@ -114,7 +120,7 @@ def deploy_to_robot():
     
     if not content.get("token", None):
         return "Invalid Credentials", 400
-    
+
     user_id = user_service.verify_token(content["token"])
     if not user_id:
         return "Invalid Credentials", 400
