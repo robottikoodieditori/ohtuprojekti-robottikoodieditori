@@ -12,7 +12,7 @@ describe('Communication between Front- and backend', function() {
         cy.get('[data-testid="toggleLanguageButton"]').invoke('text').then((text) => {
             const isFinnish = text.includes('Switch to English');
             const responseText = isFinnish ? 'Palvelin vastasi:' : 'Server responded:';
-            cy.get('#sResponse').should('contain', responseText);
+            cy.get('#error').should('contain', responseText);
         });
     })
 })
