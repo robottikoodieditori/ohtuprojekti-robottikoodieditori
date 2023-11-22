@@ -11,9 +11,9 @@ describe('Error Message Functionality', () => {
         cy.get('[data-testid="toggleLanguageButton"]').invoke('text').then((text) => {
             if(text.includes('Switch to English')) {
                 // If English, send a message and check response text
-                cy.get('#editor').type('{selectall}').type('Tämä viesti lähetetään.');
+                cy.get('#editor').type('{selectall}').type('eteen 10');
                 cy.get('#COMPILEBUTTON').click().wait(100);
-                cy.get('#error').should('contain', 'Palvelin vastasi:');
+                cy.get('#confirmation').should('contain', 'Palvelin vastasi:');
             }
         });
     });
