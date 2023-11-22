@@ -102,6 +102,35 @@ class TestFile(unittest.TestCase):
         # assert file list is empty
         self.assertEqual([], result)
 
+    def test_unhide_file(self):
+        self.file_service.save_file("Hide this!", "Uninteresting Code", self.id)
+        result = self.file_service.get_user_files(self.id)
+        expected_object = {
+            "filename": "Hide this!",
+            "textContent": "Uninteresting Code",
+            "name": "User",
+        }
+        result_object = {
+            "filename": result[0]["filename"],
+            "textContent": result[0]["textContent"],
+            "name": result[0]["name"],
+        }
+        self.assertDictEqual(expected_object, result_object)
+        file_id = result[0]["file_id"]
+        self.file_service.hide_logo_file(file_id)
+        result = self.file_service.get_user_files(self.id)
+
+        self.assertEqual([], result)
+
+        self.file_service.hide_logo_file(file_id)
+        result = self.file_service.get_user_files(self.id)
+        result_object = {
+            "filename": result[0]["filename"],
+            "textContent": result[0]["textContent"],
+            "name": result[0]["name"],
+        }
+        self.assertDictEqual(expected_object, result_object)
+
     def test_get_all_files(self):
         self.file_service.save_file('file1', 'blob', self.id)
         self.file_service.save_file('file2', 'bloba', self.id)
@@ -118,7 +147,7 @@ class TestFile(unittest.TestCase):
             for row in result
         ]
 
-        expeted_list = [
+        expected_list = [
             {
                 "filename": "file1",
                 "textContent": "blob",
@@ -139,4 +168,4 @@ class TestFile(unittest.TestCase):
             },
         ]
 
-        self.assertListEqual(expeted_list, result_list)
+        self.assertListEqual(expected_list, result_list)

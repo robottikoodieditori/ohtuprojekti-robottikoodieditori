@@ -67,15 +67,18 @@ class FileService:
 
     def hide_logo_file(self, file_id: int):
         """
-        Method which sets visible=0 for logofiles entry with matching id
+        Method which sets toggles visibility for logofiles entry with matching id
 
         Args:
             file_id (int)
         returns:
             result (str): "OK" if successful, else "FAIL"
         """
-        query = "UPDATE logofiles SET visible=0 WHERE id=?"
-        result = self.database.insert_entry(query, (str(file_id)))
+        get_query = "SELECT visible FROM logofiles WHERE id=?"
+        visible = self.database.get_entry_from_db(get_query, (str(file_id)))
+        visible = 1 if visible[0] == 0 else 0
+        query = "UPDATE logofiles SET visible=? WHERE id=?"
+        result = self.database.insert_entry(query, (str(visible), str(file_id)))
 
         return {'result':result, 'action': 'hide'}
     
