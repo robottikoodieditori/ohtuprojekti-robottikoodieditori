@@ -129,7 +129,7 @@ const AdminView = () => {
                 <section className="admin-section all-files-section">
                     <h3>{translations?.adminView.allFiles}</h3>
 
-                    <div>
+                    <div className='all-files'>
                         <ul>
                             {allFiles.length > 0 ? (
                                 allFiles.map(file => (
