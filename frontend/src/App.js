@@ -26,12 +26,8 @@ function App() {
                     </div>  
                 ) : (
                     <div className="main-content">
-                        <div>
-                            <EditorView />
-                        </div>  
-                        <div className="sidebar">
-                            <Sidebar/>
-                        </div>
+                        <EditorView />
+                        <Sidebar/>
                     </div>
                 )}
                 {/* Footer */}

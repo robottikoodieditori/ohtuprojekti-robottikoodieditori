@@ -32,6 +32,12 @@
     background-color: rgb(65, 81, 172);
 }
 
+.editornavbar-button:focus-visible {
+    background-color: rgb(65, 81, 172);
+    border-style: solid;
+    border-color: black;
+  }
+
 .editornavbar p {
     margin-left: auto;
     margin-right: 10px;
