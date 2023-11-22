@@ -16,6 +16,11 @@ h1 {
   height: 100vh;
 }
 
+@media (max-width: 768px) {
+  .app {
+    height: auto;
+  }}
+
 .main-content {
   flex: 1;
   display: flex;
