@@ -69,6 +69,13 @@ export const sendToServer = code => {
     }
 }
 
+export const deployToRobot = code => {
+    return async dispatch => {
+        const res = await commService.deployToRobot(code)
+        dispatch(sendToRobot(res))
+    }
+}
+
 export const logout = () => {
     return async dispatch => (
         dispatch(resetLogin())
