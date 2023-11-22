@@ -63,3 +63,14 @@ class TestUser(unittest.TestCase):
         ]
 
         self.assertListEqual(expected_list, result_list)
+
+    def test_change_user_password(self):
+        self.user_service.register("Arnold", "password")
+        self.user_service.register("Anrold", "password")
+        
+        user_list = self.user_service.get_all_users()
+        old_password = user_list[1]["password"]
+        self.user_service.change_password("2", "new_password")
+        user_list = self.user_service.get_all_users()
+
+        self.assertNotEqual(old_password, user_list[1]["password"])
