@@ -26,7 +26,7 @@ describe('Admin functionality', function() {
         cy.get('.user-info').should('be.visible')
         cy.get('.user-info p:contains("Käyttäjä:")').should('contain', 'Alice')
         cy.get('.user-info p:contains("Salasana:")').should('contain', 'password123')
-        cy.get('.delete-user-button').should('be.visible')
+        cy.get('.change-password-button').should('be.visible')
     })
 
     it('Attempting to show student files (ENGLISH)', function() {
