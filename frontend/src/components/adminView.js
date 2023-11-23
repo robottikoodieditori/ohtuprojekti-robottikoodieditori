@@ -218,7 +218,7 @@ const AdminView = () => {
     return (
         <div className="admin-container">
       
-            <h2>{translations?.adminView.adminDashboard}</h2>
+            <h2 tabIndex="0">{translations?.adminView.adminDashboard}</h2>
             <div className="sections-container">
 
                 {/* User list section */}
@@ -306,14 +306,14 @@ const AdminView = () => {
                 {/* All files section */}
 
                 <section className="admin-section all-files-section">
-                    <h3>{translations?.adminView.allFiles}</h3>
+                    <h3 tabIndex="0">{translations?.adminView.allFiles}</h3>
 
                     <div className='all-files'>
                         <table>
                             <thead>
                                 <tr>
-                                    <th>Tiedstonnimi</th>
-                                    <th>Luoja</th>
+                                    <th tabIndex="0">Tiedstonnimi</th>
+                                    <th tabIndex="0">Luoja</th>
                                     <th></th>
                                     <th></th>
                                     <th></th>
@@ -350,8 +350,8 @@ const AdminView = () => {
                     <button onClick={() => handleDownloadClick(openedFile)}>Download</button>
                     <button onClick={() =>handleModifyClick(openedFile)}>Save</button>
                     <button onClick={() => handleDeleteClick(openedFile)}>Delete</button>
-                    <p>Tiedosto: {openedFile['filename']}</p>
-                    <p>Tiedoston tekijä: {openedFile['user']}</p>
+                    <p tabIndex="0">Tiedosto: {openedFile['filename']}</p>
+                    <p tabIndex="0">Tiedoston tekijä: {openedFile['user']}</p>
 
                 </div>
                 <Editor textContent={openedFile['textContent']} />
