@@ -77,7 +77,6 @@ export default {
         allFiles:'Kaikki tiedostot',
         upload:'Vie Tiedosto',
         download:'Lataa',
-        download:'Lataa',
         save:'Tallenna',
         delete:'Poista',
         info:'Käyttäjän {username} tiedot',
