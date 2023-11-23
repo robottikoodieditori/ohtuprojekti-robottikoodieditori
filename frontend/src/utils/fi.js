@@ -49,7 +49,6 @@ export default {
     },
     editorNavbar: {
         chooseFile: 'Valitse tiedosto',
-        fileName: 'Tiedostonimi',
         createdAt: 'Luotu',
         lastEdited: 'Viimeksi muokattu',
         newFile: 'Uusi Tiedosto',
@@ -81,6 +80,12 @@ export default {
         delete:'Poista',
         info:'Tiedot',
         files:'Tiedostot',
+        creator:'Tiedoston tekijä: ',
+        changePassword:'Vaihda salasana',
+        chooseOwner: 'Valitse omistaja',
+        chooseUser: 'Valitse käyttäjä',
+        hide: 'Piilota',
+        restore: 'Palauta'
     },
 
     tooltipOpenSidebar: "Klikkaa sanaa avataksesi sen sivupalkissa",
