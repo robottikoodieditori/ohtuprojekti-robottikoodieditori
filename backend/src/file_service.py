@@ -75,7 +75,7 @@ class FileService:
             result (str): "OK" if successful, else "FAIL"
         """
         get_query = "SELECT visible FROM logofiles WHERE id=?"
-        visible = self.database.get_entry_from_db(get_query, (str(file_id)))
+        visible = self.database.get_entry_from_db(get_query, (str(file_id),))
         visible = 1 if visible[0] == 0 else 0
         query = "UPDATE logofiles SET visible=? WHERE id=?"
         result = self.database.insert_entry(query, (str(visible), str(file_id)))
@@ -120,7 +120,7 @@ class FileService:
             result (str): "OK" if succesful, else "FAIL"
         """
         query = "DELETE FROM logofiles WHERE id=?"
-        result = self.database.insert_entry(query, (str(file_id)))
+        result = self.database.insert_entry(query, (str(file_id),))
 
         return {'result':result, 'action': 'delete'}
 

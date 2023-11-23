@@ -268,7 +268,7 @@ const AdminView = () => {
                                 </div>
                             ) : (
                                 // Render files list
-                                <ul>
+                                <ul id='user-files-section'>
                                     {userFiles.length > 0 ? (
                                         <table>
                                             <thead>
