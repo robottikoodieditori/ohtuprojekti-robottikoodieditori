@@ -123,7 +123,7 @@ export const handleFile = (content, filename, fileId, userId, action) => {
 
 export const getUserFiles = () => {
     return async dispatch => {
-        const res = await commService.getUserFiles(window.localStorage.getItem('token'))
+        const res = await commService.getUserFiles()
         console.log(res)
         if (res === 'FAIL'){
             dispatch(setUserFiles(false))

@@ -1,5 +1,4 @@
 import { useState, useContext, useEffect } from 'react'; 
-import { users as mockUsers, logofiles as mockLogofiles } from './mockData'; // Import mock data
 import { LanguageContext } from "../contexts/languagecontext";
 import Editor from './editor';
 import '../css/adminView.css'; 
@@ -11,7 +10,7 @@ const AdminView = () => {
     const { translations } = useContext(LanguageContext)
     const [users, setUsers] = useState([]);
     const [selectedUser, setSelectedUser] = useState(null);
-    const [allFiles, setAllFiles] = useState([]); // State to hold all files
+    const [allFiles, setAllFiles] = useState([]); 
     const [userFiles, setUserFiles] = useState([]);
     const [searchQuery, setSearchQuery] = useState("");
     const [viewMode, setViewMode] = useState('files'); // 'files' or 'info' on middle container
@@ -28,12 +27,17 @@ const AdminView = () => {
 
 
 
-    useEffect(() => {
-        // Initialize users with mock data
-        setUsers(mockUsers);
-        // Initialize allFiles with all mock logofiles
-        setAllFiles(mockLogofiles);
+    useEffect( () => {
+        getData()
     }, []);
+
+    const getData = async () => {
+        const files = await commService.getFiles()
+        const users = await commService.getUsers()
+        setAllFiles(files);
+        setUsers(users);
+    }
+
 
     const handleSearchChange = (event) => {
         setSearchQuery(event.target.value);
@@ -47,19 +51,19 @@ const AdminView = () => {
 
     const handleUserClick = (user) => {
         setSelectedUser(user);
-        setViewMode('files'); // Show files by default
-
-        const filesForUser = mockLogofiles.filter(file => file.user_id === user.id);// Fetching files for the selected user from mock data
+        setViewMode('files');
+        const filesForUser = allFiles.filter(file => file.user_id === user.id)
         setUserFiles(filesForUser);
     };
 
     const handleFileClick = (file) => {
-        console.log(file.user_id)
+        console.log(users)
+        console.log(file)
         const username = users.find(user => user.id === file.user_id).name
         setOpenedFile(openedFile => ({
             ...openedFile,
             filename:  file.filename,
-            content: file.content,
+            content: file.textContent,
             id: file.id,
             user_id: file.user_id,
             user: username
@@ -68,11 +72,8 @@ const AdminView = () => {
 
     const handleShowUserInfo = (user) => {
         setSelectedUser(user);
-        setViewMode('info'); // Change view mode to show user info
+        setViewMode('info');
     };
-
-    // Dummy functions for button actions
-
 
     const UploadScreen = () => {
         return (
@@ -141,7 +142,7 @@ const AdminView = () => {
     
     const handleDownloadClick = (file) => {
         const element = document.createElement('a');
-        element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(file.content));
+        element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(file.textContent));
         element.setAttribute('download', file.filename);
         element.style.display = 'none';
         document.body.appendChild(element);
@@ -151,9 +152,11 @@ const AdminView = () => {
 
     const handleModifyClick = (file) => {
         commService.handleFile(file.content, file.filename, file.id, file.user_id, 'admin-save')
+        getData()
     }
-    const handleDeleteClick = (file) => {
-        commService.handleFile(file.content, file.filename, file.id, file.user_id, 'admin-delete')
+    const handleDeleteClick = async (file) => {
+        await commService.handleFile(file.content, file.filename, file.id, file.user_id, 'admin-delete')
+        getData()
     }
     const PasswordWindow = () => {
         return (
@@ -190,12 +193,14 @@ const AdminView = () => {
         console.log(password)
         commService.changePassword(selectedUser.id, password)
         setIsPasswordWindowOpen(false)
+        getData()
 
 
     }
 
-    const handleVisibleClick = (file) => {
-        commService.handleFile(file.content, file.filename, file.id, file.user_id, "hide")
+    const handleVisibleClick = async (file) => {
+        await commService.handleFile(file.content, file.filename, file.id, file.user_id, "hide")
+        getData()
     }
 
     const handleNewFileClick = () => {
@@ -264,11 +269,30 @@ const AdminView = () => {
                                 // Render files list
                                 <ul>
                                     {userFiles.length > 0 ? (
-                                        userFiles.map(file => (
-                                            <li tabIndex="0" key={file.id} onClick={() => handleFileClick(file)}>
-                                                {file.filename}
-                                            </li>
-                                        ))
+                                        <table>
+                                            <thead>
+                                                <tr>
+                                                    <th>Tiedstonnimi</th>
+                                                    <th>Luoja</th>
+                                                    <th></th>
+                                                    <th></th>
+                                                    <th></th>
+                                                    <th></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {userFiles.map(file => (
+                                                    <tr key={file.filename} className={file.visible ? 'visible-file' : 'hidden-file'}>
+                                                        <td>{file.filename}</td>
+                                                        <td>{users.find(user => user.id === file.user_id).name}</td>
+                                                        <td onClick={() => handleFileClick(file)}>Avaa</td>
+                                                        <td onClick={() => handleVisibleClick(file)}>{file.visible ? 'Piilota' : 'Palauta'}</td>
+                                                        <td onClick={() => handleDeleteClick(file)}>Poista</td>
+                                                        <td onClick={() => handleDownloadClick(file)}>Lataa</td>
+                                                    </tr>
+                                                ))}
+                                            </tbody>
+                                        </table>
                                     ) : (
                                         <p>{translations?.adminView.noUserFilesFound}</p>
                                     )}

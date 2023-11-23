@@ -52,15 +52,22 @@ const uploadFile = async (data) => {
 }
 
 const changePassword = async (userId, password) => {
-    const res = await axios.post('/upload', {
+    const res = await axios.post('/admin/change_password', {
         'token': window.localStorage.getItem('token'),
-        'userId': userId,
+        'id': userId,
         'password': password
     })
     return res.data
 }
 
-
+const getAllFiles = async () => {
+    const res = await axios.post('/admin/get_files',
+        {
+            'token': window.localStorage.getItem('token'),
+        })
+    console.log("Files ", res)
+    return res.data
+}
 
 export default {
     sendToCompile: sendToCompile,
@@ -71,4 +78,5 @@ export default {
     uploadFile: uploadFile,
     deployToRobot: deployToRobot,
     changePassword: changePassword,
+    getFiles: getAllFiles,
 }

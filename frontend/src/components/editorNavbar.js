@@ -97,10 +97,10 @@ const EditorNavbar = () => {
     
         if (confirmDelete) {
             if (fileName === file.filename) {
-                dispatch(handleFile(textContent, file.filename, file.file_id, 'hide'))
+                dispatch(handleFile(textContent, file.filename, file.file_id, 'user_id', 'hide'))
                 handleNewFile()
             } else {
-                dispatch(handleFile(textContent, file.filename, file.file_id, 'hide'))
+                dispatch(handleFile(textContent, file.filename, file.file_id, 'user_id', 'hide'))
                 getData()
             }
             setisFileSelectOpen(false)

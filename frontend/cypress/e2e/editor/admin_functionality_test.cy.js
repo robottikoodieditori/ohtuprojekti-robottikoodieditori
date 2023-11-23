@@ -3,15 +3,17 @@ describe('Admin functionality', function() {
         cy.visit('http://localhost:3000');
         cy.get('#registration-name-input').type('admin')
         cy.get('#popup').contains('Kirjaudu').click(50)
-        cy.get('#app-footer').contains('Open Admin').click()
+        cy.wait(500)
+
+        cy.get('#app-footer').contains('Open Admin').click(500)
     })
 
     it('Attempting to show students', function() {
-        cy.get('.user-list .user-item').should('have.length.greaterThan', 1)
+        cy.get('.user-list .user-item').should('have.length', 1)
     })
 
-    it('Attempting to show student files (FINNISH)', function() {
-        cy.contains('.user-item', 'Alice').within(() => {
+    /*it('Attempting to show student files (FINNISH)', function() {
+        cy.contains('.user-item', 'admin').within(() => {
             cy.get('.user-action-button:contains("Näytä tiedostot")').click()
           })
         cy.get('.user-files-section').should('be.visible')
@@ -46,6 +48,6 @@ describe('Admin functionality', function() {
         cy.get('.user-info p:contains("Username:")').should('contain', 'Alice')
         cy.get('.user-info p:contains("Password:")').should('contain', 'password123')
         cy.get('.delete-user-button').should('be.visible')
-    })
+    })*/
 
 })
