@@ -17,7 +17,7 @@ const AdminView = () => {
     const [openedFile, setOpenedFile] = useState({
         'filename' : '', 
         'id': '', 
-        'content':'', 
+        'textContent':'', 
         'user_id': '', 
         'user': ''
     })
@@ -63,7 +63,7 @@ const AdminView = () => {
         setOpenedFile(openedFile => ({
             ...openedFile,
             filename:  file.filename,
-            content: file.textContent,
+            textContent: file.textContent,
             id: file.id,
             user_id: file.user_id,
             user: username
@@ -132,7 +132,7 @@ const AdminView = () => {
         setOpenedFile(openedFile => ({
             ...openedFile,
             filename:  res.filename,
-            content: res.content,
+            textContent: res.content,
             id: res.file_id,
             user_id: user_id,
             user: username
@@ -151,11 +151,12 @@ const AdminView = () => {
     }
 
     const handleModifyClick = (file) => {
-        commService.handleFile(file.content, file.filename, file.id, file.user_id, 'admin-save')
+        console.log(file.textContent)
+        commService.handleFile(file.textContent, file.filename, file.id, file.user_id, 'admin-save')
         getData()
     }
     const handleDeleteClick = async (file) => {
-        await commService.handleFile(file.content, file.filename, file.id, file.user_id, 'admin-delete')
+        await commService.handleFile(file.textContent, file.filename, file.id, file.user_id, 'admin-delete')
         getData()
     }
     const PasswordWindow = () => {
@@ -199,7 +200,7 @@ const AdminView = () => {
     }
 
     const handleVisibleClick = async (file) => {
-        await commService.handleFile(file.content, file.filename, file.id, file.user_id, "hide")
+        await commService.handleFile(file.textContent, file.filename, file.id, file.user_id, "hide")
         getData()
     }
 
@@ -207,7 +208,7 @@ const AdminView = () => {
         setOpenedFile(openedFile => ({
             ...openedFile,
             filename:  "",
-            content: "",
+            textContent: "",
             id: "",
             user_id: "",
             user: ""
@@ -353,7 +354,7 @@ const AdminView = () => {
                     <p>Tiedoston tekijä: {openedFile['user']}</p>
 
                 </div>
-                <Editor textContent={openedFile['content']} />
+                <Editor textContent={openedFile['textContent']} />
             </div>
             
 

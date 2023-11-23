@@ -3,7 +3,7 @@ describe('Admin functionality', function() {
         cy.visit('http://localhost:3000');
         cy.get('#registration-name-input').type('admin')
         cy.get('#popup').contains('Kirjaudu').click(50)
-        cy.wait(500)
+        cy.wait(1000)
 
         cy.get('#app-footer').contains('Open Admin').click(500)
     })
