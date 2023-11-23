@@ -36,6 +36,10 @@ const AdminView = () => {
         const users = await commService.getUsers()
         setAllFiles(files);
         setUsers(users);
+        if (selectedUser) {
+            const filesForUser = files.filter(file => file.user_id === selectedUser.id)
+            setUserFiles(filesForUser);
+        }
     }
 
 
@@ -215,6 +219,10 @@ const AdminView = () => {
         }));
     }
 
+    const handleSendToRobotClick = (file) => {
+        commService.deployToRobot(file.textContent)
+    }
+
     return (
         <div className="admin-container">
       
@@ -247,9 +255,13 @@ const AdminView = () => {
                 {/* Selected user's files section */}
                 {selectedUser && (
                     <section className="admin-section user-files-section">
-
-                        <h3>{selectedUser.name}&apos;s {viewMode === 'info' ? translations?.adminView.info : translations?.adminView.files}</h3>
-
+                        <h3>
+                            {
+                                viewMode === 'info' ?
+                                    (translations?.adminView.info?.replace('{username}', selectedUser.name)) :
+                                    (translations?.adminView.files?.replace('{username}', selectedUser.name))
+                            }
+                        </h3>
                         <button className="back-button" onClick={() => setSelectedUser(null)}>
                             {translations?.adminView.back}
                         </button>
@@ -261,7 +273,7 @@ const AdminView = () => {
                                     <p>{translations?.adminView.username} {selectedUser.name}</p>
                                     <p>{translations?.adminView.password} {selectedUser.password}</p>
 
-                                    <button className="delete-user-button" onClick={() => {setIsPasswordWindowOpen(true); console.log('jahuu')}}> Vaihda salasana </button>
+                                    <button className="delete-user-button" onClick={() => {setIsPasswordWindowOpen(true)}}> Vaihda salasana </button>
                                     { isPasswordWindowOpen && 
                                         <PasswordWindow/>
                                     }
@@ -326,7 +338,7 @@ const AdminView = () => {
                                         <td>{file.filename}</td>
                                         <td>{users.find(user => user.id === file.user_id).name}</td>
                                         <td onClick={() => handleFileClick(file)}>{translations?.editorNavbar.open}</td>
-                                        <td onClick={() => handleVisibleClick(file)}>{file.visible ? 'Piilota' : 'Palauta'}</td>
+                                        <td onClick={() => handleVisibleClick(file)}>{file.visible ? translations?.adminView.hide : translations?.adminView.restore}</td>
                                         <td onClick={() => handleDeleteClick(file)}>{translations?.editorNavbar.delete}</td>
                                         <td onClick={() => handleDownloadClick(file)}>{translations?.adminView.download}</td>
                                     </tr>
@@ -350,6 +362,7 @@ const AdminView = () => {
                     <button onClick={() => handleDownloadClick(openedFile)}>{translations?.adminView.download} </button>
                     <button onClick={() =>handleModifyClick(openedFile)}>{translations?.editorNavbar.open} </button>
                     <button onClick={() => handleDeleteClick(openedFile)}>{translations?.editorNavbar.delete}</button>
+                    <button onClick={() => handleSendToRobotClick(openedFile)}>{translations?.adminView.sendRobot}</button>
                     <p tabIndex="0">{translations?.editorNavbar.file} {openedFile['filename']}</p>
                     <p tabIndex="0">{translations?.adminView.creator} {openedFile['user']}</p>
 
