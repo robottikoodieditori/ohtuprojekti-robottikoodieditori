@@ -6,7 +6,7 @@ class UserService:
     '''
     Class for handling user related operations.
 
-    args:
+    attr:
         db (obj): an object for handling communications with the database
         secret (str): the secret key for creating session tokens and other cookies
     '''
@@ -115,7 +115,7 @@ class UserService:
             {
                 "id": row[0],
                 "name": row[1],
-                "password": row[2].decode('utf-8')
+                "password": row[2].decode('utf-8') if type(row[2]) is not str else row[2]
             }
             for row in result
         ]

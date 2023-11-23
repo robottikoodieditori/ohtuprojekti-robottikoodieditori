@@ -4,7 +4,7 @@ class FileService:
     """
     Class for handling file-related operations. Communicates with the database.
 
-    args:
+    attr:
         db (obj): an object for handling communications with the database
     """
 
@@ -75,7 +75,7 @@ class FileService:
             result (str): "OK" if successful, else "FAIL"
         """
         get_query = "SELECT visible FROM logofiles WHERE id=?"
-        visible = self.database.get_entry_from_db(get_query, (str(file_id)))
+        visible = self.database.get_entry_from_db(get_query, (str(file_id),))
         visible = 1 if visible[0] == 0 else 0
         query = "UPDATE logofiles SET visible=? WHERE id=?"
         result = self.database.insert_entry(query, (str(visible), str(file_id)))
