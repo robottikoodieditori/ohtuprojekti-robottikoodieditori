@@ -6,7 +6,6 @@ from user_service import UserService
 from file_service import FileService, send_to_robot, remote_create_start_script
 from db import DB
 import json
-import base64
 
 
 app = Flask(__name__, static_folder="../build/static", template_folder="../build")
@@ -21,7 +20,6 @@ app.config["SECRET_KEY"] = getenv("SECRET_KEY")
 db = DB(DB_PATH)
 user_service = UserService(db, app.config["SECRET_KEY"])
 file_service = FileService(db)
-
 
 @app.route("/")
 def main():
@@ -66,7 +64,6 @@ def get_user_files():
         result = file_service.get_user_files(user_id)
         return jsonify(result), 200
     return "Invalid Credentials", 400
-
 
 @app.route("/file_service", methods=["POST"])
 def handle_file_request():
@@ -164,7 +161,6 @@ def get_all_files():
 @app.route("/admin/change_password", methods=["POST"])
 def change_password():
     content = request.json
-    print(type(content['id']))
 
     if not content.get("token", None):
         return "Missing Credentials", 400
