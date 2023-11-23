@@ -378,9 +378,9 @@
   }
 
   .visible-file {
-    background-color: green;
+    background-color: #77DD77;
   }
 
   .hidden-file {
-    background-color: red;
+    background-color: #ff7070;
   }
