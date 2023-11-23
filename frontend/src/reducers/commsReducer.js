@@ -93,10 +93,17 @@ export const login = username => {
     }
 }
 
-export const handleFile = (content, filename, fileId, action) => {
-    console.log('aaa')
+export const uploadFile =  data => {
     return async dispatch => {
-        const res = await commService.handleFile(content, filename, fileId, action)
+        const res = await commService.uploadFile(data)
+        console.log(res)
+        dispatch()
+    }
+} 
+
+export const handleFile = (content, filename, fileId, userId, action) => {
+    return async dispatch => {
+        const res = await commService.handleFile(content, filename, fileId, userId, action)
         console.log(res)
         if (res.action === 'save'){
             dispatch(setFileName(filename))
@@ -116,7 +123,7 @@ export const handleFile = (content, filename, fileId, action) => {
 
 export const getUserFiles = () => {
     return async dispatch => {
-        const res = await commService.getUserFiles(window.localStorage.getItem('token'))
+        const res = await commService.getUserFiles()
         console.log(res)
         if (res === 'FAIL'){
             dispatch(setUserFiles(false))

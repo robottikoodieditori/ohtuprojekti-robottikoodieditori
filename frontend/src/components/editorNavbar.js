@@ -58,7 +58,7 @@ const EditorNavbar = () => {
             dispatch(setFileName(event.target.elements.newFileNameInput.value))
             window.localStorage.setItem('textContent', textContent)
             window.localStorage.setItem('filename', event.target.elements.newFileNameInput.value)
-            dispatch(handleFile(textContent, event.target.elements.newFileNameInput.value, 'new', 'save'))
+            dispatch(handleFile(textContent, event.target.elements.newFileNameInput.value, 'new', 'userId','save'))
             setisNewFileOpen(false)            
             getData()            
         }
@@ -71,7 +71,7 @@ const EditorNavbar = () => {
         }
         if (username) {
             window.localStorage.setItem('textContent', textContent)
-            dispatch(handleFile(textContent, fileName,  fileId, 'save'))
+            dispatch(handleFile(textContent, fileName,  fileId, 'userId',  'save'))
             getData()
         }
     }
@@ -97,10 +97,10 @@ const EditorNavbar = () => {
     
         if (confirmDelete) {
             if (fileName === file.filename) {
-                dispatch(handleFile(textContent, file.filename, file.file_id, 'hide'))
+                dispatch(handleFile(textContent, file.filename, file.file_id, 'user_id', 'hide'))
                 handleNewFile()
             } else {
-                dispatch(handleFile(textContent, file.filename, file.file_id, 'hide'))
+                dispatch(handleFile(textContent, file.filename, file.file_id, 'user_id', 'hide'))
                 getData()
             }
             setisFileSelectOpen(false)

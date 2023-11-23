@@ -10,13 +10,13 @@ const sendLogin = async (username, password) => {
     return res.data
 }
 
-const handleFile = async (content, filename, fileId, action) => {
-    console.log(content, 'asd')
+const handleFile = async (content, filename, fileId, userId, action) => {
     const res = await axios.post('/file_service', {
         'textContent': content, 'filename': filename,
         'token': window.localStorage.getItem('token'),
         'action': action,
-        'fileId': fileId
+        'fileId': fileId,
+        'userId': userId
     })
     return res.data
 }
@@ -45,11 +45,38 @@ const deployToRobot = async (content) => {
     return res.data
 }
 
+const uploadFile = async (data) => {
+    const res = await axios.post('/upload', data)
+    console.log(res)
+    return res.data
+}
+
+const changePassword = async (userId, password) => {
+    const res = await axios.post('/admin/change_password', {
+        'token': window.localStorage.getItem('token'),
+        'id': userId,
+        'password': password
+    })
+    return res.data
+}
+
+const getAllFiles = async () => {
+    const res = await axios.post('/admin/get_files',
+        {
+            'token': window.localStorage.getItem('token'),
+        })
+    console.log("Files ", res)
+    return res.data
+}
+
 export default {
     sendToCompile: sendToCompile,
     sendLogin: sendLogin,
     handleFile: handleFile,
     getUserFiles: getUserFiles,
-    getUsers: getAllUsers,
-    deployToRobot: deployToRobot
+    getUsers:  getAllUsers,
+    uploadFile: uploadFile,
+    deployToRobot: deployToRobot,
+    changePassword: changePassword,
+    getFiles: getAllFiles,
 }

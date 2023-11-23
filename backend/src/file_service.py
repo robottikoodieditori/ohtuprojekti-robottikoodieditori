@@ -110,6 +110,21 @@ class FileService:
         
         return file_list
 
+    def delete_logo_file(self, file_id: int):
+        """
+        Method which deletes logofile from database
+
+        Args:
+            file_id (int)
+        returns:
+            result (str): "OK" if succesful, else "FAIL"
+        """
+        query = "DELETE FROM logofiles WHERE id=?"
+        result = self.database.insert_entry(query, (str(file_id)))
+
+        return {'result':result, 'action': 'delete'}
+
+
 def send_to_robot() -> int:
     '''
     Executes a script which transfers a compiled Java file to the robot if robot is connected and
