@@ -49,4 +49,27 @@ describe('Admin functionality', function() {
         cy.get('.change-password-button').should('be.visible')
     })
 
+    it('Attempting to open a file', function() {
+        cy.get('#all-files-section').first().as('firstFileRow')
+        cy.get('@firstFileRow').contains('Avaa').click()
+        cy.get('#editor').should('not.contain', 'Logo...')
+    })
+
+    it('Attempting to hide and and restore a file (FINNISH)', function() {
+        cy.get('#all-files-section tbody tr').first().as('firstFileRow')
+        cy.get('@firstFileRow').contains('Piilota').click()
+        cy.get('@firstFileRow').should('have.css', 'background-color', 'rgb(255, 112, 112)')
+        cy.get('@firstFileRow').contains('Palauta').click()
+        cy.get('@firstFileRow').should('have.css', 'background-color', 'rgb(119, 221, 119)')
+    })
+
+    it('Attempting to hide and and restore a file (ENGLISH)', function() {
+        cy.get('#navbar').contains('Switch to English').click()
+        cy.get('#all-files-section tbody tr').first().as('firstFileRow')
+        cy.get('@firstFileRow').contains('Hide').click()
+        cy.get('@firstFileRow').should('have.css', 'background-color', 'rgb(255, 112, 112)')
+        cy.get('@firstFileRow').contains('Restore').click()
+        cy.get('@firstFileRow').should('have.css', 'background-color', 'rgb(119, 221, 119)')
+    })
+
 })
