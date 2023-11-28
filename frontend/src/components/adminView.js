@@ -6,8 +6,10 @@ import Editor from './editor';
 import '../css/adminView.css';
 import Popup from 'reactjs-popup';
 import commService from '../services/comms'
-import AdminViewUserListEntry from './adminViewUserListEntry';
-
+import AdminViewUserListSection from './adminViewUserListSection';
+import AdminViewUserFilesSection from './adminViewUserFilesSection';
+import UploadScreen from './uploadScreen';
+import AdminViewAllFilesSection from './adminViewAllFilesSection';
 
 const AdminView = () => {
     const dispatch = useDispatch()
@@ -40,6 +42,7 @@ const AdminView = () => {
         if (selectedUser) {
             const filesForUser = files.filter(file => file.user_id === selectedUser.id)
             setUserFiles(filesForUser);
+            console.log(filesForUser)
         }
     }
 
@@ -73,70 +76,6 @@ const AdminView = () => {
         }));
     };
 
-    const UploadScreen = () => {
-        return (
-            <div className='overlay'>
-                <Popup
-                    open={isUploadOpen}
-                    closeOnDocumentClick={false}
-                    overlayStyle={{ background: 'rgba(0,0,0,0.8)' }}
-                >
-                    <div className='content-upload'>
-                        <div className="content-upload-header ">
-                            <h2 tabIndex="0">{translations?.adminView.upload}</h2>
-                            <div className='upload-header'>
-                                <button className="close-button-upload" onClick={() => setisUploadOpen(false)}>X</button>
-                            </div>
-                        </div>
-                        <form id="uploadForm" encType='multipart/form-data'>
-                            <label htmlFor="usernames">{translations?.adminView.chooseOwner}</label>
-                            <select
-                                id="uploadUsername"
-                                name="usernames"
-                            >
-                                <option value="">{translations?.adminView.chooseUser}</option>
-                                {filteredUsers.map((user) => (
-                                    <option key={user.id} value={user.id}>
-                                        {user.name}
-                                    </option>
-                                ))}
-                            </select>
-
-                            <label htmlFor="usernames">{translations?.editorNavbar.chooseFile}</label>
-                            <input
-                                type="file"
-                                accept=".logo"
-                                name='file'
-                                required
-                                id='uploadFile'
-                            />
-                            <button type="submit" value="Upload" onClick={handleUpload}>Upload</button>
-                        </form>
-                    </div>
-                </Popup>
-            </div>
-        );
-    };
-
-    const handleUpload = async (event) => {
-        event.preventDefault();
-        const user_id = document.getElementById('uploadUsername').value;
-        const file = document.getElementById('uploadFile').files[0];
-        const formData = new FormData()
-        formData.append('file', file)
-        formData.append('json_data', JSON.stringify({'token': window.localStorage.getItem('token'), 'user_id':user_id}))
-        const res = await commService.uploadFile(formData)
-        const username = users.find(user => user.id === parseInt(user_id)).name
-        dispatch(setContent(res.content))
-        setOpenedFile(openedFile => ({
-            ...openedFile,
-            filename:  res.filename,
-            id: res.file_id,
-            user_id: user_id,
-            user: username
-        }));
-        setisUploadOpen(false)
-    }
 
     const handleDownloadClick = (file) => {
         const element = document.createElement('a');
@@ -205,8 +144,6 @@ const AdminView = () => {
         commService.changePassword(selectedUser.id, password)
         setIsPasswordWindowOpen(false)
         getData()
-
-
     }
 
     const handleVisibleClick = async (file) => {
@@ -236,125 +173,47 @@ const AdminView = () => {
             <div className="sections-container">
 
                 {/* User list section */}
-                <section className="admin-section user-list-section">
-                    <h3>{translations?.adminView.userManagement}</h3>
-
-                    <input
-                        type="text"
-                        placeholder={translations?.adminView.searchUser}
-                        value={searchQuery}
-                        onChange={handleSearchChange}
-                    />
-                    <div className="user-list" aria-label="list of users">
-                        {filteredUsers.map(user => (
-                            <AdminViewUserListEntry
-                                key={user.id}
-                                user={user}
-                                handleUserClick={handleUserClick}
-                                setSelectedUser={setSelectedUser}
-                                setViewMode={setViewMode} />
-                        ))}
-                    </div>
-                </section>
+                <AdminViewUserListSection
+                    searchQuery={searchQuery}
+                    handleSearchChange={handleSearchChange}
+                    filteredUsers={filteredUsers}
+                    handleUserClick={handleUserClick}
+                    setSelectedUser={setSelectedUser}
+                    setViewMode={setViewMode}
+                />
 
                 {/* Selected user's files section */}
                 {selectedUser && (
-                    <section className="admin-section user-files-section">
-                        <h3>
-                            {
-                                viewMode === 'info' ?
-                                    (translations?.adminView.info?.replace('{username}', selectedUser.name)) :
-                                    (translations?.adminView.files?.replace('{username}', selectedUser.name))
-                            }
-                        </h3>
-                        <button className="back-button" onClick={() => setSelectedUser(null)}>
-                            {translations?.adminView.back}
-                        </button>
-                        <div>
-                            {viewMode === 'info' ? (
-                                // Render user info
-                                <div className="user-info">
-
-                                    <p>{translations?.adminView.username} {selectedUser.name}</p>
-                                    <p>{translations?.adminView.password} {selectedUser.password}</p>
-
-                                    <button className="change-password-button" onClick={() => {setIsPasswordWindowOpen(true)}}> Vaihda salasana </button>
-                                    { isPasswordWindowOpen &&
-                                        <PasswordWindow/>
-                                    }
-                                </div>
-                            ) : (
-                                // Render files list
-                                <ul id='user-files-section'>
-                                    {userFiles.length > 0 ? (
-                                        <table>
-                                            <thead>
-                                                <tr>
-                                                    <th>{translations?.editorNavbar.fileName}</th>
-                                                    <th>{translations?.adminView.creator}</th>
-                                                    <th></th>
-                                                    <th></th>
-                                                    <th></th>
-                                                    <th></th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                {userFiles.map(file => (
-                                                    <tr key={file.filename} className={file.visible ? 'visible-file' : 'hidden-file'}>
-                                                        <td>{file.filename}</td>
-                                                        <td>{users.find(user => user.id === file.user_id).name}</td>
-                                                        <td className="clickable" onClick={() => handleFileClick(file)}>{translations?.editorNavbar.open}</td>
-                                                        <td className="clickable" onClick={() => handleVisibleClick(file)}>{file.visible ? translations?.adminView.hide : translations?.adminView.restore}</td>
-                                                        <td className="clickable" onClick={() => handleDeleteClick(file)}>{translations?.editorNavbar.delete}</td>
-                                                        <td className="clickable" onClick={() => handleDownloadClick(file)}>{translations?.adminView.download}</td>
-                                                    </tr>
-                                                ))}
-                                            </tbody>
-                                        </table>
-                                    ) : (
-                                        <p>{translations?.adminView.noUserFilesFound}</p>
-                                    )}
-                                </ul>
-                            )}
-                        </div>
-                    </section>
+                    <AdminViewUserFilesSection
+                        viewMode={viewMode}
+                        selectedUser={selectedUser}
+                        setSelectedUser={setSelectedUser}
+                        setIsPasswordWindowOpen={setIsPasswordWindowOpen}
+                        isPasswordWindowOpen={isPasswordWindowOpen}
+                        PasswordWindow={PasswordWindow}
+                        userFiles={userFiles}
+                        allFiles={allFiles}
+                        users={users}
+                        handleFileClick={handleFileClick}
+                        handleVisibleClick={handleVisibleClick}
+                        handleDeleteClick={handleDeleteClick}
+                        handleDownloadClick={handleDownloadClick}
+                        handlePasswordChange={handlePasswordChange}
+                    />
                 )}
 
                 {/* All files section */}
-
-                <section className="admin-section all-files-section">
-                    <h3 tabIndex="0">{translations?.adminView.allFiles}</h3>
-
-                    <div className='all-files'>
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th tabIndex="0">{translations?.editorNavbar.file}</th>
-                                    <th tabIndex="0">{translations?.adminView.creator}</th>
-                                    <th></th>
-                                    <th></th>
-                                    <th></th>
-                                    <th></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {allFiles.map(file => (
-                                    <tr key={file.filename} className={file.visible ? 'visible-file' : 'hidden-file'}>
-                                        <td>{file.filename}</td>
-                                        <td>{users.find(user => user.id === file.user_id).name}</td>
-                                        <td className="clickable" onClick={() => handleFileClick(file)}>{translations?.editorNavbar.open}</td>
-                                        <td className="clickable" onClick={() => handleVisibleClick(file)}>{file.visible ? translations?.adminView.hide : translations?.adminView.restore}</td>
-                                        <td className="clickable" onClick={() => handleDeleteClick(file)}>{translations?.editorNavbar.delete}</td>
-                                        <td className="clickable" onClick={() => handleDownloadClick(file)}>{translations?.adminView.download}</td>
-                                    </tr>
-                                ))}
-                            </tbody>
-                        </table>
-                    </div>
-                </section>
-
-
+                <AdminViewAllFilesSection
+                    allFiles={allFiles}
+                    users={users}
+                    handleFileClick={handleFileClick}
+                    handleVisibleClick={handleVisibleClick}
+                    handleDeleteClick={handleDeleteClick}
+                    handleDownloadClick={handleDownloadClick}
+                    setOpenedFile={setOpenedFile}
+                />
             </div>
+
             {/* Editor section to display the selected file */}
 
             <div className="editor-section">
@@ -362,10 +221,16 @@ const AdminView = () => {
                     <button onClick={handleNewFileClick}>{translations?.editorNavbar.newFile}</button>
                     <button onClick={() => setisUploadOpen(true)}>{translations?.adminView.upload}</button>
                     { isUploadOpen &&
-                        <UploadScreen/>
+                        <UploadScreen
+                            isUploadOpen={isUploadOpen}
+                            setisUploadOpen={setisUploadOpen}
+                            filteredUsers={filteredUsers}
+                            users={users}
+                            setOpenedFile={setOpenedFile}
+                        />
                     }
                     <button onClick={() => handleDownloadClick(openedFile)}>{translations?.adminView.download} </button>
-                    <button onClick={() =>handleModifyClick(openedFile)}>{translations?.adminView.save} </button>
+                    <button onClick={() => handleModifyClick(openedFile)}>{translations?.adminView.save} </button>
                     <button onClick={() => handleDeleteClick(openedFile)}>{translations?.editorNavbar.delete}</button>
                     <button onClick={() => handleSendToRobotClick()}>{translations?.adminView.sendRobot}</button>
                     <p tabIndex="0">{translations?.editorNavbar.file} {openedFile['filename']}</p>
@@ -374,8 +239,6 @@ const AdminView = () => {
                 </div>
                 <Editor textContent={textContent} />
             </div>
-
-
 
         </div>
     );
