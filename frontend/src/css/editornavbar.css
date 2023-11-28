@@ -36,30 +36,12 @@
     background-color: rgb(65, 81, 172);
     border-style: solid;
     border-color: black;
-  }
+}
 
 .editornavbar p {
     margin-left: auto;
     margin-right: 10px;
     color:rgb(0, 0, 0);
-}
-/*For popup windows*/
-
-.overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;    
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-
-/*For save window*/
-.saveNew-header {
-    padding: 10px;
 }
 
 .content-saveNew{
@@ -68,6 +50,7 @@
     padding: 15px;
     color: white;
 }
+
 .content-saveNew input[type="text"] {
     width: 94.5%;
     padding: 10px;
@@ -101,7 +84,6 @@
     position: relative;
     }
 
-
 .content-saveNew input[type="text"] {
     width: 94.5%;
     padding: 10px;
@@ -117,23 +99,11 @@
     color: #cccccc;
 }
 
-.content-saveNew-submit-button button {
-    display: block;
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 10px;
-    background-color: #0072be; 
-    border: none;
-    border-radius: 5px;
-    color: rgb(255, 255, 255);
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
-
 .content-saveNew-submit-button  button:hover {
     background-color: #2980b9;
 }
-.close-button-saveNew {
+
+.close-button{
     background-color: transparent;
     border: none;
     font-size: 18px;
@@ -145,7 +115,7 @@
     right: -5px;
 }
 
-.close-button-saveNew:hover {
+.close-button{
     color: #e74c3c;
 }
 
@@ -161,23 +131,6 @@
     display: flex;
     position: relative;
     padding: 10px;
-}
-
-
-.close-button-file-select {
-    background-color: transparent;
-    border: none;
-    font-size: 18px;
-    color: white;
-    cursor: pointer;
-    position: absolute;
-    top: 5px;
-    right: 0px; 
-    transition: color 0.3s;
-}
-
-.close-button-file-select:hover {
-    color: #e74c3c;
 }
 
 table {
