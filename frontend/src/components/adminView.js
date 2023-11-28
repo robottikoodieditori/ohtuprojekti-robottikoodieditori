@@ -3,7 +3,10 @@ import { useSelector, useDispatch } from "react-redux";
 import { setContent } from "../reducers/editorReducer";
 import { LanguageContext } from "../contexts/languagecontext";
 import Editor from './editor';
-import '../css/adminView.css'; 
+import '../css/adminView.css';
+import '../css/adminUserinfo.css';
+import '../css/adminFiles.css';
+import '../css/adminButtons.css'
 import Popup from 'reactjs-popup';
 import commService from '../services/comms'
 
@@ -89,7 +92,7 @@ const AdminView = () => {
                         <div className="content-upload-header ">
                             <h2 tabIndex="0">{translations?.adminView.upload}</h2>
                             <div className='upload-header'>
-                                <button className="close-button-upload" onClick={() => setisUploadOpen(false)}>X</button>
+                                <button className="close-button" onClick={() => setisUploadOpen(false)}>X</button>
                             </div>
                         </div>
                         <form id="uploadForm" encType='multipart/form-data'>
@@ -186,7 +189,7 @@ const AdminView = () => {
                         <div className="content-upload-header ">
                             <h2 tabIndex="0">{translations?.adminView.changePassword}</h2>
                             <div className='upload-header'>
-                                <button className="close-button-upload" onClick={() => setIsPasswordWindowOpen(false)}>X</button>
+                                <button className="close-button" onClick={() => setIsPasswordWindowOpen(false)}>X</button>
                             </div>
                         </div>
                         <form>
@@ -347,10 +350,10 @@ const AdminView = () => {
                                     <tr key={file.filename} className={file.visible ? 'visible-file' : 'hidden-file'}>
                                         <td>{file.filename}</td>
                                         <td>{users.find(user => user.id === file.user_id).name}</td>
-                                        <td onClick={() => handleFileClick(file)}>{translations?.editorNavbar.open}</td>
-                                        <td onClick={() => handleVisibleClick(file)}>{file.visible ? translations?.adminView.hide : translations?.adminView.restore}</td>
-                                        <td onClick={() => handleDeleteClick(file)}>{translations?.editorNavbar.delete}</td>
-                                        <td onClick={() => handleDownloadClick(file)}>{translations?.adminView.download}</td>
+                                        <td className={file.visible ? 'file-button' : 'hidden-file-button'} onClick={() => handleFileClick(file)}>{translations?.editorNavbar.open}</td>
+                                        <td className={file.visible ? 'file-button' : 'hidden-file-button'} onClick={() => handleVisibleClick(file)}>{file.visible ? translations?.adminView.hide : translations?.adminView.restore}</td>
+                                        <td className={file.visible ? 'file-button' : 'hidden-file-button'} onClick={() => handleDeleteClick(file)}>{translations?.editorNavbar.delete}</td>
+                                        <td className={file.visible ? 'file-button' : 'hidden-file-button'} onClick={() => handleDownloadClick(file)}>{translations?.adminView.download}</td>
                                     </tr>
                                 ))}
                             </tbody>

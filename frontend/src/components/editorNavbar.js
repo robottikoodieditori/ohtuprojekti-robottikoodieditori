@@ -118,7 +118,7 @@ const EditorNavbar = () => {
                         <div className="content-saveNew-header ">
                             <h2 tabIndex="0">{translations?.editorNavbar.filenamePlaceholder}</h2>
                             <div className='saveNew-header'>
-                                <button className="close-button-saveNew" onClick={() => setisNewFileOpen(false)}>X</button>
+                                <button className="close-button" onClick={() => setisNewFileOpen(false)}>X</button>
                             </div>
                         </div>
                         <form onSubmit={handleSaveNew}>
@@ -154,7 +154,7 @@ const EditorNavbar = () => {
                     <div className='content-file-select' id="content-file-select" role = "dialog" aria-label="choose file window">
                         <div className="content-file-select-header">
                             <h2 tabIndex="0">{translations?.editorNavbar.chooseFile}</h2>
-                            <button className='close-button-file-select' onClick={() => setisFileSelectOpen(false)}>X</button>
+                            <button className='close-button' onClick={() => setisFileSelectOpen(false)}>X</button>
                         </div>
                         { fileList && (
                             <div>
