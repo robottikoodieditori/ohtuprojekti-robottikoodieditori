@@ -157,9 +157,23 @@ const AdminView = () => {
         getData()
     }
     const handleDeleteClick = async (file) => {
-        await commService.handleFile(textContent, file.filename, file.id, file.user_id, 'admin-delete')
-        getData()
+
+        const confirmMessage = translations?.editorNavbar.confirmDeleteMessage;
+
+        const formattedMessage = confirmMessage
+            ? confirmMessage.replace('{filename}', file.filename)
+            : ""
+
+        const isConfirmed = window.confirm(formattedMessage)
+
+        if (isConfirmed) {
+            await commService.handleFile(textContent, file.filename, file.id, file.user_id, 'admin-delete')
+            getData()
+        } else {
+            // do nothing
+        }
     }
+
     const PasswordWindow = () => {
         return (
             <div className='overlay'>
