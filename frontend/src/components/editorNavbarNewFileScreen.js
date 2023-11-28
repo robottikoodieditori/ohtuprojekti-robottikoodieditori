@@ -5,6 +5,7 @@ import { LanguageContext } from "../contexts/languagecontext"
 
 const NewFileScreen = ({ isNewFileOpen, setisNewFileOpen, handleSaveNew }) => {
     const { translations } = useContext(LanguageContext)
+
     return (
         <div className="overlay" id="overlay" >
             <Popup
@@ -19,7 +20,10 @@ const NewFileScreen = ({ isNewFileOpen, setisNewFileOpen, handleSaveNew }) => {
                             <button className="close-button-saveNew" onClick={() => setisNewFileOpen(false)}>X</button>
                         </div>
                     </div>
-                    <form onSubmit={handleSaveNew}>
+                    <form onSubmit={(event) => {
+                        event.preventDefault()
+                        handleSaveNew(event)
+                    }}>
                         <label>                    
                             <input
                                 type="text"

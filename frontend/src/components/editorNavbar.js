@@ -44,7 +44,7 @@ const EditorNavbar = () => {
     }
 
     const handleSaveNew = async (event) => {
-        event.preventDefault()
+        console.log(event)
         if (userObject.username) {
             dispatch(setFileName(event.target.elements.newFileNameInput.value))
             await dispatch(handleFile(fileObject.textContent, event.target.elements.newFileNameInput.value, 'new', 'userId','save'))
