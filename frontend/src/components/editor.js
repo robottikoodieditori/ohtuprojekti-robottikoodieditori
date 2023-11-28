@@ -99,12 +99,10 @@ const Editor = ({ textContent }) => {
     }, [])
 
     useEffect(() => {
-        if (fileObject.filename === '') {
-            editor.current.dispatch({changes: {from: 0, to: editor.current.state.doc.length, insert: ''}})
-            dispatch(setContent(''))
-        } else {
+        console.log('JAHUU')
+        editor.current.dispatch({changes: {from: 0, to: editor.current.state.doc.length, insert: ''}})
+        if (fileObject.filename !== '') {
             editor.current.dispatch({changes: {from: 0, to: editor.current.state.doc.length, insert: fileObject.textContent}})
-            dispatch(setContent(fileObject.textContent))
         }
 
     }, [fileObject.filename])

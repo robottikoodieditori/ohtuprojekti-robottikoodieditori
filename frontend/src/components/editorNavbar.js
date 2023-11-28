@@ -2,7 +2,7 @@ import { useState, useContext, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { LanguageContext } from "../contexts/languagecontext";
 import { handleFile } from '../reducers/commsReducer';
-import { setFileName, setContent, setFileId } from "../reducers/editorReducer";
+import { setFileName, setContent, setFileId, resetFile } from "../reducers/editorReducer";
 import commService from "../services/comms";
 import '../css/editornavbar.css';
 import Popup from 'reactjs-popup';
@@ -12,20 +12,18 @@ const EditorNavbar = () => {
     const dispatch = useDispatch()
     const { translations } = useContext(LanguageContext)
     const [fileList, setFileList] = useState([])
-    const fileName = useSelector(state => state.editor.fileName)
-    const fileId = useSelector(state => state.editor.fileId)
-    const textContent = useSelector(state => state.editor.textContent)
-    const username = useSelector(state => state.comms.username)
+    const fileObject = useSelector(state => state.editor.fileObject)
+    const userObject = useSelector(state => state.comms.userObject)
     const [isFileSelectOpen, setisFileSelectOpen] = useState(false);
     const [isNewFileOpen, setisNewFileOpen] = useState(false);
 
 
     useEffect(() => {
         getData()
-    }, [username])
+    }, [userObject.username])
 
     async function getData() {
-        if (window.localStorage.getItem('username')) {
+        if (userObject.username !== '') {
             const data = await commService.getUserFiles()
             setFileList(data)
         } else {
@@ -33,54 +31,41 @@ const EditorNavbar = () => {
         }
     }
 
-    const handleNewFile = () => {
-        // clear current file's text contents
-        dispatch(setContent(''))
-        window.localStorage.removeItem('textContent')
-
-        // clear current filename
-        window.localStorage.removeItem('filename')
-        dispatch(setFileName('temp'))
-        setTimeout(() => (
-            dispatch(setFileName(''))
-        ), 1)
-        
-        // clear current fileId
-        dispatch(setFileId(''))
-        window.localStorage.removeItem('fileId')
-        getData()
+    const handleNewFile = async () => {
+        // clear all fields in editor reducer concerning file data
+        if (fileObject.filename === '') dispatch(setFileName(null))
+        // if filename is not defined, pressing new file won't clear editor, filename needs to be set to null first
+        // since filename would be updated from '' to '', it wouldn't cause an update
+        setTimeout(() => {
+            dispatch(resetFile())
+            getData()
+        }, 1)
     }
 
     const handleSaveNew = async (event) => {
         event.preventDefault()
-        if (username) {
+        if (userObject.username) {
             dispatch(setFileName(event.target.elements.newFileNameInput.value))
-            window.localStorage.setItem('textContent', textContent)
-            window.localStorage.setItem('filename', event.target.elements.newFileNameInput.value)
-            await dispatch(handleFile(textContent, event.target.elements.newFileNameInput.value, 'new', 'userId','save'))
+            await dispatch(handleFile(fileObject.textContent, event.target.elements.newFileNameInput.value, 'new', 'userId','save'))
             setisNewFileOpen(false)            
             getData()            
         }
     }
 
     const handleSaveExisting = () => {
-        if (!fileName) {
+        if (!fileObject.filename) {
             setisNewFileOpen(true)            
             return
         }
-        if (username) {
-            window.localStorage.setItem('textContent', textContent)
-            dispatch(handleFile(textContent, fileName,  fileId, 'userId',  'save'))
+        if (userObject.username) {
+            dispatch(handleFile(fileObject.textContent, fileObject.filename,  fileObject.fileId, 'userId',  'save'))
             getData()
         }
     }
 
     const handleFileSelection = (file) => {
         dispatch(setContent(file.textContent))
-        window.localStorage.setItem('textContent', file.textContent)
         dispatch(setFileName(file.filename))
-        window.localStorage.setItem('filename', file.filename)
-        window.localStorage.setItem('fileId', file.file_id)
         dispatch(setFileId(file.file_id))
         setisFileSelectOpen(false)
     }
@@ -95,11 +80,11 @@ const EditorNavbar = () => {
         const confirmDelete = window.confirm(formattedMessage)
     
         if (confirmDelete) {
-            if (fileName === file.filename) {
-                await dispatch(handleFile(textContent, file.filename, file.file_id, 'user_id', 'hide'))
+            if (fileObject.filename === file.filename) {
+                await dispatch(handleFile(fileObject.textContent, file.filename, file.file_id, 'user_id', 'hide'))
                 handleNewFile()
             } else {
-                await dispatch(handleFile(textContent, file.filename, file.file_id, 'user_id', 'hide'))
+                await dispatch(handleFile(fileObject.textContent, file.filename, file.file_id, 'user_id', 'hide'))
                 getData()
             }
             setisFileSelectOpen(false)
@@ -200,7 +185,7 @@ const EditorNavbar = () => {
             { isFileSelectOpen &&
                 <FileSelectionScreen/>
             }
-            <p tabIndex="0">{translations?.editorNavbar.file}{fileName}</p>
+            <p tabIndex="0">{translations?.editorNavbar.file}{fileObject.filename}</p>
         </div>
     )
 }
