@@ -6,7 +6,7 @@ class UserService:
     '''
     Class for handling user related operations.
 
-    args:
+    attr:
         db (obj): an object for handling communications with the database
         secret (str): the secret key for creating session tokens and other cookies
     '''

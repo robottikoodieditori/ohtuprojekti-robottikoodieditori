@@ -1,8 +1,8 @@
 import { hoverTooltip } from "@codemirror/view"
 import docs from "../static/tooltips.json"
 import { parse } from 'marked';
-import en from '../utils/en';
-import fi from '../utils/fi';
+import en from '../static/en';
+import fi from '../static/fi';
 
 export const wordHover = ( updateCurWord, errorListRef, language ) => hoverTooltip((view, pos, side) => {
     const translations = language.current === 'fi' ? fi : en;
