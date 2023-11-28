@@ -1,6 +1,6 @@
 import { createContext, useState } from 'react';
-import en from '../utils/en';
-import fi from '../utils/fi';
+import en from '../static/en';
+import fi from '../static/fi';
 
 export const LanguageContext = createContext();
 
