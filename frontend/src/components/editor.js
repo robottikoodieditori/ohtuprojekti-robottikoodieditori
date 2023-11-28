@@ -26,8 +26,7 @@ const Editor = ({ textContent }) => {
     const currentAutoCompleteModule = useRef(language === 'en' ? autoComplete_en : autoComplete_fi)
     const autoCompletionCompartment = new Compartment
     const hoverCompartment = new Compartment
-    const fileName = useSelector((state) => state.editor.fileName)
-    const fileContent = useSelector((state) => state.editor.textContent)
+    const fileObject = useSelector((state) => state.editor.fileObject)
     const exampleString = 'Logo...'
 
 
@@ -100,15 +99,15 @@ const Editor = ({ textContent }) => {
     }, [])
 
     useEffect(() => {
-        if (fileName === '') {
+        if (fileObject.filename === '') {
             editor.current.dispatch({changes: {from: 0, to: editor.current.state.doc.length, insert: ''}})
             dispatch(setContent(''))
         } else {
-            editor.current.dispatch({changes: {from: 0, to: editor.current.state.doc.length, insert: fileContent}})
-            dispatch(setContent(fileContent))
+            editor.current.dispatch({changes: {from: 0, to: editor.current.state.doc.length, insert: fileObject.textContent}})
+            dispatch(setContent(fileObject.textContent))
         }
 
-    }, [fileName])
+    }, [fileObject.filename])
 
     useEffect(() => {
         currentAutoCompleteModule.current = language === 'en' ? autoComplete_en : autoComplete_fi
