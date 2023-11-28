@@ -4,7 +4,7 @@ class FileService:
     """
     Class for handling file-related operations. Communicates with the database.
 
-    args:
+    attr:
         db (obj): an object for handling communications with the database
     """
 
