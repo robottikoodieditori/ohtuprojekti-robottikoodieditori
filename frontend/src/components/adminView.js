@@ -6,6 +6,7 @@ import Editor from './editor';
 import '../css/adminView.css';
 import Popup from 'reactjs-popup';
 import commService from '../services/comms'
+import AdminViewUserListEntry from './adminViewUserListEntry';
 
 
 const AdminView = () => {
@@ -70,11 +71,6 @@ const AdminView = () => {
             user_id: file.user_id,
             user: username
         }));
-    };
-
-    const handleShowUserInfo = (user) => {
-        setSelectedUser(user);
-        setViewMode('info');
     };
 
     const UploadScreen = () => {
@@ -251,13 +247,12 @@ const AdminView = () => {
                     />
                     <div className="user-list" aria-label="list of users">
                         {filteredUsers.map(user => (
-                            <div key={user.id} className="user-item">
-                                <span className="user-name" tabIndex="0">{user.name}</span>
-                                <div className="user-action-buttons">
-                                    <button className="user-action-button" onClick={() => handleUserClick(user)}>{translations?.adminView.showFiles}</button>
-                                    <button className="user-action-button" onClick={() => handleShowUserInfo(user)}>{translations?.adminView.showUserInfo}</button>
-                                </div>
-                            </div>
+                            <AdminViewUserListEntry
+                                key={user.id}
+                                user={user}
+                                handleUserClick={handleUserClick}
+                                setSelectedUser={setSelectedUser}
+                                setViewMode={setViewMode} />
                         ))}
                     </div>
                 </section>
@@ -347,10 +342,10 @@ const AdminView = () => {
                                     <tr key={file.filename} className={file.visible ? 'visible-file' : 'hidden-file'}>
                                         <td>{file.filename}</td>
                                         <td>{users.find(user => user.id === file.user_id).name}</td>
-                                        <td onClick={() => handleFileClick(file)}>{translations?.editorNavbar.open}</td>
-                                        <td onClick={() => handleVisibleClick(file)}>{file.visible ? translations?.adminView.hide : translations?.adminView.restore}</td>
-                                        <td onClick={() => handleDeleteClick(file)}>{translations?.editorNavbar.delete}</td>
-                                        <td onClick={() => handleDownloadClick(file)}>{translations?.adminView.download}</td>
+                                        <td className="clickable" onClick={() => handleFileClick(file)}>{translations?.editorNavbar.open}</td>
+                                        <td className="clickable" onClick={() => handleVisibleClick(file)}>{file.visible ? translations?.adminView.hide : translations?.adminView.restore}</td>
+                                        <td className="clickable" onClick={() => handleDeleteClick(file)}>{translations?.editorNavbar.delete}</td>
+                                        <td className="clickable" onClick={() => handleDownloadClick(file)}>{translations?.adminView.download}</td>
                                     </tr>
                                 ))}
                             </tbody>
