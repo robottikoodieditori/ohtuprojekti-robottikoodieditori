@@ -88,7 +88,8 @@ export default {
         chooseUser: 'Choose user',
         hide: 'Hide',
         restore: 'Restore',
-        sendRobot: 'Send to robot'
+        sendRobot: 'Send to robot',
+        confirmDeleteMessage: 'Are you sure you want to delete the file: {filename} ?'
     },
     tooltipOpenSidebar: "Click word to display on sidebar",
     toggleLanguage: 'Vaihda Suomeksi'
