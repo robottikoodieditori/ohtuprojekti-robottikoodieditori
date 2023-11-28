@@ -13,14 +13,6 @@ describe('Admin functionality', function() {
         cy.get('#editor').should("contain", "Logo...")
     })
 
-    /*it('Attempting to upload a file', function() {
-        
-    })
-
-    it('Attempting to download a file', function() {
-        
-    })*/
-
     it('Attempting to save a modified file', function() {
         cy.get('#all-files-section').first().as('firstFileRow')
         cy.get('@firstFileRow').contains('Avaa').click()
