@@ -12,7 +12,7 @@ import { logout } from "../reducers/commsReducer";
 
 const Navbar = () => {
     const { toggleLanguage, translations } = useContext(LanguageContext);
-    const username = useSelector((state) => state.comms.username)
+    const username = useSelector((state) => state.comms.userObject.username)
     const [isPopupOpen, setIsPopupOpen] = useState(false);
     const dispatch = useDispatch();
 

@@ -6,6 +6,10 @@ import { setFileName, setContent, setFileId } from './editorReducer'
 const commsSlice = createSlice({
     name: 'comms',
     initialState: {
+        userObject: {
+            username: window.localStorage.getItem('username') || '',
+            userFiles: JSON.parse(window.localStorage.getItem('userFiles')) || []
+        },
         responseFromServer: '',
         username: window.localStorage.getItem('username') || '',
         userFiles: JSON.parse(window.localStorage.getItem('userFiles')) || [],
@@ -22,6 +26,11 @@ const commsSlice = createSlice({
         },
         setLoginFromServer(state, action) {
             state.username = action.payload.username
+            state.userObject = {
+                ...state.userObject,
+                username: action.payload.username
+            }
+            window.localStorage.setItem('username', action.payload.username)
             console.log(`SERVER RESPONDED WITH NAME: ${state.username}`)
             return state
         },
@@ -35,10 +44,19 @@ const commsSlice = createSlice({
         },
         setUserFiles(state, action) {
             state.userFiles = action.payload
+            state.userObject = {
+                ...state.userObject,
+                userFiles: action.payload
+            }
+            window.localStorage.setItem('userFiles', JSON.stringify(action.payload))
             console.log(`SERVER RESPONDED WITH USER FILES: ${state.userFiles}`)
             return state
         },
-        resetLogin(state) {
+        logout(state) {
+            state.userObject = {
+                username: '',
+                userFile: []
+            }
             state.username = ''
             state.userFiles = []
             window.localStorage.removeItem('token')
@@ -50,7 +68,7 @@ const commsSlice = createSlice({
 
 export const {
     setResponseFromServer, setLoginFromServer, sendToCompiler, sendToRobot,
-    setUserFiles, getUserName, resetLogin
+    setUserFiles, getUserName, logout
 } = commsSlice.actions
 
 
@@ -76,11 +94,6 @@ export const deployToRobot = code => {
     }
 }
 
-export const logout = () => {
-    return async dispatch => (
-        dispatch(resetLogin())
-    )
-}
 
 export const login = username => {
     const password = 'password'
