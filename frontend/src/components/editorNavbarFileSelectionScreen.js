@@ -4,6 +4,7 @@ import { useContext } from "react"
 
 const FileSelectionScreen = ({ isFileSelectOpen, setisFileSelectOpen, handleFileSelection, handleFileHiding, fileList, }) => {
     const { translations } = useContext(LanguageContext)
+
     return (
         <div className="overlay" id="overlay">
             <Popup
