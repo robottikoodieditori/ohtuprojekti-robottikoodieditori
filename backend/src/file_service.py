@@ -120,7 +120,7 @@ class FileService:
             result (str): "OK" if succesful, else "FAIL"
         """
         query = "DELETE FROM logofiles WHERE id=?"
-        result = self.database.insert_entry(query, (str(file_id)))
+        result = self.database.insert_entry(query, (str(file_id),))
 
         return {'result':result, 'action': 'delete'}
 

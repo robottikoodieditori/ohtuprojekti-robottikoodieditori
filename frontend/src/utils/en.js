@@ -50,7 +50,7 @@ export default {
     },
     editorNavbar: {
         chooseFile: 'Choose File',
-        fileName: 'Filename',
+        fileName: 'File',
         createdAt: 'Created at',
         lastEdited: 'Last edited',
         newFile: 'New File',
@@ -80,9 +80,15 @@ export default {
         download:'Download',
         save:'Save',
         delete:'Delete',
-        info:'Info',
-        files:'Files',
-
+        info:'Info of user {username} ',
+        files:'Files of user {username}',
+        creator:'Creator:   ',
+        changePassword:'Change password',
+        chooseOwner: 'Choose owner',
+        chooseUser: 'Choose user',
+        hide: 'Hide',
+        restore: 'Restore',
+        sendRobot: 'Send to robot'
     },
     tooltipOpenSidebar: "Click word to display on sidebar",
     toggleLanguage: 'Vaihda Suomeksi'

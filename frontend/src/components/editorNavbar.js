@@ -27,7 +27,6 @@ const EditorNavbar = () => {
     async function getData() {
         if (window.localStorage.getItem('username')) {
             const data = await commService.getUserFiles()
-            console.log(data)
             setFileList(data)
         } else {
             setFileList([])
@@ -52,13 +51,13 @@ const EditorNavbar = () => {
         getData()
     }
 
-    const handleSaveNew = (event) => {
+    const handleSaveNew = async (event) => {
         event.preventDefault()
         if (username) {
             dispatch(setFileName(event.target.elements.newFileNameInput.value))
             window.localStorage.setItem('textContent', textContent)
             window.localStorage.setItem('filename', event.target.elements.newFileNameInput.value)
-            dispatch(handleFile(textContent, event.target.elements.newFileNameInput.value, 'new', 'userId','save'))
+            await dispatch(handleFile(textContent, event.target.elements.newFileNameInput.value, 'new', 'userId','save'))
             setisNewFileOpen(false)            
             getData()            
         }
@@ -86,7 +85,7 @@ const EditorNavbar = () => {
         setisFileSelectOpen(false)
     }
 
-    const handleFileHiding = (file) => {
+    const handleFileHiding = async (file) => {
         const confirmMessage = translations?.editorNavbar.confirmDeleteMessage;
 
         const formattedMessage = confirmMessage
@@ -97,10 +96,10 @@ const EditorNavbar = () => {
     
         if (confirmDelete) {
             if (fileName === file.filename) {
-                dispatch(handleFile(textContent, file.filename, file.file_id, 'user_id', 'hide'))
+                await dispatch(handleFile(textContent, file.filename, file.file_id, 'user_id', 'hide'))
                 handleNewFile()
             } else {
-                dispatch(handleFile(textContent, file.filename, file.file_id, 'user_id', 'hide'))
+                await dispatch(handleFile(textContent, file.filename, file.file_id, 'user_id', 'hide'))
                 getData()
             }
             setisFileSelectOpen(false)

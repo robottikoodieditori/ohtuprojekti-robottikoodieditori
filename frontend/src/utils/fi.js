@@ -49,7 +49,6 @@ export default {
     },
     editorNavbar: {
         chooseFile: 'Valitse tiedosto',
-        fileName: 'Tiedostonimi',
         createdAt: 'Luotu',
         lastEdited: 'Viimeksi muokattu',
         newFile: 'Uusi Tiedosto',
@@ -60,7 +59,8 @@ export default {
         file: 'Tiedosto: ',
         open: 'Avaa',
         delete: 'Poista',
-        confirmDeleteMessage: 'Haluatko varmasti poistaa tiedoston: {filename} ?'
+        confirmDeleteMessage: 'Haluatko varmasti poistaa tiedoston: {filename} ?',
+        fileName: 'Tiedosto',
     },
     adminView:{
         adminDashboard: 'Admin näkymä',
@@ -76,11 +76,18 @@ export default {
         noFilesFound: 'Tiedostoja ei löytynyt.',
         allFiles:'Kaikki tiedostot',
         upload:'Vie Tiedosto',
-        download:'Lataa Tiedosto',
+        download:'Lataa',
         save:'Tallenna',
         delete:'Poista',
-        info:'Tiedot',
-        files:'Tiedostot',
+        info:'Käyttäjän {username} tiedot',
+        files:'Käyttäjän {username} tiedostot',
+        creator:'Tekijä: ',
+        changePassword:'Vaihda salasana',
+        chooseOwner: 'Valitse omistaja',
+        chooseUser: 'Valitse käyttäjä',
+        hide: 'Piilota',
+        restore: 'Palauta',
+        sendRobot: 'Lähetä robotille'
     },
 
     tooltipOpenSidebar: "Klikkaa sanaa avataksesi sen sivupalkissa",
