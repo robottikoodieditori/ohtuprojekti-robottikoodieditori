@@ -80,14 +80,16 @@ export default {
         download:'Download',
         save:'Save',
         delete:'Delete',
-        info:'Info',
-        files:'Files',
-        creator:'Creator: ',
+        info:'Info of user {username} ',
+        files:'Files of user {username}',
+        creator:'Creator:   ',
         changePassword:'Change password',
         chooseOwner: 'Choose owner',
         chooseUser: 'Choose user',
-        piilota: 'Hide',
-        restore: 'Restore'
+        hide: 'Hide',
+        restore: 'Restore',
+        sendRobot: 'Send to robot',
+        confirmDeleteMessage: 'Are you sure you want to delete the file: {filename} ?'
     },
     tooltipOpenSidebar: "Click word to display on sidebar",
     toggleLanguage: 'Vaihda Suomeksi'
