@@ -1,7 +1,8 @@
 CREATE TABLE users (
     id INTEGER PRIMARY KEY,
     name TEXT UNIQUE,
-    password TEXT
+    password TEXT,
+    role INTEGER DEFAULT 0
 );
 
 CREATE TABLE logofiles (

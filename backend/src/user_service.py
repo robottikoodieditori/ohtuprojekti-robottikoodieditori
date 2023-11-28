@@ -99,8 +99,11 @@ class UserService:
         returns:
             bool: True if verification succesful, False otherwise
         """
-        # TODO
-        return True
+        result = credentials.decode_token(token, self.secret_key)
+        if result:
+            query = "SELECT role FROM users WHERE id=?"
+            db_entry = self.database.get_entry_from_db(query, (result['user_id'], ))
+            return True if db_entry[0]==1 else False
     
     def get_all_users(self) -> list:
         """

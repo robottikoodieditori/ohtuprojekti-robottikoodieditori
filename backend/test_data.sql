@@ -1,13 +1,13 @@
 -- Insert test users
 INSERT INTO users (id, name, password) VALUES
-    (1, 'Alice', 'password123'),
-    (2, 'Bob', 'password456'),
-    (3, 'Charlie', 'password789'),
-    (4, 'Diana', 'password101'),
-    (5, 'Edward', 'password202'),
-    (6, 'Frank', 'password303'),
-    (7, 'Georgia', 'password404'),
-    (8, 'Henry', 'password505');
+    (2, 'Alice', 'password123'),
+    (3, 'Bob', 'password456'),
+    (4, 'Charlie', 'password789'),
+    (5, 'Diana', 'password101'),
+    (6, 'Edward', 'password202'),
+    (7, 'Frank', 'password303'),
+    (8, 'Georgia', 'password404'),
+    (9, 'Henry', 'password505');
 
 -- Insert data into the logofiles table
 INSERT INTO logofiles (id, filename, content, created, last_updated, user_id, visible) VALUES

@@ -34,7 +34,6 @@ def data():
 @app.route("/send/compiler", methods=["POST"])
 def send_to_compiler():
     content = request.json
-    print(data)
     errors = MockCompiler.compile2(content["code"], "Koodi")
     return jsonify(errors), 200
 

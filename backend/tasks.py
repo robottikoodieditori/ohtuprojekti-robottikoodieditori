@@ -33,3 +33,7 @@ def coveragereport(ctx):
 @task
 def gunicorn(ctx):
     ctx.run('cd src && gunicorn -w 4 server:app --bind 0.0.0.0:8000')
+
+@task
+def admin(ctx):
+    ctx.run("python3 src/create_admin_user.py")
