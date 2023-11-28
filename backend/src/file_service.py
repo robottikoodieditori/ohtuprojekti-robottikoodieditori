@@ -142,7 +142,6 @@ def send_to_robot() -> int:
         bash_command = f"cd {dir_path} && ./gradlew deploy"
     process = subprocess.Popen(bash_command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     return_code = process.wait()
-
     return return_code
 
 def remote_create_start_script() -> bool:
