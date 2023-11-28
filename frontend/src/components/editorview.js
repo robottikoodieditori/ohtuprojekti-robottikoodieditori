@@ -9,7 +9,7 @@ import EditorNavbar from './editorNavbar';
 
 const EditorView = () => {
     const { translations } = useContext(LanguageContext);
-    const textContent = window.localStorage.getItem('textContent') || ''
+    const textContent = ''
 
     return (
         <div className='editorview' id='editorview'>

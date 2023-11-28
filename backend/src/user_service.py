@@ -4,9 +4,9 @@ import credentials
 
 class UserService:
     '''
-    Class for handling user registration and credentials verification.
+    Class for handling user related operations.
 
-    args:
+    attr:
         db (obj): an object for handling communications with the database
         secret (str): the secret key for creating session tokens and other cookies
     '''
@@ -57,10 +57,10 @@ class UserService:
 
     def verify_token(self, token: str) -> Union[int, bool]:
         '''
-        Method which verifies an user given token's legitimacy
+        Method which verifies an user-given token's legitimacy
 
         args:
-            token (str): user given token
+            token (str): user-given token
         returns:
             user_id (int): user's personal id if succesful
             bool: False otherwise 
@@ -89,3 +89,54 @@ class UserService:
         pass_bytes = password.encode("utf-8")
         result = bcrypt.checkpw(pass_bytes, hashed)
         return db_entry[2] if result else False
+    
+    def verify_admin(self, token: str) -> bool:
+        """
+        Verifies if given token belongs to an admin user
+
+        args:
+            token (str): user-given token
+        returns:
+            bool: True if verification succesful, False otherwise
+        """
+        # TODO
+        return True
+    
+    def get_all_users(self) -> list:
+        """
+        Fetches all users from database
+
+        returns:
+            user_list (list)
+        """
+        query = "SELECT * FROM users"
+        result = self.database.get_list_from_db(query, ())
+        user_list = [
+            {
+                "id": row[0],
+                "name": row[1],
+                "password": row[2].decode('utf-8') if type(row[2]) is not str else row[2]
+            }
+            for row in result
+        ]
+
+        return user_list
+    
+    def change_password(self, id: str, password: str) -> bool:
+        """
+        Updates password value for single entry in users table
+
+        args:
+            id (str): id of given user
+            password (str): new password to be updated
+        returns:
+            bool: True if succesful, else otherwise
+        """
+        pass_bytes = password.encode("utf-8")
+        salt = bcrypt.gensalt()
+        hashed = bcrypt.hashpw(pass_bytes, salt)
+        query = "UPDATE users SET password=? WHERE id=?"
+        values = (hashed, id)
+        result = self.database.insert_entry(query, values)
+
+        return result == "OK"

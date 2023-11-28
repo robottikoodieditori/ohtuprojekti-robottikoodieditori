@@ -5,7 +5,7 @@ import { useDispatch } from 'react-redux';
 import { LanguageContext } from '../contexts/languagecontext';
 import '../css/popup.css'
 
-const Tokenpopup = ({status, onClose}) => {
+const LoginPopUp = ({status, onClose}) => {
     const [open, setOpen] = useState(status);
     const { toggleLanguage, translations } = useContext(LanguageContext)
     const [username, setUsername] = useState('');
@@ -52,10 +52,7 @@ const Tokenpopup = ({status, onClose}) => {
                 closeOnDocumentClick={false}
                 overlayStyle={{ background: 'rgba(0,0,0,0.8)' }}
             >
-                <label htmlFor="popup" style={{ display: 'none' }}>
-                    Popup Dialog Label
-                </label>
-                <div className='popup' id="popup" role="dialog" style={{ height: '300px' }}>
+                <div className='popup' id="popup" role = "dialog" aria-modal = "True" aria-label="login window" style={{ height: '300px' }}>
                     <div className="popup-header">
                         <button className="close-button" onClick={handleClose}>X</button>
                     </div>
@@ -83,4 +80,4 @@ const Tokenpopup = ({status, onClose}) => {
     )
 }
 
-export default Tokenpopup;
+export default LoginPopUp;

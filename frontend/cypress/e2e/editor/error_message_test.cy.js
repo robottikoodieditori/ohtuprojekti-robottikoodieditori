@@ -13,7 +13,7 @@ describe('Error Message Functionality', () => {
                 // If English, send a message and check response text
                 cy.get('#editor').type('{selectall}').type('Tämä viesti lähetetään.');
                 cy.get('#COMPILEBUTTON').click().wait(100);
-                cy.get('#sResponse').should('contain', 'Palvelin vastasi:');
+                cy.get('#error').should('contain', 'Palvelin vastasi:');
             }
         });
     });

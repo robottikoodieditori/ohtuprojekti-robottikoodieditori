@@ -40,24 +40,24 @@ class MockCompiler:
 
     @staticmethod
     def compile2(code: str, output_file: str):
+        path = os.getcwd()
+        path = os.path.join(path, "logomotion_gradle", "src", "main", "java", "logo")
+        path += "/"
+        print(path)
         # errors = MockCompiler.create_error_list(code)
-        errors, errors_with_raw_pos = uselogomotion.main(code, "")
+        errors, errors_with_raw_pos = uselogomotion.main(code, path)
         # errors_with_raw_pos = errors
 
         print(f"errors: {errors}")
 
-        username = session.get("username", 0) or "Tuntematon"
 
-        path = os.getcwd()
-        path = os.path.join(path, "javafiles", username)
-
-        if not os.path.exists(path):
+        '''if not os.path.exists(path):
             os.makedirs(path)
 
         path = os.path.join(path, output_file)
 
         with open(path, "w", encoding="utf-8") as file:
-            file.write(code)
+            file.write(code)'''
 
         print("ERRORS:")
         print(errors)

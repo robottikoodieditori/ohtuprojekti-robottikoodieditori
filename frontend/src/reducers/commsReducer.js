@@ -1,11 +1,15 @@
 import commService from '../services/comms'
 import getErrorPositions from '../utils/getErrorPositions'
 import { createSlice } from '@reduxjs/toolkit'
-import { setFileName, setContent } from './editorReducer'
+import { setFileName, setContent, setFileId } from './editorReducer'
 
 const commsSlice = createSlice({
     name: 'comms',
     initialState: {
+        userObject: {
+            username: window.localStorage.getItem('username') || '',
+            userFiles: JSON.parse(window.localStorage.getItem('userFiles')) || []
+        },
         responseFromServer: '',
         username: window.localStorage.getItem('username') || '',
         userFiles: JSON.parse(window.localStorage.getItem('userFiles')) || [],
@@ -22,6 +26,11 @@ const commsSlice = createSlice({
         },
         setLoginFromServer(state, action) {
             state.username = action.payload.username
+            state.userObject = {
+                ...state.userObject,
+                username: action.payload.username
+            }
+            window.localStorage.setItem('username', action.payload.username)
             console.log(`SERVER RESPONDED WITH NAME: ${state.username}`)
             return state
         },
@@ -35,10 +44,19 @@ const commsSlice = createSlice({
         },
         setUserFiles(state, action) {
             state.userFiles = action.payload
+            state.userObject = {
+                ...state.userObject,
+                userFiles: action.payload
+            }
+            window.localStorage.setItem('userFiles', JSON.stringify(action.payload))
             console.log(`SERVER RESPONDED WITH USER FILES: ${state.userFiles}`)
             return state
         },
-        resetLogin(state) {
+        logout(state) {
+            state.userObject = {
+                username: '',
+                userFile: []
+            }
             state.username = ''
             state.userFiles = []
             window.localStorage.removeItem('token')
@@ -50,7 +68,7 @@ const commsSlice = createSlice({
 
 export const {
     setResponseFromServer, setLoginFromServer, sendToCompiler, sendToRobot,
-    setUserFiles, getUserName, resetLogin
+    setUserFiles, getUserName, logout
 } = commsSlice.actions
 
 
@@ -62,7 +80,6 @@ export const sendToServer = code => {
             dispatch(setResponseFromServer(res))
         } else {
             //todo
-            //dispatch()
         }
         dispatch(setResponseFromServer(res))
         console.log("SEND TO SERVER:")
@@ -70,11 +87,13 @@ export const sendToServer = code => {
     }
 }
 
-export const logout = () => {
-    return async dispatch => (
-        dispatch(resetLogin())
-    )
+export const deployToRobot = code => {
+    return async dispatch => {
+        const res = await commService.deployToRobot(code)
+        dispatch(sendToRobot(res))
+    }
 }
+
 
 export const login = username => {
     const password = 'password'
@@ -87,36 +106,42 @@ export const login = username => {
     }
 }
 
-export const saveFile = (content, filename) => {
-    console.log('aaa')
+export const uploadFile =  data => {
     return async dispatch => {
-        const res = await commService.sendFileContent(content, filename)
+        const res = await commService.uploadFile(data)
         console.log(res)
-        dispatch(setFileName(filename))
-        dispatch(setContent(content))
+        dispatch()
+    }
+} 
+
+export const handleFile = (content, filename, fileId, userId, action) => {
+    return async dispatch => {
+        const res = await commService.handleFile(content, filename, fileId, userId, action)
+        console.log(res)
+        if (res.action === 'save'){
+            dispatch(setFileName(filename))
+            dispatch(setContent(content))
+            if (res.file_id){
+                console.log(res.file_id)
+                dispatch(setFileId(res.file_id))
+            }
+        } 
+        if (res.action === 'hide') {
+            console.log(res)
+            //todo
+            //dispatch
+        }
     }
 }
 
 export const getUserFiles = () => {
     return async dispatch => {
-        const res = await commService.getUserFiles(window.localStorage.getItem('token'))
+        const res = await commService.getUserFiles()
         console.log(res)
         if (res === 'FAIL'){
             dispatch(setUserFiles(false))
         } else {
             dispatch(setUserFiles(res))
-        }
-    }
-}
-
-export const getFileContent = (filename) => {
-    return async dispatch => {
-        const res = await commService.getUserFiles(window.localStorage.getItem('token'))
-        const file = res.find(file => file.filename === filename)
-        if (file) {
-            dispatch(setContent(file))
-        } else {
-            dispatch(setContent(''))
         }
     }
 }

@@ -14,7 +14,7 @@ describe('Error Message Translation Functionality', () => {
                 // If English, send a message and check response text
                 cy.get('#editor').type('{selectall}').type('This message will be sent.');
                 cy.get('#COMPILEBUTTON').click().wait(100);
-                cy.get('#sResponse').should('contain', 'Palvelin vastasi:');
+                cy.get('#error').should('contain', 'Palvelin vastasi:');
             }
         });
 
@@ -25,6 +25,6 @@ describe('Error Message Translation Functionality', () => {
         // Check the message in Finnish
         cy.get('#editor').type('{selectall}').type('Tämä viesti lähetetään.');
         cy.get('#COMPILEBUTTON').click().wait(100);
-        cy.get('#sResponse').should('contain', 'Server responded:');
+        cy.get('#error').should('contain', 'Server responded:');
     });
 });

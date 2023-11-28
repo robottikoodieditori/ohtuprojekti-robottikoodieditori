@@ -1,8 +1,8 @@
 import { hoverTooltip } from "@codemirror/view"
 import docs from "../static/tooltips.json"
 import { parse } from 'marked';
-import en from '../utils/en';
-import fi from '../utils/fi';
+import en from '../static/en';
+import fi from '../static/fi';
 
 export const wordHover = ( updateCurWord, errorListRef, language ) => hoverTooltip((view, pos, side) => {
     const translations = language.current === 'fi' ? fi : en;
@@ -55,7 +55,11 @@ export const wordHover = ( updateCurWord, errorListRef, language ) => hoverToolt
             'color:black; width:150px; overflow:auto; word-break: break-word; border-style: solid; border: 1px;';
 
             const markdown = parse(definition)
-            container.innerHTML = `<small>${translations?.tooltipOpenSidebar}</small>${markdown}`
+            if (!errorWord) {
+                container.innerHTML = `<small>${translations?.tooltipOpenSidebar}</small>${markdown}`
+            } else {
+                container.innerHTML = markdown
+            }
 
 
             return {

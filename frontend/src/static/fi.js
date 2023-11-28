@@ -39,6 +39,7 @@ export default {
         start: "alku:",
         end: "loppu:",
         message: "viesti:",
+        confirmation: "Lähetetty kääntäjälle!"
     },
     login: {
         title: 'Anna nimesi',
@@ -48,7 +49,6 @@ export default {
     },
     editorNavbar: {
         chooseFile: 'Valitse tiedosto',
-        fileName: 'Tiedostonimi',
         createdAt: 'Luotu',
         lastEdited: 'Viimeksi muokattu',
         newFile: 'Uusi Tiedosto',
@@ -56,8 +56,41 @@ export default {
         filenamePlaceholder: 'Anna uusi tiedostonimi',
         saveWithName: 'Tallenna nimellä',
         openFile: 'Avaa Tiedosto',
-        file: 'Tiedosto: '
+        file: 'Tiedosto: ',
+        open: 'Avaa',
+        delete: 'Poista',
+        confirmDeleteMessage: 'Haluatko varmasti poistaa tiedoston: {filename} ?',
+        fileName: 'Tiedosto',
     },
+    adminView:{
+        adminDashboard: 'Admin näkymä',
+        userManagement: 'Käyttäjien hallinta',
+        back: 'Takaisin',
+        showFiles:'Näytä tiedostot',
+        showUserInfo:'Näytä käyttäjän tiedot',
+        searchUser:'Etsi käyttäjää...',
+        username:'Käyttäjä:',
+        password:'Salasana:',
+        deleteUser:'Poista Käyttäjä',
+        noUserFilesFound:'Käyttäjälle ei löytynyt tiedostoja.',
+        noFilesFound: 'Tiedostoja ei löytynyt.',
+        allFiles:'Kaikki tiedostot',
+        upload:'Vie Tiedosto',
+        download:'Lataa',
+        save:'Tallenna',
+        delete:'Poista',
+        info:'Käyttäjän {username} tiedot',
+        files:'Käyttäjän {username} tiedostot',
+        creator:'Tekijä: ',
+        changePassword:'Vaihda salasana',
+        chooseOwner: 'Valitse omistaja',
+        chooseUser: 'Valitse käyttäjä',
+        hide: 'Piilota',
+        restore: 'Palauta',
+        sendRobot: 'Lähetä robotille',
+        confirmDeleteMessage: 'Haluatko varmasti poistaa tiedoston: {filename} ?'
+    },
+
     tooltipOpenSidebar: "Klikkaa sanaa avataksesi sen sivupalkissa",
     toggleLanguage: 'Switch to English'
 };

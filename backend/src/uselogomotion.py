@@ -96,7 +96,7 @@ def main(LOGO_CODE, path):
             # print('jahuu')
             start_node.generate_code()
 
-            code_generator.write(f"javafiles/{path}")
+            code_generator.write(path)
 
             return ([], [])
         else:
