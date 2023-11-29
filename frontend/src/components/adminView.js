@@ -156,12 +156,25 @@ const AdminView = () => {
     }
 
     const handleModifyClick = (file) => {
+
+        const saveConfirmedMessage = translations?.adminView.saveConfirmedMessage
+
+        const formattedMessage = saveConfirmedMessage
+            ? saveConfirmedMessage.replace('{filename}', file.filename)
+            : ""
+
         commService.handleFile(textContent, file.filename, file.id, file.user_id, 'admin-save')
-        getData()
+            .then(() => {
+                alert(formattedMessage)
+                getData()
+            })
+            .catch((error) => {
+                console.error('Error saving file:', error)
+            })
     }
     const handleDeleteClick = async (file) => {
 
-        const confirmMessage = translations?.editorNavbar.confirmDeleteMessage;
+        const confirmMessage = translations?.editorNavbar.confirmDeleteMessage
 
         const formattedMessage = confirmMessage
             ? confirmMessage.replace('{filename}', file.filename)
