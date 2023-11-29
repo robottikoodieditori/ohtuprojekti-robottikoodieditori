@@ -8,7 +8,6 @@ import AdminViewUserListSection from './adminViewUserListSection';
 import AdminViewUserFilesSection from './adminViewUserFilesSection';
 import AdminViewAllFilesSection from './adminViewAllFilesSection';
 import AdminViewEditorSection from './adminViewEditorSection';
-import PasswordWindow from './passwordWindow';
 
 const AdminView = () => {
     const dispatch = useDispatch()
@@ -108,7 +107,8 @@ const AdminView = () => {
         }
     }
 
-    const handlePasswordChange = () => {
+    const handlePasswordChange = (event) => {
+        event.preventDefault()
         const password = document.getElementById('passwordInput').value;
         commService.changePassword(selectedUser.id, password)
         setIsPasswordWindowOpen(false)
@@ -151,7 +151,7 @@ const AdminView = () => {
                 {selectedUser && (
                     <AdminViewUserFilesSection
                         viewMode={viewMode} selectedUser={selectedUser} setSelectedUser={setSelectedUser}
-                        isPasswordWindowOpen={isPasswordWindowOpen} setIsPasswordWindowOpen={setIsPasswordWindowOpen} PasswordWindow={PasswordWindow}
+                        isPasswordWindowOpen={isPasswordWindowOpen} setIsPasswordWindowOpen={setIsPasswordWindowOpen} /*PasswordWindow={PasswordWindow}*/
                         userFiles={userFiles} allFiles={allFiles} users={users} handlePasswordChange={handlePasswordChange}
                         handleFileClick={handleFileClick} handleVisibleClick={handleVisibleClick} handleDeleteClick={handleDeleteClick} handleDownloadClick={handleDownloadClick}
                     />
@@ -170,8 +170,7 @@ const AdminView = () => {
                 handleNewFileClick={handleNewFileClick} isUploadOpen={isUploadOpen} setisUploadOpen={setisUploadOpen}
                 filteredUsers={filteredUsers} users={users} openedFile={openedFile} setOpenedFile={setOpenedFile}
                 handleDownloadClick={handleDownloadClick} handleModifyClick={handleModifyClick} handleDeleteClick={handleDeleteClick}
-                handleSendToRobotClick={handleSendToRobotClick} textContent={textContent}
-            />
+                handleSendToRobotClick={handleSendToRobotClick} textContent={textContent} />
         </div>
     );
 };

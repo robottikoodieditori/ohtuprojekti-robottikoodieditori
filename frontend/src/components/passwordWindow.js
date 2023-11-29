@@ -19,14 +19,14 @@ const PasswordWindow = ({ isPasswordWindowOpen, setIsPasswordWindowOpen, handleP
                             <button className="close-button-upload" onClick={() => setIsPasswordWindowOpen(false)}>X</button>
                         </div>
                     </div>
-                    <form>
+                    <form onSubmit={handlePasswordChange}>
                         <input
                             type='text'
                             id='passwordInput'
                             name='password'
                             placeholder={selectedUser.password}
                         />
-                        <button type="submit" value="Change" onClick={handlePasswordChange}>Vaihda</button>
+                        <button type="submit" value="Change">Vaihda</button>
                     </form>
                 </div>
             </Popup>
