@@ -96,12 +96,12 @@ const AdminView = () => {
                             </div>
                         </div>
                         <form id="uploadForm" encType='multipart/form-data'>
-                            <label htmlFor="usernames">{translations?.adminView.chooseOwner}</label>
+                            <label htmlFor="usernames" tabIndex ="0">{translations?.adminView.chooseOwner}</label>
                             <select
                                 id="uploadUsername"
                                 name="usernames"
                             >
-                                <option value="">{translations?.adminView.chooseUser}</option>
+                                <option value="" >{translations?.adminView.chooseUser}</option>
                                 {filteredUsers.map((user) => (
                                     <option key={user.id} value={user.id}>
                                         {user.name}
@@ -109,7 +109,7 @@ const AdminView = () => {
                                 ))}
                             </select>
 
-                            <label htmlFor="usernames">{translations?.editorNavbar.chooseFile}</label>
+                            <label htmlFor="usernames" tabIndex ="0" >{translations?.editorNavbar.chooseFile}</label>
                             <input
                                 type="file"
                                 accept=".logo"
