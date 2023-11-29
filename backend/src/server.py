@@ -168,7 +168,7 @@ def toggle_password_required():
     content = request.json
     if user_service.verify_admin(content["token"]):
         app.config["PASS_REQ"] = not app.config["PASS_REQ"]
-        return "OK", 200
+        return jsonify({"passReq": app.config["PASS_REQ"]}), 200
     else:
         return "Invalid Credentials", 400
     

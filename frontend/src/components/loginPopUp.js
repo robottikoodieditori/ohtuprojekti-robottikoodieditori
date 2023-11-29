@@ -1,7 +1,7 @@
 import { useState, useContext } from 'react';
 import Popup from 'reactjs-popup';
 import { login } from "../reducers/commsReducer";
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { LanguageContext } from '../contexts/languagecontext';
 import '../css/popup.css'
 
@@ -10,7 +10,9 @@ const LoginPopUp = ({status, onClose}) => {
     const { toggleLanguage, translations } = useContext(LanguageContext)
     const [username, setUsername] = useState('');
     const [notificationText, setNotificationText] = useState('')
+    const [password, setPassword] = useState("")
     const dispatch = useDispatch();
+    const passwordIsRequired = useSelector(state => state.comms.passReq)
 
     const updateNotificationText = (text) => setNotificationText(text)
 
@@ -45,6 +47,11 @@ const LoginPopUp = ({status, onClose}) => {
         onClose()
     }
 
+    const handlePassChange = (e) => {
+        setPassword(e.target.value)
+        console.log(password)
+    }
+
     return (
         <div>
             <Popup
@@ -65,6 +72,15 @@ const LoginPopUp = ({status, onClose}) => {
                             value={username}
                             onChange={handleInputChange}
                         />
+                        {passwordIsRequired && (
+                            <input
+                                id="registration-password-input"
+                                type="password"
+                                placeholder={translations?.login.passwordInputPlaceholder}
+                                value={password}
+                                onChange={handlePassChange}
+                            />
+                        )}
                         <button onClick={handleSubmit}>{translations?.login.loginButton}</button>
                         <button
                             onClick={handleLanguageChange}

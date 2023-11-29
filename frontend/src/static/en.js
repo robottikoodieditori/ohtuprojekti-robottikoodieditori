@@ -47,6 +47,7 @@ export default {
         loginButton: 'Log in',
         nameInputPlaceholder: 'name',
         notificationNameMissing: 'You can\'t login without a name!',
+        passwordInputPlaceholder: "password",
     },
     editorNavbar: {
         chooseFile: 'Choose File',

@@ -51,6 +51,9 @@ const getPassReq = async () => {
 
 const togglePassReq = async () => {
     const res = await axios.post("/config/password", {'token': window.localStorage.getItem('token')})
+    return res.data
+}
+
 const uploadFile = async (data) => {
     const res = await axios.post('/upload', data)
     return res.data
@@ -84,4 +87,5 @@ export default {
     changePassword: changePassword,
     getFiles: getAllFiles,
     getPassReq: getPassReq,
+    togglePassReq: togglePassReq,
 }

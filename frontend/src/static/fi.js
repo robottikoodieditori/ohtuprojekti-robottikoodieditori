@@ -45,7 +45,8 @@ export default {
         title: 'Anna nimesi',
         loginButton: 'Kirjaudu',
         nameInputPlaceholder: 'nimi',
-        notificationNameMissing: 'Et voi kirjautua nimettömänä!'
+        notificationNameMissing: 'Et voi kirjautua nimettömänä!',
+        passwordInputPlaceholder: "salasana",
     },
     editorNavbar: {
         chooseFile: 'Valitse tiedosto',
