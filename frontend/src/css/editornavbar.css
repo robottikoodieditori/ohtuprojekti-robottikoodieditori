@@ -103,28 +103,24 @@
     background-color: #2980b9;
 }
 
-.close-button{
-    background-color: transparent;
-    border: none;
-    font-size: 18px;
-    color: white;
-    cursor: pointer;
-    transition: color 0.3s;
-    position: absolute;
-    top: -5px; 
-    right: -5px;
-}
-
-.close-button{
-    color: #e74c3c;
-}
-
 /*For file-select window*/
 .content-file-select {
     background-color: #2c3e50;
     border-radius: 20px;
     padding: 10px 15px 15px 15px;
     color: white;
+}
+
+.close-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: transparent;
+    border: none;
+    font-size: 18px;
+    color: white;
+    cursor: pointer;
+    transition: color 0.3s;
 }
 
 .content-file-select-header {

@@ -1,6 +1,7 @@
 import Popup from "reactjs-popup"
 import { LanguageContext } from "../contexts/languagecontext"
 import { useContext } from "react"
+import '../css/button.css'
 
 const FileSelectionScreen = ({ isFileSelectOpen, setisFileSelectOpen, handleFileSelection, handleFileHiding, fileList, }) => {
     const { translations } = useContext(LanguageContext)
@@ -15,7 +16,7 @@ const FileSelectionScreen = ({ isFileSelectOpen, setisFileSelectOpen, handleFile
                 <div className='content-file-select' id="content-file-select" role = "dialog" aria-label="choose file window">
                     <div className="content-file-select-header">
                         <h2 tabIndex="0">{translations?.editorNavbar.chooseFile}</h2>
-                        <button className='close-button-file-select' onClick={() => setisFileSelectOpen(false)}>X</button>
+                        <button className='close-button' onClick={() => setisFileSelectOpen(false)}>X</button>
                     </div>
                     { fileList && (
                         <div>
