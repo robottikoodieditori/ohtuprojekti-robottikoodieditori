@@ -1,12 +1,18 @@
 import { useState, useContext, useEffect } from 'react'; 
+import { useSelector, useDispatch } from "react-redux";
+import { setContent } from "../reducers/editorReducer";
 import { LanguageContext } from "../contexts/languagecontext";
 import Editor from './editor';
-import '../css/adminView.css'; 
+import '../css/adminView.css';
+import '../css/adminUserinfo.css';
+import '../css/adminFiles.css';
+import '../css/adminButtons.css'
 import Popup from 'reactjs-popup';
 import commService from '../services/comms'
 
 
 const AdminView = () => {
+    const dispatch = useDispatch()
     const { translations } = useContext(LanguageContext)
     const [users, setUsers] = useState([]);
     const [selectedUser, setSelectedUser] = useState(null);
@@ -17,15 +23,12 @@ const AdminView = () => {
     const [openedFile, setOpenedFile] = useState({
         'filename' : '', 
         'id': '', 
-        'textContent':'', 
         'user_id': '', 
         'user': ''
     })
+    const textContent = useSelector(state => state.editor.textContent)
     const [isUploadOpen, setisUploadOpen] = useState(false)
     const [isPasswordWindowOpen, setIsPasswordWindowOpen] = useState(false)
-
-
-
 
     useEffect( () => {
         getData()
@@ -61,13 +64,11 @@ const AdminView = () => {
     };
 
     const handleFileClick = (file) => {
-        console.log(users)
-        console.log(file)
         const username = users.find(user => user.id === file.user_id).name
+        dispatch(setContent(file.textContent))
         setOpenedFile(openedFile => ({
             ...openedFile,
             filename:  file.filename,
-            textContent: file.textContent,
             id: file.id,
             user_id: file.user_id,
             user: username
@@ -91,7 +92,7 @@ const AdminView = () => {
                         <div className="content-upload-header ">
                             <h2 tabIndex="0">{translations?.adminView.upload}</h2>
                             <div className='upload-header'>
-                                <button className="close-button-upload" onClick={() => setisUploadOpen(false)}>X</button>
+                                <button className="close-button" onClick={() => setisUploadOpen(false)}>X</button>
                             </div>
                         </div>
                         <form id="uploadForm" encType='multipart/form-data'>
@@ -133,10 +134,10 @@ const AdminView = () => {
         formData.append('json_data', JSON.stringify({'token': window.localStorage.getItem('token'), 'user_id':user_id}))
         const res = await commService.uploadFile(formData)
         const username = users.find(user => user.id === parseInt(user_id)).name
+        dispatch(setContent(res.content))
         setOpenedFile(openedFile => ({
             ...openedFile,
             filename:  res.filename,
-            textContent: res.content,
             id: res.file_id,
             user_id: user_id,
             user: username
@@ -146,7 +147,7 @@ const AdminView = () => {
     
     const handleDownloadClick = (file) => {
         const element = document.createElement('a');
-        element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(file.textContent));
+        element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(textContent));
         element.setAttribute('download', file.filename);
         element.style.display = 'none';
         document.body.appendChild(element);
@@ -155,14 +156,27 @@ const AdminView = () => {
     }
 
     const handleModifyClick = (file) => {
-        console.log(file.textContent)
-        commService.handleFile(file.textContent, file.filename, file.id, file.user_id, 'admin-save')
+        commService.handleFile(textContent, file.filename, file.id, file.user_id, 'admin-save')
         getData()
     }
     const handleDeleteClick = async (file) => {
-        await commService.handleFile(file.textContent, file.filename, file.id, file.user_id, 'admin-delete')
-        getData()
+
+        const confirmMessage = translations?.editorNavbar.confirmDeleteMessage;
+
+        const formattedMessage = confirmMessage
+            ? confirmMessage.replace('{filename}', file.filename)
+            : ""
+
+        const isConfirmed = window.confirm(formattedMessage)
+
+        if (isConfirmed) {
+            await commService.handleFile(textContent, file.filename, file.id, file.user_id, 'admin-delete')
+            getData()
+        } else {
+            // do nothing
+        }
     }
+
     const PasswordWindow = () => {
         return (
             <div className='overlay'>
@@ -175,7 +189,7 @@ const AdminView = () => {
                         <div className="content-upload-header ">
                             <h2 tabIndex="0">{translations?.adminView.changePassword}</h2>
                             <div className='upload-header'>
-                                <button className="close-button-upload" onClick={() => setIsPasswordWindowOpen(false)}>X</button>
+                                <button className="close-button" onClick={() => setIsPasswordWindowOpen(false)}>X</button>
                             </div>
                         </div>
                         <form>
@@ -195,7 +209,6 @@ const AdminView = () => {
 
     const handlePasswordChange = () => {
         const password = document.getElementById('passwordInput').value;
-        console.log(password)
         commService.changePassword(selectedUser.id, password)
         setIsPasswordWindowOpen(false)
         getData()
@@ -204,23 +217,23 @@ const AdminView = () => {
     }
 
     const handleVisibleClick = async (file) => {
-        await commService.handleFile(file.textContent, file.filename, file.id, file.user_id, "hide")
+        await commService.handleFile(textContent, file.filename, file.id, file.user_id, "hide")
         getData()
     }
 
     const handleNewFileClick = () => {
+        dispatch(setContent(""))
         setOpenedFile(openedFile => ({
             ...openedFile,
             filename:  "",
-            textContent: "",
             id: "",
             user_id: "",
             user: ""
         }));
     }
 
-    const handleSendToRobotClick = (file) => {
-        commService.deployToRobot(file.textContent)
+    const handleSendToRobotClick = () => {
+        commService.deployToRobot(textContent)
     }
 
     return (
@@ -317,10 +330,10 @@ const AdminView = () => {
 
                 {/* All files section */}
 
-                <section className="admin-section all-files-section">
+                <section className="admin-section all-files-section" id="all-files-section">
                     <h3 tabIndex="0">{translations?.adminView.allFiles}</h3>
 
-                    <div className='all-files'>
+                    <div className='all-files' id="all-files">
                         <table>
                             <thead>
                                 <tr>
@@ -334,13 +347,13 @@ const AdminView = () => {
                             </thead>
                             <tbody>
                                 {allFiles.map(file => (
-                                    <tr key={file.filename} className={file.visible ? 'visible-file' : 'hidden-file'}>
-                                        <td>{file.filename}</td>
-                                        <td>{users.find(user => user.id === file.user_id).name}</td>
-                                        <td onClick={() => handleFileClick(file)}>{translations?.editorNavbar.open}</td>
-                                        <td onClick={() => handleVisibleClick(file)}>{file.visible ? translations?.adminView.hide : translations?.adminView.restore}</td>
-                                        <td onClick={() => handleDeleteClick(file)}>{translations?.editorNavbar.delete}</td>
-                                        <td onClick={() => handleDownloadClick(file)}>{translations?.adminView.download}</td>
+                                    <tr id="file-row" key={file.filename} className={file.visible ? 'visible-file' : 'hidden-file'}>
+                                        <td id="filename">{file.filename}</td>
+                                        <td id="username">{users.find(user => user.id === file.user_id).name}</td>
+                                        <td className={file.visible ? 'file-button' : 'hidden-file-button'} id="open-button" onClick={() => handleFileClick(file)}>{translations?.editorNavbar.open}</td>
+                                        <td className={file.visible ? 'file-button' : 'hidden-file-button'} id="hide-button" onClick={() => handleVisibleClick(file)}>{file.visible ? translations?.adminView.hide : translations?.adminView.restore}</td>
+                                        <td className={file.visible ? 'file-button' : 'hidden-file-button'} id="delete-button" onClick={() => handleDeleteClick(file)}>{translations?.editorNavbar.delete}</td>
+                                        <td className={file.visible ? 'file-button' : 'hidden-file-button'} id="download-button" onClick={() => handleDownloadClick(file)}>{translations?.adminView.download}</td>
                                     </tr>
                                 ))}
                             </tbody>
@@ -352,22 +365,22 @@ const AdminView = () => {
             </div>
             {/* Editor section to display the selected file */}
             
-            <div className="editor-section">
-                <div className="editor-toolbar">
-                    <button onClick={handleNewFileClick}>{translations?.editorNavbar.newFile}</button>
-                    <button onClick={() => setisUploadOpen(true)}>{translations?.adminView.upload}</button>
+            <div className="editor-section" id="editor-section">
+                <div className="editor-toolbar" id="editor-toolbar">
+                    <button id="new-file-button" onClick={handleNewFileClick}>{translations?.editorNavbar.newFile}</button>
+                    <button id="upload-button" onClick={() => setisUploadOpen(true)}>{translations?.adminView.upload}</button>
                     { isUploadOpen && 
                         <UploadScreen/>
                     }
-                    <button onClick={() => handleDownloadClick(openedFile)}>{translations?.adminView.download} </button>
-                    <button onClick={() =>handleModifyClick(openedFile)}>{translations?.editorNavbar.open} </button>
-                    <button onClick={() => handleDeleteClick(openedFile)}>{translations?.editorNavbar.delete}</button>
-                    <button onClick={() => handleSendToRobotClick(openedFile)}>{translations?.adminView.sendRobot}</button>
+                    <button id="download-button" onClick={() => handleDownloadClick(openedFile)}>{translations?.adminView.download} </button>
+                    <button id="save-button" onClick={() =>handleModifyClick(openedFile)}>{translations?.adminView.save} </button>
+                    <button id="delete-button" onClick={() => handleDeleteClick(openedFile)}>{translations?.editorNavbar.delete}</button>
+                    <button id="send-to-robot-button" onClick={() => handleSendToRobotClick()}>{translations?.adminView.sendRobot}</button>
                     <p tabIndex="0">{translations?.editorNavbar.file} {openedFile['filename']}</p>
                     <p tabIndex="0">{translations?.adminView.creator} {openedFile['user']}</p>
 
                 </div>
-                <Editor textContent={openedFile['textContent']} />
+                <Editor textContent={textContent} />
             </div>
             
 

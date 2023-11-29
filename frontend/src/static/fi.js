@@ -87,7 +87,8 @@ export default {
         chooseUser: 'Valitse käyttäjä',
         hide: 'Piilota',
         restore: 'Palauta',
-        sendRobot: 'Lähetä robotille'
+        sendRobot: 'Lähetä robotille',
+        confirmDeleteMessage: 'Haluatko varmasti poistaa tiedoston: {filename} ?'
     },
 
     tooltipOpenSidebar: "Klikkaa sanaa avataksesi sen sivupalkissa",

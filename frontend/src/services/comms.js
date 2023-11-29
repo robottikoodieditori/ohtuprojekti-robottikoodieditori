@@ -32,7 +32,6 @@ const getAllUsers = async () => {
             'token': window.localStorage.getItem('token')
         }
     )
-    console.log("Comms",res)
     return res.data;
 }
 
@@ -47,7 +46,6 @@ const deployToRobot = async (content) => {
 
 const uploadFile = async (data) => {
     const res = await axios.post('/upload', data)
-    console.log(res)
     return res.data
 }
 
@@ -65,7 +63,6 @@ const getAllFiles = async () => {
         {
             'token': window.localStorage.getItem('token'),
         })
-    console.log("Files ", res)
     return res.data
 }
 

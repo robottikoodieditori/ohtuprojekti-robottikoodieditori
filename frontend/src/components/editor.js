@@ -7,8 +7,8 @@ import { autocompletion } from '@codemirror/autocomplete';
 import { setContent, setHighlightedWord } from '../reducers/editorReducer';
 import { extensions } from '../utils/cmConfig';
 import { wordHover } from '../utils/hoverTooltip';
-import { autoComplete_en } from '../utils/autocomplete_english';
-import { autoComplete_fi } from '../utils/autocomplete_finnish';
+import { autoComplete_en } from '../static/autocomplete_english';
+import { autoComplete_fi } from '../static/autocomplete_finnish';
 import { underlineSelection } from '../utils/underlineExtension';
 import getCustomKeywords from '../utils/getCustomKeywords';
 import { clearUnderlines } from '../utils/underlineExtension';
@@ -26,8 +26,7 @@ const Editor = ({ textContent }) => {
     const currentAutoCompleteModule = useRef(language === 'en' ? autoComplete_en : autoComplete_fi)
     const autoCompletionCompartment = new Compartment
     const hoverCompartment = new Compartment
-    const fileName = useSelector((state) => state.editor.fileName)
-    const fileContent = useSelector((state) => state.editor.textContent)
+    const fileObject = useSelector((state) => state.editor.fileObject)
     const exampleString = 'Logo...'
 
 
@@ -100,15 +99,12 @@ const Editor = ({ textContent }) => {
     }, [])
 
     useEffect(() => {
-        if (fileName === '') {
-            editor.current.dispatch({changes: {from: 0, to: editor.current.state.doc.length, insert: ''}})
-            dispatch(setContent(''))
-        } else {
-            editor.current.dispatch({changes: {from: 0, to: editor.current.state.doc.length, insert: fileContent}})
-            dispatch(setContent(fileContent))
+        editor.current.dispatch({changes: {from: 0, to: editor.current.state.doc.length, insert: ''}})
+        if (fileObject.filename !== '') {
+            editor.current.dispatch({changes: {from: 0, to: editor.current.state.doc.length, insert: fileObject.textContent}})
         }
 
-    }, [fileName])
+    }, [fileObject.filename])
 
     useEffect(() => {
         currentAutoCompleteModule.current = language === 'en' ? autoComplete_en : autoComplete_fi
