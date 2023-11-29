@@ -1,3 +1,17 @@
+/**
+ * NewFileScreen.js
+ * This component renders a popup screen for creating a new file in the code editor. It provides an input
+ * field for the filename and a button to save the new file.
+ * 
+ * Props:
+ * - isNewFileOpen: Boolean to determine if the popup screen is open.
+ * - setisNewFileOpen: Function to update the state of the popup's visibility.
+ * - handleSaveNew: Function to handle the saving of the new file with the provided filename.
+ * 
+ * The component uses the LanguageContext for internationalization, displaying texts (like placeholders
+ * and button labels) in different languages as per the current language setting.
+ */
+
 import { useContext } from "react"
 import Popup from "reactjs-popup"
 import { LanguageContext } from "../contexts/languagecontext"
