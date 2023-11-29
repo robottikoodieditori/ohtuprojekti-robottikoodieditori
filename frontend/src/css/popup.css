@@ -11,19 +11,6 @@
     padding: 10px;
   }
   
-  .close-button {
-    background-color: transparent;
-    border: none;
-    font-size: 18px;
-    color: white;
-    cursor: pointer;
-    transition: color 0.3s;
-  }
-  
-  .close-button:hover {
-    color: #e74c3c;
-  }
-  
   .content-popup {
     padding: 20px;
   }

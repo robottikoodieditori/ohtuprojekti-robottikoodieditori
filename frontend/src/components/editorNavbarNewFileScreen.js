@@ -1,7 +1,7 @@
 import { useContext } from "react"
 import Popup from "reactjs-popup"
 import { LanguageContext } from "../contexts/languagecontext"
-
+import '../css/button.css'
 
 const NewFileScreen = ({ isNewFileOpen, setisNewFileOpen, handleSaveNew }) => {
     const { translations } = useContext(LanguageContext)
@@ -17,7 +17,7 @@ const NewFileScreen = ({ isNewFileOpen, setisNewFileOpen, handleSaveNew }) => {
                     <div className="content-saveNew-header ">
                         <h2 tabIndex="0">{translations?.editorNavbar.filenamePlaceholder}</h2>
                         <div className='saveNew-header'>
-                            <button className="close-button-saveNew" onClick={() => setisNewFileOpen(false)}>X</button>
+                            <button className="close-button" onClick={() => setisNewFileOpen(false)}>X</button>
                         </div>
                     </div>
                     <form onSubmit={(event) => {
