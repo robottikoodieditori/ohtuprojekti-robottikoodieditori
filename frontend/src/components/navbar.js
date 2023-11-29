@@ -21,7 +21,6 @@ const Navbar = ({handleAdminViewClick}) => {
     const userRole = useSelector((state) => state.comms.userObject.userRole)
     const dispatch = useDispatch();
 
-
     // Local component state for managing popup visibility
     const [isPopupOpen, setIsPopupOpen] = useState(false);
 
@@ -48,7 +47,7 @@ const Navbar = ({handleAdminViewClick}) => {
             <h1 tabIndex="0">{translations.navbar.title}</h1>
             {/* If role is admin display change view button */}
             <div className='lang-button-container'>
-                { userRole === 1 && (
+                { userRole === '1' && (
                     <button onClick={() => handleAdminViewClick()} className='button' id='admin-view-button'>
                         {translations?.navbar.changeView}
                     </button>

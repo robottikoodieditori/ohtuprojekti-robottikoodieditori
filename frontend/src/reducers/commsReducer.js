@@ -30,7 +30,7 @@ const commsSlice = createSlice({
             state.userObject = {
                 ...state.userObject,
                 username: action.payload.username,
-                userRole: action.payload.role
+                userRole: action.payload.role.toString()
             }
             window.localStorage.setItem('username', action.payload.username)
             window.localStorage.setItem('token', action.payload.token)
