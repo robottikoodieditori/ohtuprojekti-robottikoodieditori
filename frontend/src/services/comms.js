@@ -44,6 +44,16 @@ const deployToRobot = async (content) => {
     return res.data
 }
 
+const getPassReq = async () => {
+    const res = await axios.get("/config/get")
+    return res.data
+}
+
+const togglePassReq = async () => {
+    const res = await axios.post("/config/password", {'token': window.localStorage.getItem('token')})
+    return res.data
+}
+
 const uploadFile = async (data) => {
     const res = await axios.post('/upload', data)
     return res.data
@@ -76,4 +86,6 @@ export default {
     deployToRobot: deployToRobot,
     changePassword: changePassword,
     getFiles: getAllFiles,
+    getPassReq: getPassReq,
+    togglePassReq: togglePassReq,
 }

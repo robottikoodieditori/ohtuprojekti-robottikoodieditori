@@ -9,6 +9,7 @@ import '../css/adminFiles.css';
 import '../css/adminButtons.css'
 import Popup from 'reactjs-popup';
 import commService from '../services/comms'
+import { togglePassRequired } from '../reducers/commsReducer';
 
 
 const AdminView = () => {
@@ -20,6 +21,7 @@ const AdminView = () => {
     const [userFiles, setUserFiles] = useState([]);
     const [searchQuery, setSearchQuery] = useState("");
     const [viewMode, setViewMode] = useState('files'); // 'files' or 'info' on middle container
+
     const [openedFile, setOpenedFile] = useState({
         'filename' : '', 
         'id': '', 
@@ -251,6 +253,7 @@ const AdminView = () => {
 
     return (
         <div className="admin-container">
+            <button onClick={() => dispatch(togglePassRequired())}> passReq </button>
       
             <h2 tabIndex="0">{translations?.adminView.adminDashboard}</h2>
             <div className="sections-container">

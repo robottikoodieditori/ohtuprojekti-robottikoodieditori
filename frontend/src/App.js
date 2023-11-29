@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import EditorView from "./components/editorview";
 import Sidebar from "./components/sidebar";
 import Navbar from "./components/navbar";  
@@ -6,10 +6,16 @@ import { LanguageProvider } from './contexts/languagecontext';
 import LoginPopUp from "./components/loginPopUp";
 import AdminView from "./components/adminView"; 
 import './css/footer.css'
+import { useDispatch } from 'react-redux';
+import { getPassRequired } from './reducers/commsReducer';
 
 function App() {
+    const dispatch = useDispatch()
     const [isAdminView, setIsAdminView] = useState(false); // State to toggle admin view
     document.title = 'Logomotion editor'; // Set the document title as received from origin/dev
+    useEffect(() => {
+        dispatch(getPassRequired())
+    }, [])
 
     return (
         <LanguageProvider>
