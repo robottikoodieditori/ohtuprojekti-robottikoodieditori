@@ -35,7 +35,7 @@ jobs:
         run: |
           sqlite3 test_db.db < schema.sql
           sqlite3 users_db.db < schema.sql
-      -name: Create test data for database
+      - name: Create test data for database
         working-directory: ./backend
         run: |
           poetry run invoke admin
