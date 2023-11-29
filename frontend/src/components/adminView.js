@@ -2,14 +2,13 @@ import { useState, useContext, useEffect } from 'react';
 import { useSelector, useDispatch } from "react-redux";
 import { setContent } from "../reducers/editorReducer";
 import { LanguageContext } from "../contexts/languagecontext";
-import Editor from './editor';
 import '../css/adminView.css';
-import Popup from 'reactjs-popup';
 import commService from '../services/comms'
 import AdminViewUserListSection from './adminViewUserListSection';
 import AdminViewUserFilesSection from './adminViewUserFilesSection';
-import UploadScreen from './uploadScreen';
 import AdminViewAllFilesSection from './adminViewAllFilesSection';
+import AdminViewEditorSection from './adminViewEditorSection';
+import PasswordWindow from './passwordWindow';
 
 const AdminView = () => {
     const dispatch = useDispatch()
@@ -109,36 +108,6 @@ const AdminView = () => {
         }
     }
 
-    const PasswordWindow = () => {
-        return (
-            <div className='overlay'>
-                <Popup
-                    open={isPasswordWindowOpen}
-                    closeOnDocumentClick={false}
-                    overlayStyle={{ background: 'rgba(0,0,0,0.8)' }}
-                >
-                    <div className='content-upload'>
-                        <div className="content-upload-header ">
-                            <h2 tabIndex="0">{translations?.adminView.changePassword}</h2>
-                            <div className='upload-header'>
-                                <button className="close-button-upload" onClick={() => setIsPasswordWindowOpen(false)}>X</button>
-                            </div>
-                        </div>
-                        <form>
-                            <input
-                                type='text'
-                                id='passwordInput'
-                                name='password'
-                                placeholder={selectedUser.password}
-                            />
-                            <button type="submit" value="Change" onClick={handlePasswordChange}>Vaihda</button>
-                        </form>
-                    </div>
-                </Popup>
-            </div>
-        )
-    }
-
     const handlePasswordChange = () => {
         const password = document.getElementById('passwordInput').value;
         commService.changePassword(selectedUser.id, password)
@@ -174,72 +143,35 @@ const AdminView = () => {
 
                 {/* User list section */}
                 <AdminViewUserListSection
-                    searchQuery={searchQuery}
-                    handleSearchChange={handleSearchChange}
-                    filteredUsers={filteredUsers}
-                    handleUserClick={handleUserClick}
-                    setSelectedUser={setSelectedUser}
-                    setViewMode={setViewMode}
+                    searchQuery={searchQuery} handleSearchChange={handleSearchChange} filteredUsers={filteredUsers}
+                    handleUserClick={handleUserClick} setSelectedUser={setSelectedUser} setViewMode={setViewMode}
                 />
 
                 {/* Selected user's files section */}
                 {selectedUser && (
                     <AdminViewUserFilesSection
-                        viewMode={viewMode}
-                        selectedUser={selectedUser}
-                        setSelectedUser={setSelectedUser}
-                        setIsPasswordWindowOpen={setIsPasswordWindowOpen}
-                        isPasswordWindowOpen={isPasswordWindowOpen}
-                        PasswordWindow={PasswordWindow}
-                        userFiles={userFiles}
-                        allFiles={allFiles}
-                        users={users}
-                        handleFileClick={handleFileClick}
-                        handleVisibleClick={handleVisibleClick}
-                        handleDeleteClick={handleDeleteClick}
-                        handleDownloadClick={handleDownloadClick}
-                        handlePasswordChange={handlePasswordChange}
+                        viewMode={viewMode} selectedUser={selectedUser} setSelectedUser={setSelectedUser}
+                        isPasswordWindowOpen={isPasswordWindowOpen} setIsPasswordWindowOpen={setIsPasswordWindowOpen} PasswordWindow={PasswordWindow}
+                        userFiles={userFiles} allFiles={allFiles} users={users} handlePasswordChange={handlePasswordChange}
+                        handleFileClick={handleFileClick} handleVisibleClick={handleVisibleClick} handleDeleteClick={handleDeleteClick} handleDownloadClick={handleDownloadClick}
                     />
                 )}
 
                 {/* All files section */}
                 <AdminViewAllFilesSection
-                    allFiles={allFiles}
-                    users={users}
-                    handleFileClick={handleFileClick}
-                    handleVisibleClick={handleVisibleClick}
-                    handleDeleteClick={handleDeleteClick}
-                    handleDownloadClick={handleDownloadClick}
-                    setOpenedFile={setOpenedFile}
+                    allFiles={allFiles} users={users} setOpenedFile={setOpenedFile}
+                    handleFileClick={handleFileClick} handleVisibleClick={handleVisibleClick}
+                    handleDeleteClick={handleDeleteClick} handleDownloadClick={handleDownloadClick}
                 />
             </div>
 
             {/* Editor section to display the selected file */}
-
-            <div className="editor-section">
-                <div className="editor-toolbar">
-                    <button onClick={handleNewFileClick}>{translations?.editorNavbar.newFile}</button>
-                    <button onClick={() => setisUploadOpen(true)}>{translations?.adminView.upload}</button>
-                    { isUploadOpen &&
-                        <UploadScreen
-                            isUploadOpen={isUploadOpen}
-                            setisUploadOpen={setisUploadOpen}
-                            filteredUsers={filteredUsers}
-                            users={users}
-                            setOpenedFile={setOpenedFile}
-                        />
-                    }
-                    <button onClick={() => handleDownloadClick(openedFile)}>{translations?.adminView.download} </button>
-                    <button onClick={() => handleModifyClick(openedFile)}>{translations?.adminView.save} </button>
-                    <button onClick={() => handleDeleteClick(openedFile)}>{translations?.editorNavbar.delete}</button>
-                    <button onClick={() => handleSendToRobotClick()}>{translations?.adminView.sendRobot}</button>
-                    <p tabIndex="0">{translations?.editorNavbar.file} {openedFile['filename']}</p>
-                    <p tabIndex="0">{translations?.adminView.creator} {openedFile['user']}</p>
-
-                </div>
-                <Editor textContent={textContent} />
-            </div>
-
+            <AdminViewEditorSection
+                handleNewFileClick={handleNewFileClick} isUploadOpen={isUploadOpen} setisUploadOpen={setisUploadOpen}
+                filteredUsers={filteredUsers} users={users} openedFile={openedFile} setOpenedFile={setOpenedFile}
+                handleDownloadClick={handleDownloadClick} handleModifyClick={handleModifyClick} handleDeleteClick={handleDeleteClick}
+                handleSendToRobotClick={handleSendToRobotClick} textContent={textContent}
+            />
         </div>
     );
 };
