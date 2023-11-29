@@ -1,4 +1,4 @@
-from os import getenv
+import os
 from sys import argv
 from flask import Flask, request, send_from_directory, jsonify
 from mockcompiler import MockCompiler
@@ -10,14 +10,18 @@ import json
 
 app = Flask(__name__, static_folder="../build/static", template_folder="../build")
 
-DB_PATH = getenv("DB_PATH")
+path = os.getcwd()
+if path.endswith('src'):
+    path = os.path.join(path, '..')
+
+DB_PATH = os.getenv("DB_PATH")
 if len(argv) > 1:
     if argv[1] == "test":
-        DB_PATH = getenv("TEST_DB_PATH")
+        DB_PATH = os.getenv("TEST_DB_PATH")
 
-app.config["SECRET_KEY"] = getenv("SECRET_KEY")
+app.config["SECRET_KEY"] = os.getenv("SECRET_KEY")
 
-db = DB(DB_PATH)
+db = DB(os.path.join(path, DB_PATH))
 user_service = UserService(db, app.config["SECRET_KEY"])
 file_service = FileService(db)
 

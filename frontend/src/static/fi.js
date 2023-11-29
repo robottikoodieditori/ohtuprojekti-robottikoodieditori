@@ -89,7 +89,8 @@ export default {
         hide: 'Piilota',
         restore: 'Palauta',
         sendRobot: 'Lähetä robotille',
-        confirmDeleteMessage: 'Haluatko varmasti poistaa tiedoston: {filename} ?'
+        confirmDeleteMessage: 'Haluatko varmasti poistaa tiedoston: {filename} ?',
+        saveConfirmedMessage: 'Tiedosto {filename} tallennettu'
     },
 
     tooltipOpenSidebar: "Klikkaa sanaa avataksesi sen sivupalkissa",

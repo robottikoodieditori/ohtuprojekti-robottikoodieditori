@@ -32,7 +32,7 @@ def coveragereport(ctx):
 
 @task
 def gunicorn(ctx):
-    ctx.run('cd src && gunicorn -w 4 server:app --bind 0.0.0.0:8000')
+    ctx.run('poetry run gunicorn -w 4 --chdir src -b 0.0.0.0:5000 server:app', pty=True)
 
 @task
 def admin(ctx):
