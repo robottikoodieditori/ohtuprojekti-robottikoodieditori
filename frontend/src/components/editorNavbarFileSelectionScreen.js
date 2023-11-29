@@ -16,7 +16,7 @@ const FileSelectionScreen = ({ isFileSelectOpen, setisFileSelectOpen, handleFile
                 <div className='content-file-select' id="content-file-select" role = "dialog" aria-label="choose file window">
                     <div className="content-file-select-header">
                         <h2 tabIndex="0">{translations?.editorNavbar.chooseFile}</h2>
-                        <button className='close-button' onClick={() => setisFileSelectOpen(false)}>X</button>
+                        <button className='file-close-button' onClick={() => setisFileSelectOpen(false)}>X</button>
                     </div>
                     { fileList && (
                         <div>

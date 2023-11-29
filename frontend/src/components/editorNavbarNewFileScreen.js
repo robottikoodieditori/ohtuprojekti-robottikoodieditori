@@ -3,7 +3,6 @@ import Popup from "reactjs-popup"
 import { LanguageContext } from "../contexts/languagecontext"
 import '../css/button.css'
 
-
 const NewFileScreen = ({ isNewFileOpen, setisNewFileOpen, handleSaveNew }) => {
     const { translations } = useContext(LanguageContext)
 

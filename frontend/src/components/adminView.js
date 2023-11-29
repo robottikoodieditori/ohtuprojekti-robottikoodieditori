@@ -92,7 +92,7 @@ const AdminView = () => {
                         <div className="content-upload-header ">
                             <h2 tabIndex="0">{translations?.adminView.upload}</h2>
                             <div className='upload-header'>
-                                <button className="close-button" onClick={() => setisUploadOpen(false)}>X</button>
+                                <button className="file-close-button" onClick={() => setisUploadOpen(false)}>X</button>
                             </div>
                         </div>
                         <form id="uploadForm" encType='multipart/form-data'>
