@@ -17,6 +17,21 @@
   background-color: rgb(65, 81, 172);
 }
 
+.close-button {
+  background-color: transparent;
+  border: none;
+  font-size: 18px;
+  color: white;
+  cursor: pointer;
+  transition: color 0.3s;
+  top: 3px;
+  right: 3px;
+}
+
+.close-button:hover {
+  color: #e74c3c;
+}
+
 .button:focus-visible {
   background-color: rgb(65, 81, 172);
   border-style: solid;

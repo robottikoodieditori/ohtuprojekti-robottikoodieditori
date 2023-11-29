@@ -94,16 +94,16 @@ const AdminView = () => {
                         <div className="content-upload-header ">
                             <h2 tabIndex="0">{translations?.adminView.upload}</h2>
                             <div className='upload-header'>
-                                <button className="close-button" onClick={() => setisUploadOpen(false)}>X</button>
+                                <button className="file-close-button" onClick={() => setisUploadOpen(false)}>X</button>
                             </div>
                         </div>
                         <form id="uploadForm" encType='multipart/form-data'>
-                            <label htmlFor="usernames">{translations?.adminView.chooseOwner}</label>
+                            <label htmlFor="usernames" tabIndex ="0">{translations?.adminView.chooseOwner}</label>
                             <select
                                 id="uploadUsername"
                                 name="usernames"
                             >
-                                <option value="">{translations?.adminView.chooseUser}</option>
+                                <option value="" >{translations?.adminView.chooseUser}</option>
                                 {filteredUsers.map((user) => (
                                     <option key={user.id} value={user.id}>
                                         {user.name}
@@ -111,7 +111,7 @@ const AdminView = () => {
                                 ))}
                             </select>
 
-                            <label htmlFor="usernames">{translations?.editorNavbar.chooseFile}</label>
+                            <label htmlFor="usernames" tabIndex ="0" >{translations?.editorNavbar.chooseFile}</label>
                             <input
                                 type="file"
                                 accept=".logo"
@@ -119,7 +119,7 @@ const AdminView = () => {
                                 required
                                 id='uploadFile'
                             />
-                            <button type="submit" value="Upload" onClick={handleUpload}>Upload</button>
+                            <button type="submit" value="Upload" onClick={handleUpload}>{translations?.adminView.upload}</button>
                         </form>
                     </div>
                 </Popup>
@@ -158,12 +158,25 @@ const AdminView = () => {
     }
 
     const handleModifyClick = (file) => {
+
+        const saveConfirmedMessage = translations?.adminView.saveConfirmedMessage
+
+        const formattedMessage = saveConfirmedMessage
+            ? saveConfirmedMessage.replace('{filename}', file.filename)
+            : ""
+
         commService.handleFile(textContent, file.filename, file.id, file.user_id, 'admin-save')
-        getData()
+            .then(() => {
+                alert(formattedMessage)
+                getData()
+            })
+            .catch((error) => {
+                console.error('Error saving file:', error)
+            })
     }
     const handleDeleteClick = async (file) => {
 
-        const confirmMessage = translations?.editorNavbar.confirmDeleteMessage;
+        const confirmMessage = translations?.editorNavbar.confirmDeleteMessage
 
         const formattedMessage = confirmMessage
             ? confirmMessage.replace('{filename}', file.filename)
@@ -351,12 +364,12 @@ const AdminView = () => {
                             <tbody>
                                 {allFiles.map(file => (
                                     <tr id="file-row" key={file.filename} className={file.visible ? 'visible-file' : 'hidden-file'}>
-                                        <td id="filename">{file.filename}</td>
-                                        <td id="username">{users.find(user => user.id === file.user_id).name}</td>
-                                        <td className={file.visible ? 'file-button' : 'hidden-file-button'} id="open-button" onClick={() => handleFileClick(file)}>{translations?.editorNavbar.open}</td>
-                                        <td className={file.visible ? 'file-button' : 'hidden-file-button'} id="hide-button" onClick={() => handleVisibleClick(file)}>{file.visible ? translations?.adminView.hide : translations?.adminView.restore}</td>
-                                        <td className={file.visible ? 'file-button' : 'hidden-file-button'} id="delete-button" onClick={() => handleDeleteClick(file)}>{translations?.editorNavbar.delete}</td>
-                                        <td className={file.visible ? 'file-button' : 'hidden-file-button'} id="download-button" onClick={() => handleDownloadClick(file)}>{translations?.adminView.download}</td>
+                                        <td tabIndex="0" id="filename">{file.filename}</td>
+                                        <td tabIndex="0"  id="username">{users.find(user => user.id === file.user_id).name}</td>
+                                        <td tabIndex="0" className={file.visible ? 'file-button' : 'hidden-file-button'} id="open-button" onClick={() => handleFileClick(file)}>{translations?.editorNavbar.open}</td>
+                                        <td tabIndex="0" className={file.visible ? 'file-button' : 'hidden-file-button'} id="hide-button" onClick={() => handleVisibleClick(file)}>{file.visible ? translations?.adminView.hide : translations?.adminView.restore}</td>
+                                        <td tabIndex="0" className={file.visible ? 'file-button' : 'hidden-file-button'} id="delete-button" onClick={() => handleDeleteClick(file)}>{translations?.editorNavbar.delete}</td>
+                                        <td tabIndex="0" className={file.visible ? 'file-button' : 'hidden-file-button'} id="download-button" onClick={() => handleDownloadClick(file)}>{translations?.adminView.download}</td>
                                     </tr>
                                 ))}
                             </tbody>
