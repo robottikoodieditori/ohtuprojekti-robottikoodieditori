@@ -20,7 +20,7 @@
     color: white;
   }
   
-  .content-popup input[type="text"] {
+  .content-popup input[type="text"], input[type="password"] {
     width: 92.3%;
     padding: 10px;
     border: none;
@@ -31,7 +31,7 @@
     outline: none; 
   }
   
-  .content-popup input[type="text"]::placeholder {
+  .content-popup input[type="text"], input[type="password"]::placeholder {
     color: #cccccc;
   }
 

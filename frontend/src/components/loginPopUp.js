@@ -5,7 +5,7 @@
 import { useState, useContext } from 'react';
 import Popup from 'reactjs-popup'; // Popup component for modal dialog
 import { login } from "../reducers/commsReducer"; // Redux action for login
-import { useDispatch } from 'react-redux'; // Redux hook for dispatching actions
+import { useDispatch, useSelector } from 'react-redux'; // Redux hook for dispatching actions
 import { LanguageContext } from '../contexts/languagecontext'; // Context for language settings
 import '../css/popup.css'; // Styling for the popup
 
@@ -15,7 +15,9 @@ const LoginPopUp = ({status, onClose}) => {
     const { toggleLanguage, translations } = useContext(LanguageContext); // Language context
     const [username, setUsername] = useState(''); // State for storing the username input
     const [notificationText, setNotificationText] = useState(''); // State for notification messages
+    const [password, setPassword] = useState("")
     const dispatch = useDispatch(); // Redux dispatch function
+    const passwordIsRequired = useSelector(state => state.comms.passReq)
 
     // Function to update notification messages
     const updateNotificationText = (text) => setNotificationText(text);
@@ -46,6 +48,11 @@ const LoginPopUp = ({status, onClose}) => {
         if (onClose) onClose();
     };
 
+    const handlePassChange = (e) => {
+        setPassword(e.target.value)
+        console.log(password)
+    }
+
     // Component rendering
     return (
         <div>
@@ -75,7 +82,15 @@ const LoginPopUp = ({status, onClose}) => {
                             value={username} // Controlled input value for username
                             onChange={handleInputChange} // Function to handle changes in input
                         />
-    
+                        {passwordIsRequired && (
+                            <input
+                                id="registration-password-input"
+                                type="password"
+                                placeholder={translations?.login.passwordInputPlaceholder}
+                                value={password}
+                                onChange={handlePassChange}
+                            />
+                        )}
                         {/* Button to submit the login form */}
                         <button onClick={handleSubmit}>{translations?.login.loginButton}</button>
     
