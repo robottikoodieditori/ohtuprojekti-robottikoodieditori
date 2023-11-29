@@ -2,14 +2,14 @@ import { useDispatch, useSelector } from 'react-redux';
 import { deployToRobot, sendToServer } from "../reducers/commsReducer";
 
 const Button = (props) => {
-    const editorContent = useSelector(state => state.editor.textContent)
+    const fileObject = useSelector(state => state.editor.fileObject)
     const dispatch = useDispatch();
     const handleClick = () => {
         if (props.function === 'SEND') {
-            dispatch(deployToRobot(editorContent));
+            dispatch(deployToRobot(fileObject.textContent));
         } 
         if (props.function === 'COMPILE') {
-            dispatch(sendToServer(editorContent));
+            dispatch(sendToServer(fileObject.textContent));
         }
     }
 

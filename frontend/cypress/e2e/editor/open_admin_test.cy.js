@@ -3,6 +3,8 @@ describe('Get to Admin view', function() {
         cy.visit('http://localhost:3000');
         cy.get('#registration-name-input').type('admin')
         cy.get('#popup').contains('Kirjaudu').click(50)
+        cy.wait(300)
+
     })
 
     it('Attempting to get to admin view (FINNISH)', function() {

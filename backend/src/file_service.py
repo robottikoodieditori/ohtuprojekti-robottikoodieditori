@@ -1,10 +1,11 @@
 import subprocess, paramiko
+import os
 
 class FileService:
     """
     Class for handling file-related operations. Communicates with the database.
 
-    args:
+    attr:
         db (obj): an object for handling communications with the database
     """
 
@@ -67,15 +68,18 @@ class FileService:
 
     def hide_logo_file(self, file_id: int):
         """
-        Method which sets visible=0 for logofiles entry with matching id
+        Method which sets toggles visibility for logofiles entry with matching id
 
         Args:
             file_id (int)
         returns:
             result (str): "OK" if successful, else "FAIL"
         """
-        query = "UPDATE logofiles SET visible=0 WHERE id=?"
-        result = self.database.insert_entry(query, (str(file_id)))
+        get_query = "SELECT visible FROM logofiles WHERE id=?"
+        visible = self.database.get_entry_from_db(get_query, (str(file_id),))
+        visible = 1 if visible[0] == 0 else 0
+        query = "UPDATE logofiles SET visible=? WHERE id=?"
+        result = self.database.insert_entry(query, (str(visible), str(file_id)))
 
         return {'result':result, 'action': 'hide'}
     
@@ -107,6 +111,21 @@ class FileService:
         
         return file_list
 
+    def delete_logo_file(self, file_id: int):
+        """
+        Method which deletes logofile from database
+
+        Args:
+            file_id (int)
+        returns:
+            result (str): "OK" if succesful, else "FAIL"
+        """
+        query = "DELETE FROM logofiles WHERE id=?"
+        result = self.database.insert_entry(query, (str(file_id),))
+
+        return {'result':result, 'action': 'delete'}
+
+
 def send_to_robot() -> int:
     '''
     Executes a script which transfers a compiled Java file to the robot if robot is connected and
@@ -116,10 +135,13 @@ def send_to_robot() -> int:
         return_code (int): indicates the success of operation
     '''
     dir_path = 'logomotion_gradle'
-    bash_command = f"cd {dir_path} && ./gradlew deploy"
+    cur_path = os.getcwd()
+    if cur_path.endswith('src'):
+        bash_command = f"cd ../{dir_path} && ./gradlew deploy"
+    else:
+        bash_command = f"cd {dir_path} && ./gradlew deploy"
     process = subprocess.Popen(bash_command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     return_code = process.wait()
-
     return return_code
 
 def remote_create_start_script() -> bool:

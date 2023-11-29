@@ -6,7 +6,7 @@ class UserService:
     '''
     Class for handling user related operations.
 
-    args:
+    attr:
         db (obj): an object for handling communications with the database
         secret (str): the secret key for creating session tokens and other cookies
     '''
@@ -115,9 +115,28 @@ class UserService:
             {
                 "id": row[0],
                 "name": row[1],
-                "password": row[2].decode('utf-8')
+                "password": row[2].decode('utf-8') if type(row[2]) is not str else row[2]
             }
             for row in result
         ]
 
         return user_list
+    
+    def change_password(self, id: str, password: str) -> bool:
+        """
+        Updates password value for single entry in users table
+
+        args:
+            id (str): id of given user
+            password (str): new password to be updated
+        returns:
+            bool: True if succesful, else otherwise
+        """
+        pass_bytes = password.encode("utf-8")
+        salt = bcrypt.gensalt()
+        hashed = bcrypt.hashpw(pass_bytes, salt)
+        query = "UPDATE users SET password=? WHERE id=?"
+        values = (hashed, id)
+        result = self.database.insert_entry(query, values)
+
+        return result == "OK"
