@@ -12,10 +12,6 @@ import '../css/popup.css'; // Styling for the popup
 const LoginPopUp = ({status, onClose}) => {
     // Local state for controlling the popup's visibility and user input
     const [open, setOpen] = useState(status);
-    const { toggleLanguage, translations } = useContext(LanguageContext)
-    const [username, setUsername] = useState('');
-    const [notificationText, setNotificationText] = useState('')
-    const dispatch = useDispatch();
     const { toggleLanguage, translations } = useContext(LanguageContext); // Language context
     const [username, setUsername] = useState(''); // State for storing the username input
     const [notificationText, setNotificationText] = useState(''); // State for notification messages
