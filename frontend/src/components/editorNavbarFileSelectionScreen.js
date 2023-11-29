@@ -24,20 +24,20 @@ const FileSelectionScreen = ({ isFileSelectOpen, setisFileSelectOpen, handleFile
                                 <thead>
                                     <tr>
                                         <th></th>
-                                        <th className="center-th">{translations?.editorNavbar.fileName}</th>
-                                        <th className="center-th">{translations?.editorNavbar.createdAt}</th>
-                                        <th className="center-th">{translations?.editorNavbar.lastEdited}</th>
+                                        <th className="center-th" tabIndex="0">{translations?.editorNavbar.fileName}</th>
+                                        <th className="center-th" tabIndex="0">{translations?.editorNavbar.createdAt}</th>
+                                        <th className="center-th" tabIndex="0">{translations?.editorNavbar.lastEdited}</th>
                                         <th></th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     {fileList.map(file => (
                                         <tr key={file.filename} className='file-row'>
-                                            <td className="file-open-td" onClick={() => handleFileSelection(file)}>{translations?.editorNavbar.open}</td>
-                                            <td className="left-td">{file.filename}</td>
-                                            <td className="center-td">{file.created}</td>
-                                            <td className="right-td">{file.last_updated}</td>
-                                            <td className="file-hide-td" onClick={() => handleFileHiding(file)}>{translations?.editorNavbar.delete}</td>
+                                            <td tabIndex="0" className="file-open-td" onClick={() => handleFileSelection(file)}>{translations?.editorNavbar.open}</td>
+                                            <td tabIndex="0" className="left-td">{file.filename}</td>
+                                            <td tabIndex="0" className="center-td">{file.created}</td>
+                                            <td tabIndex="0" className="right-td">{file.last_updated}</td>
+                                            <td tabIndex="0" className="file-hide-td" onClick={() => handleFileHiding(file)}>{translations?.editorNavbar.delete}</td>
                                         </tr>
                                     ))}
                                 </tbody>

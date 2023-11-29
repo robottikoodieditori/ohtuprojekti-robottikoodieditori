@@ -25,6 +25,10 @@
     position: relative;
     }
 
+.content-upload select:focus-visible {
+  border-style: solid;
+  border-color: black;
+}  
 
 .content-upload select {
     width: 100%;
@@ -37,8 +41,7 @@
     outline: none;
     appearance: none;
   }
-  
-  
+
   .content-upload input[type="file"] {
     width: 96.5%;
     padding: 10px;
@@ -49,6 +52,11 @@
     margin-bottom: 10px;
     outline: none;
   }
+
+  .content-upload input:focus-visible {
+    border-style: solid;
+    border-color: black;
+  }  
   
   .content-upload button[type="submit"] {
     display: block;
@@ -65,6 +73,16 @@
   
   .content-upload button[type="submit"]:hover {
     background-color: #2980b9;
+  }
+
+  .content-upload button:focus-visible {
+    background-color: #2980b9;
+    border-style: solid;
+    border-color: black;
+  }
+  
+  .content-upload button:active {
+    transform: scale(0.97);
   }
 
   .content-upload input[type="text"] {
