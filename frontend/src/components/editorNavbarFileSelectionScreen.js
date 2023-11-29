@@ -13,6 +13,7 @@
  * Uses LanguageContext for internationalization, enabling the display of text in different languages.
  */
 
+import '../css/button.css'
 import Popup from "reactjs-popup";
 import { LanguageContext } from "../contexts/languagecontext";
 import { useContext } from "react";
@@ -30,7 +31,7 @@ const FileSelectionScreen = ({ isFileSelectOpen, setisFileSelectOpen, handleFile
                 <div className='content-file-select' id="content-file-select" role="dialog" aria-label="choose file window">
                     <div className="content-file-select-header">
                         <h2 tabIndex="0">{translations?.editorNavbar.chooseFile}</h2>
-                        <button className='close-button-file-select' onClick={() => setisFileSelectOpen(false)}>X</button> {/* Close button to hide the popup */}
+                        <button className='file-close-button' onClick={() => setisFileSelectOpen(false)}>X</button>
                     </div>
                     {fileList && (
                         <div>
