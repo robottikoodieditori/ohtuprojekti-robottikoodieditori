@@ -66,9 +66,11 @@ class UserService:
             bool: False otherwise 
         '''
         result = credentials.decode_token(token, self.secret_key)
-        if result['user_id']:
-            return result['user_id']
-        return False
+
+        if result:
+            return result.get('user_id')
+        
+        return result
 
     def check_credentials(self, username: str, password: str) -> Union[int, bool]:
         '''

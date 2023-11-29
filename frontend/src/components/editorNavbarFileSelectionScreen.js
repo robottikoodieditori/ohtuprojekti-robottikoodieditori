@@ -4,6 +4,7 @@ import { useContext } from "react"
 
 const FileSelectionScreen = ({ isFileSelectOpen, setisFileSelectOpen, handleFileSelection, handleFileHiding, fileList, }) => {
     const { translations } = useContext(LanguageContext)
+    console.log(fileList)
 
     return (
         <div className="overlay" id="overlay">
@@ -17,7 +18,7 @@ const FileSelectionScreen = ({ isFileSelectOpen, setisFileSelectOpen, handleFile
                         <h2 tabIndex="0">{translations?.editorNavbar.chooseFile}</h2>
                         <button className='close-button-file-select' onClick={() => setisFileSelectOpen(false)}>X</button>
                     </div>
-                    { fileList && (
+                    { fileList.length > 0 && (
                         <div>
                             <table>
                                 <thead>

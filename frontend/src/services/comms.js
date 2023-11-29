@@ -21,9 +21,13 @@ const handleFile = async (content, filename, fileId, userId, action) => {
     return res.data
 }
 
-const getUserFiles = async () => {
-    const res = await axios.post('/get_user_files', {'token': window.localStorage.getItem('token')})
-    return res.data
+const getUserFiles = async ( token ) => {
+    try {
+        const res = await axios.post('/get_user_files', {'token': token})
+        return res.data
+    } catch (e) {
+        return null
+    }
 }
 
 const getAllUsers = async () => {

@@ -8,7 +8,8 @@ const commsSlice = createSlice({
     initialState: {
         userObject: {
             username: window.localStorage.getItem('username') || '',
-            userFiles: JSON.parse(window.localStorage.getItem('userFiles')) || []
+            userFiles: JSON.parse(window.localStorage.getItem('userFiles')) || [],
+            token: window.localStorage.getItem('token') || ''
         },
         responseFromServer: '',
         username: window.localStorage.getItem('username') || '',
@@ -28,9 +29,11 @@ const commsSlice = createSlice({
             state.username = action.payload.username
             state.userObject = {
                 ...state.userObject,
-                username: action.payload.username
+                username: action.payload.username,
+                token: action.payload.token
             }
             window.localStorage.setItem('username', action.payload.username)
+            window.localStorage.setItem('token', action.payload.token)
             console.log(`SERVER RESPONDED WITH NAME: ${state.username}`)
             return state
         },
@@ -55,12 +58,14 @@ const commsSlice = createSlice({
         logout(state) {
             state.userObject = {
                 username: '',
-                userFile: []
+                userFile: [],
+                token: ''
             }
             state.username = ''
             state.userFiles = []
             window.localStorage.removeItem('token')
             window.localStorage.removeItem('username')
+            window.localStorage.removeItem('userFiles')
             return state
         }
     }
@@ -100,19 +105,17 @@ export const login = username => {
     return async dispatch => {
         const res = await commService.sendLogin(username, password)
         console.log(res)
-        window.localStorage.setItem('token', res.token)
-        window.localStorage.setItem('username', res.username)
         dispatch(setLoginFromServer(res))
     }
 }
 
-export const uploadFile =  data => {
+export const uploadFile = data => {
     return async dispatch => {
         const res = await commService.uploadFile(data)
         console.log(res)
         dispatch()
     }
-} 
+}
 
 export const handleFile = (content, filename, fileId, userId, action) => {
     return async dispatch => {

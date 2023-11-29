@@ -1,7 +1,7 @@
 import { useState, useContext, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { LanguageContext } from "../contexts/languagecontext";
-import { handleFile } from '../reducers/commsReducer';
+import { handleFile, setUserFiles } from '../reducers/commsReducer';
 import { setFileName, setContent, setFileId, resetFile } from "../reducers/editorReducer";
 import commService from "../services/comms";
 import '../css/editornavbar.css';
@@ -12,7 +12,6 @@ import NewFileScreen from "./editorNavbarNewFileScreen";
 const EditorNavbar = () => {
     const dispatch = useDispatch()
     const { translations } = useContext(LanguageContext)
-    const [fileList, setFileList] = useState([])
     const fileObject = useSelector(state => state.editor.fileObject)
     const userObject = useSelector(state => state.comms.userObject)
     const [isFileSelectOpen, setisFileSelectOpen] = useState(false);
@@ -25,10 +24,12 @@ const EditorNavbar = () => {
 
     async function getData() {
         if (userObject.username !== '') {
-            const data = await commService.getUserFiles()
-            setFileList(data)
+            const data = await commService.getUserFiles(userObject.token)
+            if (data) {
+                dispatch(setUserFiles(data))
+            }
         } else {
-            setFileList([])
+            dispatch(setUserFiles({}))
         }
     }
 
@@ -82,9 +83,11 @@ const EditorNavbar = () => {
     
         if (confirmDelete) {
             if (fileObject.filename === file.filename) {
+                console.log(file)
                 await dispatch(handleFile(fileObject.textContent, file.filename, file.file_id, 'user_id', 'hide'))
                 handleNewFile()
             } else {
+                console.log(file)
                 await dispatch(handleFile(fileObject.textContent, file.filename, file.file_id, 'user_id', 'hide'))
                 getData()
             }
@@ -114,7 +117,7 @@ const EditorNavbar = () => {
                     setisFileSelectOpen={setisFileSelectOpen}
                     handleFileSelection={handleFileSelection}
                     handleFileHiding={handleFileHiding}
-                    fileList={fileList}
+                    fileList={userObject.userFiles}
                 />
             }
             <p tabIndex="0">{translations?.editorNavbar.file}{fileObject.filename}</p>

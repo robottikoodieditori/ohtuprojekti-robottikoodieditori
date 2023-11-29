@@ -5,7 +5,7 @@ class DB:
     """
     Class for handling communication with the database
 
-    args:
+    attr:
         db_path (str): relative path to sqlite3 database
     """
 
