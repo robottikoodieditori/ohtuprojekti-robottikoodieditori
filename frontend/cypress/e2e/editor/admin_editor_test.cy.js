@@ -4,7 +4,7 @@ describe('Admin functionality', function() {
         cy.get('#registration-name-input').type('admin')
         cy.get('#popup').contains('Kirjaudu').click().wait(50)
         cy.wait(1000)
-        cy.get('#app-footer').contains('Open Admin').click().wait(500)
+        cy.get('#admin-view-button').contains('Vaihda näkymää').click().wait(500)
     })
 
     it('Attempting to make a new file deletes editor text', function() {

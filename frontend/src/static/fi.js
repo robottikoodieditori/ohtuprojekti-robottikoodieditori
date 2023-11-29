@@ -26,7 +26,8 @@ export default {
         title: "Koodieditori",
         login: 'Kirjaudu sisään',
         loggedInAs: 'Olet kirjautunut nimellä: ',
-        logOut: 'Kirjaudu ulos'
+        logOut: 'Kirjaudu ulos',
+        changeView: 'Vaihda näkymää'
     },
     editorView: {
         writeCode: "Kirjoita koodia:",

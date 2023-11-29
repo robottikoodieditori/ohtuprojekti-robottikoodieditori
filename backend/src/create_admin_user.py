@@ -13,6 +13,6 @@ query = 'INSERT INTO users (name, password, role) VALUES (?, ?, ?)'
 values = (admin_username, hashed_password, 1)
 
 # Insert admin user into the table with the hashed password as bytes
-print(database.insert_entry(query, values))
+database.insert_entry(query, values)
 test_database.insert_entry(query, values)
 

@@ -26,7 +26,8 @@ export default {
         title: "Code Editor",
         login: 'Log in',
         loggedInAs: 'Logged in as: ',
-        logOut: 'Log out'
+        logOut: 'Log out',
+        changeView: 'Change view'
 
     },
     editorView: {

@@ -8,13 +8,13 @@ import LoginPopUp from "./loginPopUp"
 import { useDispatch } from 'react-redux';
 import { logout } from "../reducers/commsReducer";
 
-
-
-const Navbar = () => {
+const Navbar = ({handleAdminViewClick}) => {
     const { toggleLanguage, translations } = useContext(LanguageContext);
     const username = useSelector((state) => state.comms.userObject.username)
     const [isPopupOpen, setIsPopupOpen] = useState(false);
     const dispatch = useDispatch();
+    const userRole = useSelector((state) => state.comms.userObject.userRole)
+
 
     const openPopup = () => {
         setIsPopupOpen(true);
@@ -32,6 +32,14 @@ const Navbar = () => {
     return (
         <div className="navbar" id="navbar">
             <h1 tabIndex="0">{translations.navbar.title}</h1>
+            <div className='lang-button-container'>
+                { userRole === 1 && (
+                    <button onClick={() => handleAdminViewClick()} className='button' id='admin-view-button'>
+                        {translations?.navbar.changeView}
+                    </button>
+                )}
+            </div>
+
             <div>
                 { username === "" ? (
                     <div className='lang-button-container'>

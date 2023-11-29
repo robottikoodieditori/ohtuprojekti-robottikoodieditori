@@ -27,8 +27,6 @@ class DB:
         try:
             with sqlite3.connect(self._db_path) as con:
                 cur = con.cursor()
-                print(f"QUERY: {query}")
-                print(f"VALUES: {values}")
                 cur.execute(query, values)
                 con.commit()
                 msg = "OK"

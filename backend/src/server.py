@@ -41,15 +41,15 @@ def send_to_compiler():
 @app.route("/login", methods=["POST"])
 def login():
     content = request.json
-    token = user_service.login(content["username"], content["password"])
-    if token:
-        return jsonify({"username": content["username"], "token": token}), 200
+    user_info = user_service.login(content["username"], content["password"])
+    if user_info:
+        return jsonify({"username": content["username"], "token": user_info["token"], "role": user_info["role"]}), 200
 
     result = user_service.register(content["username"], content["password"])
     if result:
-        token = user_service.login(content["username"], content["password"])
-        if token:
-            return jsonify({"username": content["username"], "token": token}), 200
+        user_info = user_service.login(content["username"], content["password"])
+        if user_info:
+            return jsonify({"username": content["username"], "token": user_info["token"], "role": user_info["role"]}), 200
 
         return "Invalid Credentials", 400
 

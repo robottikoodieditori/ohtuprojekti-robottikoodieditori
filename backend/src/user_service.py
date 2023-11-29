@@ -50,8 +50,8 @@ class UserService:
         result = self.check_credentials(username, password)
 
         if result:
-            token = credentials.get_token(username, result, self.secret_key)
-            return token
+            token = credentials.get_token(username, result["id"], self.secret_key)
+            return {"token" : token, "role": result["role"]}
 
         return False
 
@@ -82,13 +82,13 @@ class UserService:
             bool: False otherwise
         '''
         db_entry = self.database.get_entry_from_db(
-            "SELECT name, password, id FROM users WHERE name = ?", (username,))
+            "SELECT name, password, id, role FROM users WHERE name = ?", (username,))
         if not db_entry:
             return False
         hashed = db_entry[1]
         pass_bytes = password.encode("utf-8")
         result = bcrypt.checkpw(pass_bytes, hashed)
-        return db_entry[2] if result else False
+        return {"id" : db_entry[2], "role" : db_entry[3]} if result else False
     
     def verify_admin(self, token: str) -> bool:
         """
