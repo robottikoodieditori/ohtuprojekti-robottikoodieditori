@@ -21,12 +21,21 @@ echo "SECRET_KEY=$SECRET_KEY" > "$ROOT_DIR/backend/.env"
 echo "DB_PATH=user_db.db" >> "$ROOT_DIR/backend/.env"
 echo "TEST_DB_PATH=test_db.db" >> "$ROOT_DIR/backend/.env"
 
+
+# Create databases
 touch "$ROOT_DIR/backend/user_db.db"
 touch "$ROOT_DIR/backend/test_db.db"
 
+# Insert Schema into databases
 sqlite3 "$ROOT_DIR/backend/user_db.db" < "$ROOT_DIR/backend/schema.sql"
 sqlite3 "$ROOT_DIR/backend/test_db.db" < "$ROOT_DIR/backend/schema.sql"
-sqlite3 "$ROOT_DIR/backend/user_db.db" < "$ROOT_DIR/backend/test_data.sql"
+
+# Insert admin user to databases
+cd ../backend/
+poetry run invoke admin
+cd ../scripts/
+
+# Insert test users into test database
 sqlite3 "$ROOT_DIR/backend/test_db.db" < "$ROOT_DIR/backend/test_data.sql"
 
 

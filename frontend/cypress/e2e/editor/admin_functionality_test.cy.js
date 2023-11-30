@@ -2,9 +2,10 @@ describe('Admin functionality', function() {
     beforeEach(function() {
         cy.visit('http://localhost:3000');
         cy.get('#registration-name-input').type('admin')
+        cy.get('#registration-password-input').type('password')
         cy.get('#popup').contains('Kirjaudu').click(50)
         cy.wait(1000)
-        cy.get('#app-footer').contains('Open Admin').click(500)
+        cy.get('#admin-view-button').contains('Vaihda näkymää').click().wait(500)
     })
 
     it('Attempting to show students', function() {

@@ -37,7 +37,12 @@ const LoginPopUp = ({status, onClose}) => {
             updateNotificationText(translations?.login.notificationNameMissing); // Show error if username is empty
             return;
         }
-        dispatch(login(username)); // Dispatch login action with the username
+
+        if (passwordIsRequired || username === 'admin') {        
+            dispatch(login(username, password)); // Dispatch login action with the username
+        } else {
+            dispatch(login(username, false)); // Dispatch login action with the username
+        }
         setOpen(false); // Close the popup after submission
         if (onClose) onClose(); // Call the onClose callback if provided
     };
@@ -48,10 +53,8 @@ const LoginPopUp = ({status, onClose}) => {
         if (onClose) onClose();
     };
 
-    const handlePassChange = (e) => {
-        setPassword(e.target.value)
-        console.log(password)
-    }
+    // Function to handle password change
+    const handlePassChange = (e) => setPassword(e.target.value)
 
     // Component rendering
     return (
@@ -82,15 +85,16 @@ const LoginPopUp = ({status, onClose}) => {
                             value={username} // Controlled input value for username
                             onChange={handleInputChange} // Function to handle changes in input
                         />
-                        {passwordIsRequired && (
+                        {/* Input field for password if it is required or username is admin */}
+                        {passwordIsRequired || username === 'admin' ? (
                             <input
                                 id="registration-password-input"
                                 type="password"
                                 placeholder={translations?.login.passwordInputPlaceholder}
-                                value={password}
-                                onChange={handlePassChange}
+                                value={password} // Controlled input value for password
+                                onChange={handlePassChange} // Function to handle changes in input
                             />
-                        )}
+                        ) : null}
                         {/* Button to submit the login form */}
                         <button onClick={handleSubmit}>{translations?.login.loginButton}</button>
     
