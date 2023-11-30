@@ -45,7 +45,8 @@ export default {
         title: 'Anna nimesi',
         loginButton: 'Kirjaudu',
         nameInputPlaceholder: 'nimi',
-        notificationNameMissing: 'Et voi kirjautua nimettömänä!'
+        notificationNameMissing: 'Et voi kirjautua nimettömänä!',
+        passwordInputPlaceholder: "salasana",
     },
     editorNavbar: {
         chooseFile: 'Valitse tiedosto',
@@ -88,7 +89,8 @@ export default {
         hide: 'Piilota',
         restore: 'Palauta',
         sendRobot: 'Lähetä robotille',
-        confirmDeleteMessage: 'Haluatko varmasti poistaa tiedoston: {filename} ?'
+        confirmDeleteMessage: 'Haluatko varmasti poistaa tiedoston: {filename} ?',
+        saveConfirmedMessage: 'Tiedosto {filename} tallennettu'
     },
 
     tooltipOpenSidebar: "Klikkaa sanaa avataksesi sen sivupalkissa",

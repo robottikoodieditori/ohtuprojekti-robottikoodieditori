@@ -12,6 +12,7 @@ const commsSlice = createSlice({
             token: window.localStorage.getItem('token') || ''
         },
         responseFromServer: '',
+        passReq: window.localStorage.getItem("passReq") || true,
         username: window.localStorage.getItem('username') || '',
         userFiles: JSON.parse(window.localStorage.getItem('userFiles')) || [],
     },
@@ -67,15 +68,18 @@ const commsSlice = createSlice({
             window.localStorage.removeItem('username')
             window.localStorage.removeItem('userFiles')
             return state
+        },
+        setPassReq(state, action) {
+            state.passReq = action.payload
+            window.localStorage.setItem("passReq", action.payload)
         }
     }
 })
 
 export const {
     setResponseFromServer, setLoginFromServer, sendToCompiler, sendToRobot,
-    setUserFiles, getUserName, logout
+    setUserFiles, getUserName, logout, setPassReq
 } = commsSlice.actions
-
 
 export const sendToServer = code => {
     return async dispatch => {
@@ -146,6 +150,23 @@ export const getUserFiles = () => {
         } else {
             dispatch(setUserFiles(res))
         }
+    }
+}
+
+export const getPassRequired = () => {
+    return async dispatch => {
+        const res = await commService.getPassReq()
+        console.log(res)
+        dispatch(setPassReq(res))
+    }
+}
+
+export const togglePassRequired = () => {
+    return async dispatch => {
+        const res = await commService.togglePassReq()
+        console.log(res)
+        console.log("ASHDASHDSAD")
+        dispatch(setPassReq(res.passReq))
     }
 }
 

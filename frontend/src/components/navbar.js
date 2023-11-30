@@ -1,44 +1,60 @@
+// Navbar.js
+// Provides the navigation bar for the application, including language toggle, login, and logout functionality.
+
 import { useContext, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { LanguageContext } from '../contexts/languagecontext';
 import '../css/index.css';
 import '../css/navbar.css';
 import '../css/button.css';
-import LoginPopUp from "./loginPopUp"
+import LoginPopUp from "./loginPopUp";
 import { useDispatch } from 'react-redux';
 import { logout } from "../reducers/commsReducer";
 
-
-
+// Navbar functional component definition
 const Navbar = () => {
+    // Access language settings and translations from LanguageContext
     const { toggleLanguage, translations } = useContext(LanguageContext);
-    const username = useSelector((state) => state.comms.userObject.username)
-    const [isPopupOpen, setIsPopupOpen] = useState(false);
+
+    // Redux state selector for username and dispatcher
+    const username = useSelector((state) => state.comms.userObject.username);
     const dispatch = useDispatch();
 
+    // Local component state for managing popup visibility
+    const [isPopupOpen, setIsPopupOpen] = useState(false);
+
+    // Function to open the login popup
     const openPopup = () => {
         setIsPopupOpen(true);
     };
 
+    // Function to close the login popup
     const closePopup = () => {
         setIsPopupOpen(false);
     };
 
+    // Function to handle user logout
     const logOutFromServer = () => {
-        dispatch(logout());
-        setIsPopupOpen(false)
+        dispatch(logout()); // Dispatch logout action
+        setIsPopupOpen(false); // Close the popup
     };
 
+    // Component rendering
     return (
         <div className="navbar" id="navbar">
+            {/* Application title */}
             <h1 tabIndex="0">{translations.navbar.title}</h1>
+
+            {/* Login and logout buttons */}
             <div>
-                { username === "" ? (
+                {username === "" ? (
+                    // Display login button if no user is logged in
                     <div className='lang-button-container'>
                         <button onClick={openPopup} className="button"> {translations?.navbar.login}</button>
                         {isPopupOpen && (<LoginPopUp status={true} onClose={closePopup}/>)}
                     </div>
                 ) : (
+                    // Display user info and logout button if a user is logged in
                     <>
                         <div className='logout'>
                             <div className='username'> <p tabIndex="0">{translations?.navbar.loggedInAs}{username}</p> </div>
@@ -47,12 +63,12 @@ const Navbar = () => {
                                     {translations?.navbar.logOut}
                                 </button>
                             </div>
-                        
                         </div>
                     </>
-                )
-                }
+                )}
             </div>
+
+            {/* Language toggle button */}
             <div className="lang-button-container">
                 <button onClick={toggleLanguage} className="button" data-testid="toggleLanguageButton">
                     {translations?.toggleLanguage}
@@ -60,7 +76,6 @@ const Navbar = () => {
             </div>
         </div>
     );
-    
 }
 
 export default Navbar;

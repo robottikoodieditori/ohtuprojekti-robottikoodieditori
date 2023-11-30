@@ -11,19 +11,6 @@
     padding: 10px;
   }
   
-  .close-button {
-    background-color: transparent;
-    border: none;
-    font-size: 18px;
-    color: white;
-    cursor: pointer;
-    transition: color 0.3s;
-  }
-  
-  .close-button:hover {
-    color: #e74c3c;
-  }
-  
   .content-popup {
     padding: 20px;
   }
@@ -33,7 +20,7 @@
     color: white;
   }
   
-  .content-popup input[type="text"] {
+  .content-popup input[type="text"], input[type="password"] {
     width: 92.3%;
     padding: 10px;
     border: none;
@@ -44,7 +31,7 @@
     outline: none; 
   }
   
-  .content-popup input[type="text"]::placeholder {
+  .content-popup input[type="text"], input[type="password"]::placeholder {
     color: #cccccc;
   }
 
