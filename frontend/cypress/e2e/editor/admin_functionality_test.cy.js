@@ -73,4 +73,13 @@ describe('Admin functionality', function() {
         cy.get('@firstFileRow').should('have.css', 'background-color', 'rgb(119, 221, 119)')
     })
 
+    it('Turning off password requirement', function() {
+        cy.get('#admin-view').contains('POIS').click(500)
+        cy.get('#navbar').contains('Vaihda näkymää').click(500)
+        cy.get('#navbar').contains('Kirjaudu ulos').click(500)
+        cy.get('#navbar').contains('Kirjaudu sisään').click(500)
+        cy.get('#registration-name-input').type('jaakko')
+        cy.get('#popup').contains('Kirjaudu').click(500)
+        cy.get('#navbar').should('contain', 'jaakko')
+    })
 })
