@@ -111,15 +111,13 @@ export const deployToRobot = code => {
 
 export const login = (username, password) => {
     return async dispatch => {
-        if (password) {
-            console.log(password)
-            const res = await commService.sendLogin(username, password)
-            console.log(res)
-            dispatch(setLoginFromServer(res))
+        const curpas = password || 'password'
+        const res = await commService.sendLogin(username, curpas)
+        if (res === 'Invalid Credentials') {
+            dispatch(setResponseFromServer({'login': 'FAIL'}))
         } else {
-            const res = await commService.sendLogin(username, 'password')
-            console.log(res)
             dispatch(setLoginFromServer(res))
+            dispatch(setResponseFromServer({'login': 'OK'}))
         }
     }
 }
@@ -176,6 +174,18 @@ export const togglePassRequired = () => {
         const res = await commService.togglePassReq()
         console.log(res)
         dispatch(setPassReq(res.passReq))
+    }
+}
+
+export const verifyLogin = (token) => {
+    return async dispatch => {
+        console.log('Onnistuuko')
+        const res = await commService.verifyToken(token)
+        console.log(res)
+        if (res === 'FAIL') {
+            console.log('EI!')
+            dispatch(logout())
+        }
     }
 }
 

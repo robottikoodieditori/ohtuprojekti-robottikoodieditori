@@ -71,6 +71,29 @@ class UserService:
             return result.get('user_id')
         
         return result
+    
+    def verify_user_existence(self, id: int, username: str) -> bool:
+        """
+        Checks if user for given user id or username exists in database
+        Pass either of values, not both. Ie:
+            result = verify_user_existence(0, username)
+        or:
+            result = verify_user_existence(id, None)
+
+        args:
+            id (int)
+            username (str)
+        returns:
+            bool: True if found, False otherwise
+        """
+        query = "SELECT * FROM users WHERE id = ?"
+        if username:
+            query = "SELECT * FROM users WHERE name = ?"
+        result = self.database.get_entry_from_db(query, (username,) if username else (id,))
+
+        if result:
+            return True
+        return False
 
     def check_credentials(self, username: str, password: str) -> Union[int, bool]:
         '''

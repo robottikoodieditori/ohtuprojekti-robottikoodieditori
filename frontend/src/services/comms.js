@@ -6,8 +6,12 @@ const sendToCompile = async (code) => {
 }
 
 const sendLogin = async (username, password) => {
-    const res = await axios.post('/login', {'username': username, 'password': password})
-    return res.data
+    try {
+        const res = await axios.post('/login', {'username': username, 'password': password})
+        return res.data
+    } catch (e) {
+        return e.response.data
+    }
 }
 
 const handleFile = async (content, filename, fileId, userId, action) => {
@@ -80,6 +84,19 @@ const getAllFiles = async () => {
     return res.data
 }
 
+const verifyToken = async (token) => {
+    try {
+        const res = await axios.post('/verify_token_authenticity',
+            {
+                'token': token
+            })
+        console.log(res)
+        return res        
+    } catch (e) {
+        return 'FAIL'
+    }
+}
+
 export default {
     sendToCompile: sendToCompile,
     sendLogin: sendLogin,
@@ -92,4 +109,5 @@ export default {
     getFiles: getAllFiles,
     getPassReq: getPassReq,
     togglePassReq: togglePassReq,
+    verifyToken: verifyToken
 }

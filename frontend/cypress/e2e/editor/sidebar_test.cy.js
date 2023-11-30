@@ -53,6 +53,7 @@ describe('sidebar Functionality', function() {
   beforeEach(function() {
         cy.visit('http://localhost:3000');
         cy.get('#registration-name-input').type('example')
+        cy.get('#registration-password-input').type('password')
         cy.get('#popup').contains('Kirjaudu').click(500)
 
         cy.get("#navbar").contains("Switch to English").click();
