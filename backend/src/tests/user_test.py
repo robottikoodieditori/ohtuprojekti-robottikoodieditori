@@ -3,6 +3,7 @@ from db import DB
 from user_service import UserService
 import sqlite3
 import os
+import bcrypt
 
 
 class TestUser(unittest.TestCase):
@@ -14,17 +15,23 @@ class TestUser(unittest.TestCase):
         self.db = DB("test_case_db.db")
         con = sqlite3.connect("test_case_db.db")
         cur = con.cursor()
-        cur.execute('''CREATE TABLE users (
+        cur.execute(
+            """CREATE TABLE users (
             id INTEGER PRIMARY KEY,
             name TEXT UNIQUE,
-            password TEXT
-        )''')
-        cur.execute('''CREATE TABLE logofiles (
+            password TEXT,
+            role INTEGER DEFAULT 0
+        )""")
+        cur.execute(
+            """CREATE TABLE logofiles (
             id INTEGER PRIMARY KEY,
             filename TEXT,
             content TEXT,
+            created TIME,
+            last_updated TIME,
+            visible INTEGER DEFAULT 1,
             user_id INTEGER REFERENCES users
-        )''')
+        )""")
 
         con.commit()
         self.user_service = UserService(self.db, 'mrsecret')
@@ -74,3 +81,13 @@ class TestUser(unittest.TestCase):
         user_list = self.user_service.get_all_users()
 
         self.assertNotEqual(old_password, user_list[1]["password"])
+    
+    def test_verify_admin(self):
+        admin_password = 'password'
+        hashed_password = bcrypt.hashpw(admin_password.encode('utf-8'), bcrypt.gensalt())
+        query = 'INSERT INTO users (name, password, role) VALUES (?, ?, ?)'
+        values = ('admin', hashed_password, 1)
+        self.db.insert_entry(query, values)
+        token = self.user_service.login('admin', 'password')
+        result = self.user_service.verify_admin(token["token"])
+        self.assertTrue(result)

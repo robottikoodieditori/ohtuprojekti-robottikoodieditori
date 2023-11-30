@@ -10,12 +10,16 @@ import { useDispatch } from 'react-redux';
 import { getPassRequired } from './reducers/commsReducer';
 
 function App() {
+    const [isAdminViewOpen, setIsAdminViewOpen] = useState(false); // State to toggle admin view
     const dispatch = useDispatch()
-    const [isAdminView, setIsAdminView] = useState(false); // State to toggle admin view
     document.title = 'Logomotion editor'; // Set the document title as received from origin/dev
     useEffect(() => {
         dispatch(getPassRequired())
     }, [])
+
+    const handleAdminViewClick = () => {
+        setIsAdminViewOpen(!isAdminViewOpen)
+    }
 
     return (
         <LanguageProvider>
@@ -24,9 +28,9 @@ function App() {
                     {!window.localStorage.getItem('username') && <LoginPopUp status={true} onClose={""}/> }
                 </div>
                 <div className="navbar">
-                    <Navbar/>
+                    <Navbar handleAdminViewClick={handleAdminViewClick}/>
                 </div>
-                {isAdminView ? (
+                {isAdminViewOpen ? (
                     <div className="admin-view" id="admin-view">
                         <AdminView />
                     </div>  
@@ -36,12 +40,6 @@ function App() {
                         <Sidebar/>
                     </div>
                 )}
-                {/* Footer */}
-                <footer className="app-footer" id="app-footer">
-                    <button onClick={() => setIsAdminView(!isAdminView)}>
-                        {isAdminView ? "Close Admin" : "Open Admin"}
-                    </button>
-                </footer>
             </div>
         </LanguageProvider>
     );

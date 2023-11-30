@@ -8,7 +8,8 @@ const commsSlice = createSlice({
     initialState: {
         userObject: {
             username: window.localStorage.getItem('username') || '',
-            userFiles: JSON.parse(window.localStorage.getItem('userFiles')) || []
+            userFiles: JSON.parse(window.localStorage.getItem('userFiles')) || [],
+            userRole: window.localStorage.getItem('userRole') || '',
         },
         responseFromServer: '',
         passReq: window.localStorage.getItem("passReq") || true,
@@ -29,9 +30,12 @@ const commsSlice = createSlice({
             state.username = action.payload.username
             state.userObject = {
                 ...state.userObject,
-                username: action.payload.username
+                username: action.payload.username,
+                userRole: action.payload.role.toString()
             }
             window.localStorage.setItem('username', action.payload.username)
+            window.localStorage.setItem('token', action.payload.token)
+            window.localStorage.setItem('userRole', action.payload.role)
             console.log(`SERVER RESPONDED WITH NAME: ${state.username}`)
             return state
         },
@@ -56,12 +60,14 @@ const commsSlice = createSlice({
         logout(state) {
             state.userObject = {
                 username: '',
-                userFile: []
+                userFile: [],
+                userRole: '',
             }
             state.username = ''
             state.userFiles = []
             window.localStorage.removeItem('token')
             window.localStorage.removeItem('username')
+            window.localStorage.removeItem('userRole')
             return state
         },
         setPassReq(state, action) {
@@ -99,14 +105,18 @@ export const deployToRobot = code => {
 }
 
 
-export const login = username => {
-    const password = 'password'
+export const login = (username, password) => {
     return async dispatch => {
-        const res = await commService.sendLogin(username, password)
-        console.log(res)
-        window.localStorage.setItem('token', res.token)
-        window.localStorage.setItem('username', res.username)
-        dispatch(setLoginFromServer(res))
+        if (password) {
+            console.log(password)
+            const res = await commService.sendLogin(username, password)
+            console.log(res)
+            dispatch(setLoginFromServer(res))
+        } else {
+            const res = await commService.sendLogin(username, 'password')
+            console.log(res)
+            dispatch(setLoginFromServer(res))
+        }
     }
 }
 
@@ -127,7 +137,6 @@ export const handleFile = (content, filename, fileId, userId, action) => {
             dispatch(setFileName(filename))
             dispatch(setContent(content))
             if (res.file_id){
-                console.log(res.file_id)
                 dispatch(setFileId(res.file_id))
             }
         } 
@@ -163,7 +172,6 @@ export const togglePassRequired = () => {
     return async dispatch => {
         const res = await commService.togglePassReq()
         console.log(res)
-        console.log("ASHDASHDSAD")
         dispatch(setPassReq(res.passReq))
     }
 }
