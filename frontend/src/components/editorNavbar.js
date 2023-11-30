@@ -13,7 +13,7 @@
 import { useState, useContext, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { LanguageContext } from "../contexts/languagecontext";
-import { handleFile } from '../reducers/commsReducer';
+import { handleFile, setUserFiles } from '../reducers/commsReducer';
 import { setFileName, setContent, setFileId, resetFile } from "../reducers/editorReducer";
 import commService from "../services/comms";
 import '../css/editornavbar.css';
@@ -24,11 +24,11 @@ import NewFileScreen from "./editorNavbarNewFileScreen";
 const EditorNavbar = () => {
     const dispatch = useDispatch()
     const { translations } = useContext(LanguageContext)
-    const [fileList, setFileList] = useState([]) // State to store the list of files.
-    const fileObject = useSelector(state => state.editor.fileObject) // Current file object from Redux state.
-    const userObject = useSelector(state => state.comms.userObject) // Current user object from Redux state.
-    const [isFileSelectOpen, setisFileSelectOpen] = useState(false); // State to control the file selection screen visibility.
-    const [isNewFileOpen, setisNewFileOpen] = useState(false); // State to control the new file screen visibility.
+    const fileObject = useSelector(state => state.editor.fileObject)
+    const userObject = useSelector(state => state.comms.userObject)
+    const [isFileSelectOpen, setisFileSelectOpen] = useState(false);
+    const [isNewFileOpen, setisNewFileOpen] = useState(false);
+
 
     // useEffect to fetch user files when the username changes.
     useEffect(() => {
@@ -38,10 +38,12 @@ const EditorNavbar = () => {
     // Function to fetch user files and update the fileList state.
     async function getData() {
         if (userObject.username !== '') {
-            const data = await commService.getUserFiles()
-            setFileList(data)
+            const data = await commService.getUserFiles(userObject.token)
+            if (data) {
+                dispatch(setUserFiles(data))
+            }
         } else {
-            setFileList([])
+            dispatch(setUserFiles({}))
         }
     }
 
@@ -103,11 +105,11 @@ const EditorNavbar = () => {
     
         if (confirmDelete) {
             if (fileObject.filename === file.filename) {
-                // Hide the file and reset the editor if the hidden file is currently opened.
+                console.log(file)
                 await dispatch(handleFile(fileObject.textContent, file.filename, file.file_id, 'user_id', 'hide'))
                 handleNewFile()
             } else {
-                // Hide the file and update the file list.
+                console.log(file)
                 await dispatch(handleFile(fileObject.textContent, file.filename, file.file_id, 'user_id', 'hide'))
                 getData()
             }
@@ -138,7 +140,7 @@ const EditorNavbar = () => {
                     setisFileSelectOpen={setisFileSelectOpen}
                     handleFileSelection={handleFileSelection}
                     handleFileHiding={handleFileHiding}
-                    fileList={fileList}
+                    fileList={userObject.userFiles}
                 />
             }
             <p tabIndex="0">{translations?.editorNavbar.file}{fileObject.filename}</p>

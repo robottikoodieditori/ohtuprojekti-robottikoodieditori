@@ -50,6 +50,8 @@ export default {
         loginButton: 'Log in',
         nameInputPlaceholder: 'name',
         notificationNameMissing: 'You can\'t login without a name!',
+        notificationPasswordMissing: 'Et voi kirjautua ilman salasanaa!',
+        notificationWrongCredentials: 'Wrong login credentials!',
         passwordInputPlaceholder: "password",
     },
     editorNavbar: {

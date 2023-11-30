@@ -33,7 +33,7 @@ const FileSelectionScreen = ({ isFileSelectOpen, setisFileSelectOpen, handleFile
                         <h2 tabIndex="0">{translations?.editorNavbar.chooseFile}</h2>
                         <button className='file-close-button' onClick={() => setisFileSelectOpen(false)}>X</button>
                     </div>
-                    {fileList && (
+                    { fileList.length > 0 && (
                         <div>
                             <table>
                                 <thead>

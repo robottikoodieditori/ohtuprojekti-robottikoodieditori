@@ -9,6 +9,7 @@ const commsSlice = createSlice({
         userObject: {
             username: window.localStorage.getItem('username') || '',
             userFiles: JSON.parse(window.localStorage.getItem('userFiles')) || [],
+            token: window.localStorage.getItem('token') || '',
             userRole: window.localStorage.getItem('userRole') || '',
         },
         responseFromServer: '',
@@ -31,6 +32,7 @@ const commsSlice = createSlice({
             state.userObject = {
                 ...state.userObject,
                 username: action.payload.username,
+                token: action.payload.token,
                 userRole: action.payload.role.toString()
             }
             window.localStorage.setItem('username', action.payload.username)
@@ -61,12 +63,14 @@ const commsSlice = createSlice({
             state.userObject = {
                 username: '',
                 userFile: [],
+                token: '',
                 userRole: '',
             }
             state.username = ''
             state.userFiles = []
             window.localStorage.removeItem('token')
             window.localStorage.removeItem('username')
+            window.localStorage.removeItem('userFiles')
             window.localStorage.removeItem('userRole')
             return state
         },
@@ -107,27 +111,24 @@ export const deployToRobot = code => {
 
 export const login = (username, password) => {
     return async dispatch => {
-        if (password) {
-            console.log(password)
-            const res = await commService.sendLogin(username, password)
-            console.log(res)
-            dispatch(setLoginFromServer(res))
+        const curpas = password || 'password'
+        const res = await commService.sendLogin(username, curpas)
+        if (res === 'Invalid Credentials') {
+            dispatch(setResponseFromServer({'login': 'FAIL'}))
         } else {
-            const res = await commService.sendLogin(username, 'password')
-            console.log(res)
             dispatch(setLoginFromServer(res))
+            dispatch(setResponseFromServer({'login': 'OK'}))
         }
     }
 }
 
-
-export const uploadFile =  data => {
+export const uploadFile = data => {
     return async dispatch => {
         const res = await commService.uploadFile(data)
         console.log(res)
         dispatch()
     }
-} 
+}
 
 export const handleFile = (content, filename, fileId, userId, action) => {
     return async dispatch => {
@@ -173,6 +174,18 @@ export const togglePassRequired = () => {
         const res = await commService.togglePassReq()
         console.log(res)
         dispatch(setPassReq(res.passReq))
+    }
+}
+
+export const verifyLogin = (token) => {
+    return async dispatch => {
+        console.log('Onnistuuko')
+        const res = await commService.verifyToken(token)
+        console.log(res)
+        if (res === 'FAIL') {
+            console.log('EI!')
+            dispatch(logout())
+        }
     }
 }
 
