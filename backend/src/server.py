@@ -49,6 +49,8 @@ def login():
     user_info = user_service.login(content["username"], content["password"])
     if user_info:
         return jsonify({"username": content["username"], "token": user_info["token"], "role": user_info["role"]}), 200
+    if user_service.verify_user_existence(0, content["username"]):
+        return "Invalid Credentials", 400
 
     result = user_service.register(content["username"], content["password"])
     if result:
@@ -187,6 +189,19 @@ def change_password():
 
     if result:
         return "OK", 200
+    return "FAIL", 400
+
+@app.route("/verify_token_authenticity", methods=["POST"])
+def verify_token_authenticity():
+    content = request.json
+
+    if not content.get("token", None):
+        return "Missing Token", 400
+    user_id = user_service.verify_token(content["token"])
+
+    if user_id:
+        if user_service.verify_user_existence(user_id, None):
+            return "OK", 200
     return "FAIL", 400
 
 # Running app

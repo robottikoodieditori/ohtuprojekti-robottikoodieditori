@@ -2,9 +2,9 @@
 // This component renders a modal popup for user login. It includes functionalities for 
 // inputting the username, toggling language, and handling the login process.
 
-import { useState, useContext } from 'react';
+import { useState, useContext, useEffect } from 'react';
 import Popup from 'reactjs-popup'; // Popup component for modal dialog
-import { login } from "../reducers/commsReducer"; // Redux action for login
+import { login, setResponseFromServer } from "../reducers/commsReducer"; // Redux action for login
 import { useDispatch, useSelector } from 'react-redux'; // Redux hook for dispatching actions
 import { LanguageContext } from '../contexts/languagecontext'; // Context for language settings
 import '../css/popup.css'; // Styling for the popup
@@ -20,6 +20,7 @@ const LoginPopUp = ({status, onClose}) => {
     const [password, setPassword] = useState("")
     const dispatch = useDispatch(); // Redux dispatch function
     const passwordIsRequired = useSelector(state => state.comms.passReq)
+    const responseFromServer = useSelector(state => state.comms.responseFromServer)
 
     // Function to update notification messages
     const updateNotificationText = (text) => setNotificationText(text);
@@ -33,10 +34,28 @@ const LoginPopUp = ({status, onClose}) => {
         updateNotificationText('');
     };
 
+    useEffect(() => {
+        if (responseFromServer.login && responseFromServer.login === 'FAIL') {
+            setNotificationText(translations?.login.notificationWrongCredentials)
+        }
+
+        if (responseFromServer.login && responseFromServer.login === 'OK') {
+            setNotificationText('')
+            dispatch(setResponseFromServer({}))
+            setOpen(false)
+            if (onClose) onClose()
+        }
+    }, [responseFromServer])
+
     // Handler for submitting the login form
     const handleSubmit = () => {
         if (!username) {
             updateNotificationText(translations?.login.notificationNameMissing); // Show error if username is empty
+            return;
+        }
+
+        if (passwordIsRequired && !password) {
+            updateNotificationText(translations?.login.notificationPasswordMissing)
             return;
         }
 
@@ -45,8 +64,6 @@ const LoginPopUp = ({status, onClose}) => {
         } else {
             dispatch(login(username, false)); // Dispatch login action with the username
         }
-        setOpen(false); // Close the popup after submission
-        if (onClose) onClose(); // Call the onClose callback if provided
     };
 
     // Function to close the popup and call onClose callback if provided

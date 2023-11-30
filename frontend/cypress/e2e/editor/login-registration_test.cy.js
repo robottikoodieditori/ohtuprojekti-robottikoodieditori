@@ -20,12 +20,6 @@ describe('Login functionality', function() {
         cy.get('#popup').contains('You can\'t login without a name!')
     })
 
-    it('Attempting to login with name lets user through to editor', function() {
-        cy.get('#registration-name-input').type('example')
-        cy.get('#popup').contains('Kirjaudu').click(500)
-        cy.get('#popup').should('not.exist')
-    })
-
     it('Attempting to login afterwards', function() {
         cy.get('#popup').contains('X').click(500)
         cy.get('#navbar').contains('Kirjaudu').click(500)

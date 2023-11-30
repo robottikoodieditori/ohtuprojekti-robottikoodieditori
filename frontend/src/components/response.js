@@ -32,7 +32,7 @@ const Response = () => {
         );
     }
 
-    if (serverResponse && serverResponse.errors.length < 1) {
+    if (serverResponse.errors && serverResponse.errors.length < 1) {
         return (
             <div id='confirmation' className='confirmation' role = "dialog" aria-label="confirmation message">
                 <div className="confirmationHeader">

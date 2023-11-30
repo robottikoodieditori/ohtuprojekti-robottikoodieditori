@@ -50,6 +50,8 @@ export default {
         loginButton: 'Kirjaudu',
         nameInputPlaceholder: 'nimi',
         notificationNameMissing: 'Et voi kirjautua nimettömänä!',
+        notificationPasswordMissing: 'Et voi kirjautua ilman salasanaa!',
+        notificationWrongCredentials: 'Väärät kirjautumistiedot!',
         passwordInputPlaceholder: "salasana",
     },
     editorNavbar: {
