@@ -28,8 +28,8 @@ export default {
         loggedInAs: 'Olet kirjautunut nimellä: ',
         logOut: 'Kirjaudu ulos',
         changeView: 'Vaihda näkymää',
-        on: 'PÄÄLLÄ',
-        off: 'POIS',
+        on: 'POIS',
+        off: 'PÄÄLLE',
         passwordLogin: 'Salasana kirjautuminen: ',
     },
     editorView: {
