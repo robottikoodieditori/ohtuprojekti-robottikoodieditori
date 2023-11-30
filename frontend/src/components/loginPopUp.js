@@ -113,7 +113,7 @@ const LoginPopUp = ({status, onClose}) => {
                     </button>
 
                     { notificationText ? (
-                        <p> {notificationText} </p>
+                        <p id='popup-notification'> {notificationText} </p>
                     ) : null}
                 </div>
             </div>

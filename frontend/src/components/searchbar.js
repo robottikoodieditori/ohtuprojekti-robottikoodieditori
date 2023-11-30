@@ -2,6 +2,7 @@
 // Provides a search input bar for filtering commands or other elements.
 
 import "../css/index.css";
+import "../css/input.css";
 
 /**
  * Searchbar component creates a text input for searching.
@@ -13,7 +14,7 @@ import "../css/index.css";
  */
 const Searchbar = ({ searchTerm, handleSearchChange, translations }) => {
     return (
-        <div className="search-bar" id='searchbar'>
+        <div id='searchbar'>
             {/* Accessible label for the search input */}
             <label htmlFor="searchInput" style={{ display: 'none' }}>
                 {translations.searchPlaceholder}
@@ -25,6 +26,7 @@ const Searchbar = ({ searchTerm, handleSearchChange, translations }) => {
                 placeholder={translations.searchPlaceholder}
                 value={searchTerm}
                 onChange={handleSearchChange}
+                className="search-bar-input"
             />
         </div>
     );

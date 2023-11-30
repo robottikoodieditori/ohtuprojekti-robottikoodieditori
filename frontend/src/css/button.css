@@ -1,7 +1,7 @@
 /*general button*/
 .button {
   font-family: Verdana,  Arial, Helvetica, sans-serif;  
-  font-size: 14px;
+  font-size: 15px;
   font-weight: 450;
   padding: 10px; 
   border: none;
@@ -11,7 +11,7 @@
   outline: none;
   background-color: rgb(47, 63, 133);
   color: rgb(255, 255, 255);
-  margin: 0 10px 0 10px;
+  margin-right: 20px;
 }
 
 .button:hover {
@@ -29,7 +29,6 @@
 }
   
 /* close button*/
-
 .close-button {
     background-color: transparent;
     border: none;
@@ -50,7 +49,7 @@
 .popup-button {
     display: block;
     padding: 10px;
-    margin: 5px 0 5px 0;
+    margin: 5px 0;
     background-color: #0072be; 
     border: none;
     border-radius: 5px;
@@ -63,17 +62,15 @@
 .popup-button:hover {
     background-color: #2980b9;
 }
-  
-
 
 .button-container {
     display: flex;
     margin-top: 10px;
     width: 40%;
-  }
+}
 
 /*commands list */
-  .command-button {
+.command-button {
     font-family: Verdana, Arial, Helvetica, sans-serif;
     display: block;  
     width: 100%;
@@ -88,43 +85,36 @@
     cursor: pointer;
     transition: background-color 0.3s, box-shadow 0.3s;
     margin: 3px 0;
-  }
-  
-  .command-button:hover {
+}
+
+.command-button:hover {
     background-color: rgba(140, 175, 221, 0.3);
     box-shadow: 0px 4px 7px rgba(0, 0, 0, 0.15);
-  }
-  
-  .command-button:active {
+}
+
+.command-button:active {
     background-color: rgba(255, 255, 255, 0.4); 
     box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.1); 
-  }
+}
+
+.command-button:focus-visible {
+    background-color: rgb(140, 175, 221);
+    border-style: solid;
+    border-color: black;
+}
 
 /* buttons for editor*/
-  .send-button {
-    background-color: rgb(51, 101, 151);
-  }
-  
-  .send-button:hover {
-    background-color: rgb(80, 140, 200);
-  }
-  
-  .send-button:focus-visible {
-    background-color: rgb(80, 140, 200);
-    border-style: solid;
-    border-color: black;
-  }
-
-  .compile-button {
+.compile-button {
     background-color: rgb(71, 128, 47);
-  }
-  
-  .compile-button:hover {
-    background-color: rgb(110, 180, 80);
-  }
+    margin-top: 10px;
+}
 
-  .compile-button:focus-visible {
+.compile-button:hover {
+    background-color: rgb(110, 180, 80);
+}
+
+.compile-button:focus-visible {
     background-color: rgb(110, 180, 80);
     border-style: solid;
     border-color: black;
-  }
+}
