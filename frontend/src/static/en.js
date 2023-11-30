@@ -28,8 +28,8 @@ export default {
         loggedInAs: 'Logged in as: ',
         logOut: 'Log out',
         changeView: 'Change view',
-        on: 'ON',
-        off: 'OFF',
+        on: 'TURN OFF',
+        off: 'TURN ON',
         passwordLogin: 'Password login: ',
     },
     editorView: {
