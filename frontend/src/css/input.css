@@ -1,0 +1,14 @@
+.popup-input {
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #34495e; 
+    color: rgb(209, 209, 209);
+    margin: 5px 0 5px 0;
+    outline: none; 
+    width: 93.5%;
+}
+  
+.popup-input::placeholder {
+    color: #cccccc;
+}

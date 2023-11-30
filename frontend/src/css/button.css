@@ -1,4 +1,4 @@
-/*general buttons*/
+/*general button*/
 .button {
   font-family: Verdana,  Arial, Helvetica, sans-serif;  
   font-size: 14px;
@@ -18,30 +18,53 @@
   background-color: rgb(65, 81, 172);
 }
 
+.button:focus-visible {
+    background-color: rgb(65, 81, 172);
+    border-style: solid;
+    border-color: black;
+}
+  
+.button:active {
+    transform: scale(0.97);
+}
+  
+/* close button*/
+
 .close-button {
-  background-color: transparent;
-  border: none;
-  font-size: 18px;
-  color: white;
-  cursor: pointer;
-  transition: color 0.3s;
-  top: 3px;
-  right: 3px;
+    background-color: transparent;
+    border: none;
+    font-size: 18px;
+    color: white;
+    cursor: pointer;
+    transition: color 0.3s;
+    position: absolute;
+    top: 10px;
+    right: 10px;
 }
 
 .close-button:hover {
   color: #e74c3c;
 }
 
-.button:focus-visible {
-  background-color: rgb(65, 81, 172);
-  border-style: solid;
-  border-color: black;
+/* popup buttin */
+.popup-button {
+    display: block;
+    padding: 10px;
+    margin: 5px 0 5px 0;
+    background-color: #0072be; 
+    border: none;
+    border-radius: 5px;
+    color: rgb(255, 255, 255);
+    cursor: pointer;
+    transition: background-color 0.3s;
+    width: 100%;
 }
 
-.button:active {
-  transform: scale(0.97);
+.popup-button:hover {
+    background-color: #2980b9;
 }
+  
+
 
 .button-container {
     display: flex;
