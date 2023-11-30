@@ -4,12 +4,11 @@
 import { useContext, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { LanguageContext } from '../contexts/languagecontext';
-import '../css/index.css';
 import '../css/navbar.css';
 import '../css/button.css';
 import LoginPopUp from "./loginPopUp";
 import { useDispatch } from 'react-redux';
-import { logout, togglePassRequired } from "../reducers/commsReducer";
+import { logout } from "../reducers/commsReducer";
 
 // Navbar functional component definition
 const Navbar = ({handleAdminViewClick}) => {
@@ -19,7 +18,6 @@ const Navbar = ({handleAdminViewClick}) => {
     // Redux state selector for username, userrole and dispatcher
     const username = useSelector((state) => state.comms.userObject.username);
     const userRole = useSelector((state) => state.comms.userObject.userRole);
-    const passwordIsRequired = useSelector(state => state.comms.passReq);
     const dispatch = useDispatch();
 
     // Local component state for managing popup visibility
@@ -44,54 +42,28 @@ const Navbar = ({handleAdminViewClick}) => {
     // Component rendering
     return (
         <div className="navbar" id="navbar">
-            {/* Application title */}
             <h1 tabIndex="0">{translations.navbar.title}</h1>
-            {/* If role is admin display change view button */}
-            <div>
-                { userRole === '1' && (
-                    <div>
-                        <div className='lang-button-container'>
-                            <p>{translations.navbar.passwordLogin}</p>
-                            <button onClick={() => dispatch(togglePassRequired())} className='button'> 
-                                {passwordIsRequired ? translations.navbar.on : translations.navbar.off}
-                            </button>
-                            
-                            <button onClick={() => handleAdminViewClick()} className='button' id='admin-view-button'>
-                                {translations?.navbar.changeView}
-                            </button>
-                        </div>
-                    </div>
-                )}
-            </div>
-            {/* Login and logout buttons */}
-            <div>
-                {username === "" ? (
-                    // Display login button if no user is logged in
-                    <div className='lang-button-container'>
-                        <button onClick={openPopup} className="button"> {translations?.navbar.login}</button>
-                        {isPopupOpen && (<LoginPopUp status={true} onClose={closePopup}/>)}
-                    </div>
-                ) : (
-                    // Display user info and logout button if a user is logged in
-                    <>
-                        <div className='logout'>
-                            <div className='username'> <p tabIndex="0">{translations?.navbar.loggedInAs}{username}</p> </div>
-                            <div className="logout-button-container">
-                                <button onClick={logOutFromServer} className="button">
-                                    {translations?.navbar.logOut}
-                                </button>
-                            </div>
-                        </div>
-                    </>
-                )}
-            </div>
-
-            {/* Language toggle button */}
-            <div className="lang-button-container">
-                <button onClick={toggleLanguage} className="button" data-testid="toggleLanguageButton">
-                    {translations?.toggleLanguage}
+            { userRole === '1' && (
+                <button onClick={() => handleAdminViewClick()} className='button' id='admin-view-button'>
+                    {translations?.navbar.changeView}
                 </button>
-            </div>
+            )}
+            {username === "" ? (
+                <>
+                    <button onClick={openPopup} className="button"> {translations?.navbar.login}</button>
+                    {isPopupOpen && (<LoginPopUp status={true} onClose={closePopup}/>)}
+                </>
+            ) : (
+                <>
+                    <p tabIndex="0">{translations?.navbar.loggedInAs}{username}</p>
+                    <button onClick={logOutFromServer} className="button">
+                        {translations?.navbar.logOut}
+                    </button>
+                </>
+            )}
+            <button onClick={toggleLanguage} className="button" data-testid="toggleLanguageButton">
+                {translations?.toggleLanguage}
+            </button>
         </div>
     );
 }

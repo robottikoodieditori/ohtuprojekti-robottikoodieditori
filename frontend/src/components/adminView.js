@@ -9,6 +9,8 @@ import '../css/adminFiles.css';
 import '../css/adminButtons.css'
 import Popup from 'reactjs-popup';
 import commService from '../services/comms'
+import { togglePassRequired } from "../reducers/commsReducer";
+
 
 
 const AdminView = () => {
@@ -27,8 +29,10 @@ const AdminView = () => {
         'user': ''
     })
     const textContent = useSelector(state => state.editor.textContent)
+    const passwordIsRequired = useSelector(state => state.comms.passReq);
     const [isUploadOpen, setisUploadOpen] = useState(false)
     const [isPasswordWindowOpen, setIsPasswordWindowOpen] = useState(false)
+    
 
     useEffect( () => {
         getData()
@@ -248,8 +252,13 @@ const AdminView = () => {
     }
 
     return (
-        <div className="admin-container">      
+        <div className="admin-container">
+            <p>{translations.navbar.passwordLogin}</p>
+            <button onClick={() => dispatch(togglePassRequired())} className='button' id='password-requirement-button'> 
+                {passwordIsRequired ? translations.navbar.on : translations.navbar.off}
+            </button>      
             <h2 tabIndex="0">{translations?.adminView.adminDashboard}</h2>
+
             <div className="sections-container">
 
                 {/* User list section */}
