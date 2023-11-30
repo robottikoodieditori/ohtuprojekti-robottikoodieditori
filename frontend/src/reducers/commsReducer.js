@@ -105,12 +105,18 @@ export const deployToRobot = code => {
 }
 
 
-export const login = username => {
-    const password = 'password'
+export const login = (username, password) => {
     return async dispatch => {
-        const res = await commService.sendLogin(username, password)
-        console.log(res)
-        dispatch(setLoginFromServer(res))
+        if (password) {
+            console.log(password)
+            const res = await commService.sendLogin(username, password)
+            console.log(res)
+            dispatch(setLoginFromServer(res))
+        } else {
+            const res = await commService.sendLogin(username, 'password')
+            console.log(res)
+            dispatch(setLoginFromServer(res))
+        }
     }
 }
 
@@ -131,7 +137,6 @@ export const handleFile = (content, filename, fileId, userId, action) => {
             dispatch(setFileName(filename))
             dispatch(setContent(content))
             if (res.file_id){
-                console.log(res.file_id)
                 dispatch(setFileId(res.file_id))
             }
         } 
@@ -167,7 +172,6 @@ export const togglePassRequired = () => {
     return async dispatch => {
         const res = await commService.togglePassReq()
         console.log(res)
-        console.log("ASHDASHDSAD")
         dispatch(setPassReq(res.passReq))
     }
 }

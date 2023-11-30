@@ -1,7 +1,8 @@
 describe('Syntax Highlighting', function() {
     beforeEach(function() {
         cy.visit('http://localhost:3000');
-        cy.get('#registration-name-input').type('example')
+        cy.get('#registration-name-input').type('admin')
+        cy.get('#registration-password-input').type('password')        
         cy.get('#popup').contains('Kirjaudu').click(500)
     });
 

@@ -27,8 +27,10 @@ export default {
         login: 'Log in',
         loggedInAs: 'Logged in as: ',
         logOut: 'Log out',
-        changeView: 'Change view'
-
+        changeView: 'Change view',
+        on: 'ON',
+        off: 'OFF',
+        passwordLogin: 'Password login: ',
     },
     editorView: {
         writeCode: "Write code:",

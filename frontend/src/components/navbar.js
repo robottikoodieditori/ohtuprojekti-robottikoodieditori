@@ -9,7 +9,7 @@ import '../css/navbar.css';
 import '../css/button.css';
 import LoginPopUp from "./loginPopUp";
 import { useDispatch } from 'react-redux';
-import { logout } from "../reducers/commsReducer";
+import { logout, togglePassRequired } from "../reducers/commsReducer";
 
 // Navbar functional component definition
 const Navbar = ({handleAdminViewClick}) => {
@@ -18,7 +18,8 @@ const Navbar = ({handleAdminViewClick}) => {
 
     // Redux state selector for username, userrole and dispatcher
     const username = useSelector((state) => state.comms.userObject.username);
-    const userRole = useSelector((state) => state.comms.userObject.userRole)
+    const userRole = useSelector((state) => state.comms.userObject.userRole);
+    const passwordIsRequired = useSelector(state => state.comms.passReq);
     const dispatch = useDispatch();
 
     // Local component state for managing popup visibility
@@ -46,11 +47,20 @@ const Navbar = ({handleAdminViewClick}) => {
             {/* Application title */}
             <h1 tabIndex="0">{translations.navbar.title}</h1>
             {/* If role is admin display change view button */}
-            <div className='lang-button-container'>
+            <div>
                 { userRole === '1' && (
-                    <button onClick={() => handleAdminViewClick()} className='button' id='admin-view-button'>
-                        {translations?.navbar.changeView}
-                    </button>
+                    <div>
+                        <div className='lang-button-container'>
+                            <p>{translations.navbar.passwordLogin}</p>
+                            <button onClick={() => dispatch(togglePassRequired())} className='button'> 
+                                {passwordIsRequired ? translations.navbar.on : translations.navbar.off}
+                            </button>
+                            
+                            <button onClick={() => handleAdminViewClick()} className='button' id='admin-view-button'>
+                                {translations?.navbar.changeView}
+                            </button>
+                        </div>
+                    </div>
                 )}
             </div>
             {/* Login and logout buttons */}
