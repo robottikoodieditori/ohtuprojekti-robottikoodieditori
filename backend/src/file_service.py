@@ -1,11 +1,12 @@
 import subprocess, paramiko
+import os
 
 
 class FileService:
     """
     Class for handling file-related operations. Communicates with the database.
 
-    args:
+    attr:
         db (obj): an object for handling communications with the database
     """
 
@@ -136,12 +137,15 @@ def send_to_robot() -> int:
         return_code (int): indicates the success of operation
     """
     dir_path = "logomotion_gradle"
-    bash_command = f"cd {dir_path} && ./gradlew deploy"
+    cur_path = os.getcwd()
+    if cur_path.endswith("src"):
+        bash_command = f"cd ../{dir_path} && ./gradlew deploy"
+    else:
+        bash_command = f"cd {dir_path} && ./gradlew deploy"
     process = subprocess.Popen(
         bash_command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE
     )
     return_code = process.wait()
-
     return return_code
 
 

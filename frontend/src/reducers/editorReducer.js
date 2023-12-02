@@ -3,6 +3,11 @@ import { createSlice } from '@reduxjs/toolkit'
 const editorSlice = createSlice({
     name: 'editor',
     initialState: {
+        fileObject: {
+            textContent: window.localStorage.getItem('textContent') || '',
+            filename: window.localStorage.getItem('filename') || '',
+            fileId: window.localStorage.getItem('fileId') || ''
+        },
         textContent: window.localStorage.getItem('textContent') || '',
         currentlyHighlightedWord: '',
         fileName: window.localStorage.getItem('filename') || '',
@@ -11,6 +16,11 @@ const editorSlice = createSlice({
     reducers: {
         setContent(state, action) {
             state.textContent = action.payload
+            state.fileObject = {
+                ...state.fileObject,
+                textContent: action.payload
+            }
+            window.localStorage.setItem('textContent', action.payload)
             console.log(`EDITOR CONTENT: ${state.textContent}`)
             return state
         },
@@ -26,20 +36,40 @@ const editorSlice = createSlice({
         },
         setFileName(state, action) {
             state.fileName = action.payload
+            state.fileObject = {
+                ...state.fileObject,
+                filename: action.payload
+            }
+            window.localStorage.setItem('filename', action.payload)
             console.log(`FILE NAME IS ${state.fileName}`)
             return state
         },
         setFileId(state, action) {
             state.fileId = action.payload
+            state.fileObject = {
+                ...state.fileObject,
+                fileId: action.payload
+            }
+            window.localStorage.setItem('fileId', action.payload)
             console.log(`FILE ID IS ${state.fileId}`)
             return state
+        },
+        resetFile(state) {
+            state.fileObject = {
+                textContent: '',
+                filename: '',
+                fileId: ''
+            }
+            window.localStorage.removeItem('textContent')
+            window.localStorage.removeItem('filename')
+            window.localStorage.removeItem('fileId')
         }
     }
 })
 
 export const {
     setContent, sendToCompiler, sendToRobot, setHighlightedWord,
-    resetHighlightedWord, setFileName, setFileId
+    resetHighlightedWord, setFileName, setFileId, resetFile
 } = editorSlice.actions
 
 

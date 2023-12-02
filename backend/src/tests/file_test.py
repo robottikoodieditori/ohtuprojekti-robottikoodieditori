@@ -19,9 +19,9 @@ class TestFile(unittest.TestCase):
             """CREATE TABLE users (
             id INTEGER PRIMARY KEY,
             name TEXT UNIQUE,
-            password TEXT
-        )"""
-        )
+            password TEXT,
+            role INTEGER DEFAULT 0
+        )""")
         cur.execute(
             """CREATE TABLE logofiles (
             id INTEGER PRIMARY KEY,
@@ -40,7 +40,7 @@ class TestFile(unittest.TestCase):
 
         self.user_service.register("User", "Password")
         result = self.user_service.login("User", "Password")
-        self.id = self.user_service.verify_token(result)
+        self.id = self.user_service.verify_token(result["token"])
 
     def tearDown(self):
         os.remove("test_case_db.db")

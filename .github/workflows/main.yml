@@ -35,6 +35,11 @@ jobs:
         run: |
           sqlite3 test_db.db < schema.sql
           sqlite3 users_db.db < schema.sql
+      - name: Create test data for database
+        working-directory: ./backend
+        run: |
+          poetry run invoke admin
+          sqlite3 test_db.db < test_data.sql
       - name: Create .env
         working-directory: ./backend
         run: | 

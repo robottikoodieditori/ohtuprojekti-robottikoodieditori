@@ -26,7 +26,11 @@ export default {
         title: "Koodieditori",
         login: 'Kirjaudu sisään',
         loggedInAs: 'Olet kirjautunut nimellä: ',
-        logOut: 'Kirjaudu ulos'
+        logOut: 'Kirjaudu ulos',
+        changeView: 'Vaihda näkymää',
+        on: 'POIS',
+        off: 'PÄÄLLE',
+        passwordLogin: 'Salasana kirjautuminen: ',
     },
     editorView: {
         writeCode: "Kirjoita koodia:",
@@ -45,7 +49,10 @@ export default {
         title: 'Anna nimesi',
         loginButton: 'Kirjaudu',
         nameInputPlaceholder: 'nimi',
-        notificationNameMissing: 'Et voi kirjautua nimettömänä!'
+        notificationNameMissing: 'Et voi kirjautua nimettömänä!',
+        notificationPasswordMissing: 'Et voi kirjautua ilman salasanaa!',
+        notificationWrongCredentials: 'Väärät kirjautumistiedot!',
+        passwordInputPlaceholder: "salasana",
     },
     editorNavbar: {
         chooseFile: 'Valitse tiedosto',
@@ -88,7 +95,8 @@ export default {
         hide: 'Piilota',
         restore: 'Palauta',
         sendRobot: 'Lähetä robotille',
-        confirmDeleteMessage: 'Haluatko varmasti poistaa tiedoston: {filename} ?'
+        confirmDeleteMessage: 'Haluatko varmasti poistaa tiedoston: {filename} ?',
+        saveConfirmedMessage: 'Tiedosto {filename} tallennettu'
     },
 
     tooltipOpenSidebar: "Klikkaa sanaa avataksesi sen sivupalkissa",

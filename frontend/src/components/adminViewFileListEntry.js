@@ -5,14 +5,22 @@ const AdminViewFileListEntry = ({ users, file, handleFileClick, handleVisibleCli
     const { translations } = useContext(LanguageContext)
 
     return (
-        <tr key={file.filename} className={file.visible ? 'visible-file' : 'hidden-file'}>
-            <td>{file.filename}</td>
-            <td>{users.find(user => user.id === file.user_id).name}</td>
-            <td className="clickable" onClick={() => handleFileClick(file)}>{translations?.editorNavbar.open}</td>
-            <td className="clickable" onClick={() => handleVisibleClick(file)}>{file.visible ? translations?.adminView.hide : translations?.adminView.restore}</td>
-            <td className="clickable" onClick={() => handleDeleteClick(file)}>{translations?.editorNavbar.delete}</td>
-            <td className="clickable" onClick={() => handleDownloadClick(file)}>{translations?.adminView.download}</td>
+        <tr id="file-row" key={file.filename} className={file.visible ? 'visible-file' : 'hidden-file'}>
+            <td tabIndex="0" id="filename">{file.filename}</td>
+            <td tabIndex="0"  id="username">{users.find(user => user.id === file.user_id).name}</td>
+            <td tabIndex="0" className={file.visible ? 'file-button' : 'hidden-file-button'} id="open-button" onClick={() => handleFileClick(file)}>{translations?.editorNavbar.open}</td>
+            <td tabIndex="0" className={file.visible ? 'file-button' : 'hidden-file-button'} id="hide-button" onClick={() => handleVisibleClick(file)}>{file.visible ? translations?.adminView.hide : translations?.adminView.restore}</td>
+            <td tabIndex="0" className={file.visible ? 'file-button' : 'hidden-file-button'} id="delete-button" onClick={() => handleDeleteClick(file)}>{translations?.editorNavbar.delete}</td>
+            <td tabIndex="0" className={file.visible ? 'file-button' : 'hidden-file-button'} id="download-button" onClick={() => handleDownloadClick(file)}>{translations?.adminView.download}</td>
         </tr>
+        // <tr key={file.filename} className={file.visible ? 'visible-file' : 'hidden-file'}>
+        //     <td>{file.filename}</td>
+        //     <td>{users.find(user => user.id === file.user_id).name}</td>
+        //     <td className="clickable" onClick={() => handleFileClick(file)}>{translations?.editorNavbar.open}</td>
+        //     <td className="clickable" onClick={() => handleVisibleClick(file)}>{file.visible ? translations?.adminView.hide : translations?.adminView.restore}</td>
+        //     <td className="clickable" onClick={() => handleDeleteClick(file)}>{translations?.editorNavbar.delete}</td>
+        //     <td className="clickable" onClick={() => handleDownloadClick(file)}>{translations?.adminView.download}</td>
+        // </tr>
     )
 }
 

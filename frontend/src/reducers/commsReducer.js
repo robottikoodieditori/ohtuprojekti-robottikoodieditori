@@ -6,7 +6,14 @@ import { setFileName, setContent, setFileId } from './editorReducer'
 const commsSlice = createSlice({
     name: 'comms',
     initialState: {
+        userObject: {
+            username: window.localStorage.getItem('username') || '',
+            userFiles: JSON.parse(window.localStorage.getItem('userFiles')) || [],
+            token: window.localStorage.getItem('token') || '',
+            userRole: window.localStorage.getItem('userRole') || '',
+        },
         responseFromServer: '',
+        passReq: window.localStorage.getItem("passReq") || true,
         username: window.localStorage.getItem('username') || '',
         userFiles: JSON.parse(window.localStorage.getItem('userFiles')) || [],
     },
@@ -22,6 +29,15 @@ const commsSlice = createSlice({
         },
         setLoginFromServer(state, action) {
             state.username = action.payload.username
+            state.userObject = {
+                ...state.userObject,
+                username: action.payload.username,
+                token: action.payload.token,
+                userRole: action.payload.role.toString()
+            }
+            window.localStorage.setItem('username', action.payload.username)
+            window.localStorage.setItem('token', action.payload.token)
+            window.localStorage.setItem('userRole', action.payload.role)
             console.log(`SERVER RESPONDED WITH NAME: ${state.username}`)
             return state
         },
@@ -35,24 +51,40 @@ const commsSlice = createSlice({
         },
         setUserFiles(state, action) {
             state.userFiles = action.payload
+            state.userObject = {
+                ...state.userObject,
+                userFiles: action.payload
+            }
+            window.localStorage.setItem('userFiles', JSON.stringify(action.payload))
             console.log(`SERVER RESPONDED WITH USER FILES: ${state.userFiles}`)
             return state
         },
-        resetLogin(state) {
+        logout(state) {
+            state.userObject = {
+                username: '',
+                userFile: [],
+                token: '',
+                userRole: '',
+            }
             state.username = ''
             state.userFiles = []
             window.localStorage.removeItem('token')
             window.localStorage.removeItem('username')
+            window.localStorage.removeItem('userFiles')
+            window.localStorage.removeItem('userRole')
             return state
+        },
+        setPassReq(state, action) {
+            state.passReq = action.payload
+            window.localStorage.setItem("passReq", action.payload)
         }
     }
 })
 
 export const {
     setResponseFromServer, setLoginFromServer, sendToCompiler, sendToRobot,
-    setUserFiles, getUserName, resetLogin
+    setUserFiles, getUserName, logout, setPassReq
 } = commsSlice.actions
-
 
 export const sendToServer = code => {
     return async dispatch => {
@@ -76,30 +108,27 @@ export const deployToRobot = code => {
     }
 }
 
-export const logout = () => {
-    return async dispatch => (
-        dispatch(resetLogin())
-    )
-}
 
-export const login = username => {
-    const password = 'password'
+export const login = (username, password) => {
     return async dispatch => {
-        const res = await commService.sendLogin(username, password)
-        console.log(res)
-        window.localStorage.setItem('token', res.token)
-        window.localStorage.setItem('username', res.username)
-        dispatch(setLoginFromServer(res))
+        const curpas = password || 'password'
+        const res = await commService.sendLogin(username, curpas)
+        if (res === 'Invalid Credentials') {
+            dispatch(setResponseFromServer({'login': 'FAIL'}))
+        } else {
+            dispatch(setLoginFromServer(res))
+            dispatch(setResponseFromServer({'login': 'OK'}))
+        }
     }
 }
 
-export const uploadFile =  data => {
+export const uploadFile = data => {
     return async dispatch => {
         const res = await commService.uploadFile(data)
         console.log(res)
         dispatch()
     }
-} 
+}
 
 export const handleFile = (content, filename, fileId, userId, action) => {
     return async dispatch => {
@@ -109,7 +138,6 @@ export const handleFile = (content, filename, fileId, userId, action) => {
             dispatch(setFileName(filename))
             dispatch(setContent(content))
             if (res.file_id){
-                console.log(res.file_id)
                 dispatch(setFileId(res.file_id))
             }
         } 
@@ -129,6 +157,34 @@ export const getUserFiles = () => {
             dispatch(setUserFiles(false))
         } else {
             dispatch(setUserFiles(res))
+        }
+    }
+}
+
+export const getPassRequired = () => {
+    return async dispatch => {
+        const res = await commService.getPassReq()
+        console.log(res)
+        dispatch(setPassReq(res))
+    }
+}
+
+export const togglePassRequired = () => {
+    return async dispatch => {
+        const res = await commService.togglePassReq()
+        console.log(res)
+        dispatch(setPassReq(res.passReq))
+    }
+}
+
+export const verifyLogin = (token) => {
+    return async dispatch => {
+        console.log('Onnistuuko')
+        const res = await commService.verifyToken(token)
+        console.log(res)
+        if (res === 'FAIL') {
+            console.log('EI!')
+            dispatch(logout())
         }
     }
 }

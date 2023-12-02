@@ -1,6 +1,5 @@
 import re
 import os
-from flask import session
 import uselogomotion
 
 
@@ -41,6 +40,8 @@ class MockCompiler:
     @staticmethod
     def compile2(code: str, output_file: str):
         path = os.getcwd()
+        if path.endswith('src'):
+            path = os.path.join(path, '..')
         path = os.path.join(path, "logomotion_gradle", "src", "main", "java", "logo")
         path += "/"
         print(path)

@@ -6,7 +6,7 @@ class UserService:
     '''
     Class for handling user related operations.
 
-    args:
+    attr:
         db (obj): an object for handling communications with the database
         secret (str): the secret key for creating session tokens and other cookies
     '''
@@ -50,8 +50,8 @@ class UserService:
         result = self.check_credentials(username, password)
 
         if result:
-            token = credentials.get_token(username, result, self.secret_key)
-            return token
+            token = credentials.get_token(username, result["id"], self.secret_key)
+            return {"token" : token, "role": result["role"]}
 
         return False
 
@@ -66,8 +66,33 @@ class UserService:
             bool: False otherwise 
         '''
         result = credentials.decode_token(token, self.secret_key)
-        if result['user_id']:
-            return result['user_id']
+
+        if result:
+            return result.get('user_id')
+        
+        return result
+    
+    def verify_user_existence(self, id: int, username: str) -> bool:
+        """
+        Checks if user for given user id or username exists in database
+        Pass either of values, not both. Ie:
+            result = verify_user_existence(0, username)
+        or:
+            result = verify_user_existence(id, None)
+
+        args:
+            id (int)
+            username (str)
+        returns:
+            bool: True if found, False otherwise
+        """
+        query = "SELECT * FROM users WHERE id = ?"
+        if username:
+            query = "SELECT * FROM users WHERE name = ?"
+        result = self.database.get_entry_from_db(query, (username,) if username else (id,))
+
+        if result:
+            return True
         return False
 
     def check_credentials(self, username: str, password: str) -> Union[int, bool]:
@@ -82,13 +107,13 @@ class UserService:
             bool: False otherwise
         '''
         db_entry = self.database.get_entry_from_db(
-            "SELECT name, password, id FROM users WHERE name = ?", (username,))
+            "SELECT name, password, id, role FROM users WHERE name = ?", (username,))
         if not db_entry:
             return False
         hashed = db_entry[1]
         pass_bytes = password.encode("utf-8")
         result = bcrypt.checkpw(pass_bytes, hashed)
-        return db_entry[2] if result else False
+        return {"id" : db_entry[2], "role" : db_entry[3]} if result else False
     
     def verify_admin(self, token: str) -> bool:
         """
@@ -99,8 +124,11 @@ class UserService:
         returns:
             bool: True if verification succesful, False otherwise
         """
-        # TODO
-        return True
+        result = credentials.decode_token(token, self.secret_key)
+        if result:
+            query = "SELECT role FROM users WHERE id=?"
+            db_entry = self.database.get_entry_from_db(query, (result['user_id'], ))
+            return True if db_entry[0]==1 else False
     
     def get_all_users(self) -> list:
         """

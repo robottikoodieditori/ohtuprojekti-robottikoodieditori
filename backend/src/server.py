@@ -1,4 +1,4 @@
-from os import getenv
+import os
 from sys import argv
 from flask import Flask, request, send_from_directory, jsonify
 from mockcompiler import MockCompiler
@@ -10,14 +10,19 @@ import json
 
 app = Flask(__name__, static_folder="../build/static", template_folder="../build")
 
-DB_PATH = getenv("DB_PATH")
+path = os.getcwd()
+if path.endswith("src"):
+    path = os.path.join(path, "..")
+
+DB_PATH = os.getenv("DB_PATH")
 if len(argv) > 1:
     if argv[1] == "test":
-        DB_PATH = getenv("TEST_DB_PATH")
+        DB_PATH = os.getenv("TEST_DB_PATH")
 
-app.config["SECRET_KEY"] = getenv("SECRET_KEY")
+app.config["SECRET_KEY"] = os.getenv("SECRET_KEY")
+app.config["PASS_REQ"] = True
 
-db = DB(DB_PATH)
+db = DB(os.path.join(path, DB_PATH))
 user_service = UserService(db, app.config["SECRET_KEY"])
 file_service = FileService(db)
 
@@ -35,7 +40,6 @@ def data():
 @app.route("/send/compiler", methods=["POST"])
 def send_to_compiler():
     content = request.json
-    print(data)
     errors = MockCompiler.compile2(content["code"], "Koodi")
     return jsonify(errors), 200
 
@@ -43,13 +47,35 @@ def send_to_compiler():
 @app.route("/login", methods=["POST"])
 def login():
     content = request.json
-    token = user_service.login(content["username"], content["password"])
-    if token:
-        return jsonify({"username": content["username"], "token": token}), 200
+    user_info = user_service.login(content["username"], content["password"])
+    if user_info:
+        return (
+            jsonify(
+                {
+                    "username": content["username"],
+                    "token": user_info["token"],
+                    "role": user_info["role"],
+                }
+            ),
+            200,
+        )
+    if user_service.verify_user_existence(0, content["username"]):
+        return "Invalid Credentials", 400
 
     result = user_service.register(content["username"], content["password"])
-    if not result:
-        return "Username already taken", 400
+    if result:
+        user_info = user_service.login(content["username"], content["password"])
+        if user_info:
+            return (
+                jsonify(
+                    {
+                        "username": content["username"],
+                        "token": user_info["token"],
+                        "role": user_info["role"],
+                    }
+                ),
+                200,
+            )
 
     token = user_service.login(content["username"], content["password"])
     if not token:
@@ -170,6 +196,21 @@ def get_all_files():
     return jsonify(file_list), 200
 
 
+@app.route("/config/password", methods=["POST"])
+def toggle_password_required():
+    content = request.json
+    if user_service.verify_admin(content["token"]):
+        app.config["PASS_REQ"] = not app.config["PASS_REQ"]
+        return jsonify({"passReq": app.config["PASS_REQ"]}), 200
+    else:
+        return "Invalid Credentials", 400
+
+
+@app.route("/config/get", methods=["GET"])
+def get_password_required():
+    return jsonify(app.config["PASS_REQ"])
+
+
 @app.route("/admin/change_password", methods=["POST"])
 def change_password():
     content = request.json
@@ -182,6 +223,20 @@ def change_password():
 
     if result:
         return "OK", 200
+    return "FAIL", 400
+
+
+@app.route("/verify_token_authenticity", methods=["POST"])
+def verify_token_authenticity():
+    content = request.json
+
+    if not content.get("token", None):
+        return "Missing Token", 400
+    user_id = user_service.verify_token(content["token"])
+
+    if user_id:
+        if user_service.verify_user_existence(user_id, None):
+            return "OK", 200
     return "FAIL", 400
 
 

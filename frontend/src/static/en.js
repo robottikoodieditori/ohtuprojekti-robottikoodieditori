@@ -26,8 +26,11 @@ export default {
         title: "Code Editor",
         login: 'Log in',
         loggedInAs: 'Logged in as: ',
-        logOut: 'Log out'
-
+        logOut: 'Log out',
+        changeView: 'Change view',
+        on: 'TURN OFF',
+        off: 'TURN ON',
+        passwordLogin: 'Password login: ',
     },
     editorView: {
         writeCode: "Write code:",
@@ -47,6 +50,9 @@ export default {
         loginButton: 'Log in',
         nameInputPlaceholder: 'name',
         notificationNameMissing: 'You can\'t login without a name!',
+        notificationPasswordMissing: 'Et voi kirjautua ilman salasanaa!',
+        notificationWrongCredentials: 'Wrong login credentials!',
+        passwordInputPlaceholder: "password",
     },
     editorNavbar: {
         chooseFile: 'Choose File',
@@ -89,7 +95,8 @@ export default {
         hide: 'Hide',
         restore: 'Restore',
         sendRobot: 'Send to robot',
-        confirmDeleteMessage: 'Are you sure you want to delete the file: {filename} ?'
+        confirmDeleteMessage: 'Are you sure you want to delete the file: {filename} ?',
+        saveConfirmedMessage: 'File {filename} saved successfully'
     },
     tooltipOpenSidebar: "Click word to display on sidebar",
     toggleLanguage: 'Vaihda Suomeksi'

@@ -38,7 +38,7 @@
     "prepare": "lezer-generator src/static/lang.grammar -o src/utils/parser.js",
     "lint": "eslint .",
     "cypress:open": "cypress open",
-    "test:e2e": "rm ../backend/test_db.db && touch ../backend/test_db.db && sqlite3 ../backend/test_db.db < ../backend/schema.sql && sqlite3 ../backend/test_db.db < ../backend/test_data.sql && cypress run"
+    "test:e2e": "rm ../backend/test_db.db && touch ../backend/test_db.db && sqlite3 ../backend/test_db.db < ../backend/schema.sql && sqlite3 ../backend/test_db.db < ../backend/test_data.sql && cd ../backend/ && poetry run invoke admin && cd ../frontend/ && cypress run"
   },
   "eslintConfig": {
     "extends": [

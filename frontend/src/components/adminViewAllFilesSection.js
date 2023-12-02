@@ -6,10 +6,10 @@ const AdminViewAllFilesSection = ({ allFiles, users, handleFileClick, handleVisi
     const { translations } = useContext(LanguageContext)
 
     return (
-        <section className="admin-section all-files-section">
+        <section className="admin-section all-files-section" id="all-files-section">
             <h3 tabIndex="0">{translations?.adminView.allFiles}</h3>
 
-            <div className='all-files'>
+            <div className='all-files' id='all-files'>
                 <AdminViewFileList
                     files={allFiles}
                     users={users}

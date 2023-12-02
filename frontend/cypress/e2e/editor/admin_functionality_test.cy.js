@@ -2,9 +2,10 @@ describe('Admin functionality', function() {
     beforeEach(function() {
         cy.visit('http://localhost:3000');
         cy.get('#registration-name-input').type('admin')
+        cy.get('#registration-password-input').type('password')
         cy.get('#popup').contains('Kirjaudu').click(50)
         cy.wait(1000)
-        cy.get('#app-footer').contains('Open Admin').click(500)
+        cy.get('#admin-view-button').contains('Vaihda näkymää').click().wait(500)
     })
 
     it('Attempting to show students', function() {
@@ -49,4 +50,44 @@ describe('Admin functionality', function() {
         cy.get('.change-password-button').should('be.visible')
     })
 
+    it('Attempting to open a file', function() {
+        cy.get('#all-files-section').first().as('firstFileRow')
+        cy.get('@firstFileRow').contains('Avaa').click()
+        cy.get('#editor').should('not.contain', 'Logo...')
+    })
+
+    it('Attempting to hide and and restore a file (FINNISH)', function() {
+        cy.get('#all-files-section tbody tr').first().as('firstFileRow')
+        cy.get('@firstFileRow').contains('Piilota').click()
+        cy.get('@firstFileRow').should('have.css', 'background-color', 'rgb(255, 112, 112)')
+        cy.get('@firstFileRow').contains('Palauta').click()
+        cy.get('@firstFileRow').should('have.css', 'background-color', 'rgb(119, 221, 119)')
+    })
+
+    it('Attempting to hide and and restore a file (ENGLISH)', function() {
+        cy.get('#navbar').contains('Switch to English').click()
+        cy.get('#all-files-section tbody tr').first().as('firstFileRow')
+        cy.get('@firstFileRow').contains('Hide').click()
+        cy.get('@firstFileRow').should('have.css', 'background-color', 'rgb(255, 112, 112)')
+        cy.get('@firstFileRow').contains('Restore').click()
+        cy.get('@firstFileRow').should('have.css', 'background-color', 'rgb(119, 221, 119)')
+    })
+
+    it('Turning off password requirement', function() {
+        cy.get('#admin-view').contains('POIS').click(500)
+        cy.get('#navbar').contains('Vaihda näkymää').click(500)
+        cy.get('#navbar').contains('Kirjaudu ulos').click(500)
+        cy.get('#navbar').contains('Kirjaudu sisään').click(500)
+        cy.get('#registration-name-input').type('jaakko')
+        cy.get('#popup').contains('Kirjaudu').click(500)
+        cy.get('#navbar').should('contain', 'jaakko')
+    })
+
+    it('Turning on password requirement', function() {
+        cy.get('#admin-view').contains('PÄÄLLE').click(500)
+        cy.get('#navbar').contains('Vaihda näkymää').click(500)
+        cy.get('#navbar').contains('Kirjaudu ulos').click(500)
+        cy.get('#navbar').contains('Kirjaudu sisään').click(500)
+        cy.get('#popup').should('not.contain', 'salasana')
+    })
 })
