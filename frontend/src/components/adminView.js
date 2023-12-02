@@ -44,7 +44,6 @@ const AdminView = () => {
         }
     }
 
-
     const handleSearchChange = (event) => {
         setSearchQuery(event.target.value);
     };
@@ -74,7 +73,6 @@ const AdminView = () => {
         }));
     };
 
-
     const handleDownloadClick = (file) => {
         const element = document.createElement('a');
         element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(textContent));
@@ -89,8 +87,8 @@ const AdminView = () => {
         commService.handleFile(textContent, file.filename, file.id, file.user_id, 'admin-save')
         getData()
     }
-    const handleDeleteClick = async (file) => {
 
+    const handleDeleteClick = async (file) => {
         const confirmMessage = translations?.editorNavbar.confirmDeleteMessage;
 
         const formattedMessage = confirmMessage
@@ -137,10 +135,9 @@ const AdminView = () => {
 
     return (
         <div className="admin-container">
-
             <h2 tabIndex="0">{translations?.adminView.adminDashboard}</h2>
-            <div className="sections-container">
 
+            <div className="sections-container">
                 {/* User list section */}
                 <AdminViewUserListSection
                     searchQuery={searchQuery} handleSearchChange={handleSearchChange} filteredUsers={filteredUsers}
@@ -151,7 +148,7 @@ const AdminView = () => {
                 {selectedUser && (
                     <AdminViewUserFilesSection
                         viewMode={viewMode} selectedUser={selectedUser} setSelectedUser={setSelectedUser}
-                        isPasswordWindowOpen={isPasswordWindowOpen} setIsPasswordWindowOpen={setIsPasswordWindowOpen} /*PasswordWindow={PasswordWindow}*/
+                        isPasswordWindowOpen={isPasswordWindowOpen} setIsPasswordWindowOpen={setIsPasswordWindowOpen}
                         userFiles={userFiles} allFiles={allFiles} users={users} handlePasswordChange={handlePasswordChange}
                         handleFileClick={handleFileClick} handleVisibleClick={handleVisibleClick} handleDeleteClick={handleDeleteClick} handleDownloadClick={handleDownloadClick}
                     />

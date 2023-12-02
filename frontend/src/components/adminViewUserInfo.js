@@ -2,7 +2,7 @@ import { useContext } from 'react';
 import { LanguageContext } from "../contexts/languagecontext";
 import PasswordWindow from './passwordWindow';
 
-const AdminViewUserInfo = ({ selectedUser, isPasswordWindowOpen, setIsPasswordWindowOpen, handlePasswordChange /*, PasswordWindow*/}) => {
+const AdminViewUserInfo = ({ selectedUser, isPasswordWindowOpen, setIsPasswordWindowOpen, handlePasswordChange }) => {
     const { translations } = useContext(LanguageContext)
 
     return (

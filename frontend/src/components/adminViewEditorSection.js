@@ -26,7 +26,6 @@ const AdminViewEditorSection = ({ handleNewFileClick, isUploadOpen, setisUploadO
                 <button onClick={() => handleSendToRobotClick()}>{translations?.adminView.sendRobot}</button>
                 <p tabIndex="0">{translations?.editorNavbar.file} {openedFile['filename']}</p>
                 <p tabIndex="0">{translations?.adminView.creator} {openedFile['user']}</p>
-
             </div>
             <Editor textContent={textContent} />
         </div>

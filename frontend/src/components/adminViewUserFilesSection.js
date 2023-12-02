@@ -3,7 +3,11 @@ import { LanguageContext } from "../contexts/languagecontext";
 import AdminViewFileList from './adminViewFileList';
 import AdminViewUserInfo from './adminViewUserInfo';
 
-const AdminViewUserFilesSection = ({ viewMode, selectedUser, setSelectedUser, setIsPasswordWindowOpen, isPasswordWindowOpen, userFiles, users, handleFileClick, handleVisibleClick, handleDeleteClick, handleDownloadClick, handlePasswordChange/*, PasswordWindow*/ }) => {
+const AdminViewUserFilesSection = ({ viewMode, selectedUser, setSelectedUser,
+    setIsPasswordWindowOpen, isPasswordWindowOpen, userFiles, users,
+    handleFileClick, handleVisibleClick, handleDeleteClick, handleDownloadClick,
+    handlePasswordChange }) => {
+
     const { translations } = useContext(LanguageContext)
 
     return (
@@ -22,17 +26,14 @@ const AdminViewUserFilesSection = ({ viewMode, selectedUser, setSelectedUser, se
 
             <div>
                 {viewMode === 'info' ? (
-                    // Render user info
                     <AdminViewUserInfo
                         selectedUser={selectedUser}
                         isPasswordWindowOpen={isPasswordWindowOpen}
                         setIsPasswordWindowOpen={setIsPasswordWindowOpen}
                         handlePasswordChange={handlePasswordChange}
-                        // PasswordWindow={PasswordWindow}
                     />
                 )
                     : (
-                // Render files list
                         <ul id='user-files-section'>
                             {userFiles.length > 0 ? (
                                 <AdminViewFileList
