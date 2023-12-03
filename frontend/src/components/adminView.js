@@ -2,17 +2,19 @@ import { useState, useContext, useEffect } from 'react';
 import { useSelector, useDispatch } from "react-redux";
 import { setContent } from "../reducers/editorReducer";
 import { LanguageContext } from "../contexts/languagecontext";
-import '../css/adminView.css';
+// import '../css/adminView.css';
+// import '../css/adminFiles.css';
+
 import commService from '../services/comms'
 import AdminViewUserListSection from './adminViewUserListSection';
 import AdminViewUserFilesSection from './adminViewUserFilesSection';
 import AdminViewAllFilesSection from './adminViewAllFilesSection';
 import AdminViewEditorSection from './adminViewEditorSection';
 // import Editor from './editor';
-// import '../css/adminView.css';
-// import '../css/adminUserinfo.css';
-// import '../css/adminFiles.css';
-// import '../css/adminButtons.css'
+import '../css/adminView.css';
+import '../css/adminUserinfo.css';
+import '../css/adminFiles.css';
+import '../css/adminButtons.css'
 // import Popup from 'reactjs-popup';
 // import commService from '../services/comms'
 import { togglePassRequired } from "../reducers/commsReducer";
@@ -135,25 +137,25 @@ const AdminView = () => {
     //     );
     // };
 
-    const handleUpload = async (event) => {
-        event.preventDefault();
-        const user_id = document.getElementById('uploadUsername').value;
-        const file = document.getElementById('uploadFile').files[0];
-        const formData = new FormData()
-        formData.append('file', file)
-        formData.append('json_data', JSON.stringify({'token': window.localStorage.getItem('token'), 'user_id':user_id}))
-        const res = await commService.uploadFile(formData)
-        const username = users.find(user => user.id === parseInt(user_id)).name
-        dispatch(setContent(res.content))
-        setOpenedFile(openedFile => ({
-            ...openedFile,
-            filename:  res.filename,
-            id: res.file_id,
-            user_id: user_id,
-            user: username
-        }));
-        setisUploadOpen(false)
-    }
+    // const handleUpload = async (event) => {
+    //     event.preventDefault();
+    //     const user_id = document.getElementById('uploadUsername').value;
+    //     const file = document.getElementById('uploadFile').files[0];
+    //     const formData = new FormData()
+    //     formData.append('file', file)
+    //     formData.append('json_data', JSON.stringify({'token': window.localStorage.getItem('token'), 'user_id':user_id}))
+    //     const res = await commService.uploadFile(formData)
+    //     const username = users.find(user => user.id === parseInt(user_id)).name
+    //     dispatch(setContent(res.content))
+    //     setOpenedFile(openedFile => ({
+    //         ...openedFile,
+    //         filename:  res.filename,
+    //         id: res.file_id,
+    //         user_id: user_id,
+    //         user: username
+    //     }));
+    //     setisUploadOpen(false)
+    // }
 
     const handleDownloadClick = (file) => {
         const element = document.createElement('a');
@@ -236,7 +238,7 @@ const AdminView = () => {
             </button>
             <h2 tabIndex="0">{translations?.adminView.adminDashboard}</h2>
 
-            <div className="sections-container">
+            {/* <div className="sections-container"> */}
 
             <div className="sections-container">
                 {/* User list section */}
@@ -263,7 +265,7 @@ const AdminView = () => {
                 />
             </div>
 
-                {/* <section className="admin-section all-files-section" id="all-files-section">
+            {/* <section className="admin-section all-files-section" id="all-files-section">
                     <h3 tabIndex="0">{translations?.adminView.allFiles}</h3>
 
                     <div className='all-files' id="all-files">
@@ -295,7 +297,7 @@ const AdminView = () => {
                 </section> */}
 
 
-            </div>
+            {/* </div> */}
             {/* Editor section to display the selected file */}
 
             {/* <div className="editor-section" id="editor-section">
