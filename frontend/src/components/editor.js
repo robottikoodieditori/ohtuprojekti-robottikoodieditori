@@ -153,9 +153,7 @@ const Editor = ({ textContent }) => {
     }, [textContent]);
 
     return (
-        <div>
-            <div ref={editor} className="editor" id='editor' onClick={handleClick} aria-label="Code Editor"></div>
-        </div>
+        <div ref={editor} className="editor" id='editor' onClick={handleClick} aria-label="Code Editor"></div>
     )
 }
 

@@ -45,34 +45,30 @@ const Sidebar = () => {
     // Component rendering
     return (
         <div className="sidebar" id='sidebar'>
-            <div className='content'>
-                {selectedCommand ? (
-                    // Render the details of a selected command
-                    <OneCommand 
-                        selectedCommand={selectedCommand} 
-                        setSelectedCommand={setSelectedCommand} 
+            {selectedCommand ? (
+                <OneCommand 
+                    selectedCommand={selectedCommand} 
+                    setSelectedCommand={setSelectedCommand} 
+                    language={language} 
+                    translations={translations}
+                />
+            ) : (
+                <div>
+                    <h2 tabIndex="0" >{translations?.commandListTitle}</h2>
+                    <Searchbar 
+                        searchTerm={searchTerm} 
+                        handleSearchChange={handleSearchChange} 
                         language={language} 
                         translations={translations}
                     />
-                ) : (
-                    // Render the search bar and command list when no command is selected
-                    <div>
-                        <h2 tabIndex="0">{translations?.commandListTitle}</h2>
-                        <Searchbar 
-                            searchTerm={searchTerm} 
-                            handleSearchChange={handleSearchChange} 
-                            language={language} 
-                            translations={translations}
-                        />
-                        <CommandList 
-                            searchTerm={searchTerm} 
-                            handleCommandClick={handleCommandClick} 
-                            language={language} 
-                            translations={translations}
-                        />
-                    </div>
-                )}
-            </div>
+                    <CommandList 
+                        searchTerm={searchTerm} 
+                        handleCommandClick={handleCommandClick} 
+                        language={language} 
+                        translations={translations}
+                    />
+                </div>
+            )}
         </div>
     );
 };
