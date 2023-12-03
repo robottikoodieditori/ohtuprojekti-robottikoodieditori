@@ -14,6 +14,9 @@
  */
 
 import '../css/button.css'
+import '../css/input.css'
+import '../css/popup.css'
+import '../css/form.css'
 import Popup from "reactjs-popup";
 import { LanguageContext } from "../contexts/languagecontext";
 import { useContext } from "react";
@@ -22,19 +25,17 @@ const FileSelectionScreen = ({ isFileSelectOpen, setisFileSelectOpen, handleFile
     const { translations } = useContext(LanguageContext);
 
     return (
-        <div className="overlay" id="overlay">
-            <Popup
-                open={isFileSelectOpen}
-                closeOnDocumentClick={false}
-                overlayStyle={{ background: 'rgba(0,0,0,0.8)' }}
-            >
-                <div className='content-file-select' id="content-file-select" role="dialog" aria-label="choose file window">
-                    <div className="content-file-select-header">
-                        <h2 tabIndex="0">{translations?.editorNavbar.chooseFile}</h2>
-                        <button className='file-close-button' onClick={() => setisFileSelectOpen(false)}>X</button>
-                    </div>
-                    { fileList.length > 0 && (
-                        <div>
+        <Popup
+            open={isFileSelectOpen}
+            closeOnDocumentClick={false}
+            overlayStyle={{ background: 'rgba(0,0,0,0.8)' }}
+        >
+            <div className='editornavbar-popup' id="content-file-select" role="dialog" aria-label="choose file window">
+                <button className='close-button' onClick={() => setisFileSelectOpen(false)}>X</button>
+                <div className="popup-container">
+                    <h2 tabIndex="0" >{translations?.editorNavbar.chooseFile}</h2>
+                    <div className='editornavbar-fileSelection'>
+                        { fileList.length > 0 && (
                             <table>
                                 <thead>
                                     <tr>
@@ -46,22 +47,26 @@ const FileSelectionScreen = ({ isFileSelectOpen, setisFileSelectOpen, handleFile
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {fileList.map(file => (
-                                        <tr key={file.filename} className='file-row'>
-                                            <td tabIndex="0" className="file-open-td" onClick={() => handleFileSelection(file)}>{translations?.editorNavbar.open}</td>
+                                    {fileList.map((file, index) => (
+                                        <tr key={file.filename} className={`file-row ${index % 2 === 0 ? 'even' : 'odd'}`}>
+                                            <td tabIndex="0" className="file-open-td" onClick={() => handleFileSelection(file)}>
+                                                {translations?.editorNavbar.open}
+                                            </td>
                                             <td tabIndex="0" className="left-td">{file.filename}</td>
                                             <td tabIndex="0" className="center-td">{file.created}</td>
                                             <td tabIndex="0" className="right-td">{file.last_updated}</td>
-                                            <td tabIndex="0" className="file-hide-td" onClick={() => handleFileHiding(file)}>{translations?.editorNavbar.delete}</td>
+                                            <td tabIndex="0" className="file-hide-td" onClick={() => handleFileHiding(file)}>
+                                                {translations?.editorNavbar.delete}
+                                            </td>
                                         </tr>
                                     ))}
                                 </tbody>
                             </table>
-                        </div>
-                    )}
+                        )}
+                    </div>
                 </div>
-            </Popup>
-        </div>
+            </div>
+        </Popup>
     );
 };
 

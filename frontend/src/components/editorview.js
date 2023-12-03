@@ -13,17 +13,9 @@ const EditorView = () => {
 
     return (
         <div className='editorview' id='editorview'>
-            <header className="App-header">
-            </header>
             <EditorNavbar/>
             <Editor textContent={textContent} />
-
-            <div className="button-container">
-                <Button function={'COMPILE'} text={translations.editorView.sendToCompilerBtn} />
-                <div style={{ margin: '10px' }} />
-                <Button function={'SEND'} text={translations.editorView.sendToRobotBtn} />
-            </div>
-
+            <Button function={'COMPILE'} text={translations.editorView.sendToCompilerBtn} />
             <Response/>
         </div>
     )

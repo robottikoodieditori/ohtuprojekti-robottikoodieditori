@@ -17,6 +17,7 @@ import { handleFile, setUserFiles } from '../reducers/commsReducer';
 import { setFileName, setContent, setFileId, resetFile } from "../reducers/editorReducer";
 import commService from "../services/comms";
 import '../css/editornavbar.css';
+import '../css/button.css'
 import FileSelectionScreen from "./editorNavbarFileSelectionScreen";
 import NewFileScreen from "./editorNavbarNewFileScreen";
 
@@ -121,21 +122,19 @@ const EditorNavbar = () => {
     // of the File Selection Screen and New File Screen based on state.
     return (
         <div className='editornavbar' id='editornavbar'>
-            <button className='editornavbar-button' onClick={handleNewFile}>{translations?.editorNavbar.newFile}</button>
-            <button className="editornavbar-button" onClick={handleSaveExisting}>{translations?.editorNavbar.saveFile}</button>
+            <button className='button' onClick={handleNewFile}>{translations?.editorNavbar.newFile}</button>
+            <button className="button" onClick={handleSaveExisting}>{translations?.editorNavbar.saveFile}</button>
             { isNewFileOpen && 
-                <
-                    NewFileScreen
+                <NewFileScreen
                     isNewFileOpen={isNewFileOpen}
                     setisNewFileOpen={setisNewFileOpen}
                     handleSaveNew={handleSaveNew}
                 />
             }
 
-            <button className="editornavbar-button" onClick={() => setisFileSelectOpen(true)}>{translations?.editorNavbar.openFile}</button>
+            <button className="button" onClick={() => setisFileSelectOpen(true)}>{translations?.editorNavbar.openFile}</button>
             { isFileSelectOpen &&
-                <
-                    FileSelectionScreen
+                <FileSelectionScreen
                     isFileSelectOpen={isFileSelectOpen}
                     setisFileSelectOpen={setisFileSelectOpen}
                     handleFileSelection={handleFileSelection}

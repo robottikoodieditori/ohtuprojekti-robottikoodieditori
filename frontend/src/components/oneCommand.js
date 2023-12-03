@@ -2,7 +2,7 @@
 // Renders detailed information about a selected command.
 // This includes a title, a return button, and the command description in Markdown format.
 
-import "../css/index.css"
+import "../css/button.css"
 import docs from "../static/tooltips.json"
 import ReactMarkdown from "react-markdown";
 
@@ -18,15 +18,12 @@ import ReactMarkdown from "react-markdown";
 const OneCommand = ({ selectedCommand, setSelectedCommand , language, translations}) => {
     return (
         <div>
-            {/* Return button to go back to the list of commands */}
-            <button className='buttonsidebar' onClick={() => setSelectedCommand(null)}>
+            <button className='button' onClick={() => setSelectedCommand(null)}>
                 {translations?.returnbutton}
             </button>
 
-            {/* Title of the selected command */}
             <h2>{translations?.command?.[selectedCommand] || selectedCommand}</h2>
 
-            {/* Description of the selected command, rendered using ReactMarkdown */}
             <ReactMarkdown>
                 {docs[language][translations?.command?.[selectedCommand] || selectedCommand]}
             </ReactMarkdown>

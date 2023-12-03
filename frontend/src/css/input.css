@@ -1,0 +1,23 @@
+.popup-input {
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #34495e; 
+    color: rgb(209, 209, 209);
+    margin: 5px 0;
+    outline: none; 
+    width: calc(100% - 20px);
+}
+  
+.popup-input::placeholder {
+    color: #cccccc;
+}
+
+.search-bar-input {
+    display: flex;
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    width: 90%;
+    padding: 1vw;
+    border-radius: 10px;
+    border: 1px solid rgb(60, 120, 180);
+}
