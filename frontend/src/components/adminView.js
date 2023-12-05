@@ -153,7 +153,7 @@ const AdminView = () => {
 
     return (
         <div className="admin-container">
-            <p>{translations.navbar.passwordLogin}</p>
+            <p>{passwordIsRequired ? translations.navbar.passwordLoginOn : translations.navbar.passwordLoginOff }</p>
             <button onClick={() => dispatch(togglePassRequired())} className='button' id='password-requirement-button'>
                 {passwordIsRequired ? translations.navbar.on : translations.navbar.off}
             </button>

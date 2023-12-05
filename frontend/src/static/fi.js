@@ -30,7 +30,9 @@ export default {
         changeView: 'Vaihda näkymää',
         on: 'POIS',
         off: 'PÄÄLLE',
-        passwordLogin: 'Salasana kirjautuminen: ',
+        // passwordLogin: 'Salasana kirjautuminen: ',
+        passwordLoginOn: 'Salasana VAADITAAN',
+        passwordLoginOff: 'Salasanaa EI VAADITA'
     },
     editorView: {
         writeCode: "Kirjoita koodia:",
