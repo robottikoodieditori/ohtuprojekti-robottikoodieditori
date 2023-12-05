@@ -21,14 +21,6 @@ dotenv.load_dotenv()
 MESSAGE_LANG = "FIN"
 CODE_GEN_LANG = "Java"
 
-# MESSAGE_LANG = os.getenv("MESSAGE_LANG")
-# ODE_GEN_LANG = os.getenv("CODE_GEN_LANG")
-
-# Get command line arguments
-# args = get_cmd_line_args()
-# Get logo code from file. Filepath is given as a command line argument
-LOGO_CODE = "et 20"  # load_file(args.filepath)
-
 
 def main(LOGO_CODE, path):
     def get_code_generator():
@@ -60,7 +52,16 @@ def main(LOGO_CODE, path):
         )
         raise Exception(err_msg)
 
-    def find_line_and_position_based_on_index(index: int):
+    def find_line_and_position_based_on_index(index: int) -> tuple:
+        """Looks at the multiline string of LOGO_CODE and finds line and
+        position with newlines considered of given index
+
+        Args:
+            index (int): index in multiline string
+
+        Returns:
+            tuple (int, int): line and position of given index
+        """
         lines_of_logo = LOGO_CODE.splitlines()
         line_number = 1
 
@@ -133,8 +134,6 @@ def main(LOGO_CODE, path):
                 )
 
             return (errors_with_pretty_position, errors_with_raw_position)
-            # return (errors_with_pretty_position, error_handler.errors)
-            #       pretty position              raw position
 
     # Create required classes for the compiler
     console_io = ConsoleIO()
