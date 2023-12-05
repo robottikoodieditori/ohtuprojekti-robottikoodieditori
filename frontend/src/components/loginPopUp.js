@@ -1,24 +1,32 @@
-// LoginPopUp.js
-// This component renders a modal popup for user login. It includes functionalities for 
-// inputting the username, toggling language, and handling the login process.
-
 import { useState, useContext, useEffect } from 'react';
-import Popup from 'reactjs-popup'; // Popup component for modal dialog
-import { login, setResponseFromServer } from "../reducers/commsReducer"; // Redux action for login
-import { useDispatch, useSelector } from 'react-redux'; // Redux hook for dispatching actions
-import { LanguageContext } from '../contexts/languagecontext'; // Context for language settings
-import '../css/popup.css'; // Styling for the popup
+import Popup from 'reactjs-popup'; 
+import { login, setResponseFromServer } from "../reducers/commsReducer"; 
+import { useDispatch, useSelector } from 'react-redux'; 
+import { LanguageContext } from '../contexts/languagecontext';
+import '../css/popup.css'; 
 import '../css/button.css'
 import '../css/input.css'
 
+/**
+ * `LoginPopUp` component renders a modal popup for user login. It includes functionalities for 
+ * inputting the username, toggling language, and handling the login process.
+ *
+ * @component
+ * @example
+ * return <LoginPopUp status={true} onClose={handleClose} />
+ *
+ * @param {Object} props - Props for LoginPopUp component
+ * @param {boolean} props.status - Indicates whether the login popup is open or closed
+ * @param {Function} props.onClose - Callback function to close the popup
+ */
+
 const LoginPopUp = ({status, onClose}) => {
-    // Local state for controlling the popup's visibility and user input
     const [open, setOpen] = useState(status);
-    const { toggleLanguage, translations } = useContext(LanguageContext); // Language context
-    const [username, setUsername] = useState(''); // State for storing the username input
-    const [notificationText, setNotificationText] = useState(''); // State for notification messages
+    const { toggleLanguage, translations } = useContext(LanguageContext); 
+    const [username, setUsername] = useState(''); 
+    const [notificationText, setNotificationText] = useState(''); 
     const [password, setPassword] = useState("")
-    const dispatch = useDispatch(); // Redux dispatch function
+    const dispatch = useDispatch();
     const passwordIsRequired = useSelector(state => state.comms.passReq)
     const responseFromServer = useSelector(state => state.comms.responseFromServer)
 
@@ -60,9 +68,9 @@ const LoginPopUp = ({status, onClose}) => {
         }
 
         if (passwordIsRequired || username === 'admin') {        
-            dispatch(login(username, password)); // Dispatch login action with the username
+            dispatch(login(username, password)); 
         } else {
-            dispatch(login(username, false)); // Dispatch login action with the username
+            dispatch(login(username, false)); 
         }
     };
 
@@ -75,7 +83,6 @@ const LoginPopUp = ({status, onClose}) => {
     // Function to handle password change
     const handlePassChange = (e) => setPassword(e.target.value)
 
-    // Component rendering
     return (
         <Popup
             open={open}
