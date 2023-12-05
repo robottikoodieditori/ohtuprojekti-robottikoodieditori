@@ -2,6 +2,16 @@ import Popup from "reactjs-popup"
 import { useContext } from 'react';
 import { LanguageContext } from "../contexts/languagecontext";
 
+/**
+ * PasswordWindow component handles the display of a password change dialog.
+ * @component
+ * @param {Object} props - The component's props.
+ * @param {boolean} props.isPasswordWindowOpen - Indicates whether the password change window is open.
+ * @param {function} props.setIsPasswordWindowOpen - Function to set the state of the password change window.
+ * @param {function} props.handlePasswordChange - Function to handle password change.
+ * @param {Object} props.selectedUser - The selected user object.
+ */
+
 const PasswordWindow = ({ isPasswordWindowOpen, setIsPasswordWindowOpen, handlePasswordChange, selectedUser }) => {
     const { translations } = useContext(LanguageContext)
 

@@ -1,17 +1,18 @@
-// Searchbar.js
-// Provides a search input bar for filtering commands or other elements.
-
 import "../css/index.css";
 import "../css/input.css";
 
 /**
- * Searchbar component creates a text input for searching.
+ * `Searchbar` component creates a text input for searching.
  *
- * Props:
- * - searchTerm: The current search term.
- * - handleSearchChange: Function to call when the search input changes.
- * - translations: Object containing localized strings.
+ * @component
+ * @param {Object} props - Props for Searchbar component
+ * @param {string} props.searchTerm - The current search term.
+ * @param {Function} props.handleSearchChange - Function to call when the search input changes.
+ * @param {object} props.translations - Object containing localized strings.
+ * @returns {JSX.Element} - JSX element containing the search input.
  */
+
+
 const Searchbar = ({ searchTerm, handleSearchChange, translations }) => {
     return (
         <div id='searchbar'>

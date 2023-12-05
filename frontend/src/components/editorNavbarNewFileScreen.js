@@ -1,17 +1,3 @@
-/**
- * NewFileScreen.js
- * This component renders a popup screen for creating a new file in the code editor. It provides an input
- * field for the filename and a button to save the new file.
- * 
- * Props:
- * - isNewFileOpen: Boolean to determine if the popup screen is open.
- * - setisNewFileOpen: Function to update the state of the popup's visibility.
- * - handleSaveNew: Function to handle the saving of the new file with the provided filename.
- * 
- * The component uses the LanguageContext for internationalization, displaying texts (like placeholders
- * and button labels) in different languages as per the current language setting.
- */
-
 import { useContext } from "react"
 import Popup from "reactjs-popup"
 import { LanguageContext } from "../contexts/languagecontext"
@@ -19,6 +5,29 @@ import '../css/button.css'
 import '../css/input.css'
 import '../css/popup.css'
 import '../css/form.css'
+
+/**
+ * `NewFileScreen` component renders a popup screen for creating new files within the code editor.
+ * It provides an input field for specifying the filename and a button to trigger the save operation.
+ * The popup is controlled via a boolean state and it includes a form submission handler.
+ * Internationalization is supported through `LanguageContext`, allowing for localization of text elements like 
+ * placeholders and button labels.
+ *
+ * @component
+ * @example
+ * return (
+ *   <NewFileScreen
+ *      isNewFileOpen={isNewFileOpen}
+ *      setisNewFileOpen={setisNewFileOpen}
+ *      handleSaveNew={handleSaveNew}
+ *   />
+ * )
+ *
+ * @param {Object} props - Props for NewFileScreen
+ * @param {boolean} props.isNewFileOpen - Boolean to control the visibility of the popup
+ * @param {Function} props.setisNewFileOpen - Function to update the popup's open/close state
+ * @param {Function} props.handleSaveNew - Function to handle the saving of a new file
+ */
 
 const NewFileScreen = ({ isNewFileOpen, setisNewFileOpen, handleSaveNew }) => {
     const { translations } = useContext(LanguageContext)

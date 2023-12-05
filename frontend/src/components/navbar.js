@@ -1,5 +1,15 @@
-// Navbar.js
-// Provides the navigation bar for the application, including language toggle, login, and logout functionality.
+/**
+ * `Navbar` component provides the navigation bar for the application. It includes features like language toggle,
+ * login, logout functionality, and admin view access for authorized users.
+ * It interacts with Redux for state management and context for language settings.
+ *
+ * @component
+ * @example
+ * return <Navbar handleAdminViewClick={handleClick} />
+ *
+ * @param {Object} props - Props for Navbar component
+ * @param {Function} props.handleAdminViewClick - Function to handle the click event for admin view access
+ */
 
 import { useContext, useState } from 'react';
 import { useSelector } from 'react-redux';
@@ -10,12 +20,9 @@ import LoginPopUp from "./loginPopUp";
 import { useDispatch } from 'react-redux';
 import { logout } from "../reducers/commsReducer";
 
-// Navbar functional component definition
 const Navbar = ({handleAdminViewClick}) => {
-    // Access language settings and translations from LanguageContext
-    const { toggleLanguage, translations } = useContext(LanguageContext);
 
-    // Redux state selector for username, userrole and dispatcher
+    const { toggleLanguage, translations } = useContext(LanguageContext);
     const username = useSelector((state) => state.comms.userObject.username);
     const userRole = useSelector((state) => state.comms.userObject.userRole);
     const dispatch = useDispatch();
@@ -35,11 +42,10 @@ const Navbar = ({handleAdminViewClick}) => {
 
     // Function to handle user logout
     const logOutFromServer = () => {
-        dispatch(logout()); // Dispatch logout action
-        setIsPopupOpen(false); // Close the popup
+        dispatch(logout());
+        setIsPopupOpen(false); 
     };
 
-    // Component rendering
     return (
         <div className="navbar" id="navbar">
             <h1 tabIndex="0">{translations.navbar.title}</h1>

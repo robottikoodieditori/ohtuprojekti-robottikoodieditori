@@ -13,6 +13,16 @@ import '../css/adminFiles.css';
 import '../css/adminButtons.css'
 import { togglePassRequired } from "../reducers/commsReducer";
 
+/**
+ * `AdminView` component serves as the main interface for the administration dashboard.
+ * It includes functionalities such as user and file management, file editing, and system settings.
+ * The component integrates with Redux for state management and communicates with backend services for data handling.
+ *
+ * @component
+ * @example
+ * return <AdminView />
+ */
+
 const AdminView = () => {
     const dispatch = useDispatch()
     const { translations } = useContext(LanguageContext)
@@ -21,7 +31,7 @@ const AdminView = () => {
     const [allFiles, setAllFiles] = useState([]);
     const [userFiles, setUserFiles] = useState([]);
     const [searchQuery, setSearchQuery] = useState("");
-    const [viewMode, setViewMode] = useState('files'); // 'files' or 'info' on middle container
+    const [viewMode, setViewMode] = useState('files');
     const [openedFile, setOpenedFile] = useState({
         'filename' : '',
         'id': '',
@@ -37,6 +47,7 @@ const AdminView = () => {
         getData()
     }, []);
 
+    // Fetches and sets user and file data from the server
     const getData = async () => {
         const files = await commService.getFiles()
         const users = await commService.getUsers()
@@ -49,16 +60,19 @@ const AdminView = () => {
         }
     }
 
+    // Updates search query based on user input
     const handleSearchChange = (event) => {
         setSearchQuery(event.target.value);
     };
 
+    // Filters users based on the search query
     const filteredUsers = searchQuery.length === 0
         ? users
         : users.filter(user =>
             user.name.toLowerCase().includes(searchQuery.toLowerCase())
         );
 
+    // Handles user selection and updates UI to show selected user's files
     const handleUserClick = (user) => {
         setSelectedUser(user);
         setViewMode('files');
@@ -66,6 +80,7 @@ const AdminView = () => {
         setUserFiles(filesForUser);
     };
 
+    // Handles file selection and updates the editor with the file's content
     const handleFileClick = (file) => {
         const username = users.find(user => user.id === file.user_id).name
         dispatch(setContent(file.textContent))
@@ -78,6 +93,7 @@ const AdminView = () => {
         }));
     };
 
+    // Triggers a download of the selected file
     const handleDownloadClick = (file) => {
         const element = document.createElement('a');
         element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(textContent));
@@ -88,10 +104,9 @@ const AdminView = () => {
         document.body.removeChild(element);
     }
 
+    // Handles file modifications and saves changes to the server
     const handleModifyClick = (file) => {
-
         const saveConfirmedMessage = translations?.adminView.saveConfirmedMessage
-
         const formattedMessage = saveConfirmedMessage
             ? saveConfirmedMessage.replace('{filename}', file.filename)
             : ""
@@ -106,6 +121,7 @@ const AdminView = () => {
             })
     }
 
+    // Confirms and handles file deletion
     const handleDeleteClick = async (file) => {
         const confirmMessage = translations?.editorNavbar.confirmDeleteMessage;
 
@@ -123,6 +139,7 @@ const AdminView = () => {
         }
     }
 
+    // Handles password change for a selected user
     const handlePasswordChange = (event) => {
         event.preventDefault()
         const password = document.getElementById('passwordInput').value;
@@ -131,11 +148,13 @@ const AdminView = () => {
         getData()
     }
 
+    // Toggles file visibility on the server
     const handleVisibleClick = async (file) => {
         await commService.handleFile(textContent, file.filename, file.id, file.user_id, "hide")
         getData()
     }
 
+    // Prepares for creating a new file
     const handleNewFileClick = () => {
         dispatch(setContent(""))
         setOpenedFile(openedFile => ({
@@ -147,6 +166,7 @@ const AdminView = () => {
         }));
     }
 
+    // Handles the action to send content to a robot
     const handleSendToRobotClick = () => {
         commService.deployToRobot(textContent)
     }

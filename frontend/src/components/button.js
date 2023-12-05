@@ -1,10 +1,19 @@
-// Button.js
-// Provides a generic button component for different actions like sending to server or deploying to robot.
-
 import { useDispatch, useSelector } from 'react-redux';
 import { deployToRobot, sendToServer } from "../reducers/commsReducer";
 
-// Button functional component definition
+/**
+ * `Button` is a generic button component used for various actions like sending data to the server or deploying to a robot.
+ * It utilizes Redux for state management and dispatching actions.
+ *
+ * @component
+ * @example
+ * return <Button function="SEND" text="Deploy to Robot" />
+ *
+ * @param {Object} props - Props for Button component
+ * @param {string} props.function - Specifies the function of the button ('SEND' or 'COMPILE')
+ * @param {string} props.text - The display text of the button
+ */
+
 const Button = (props) => {
     // Redux state selector for the file object and dispatcher
     const fileObject = useSelector(state => state.editor.fileObject);
@@ -14,11 +23,9 @@ const Button = (props) => {
     const handleClick = () => {
         // Dispatch appropriate action based on the function prop
         if (props.function === 'SEND') {
-            // Deploy the current text content to the robot
             dispatch(deployToRobot(fileObject.textContent));
         } 
         if (props.function === 'COMPILE') {
-            // Send the current text content to the server for compilation
             dispatch(sendToServer(fileObject.textContent));
         }
     }
@@ -26,15 +33,13 @@ const Button = (props) => {
     // Determine the CSS class for the button based on the function prop
     const buttonClass = props.function === 'SEND' ? 'button send-button' : 'button compile-button';
 
-    // Component rendering
     return (
         <button 
             onClick={handleClick} 
             className={buttonClass} 
             id={`${props.function}BUTTON`}
         >
-            {/* Display the text passed as a prop */}
-            {props.text} 
+            {props.text}
         </button>
     )
 }
