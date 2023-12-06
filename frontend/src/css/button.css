@@ -1,9 +1,9 @@
-/*general buttons*/
+/*general button*/
 .button {
-  font-family: Verdana,  Arial, Helvetica, sans-serif;  
-  font-size: 14px;
+  font-family: Verdana,  Arial, Helvetica, sans-serif;
+  font-size: 15px;
   font-weight: 450;
-  padding: 10px; 
+  padding: 10px;
   border: none;
   border-radius: 5px;
   transition: background-color 0.3s, transform 0.2s;
@@ -11,50 +11,70 @@
   outline: none;
   background-color: rgb(47, 63, 133);
   color: rgb(255, 255, 255);
-  margin: 0 10px 0 10px;
+  margin-right: 20px;
 }
 
 .button:hover {
   background-color: rgb(65, 81, 172);
 }
 
+.button:focus-visible {
+    background-color: rgb(65, 81, 172);
+    border-style: solid;
+    border-color: black;
+}
+
+.button:active {
+    transform: scale(0.97);
+}
+
+/* close button*/
 .close-button {
-  background-color: transparent;
-  border: none;
-  font-size: 18px;
-  color: white;
-  cursor: pointer;
-  transition: color 0.3s;
-  top: 3px;
-  right: 3px;
+    background-color: transparent;
+    border: none;
+    font-size: 18px;
+    color: white;
+    cursor: pointer;
+    transition: color 0.3s;
+    position: absolute;
+    top: 10px;
+    right: 10px;
 }
 
 .close-button:hover {
   color: #e74c3c;
 }
 
-.button:focus-visible {
-  background-color: rgb(65, 81, 172);
-  border-style: solid;
-  border-color: black;
+/* popup buttin */
+.popup-button {
+    display: block;
+    padding: 10px;
+    margin: 5px 0;
+    background-color: #0072be;
+    border: none;
+    border-radius: 5px;
+    color: rgb(255, 255, 255);
+    cursor: pointer;
+    transition: background-color 0.3s;
+    width: 100%;
 }
 
-.button:active {
-  transform: scale(0.97);
+.popup-button:hover {
+    background-color: #2980b9;
 }
 
 .button-container {
     display: flex;
     margin-top: 10px;
     width: 40%;
-  }
+}
 
 /*commands list */
-  .command-button {
+.command-button {
     font-family: Verdana, Arial, Helvetica, sans-serif;
-    display: block;  
+    display: block;
     width: 100%;
-    text-align: left;  
+    text-align: left;
     padding: 8px 10px;
     border: none;
     border-radius: 5px;
@@ -66,42 +86,60 @@
     transition: background-color 0.3s, box-shadow 0.3s;
     margin: 3px 0;
   }
-  
-  .command-button:hover {
+
+  /* .command-button:hover {
     background-color: rgba(140, 175, 221, 0.3);
     box-shadow: 0px 4px 7px rgba(0, 0, 0, 0.15);
   }
-  
+
   .command-button:active {
-    background-color: rgba(255, 255, 255, 0.4); 
-    box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.1); 
+    background-color: rgba(255, 255, 255, 0.4);
+    box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.1);
   }
 
-/* buttons for editor*/
-  .send-button {
+  /* buttons for editor*/
+  /* .send-button {
     background-color: rgb(51, 101, 151);
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.4);
   }
-  
+
   .send-button:hover {
     background-color: rgb(80, 140, 200);
   }
-  
+
   .send-button:focus-visible {
     background-color: rgb(80, 140, 200);
+}  */
+
+.command-button:hover {
+    background-color: rgba(140, 175, 221, 0.3);
+    box-shadow: 0px 4px 7px rgba(0, 0, 0, 0.15);
+}
+
+.command-button:active {
+    background-color: rgba(255, 255, 255, 0.4);
+    box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.command-button:focus-visible {
+    background-color: rgb(140, 175, 221);
     border-style: solid;
     border-color: black;
-  }
+}
 
-  .compile-button {
+/* buttons for editor*/
+.compile-button {
     background-color: rgb(71, 128, 47);
-  }
-  
-  .compile-button:hover {
-    background-color: rgb(110, 180, 80);
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.4);
+    margin-top: 10px;
   }
 
-  .compile-button:focus-visible {
+.compile-button:hover {
+    background-color: rgb(110, 180, 80);
+}
+
+.compile-button:focus-visible {
     background-color: rgb(110, 180, 80);
     border-style: solid;
     border-color: black;
-  }
+}

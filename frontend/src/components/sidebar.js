@@ -1,18 +1,21 @@
-// Sidebar.js
-// Provides the sidebar component for the application which includes
-// the command list, search functionality, and display of individual command details.
-
 import '../css/index.css';
 import '../css/sidebar.css';
 import { useState, useContext } from 'react';
-import CommandList from './commandList'; // Displays a list of commands
-import Searchbar from './searchbar'; // Provides a search bar for filtering commands
-import OneCommand from './oneCommand'; // Shows details for a selected command
+import CommandList from './commandList'; 
+import Searchbar from './searchbar'; 
+import OneCommand from './oneCommand';
 import { useDispatch, useSelector } from 'react-redux';
 import { resetHighlightedWord } from '../reducers/editorReducer';
 import { LanguageContext } from '../contexts/languagecontext';
 
-// Sidebar functional component definition
+/**
+ * `Sidebar` component provides the sidebar for the application, including
+ * the command list, search functionality, and display of individual command details.
+ *
+ * @component
+ * @returns {JSX.Element} - JSX element containing the sidebar components.
+ */
+
 const Sidebar = () => {
     // Access language settings and translations from the LanguageContext
     const { language, translations } = useContext(LanguageContext);
@@ -45,34 +48,30 @@ const Sidebar = () => {
     // Component rendering
     return (
         <div className="sidebar" id='sidebar'>
-            <div className='content'>
-                {selectedCommand ? (
-                    // Render the details of a selected command
-                    <OneCommand 
-                        selectedCommand={selectedCommand} 
-                        setSelectedCommand={setSelectedCommand} 
+            {selectedCommand ? (
+                <OneCommand 
+                    selectedCommand={selectedCommand} 
+                    setSelectedCommand={setSelectedCommand} 
+                    language={language} 
+                    translations={translations}
+                />
+            ) : (
+                <div>
+                    <h2 tabIndex="0" >{translations?.commandListTitle}</h2>
+                    <Searchbar 
+                        searchTerm={searchTerm} 
+                        handleSearchChange={handleSearchChange} 
                         language={language} 
                         translations={translations}
                     />
-                ) : (
-                    // Render the search bar and command list when no command is selected
-                    <div>
-                        <h2 tabIndex="0">{translations?.commandListTitle}</h2>
-                        <Searchbar 
-                            searchTerm={searchTerm} 
-                            handleSearchChange={handleSearchChange} 
-                            language={language} 
-                            translations={translations}
-                        />
-                        <CommandList 
-                            searchTerm={searchTerm} 
-                            handleCommandClick={handleCommandClick} 
-                            language={language} 
-                            translations={translations}
-                        />
-                    </div>
-                )}
-            </div>
+                    <CommandList 
+                        searchTerm={searchTerm} 
+                        handleCommandClick={handleCommandClick} 
+                        language={language} 
+                        translations={translations}
+                    />
+                </div>
+            )}
         </div>
     );
 };

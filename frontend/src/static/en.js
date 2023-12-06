@@ -30,7 +30,9 @@ export default {
         changeView: 'Change view',
         on: 'TURN OFF',
         off: 'TURN ON',
-        passwordLogin: 'Password login: ',
+        // passwordLogin: 'Password login: ',
+        passwordLoginOn: 'Password IS REQUIRED',
+        passwordLoginOff: 'Password IS NOT REQUIRED'
     },
     editorView: {
         writeCode: "Write code:",

@@ -11,8 +11,8 @@ import json
 app = Flask(__name__, static_folder="../build/static", template_folder="../build")
 
 path = os.getcwd()
-if path.endswith('src'):
-    path = os.path.join(path, '..')
+if path.endswith("src"):
+    path = os.path.join(path, "..")
 
 DB_PATH = os.getenv("DB_PATH")
 if len(argv) > 1:
@@ -25,6 +25,7 @@ app.config["PASS_REQ"] = True
 db = DB(os.path.join(path, DB_PATH))
 user_service = UserService(db, app.config["SECRET_KEY"])
 file_service = FileService(db)
+
 
 @app.route("/")
 def main():
@@ -48,7 +49,16 @@ def login():
     content = request.json
     user_info = user_service.login(content["username"], content["password"])
     if user_info:
-        return jsonify({"username": content["username"], "token": user_info["token"], "role": user_info["role"]}), 200
+        return (
+            jsonify(
+                {
+                    "username": content["username"],
+                    "token": user_info["token"],
+                    "role": user_info["role"],
+                }
+            ),
+            200,
+        )
     if user_service.verify_user_existence(0, content["username"]):
         return "Invalid Credentials", 400
 
@@ -56,20 +66,34 @@ def login():
     if result:
         user_info = user_service.login(content["username"], content["password"])
         if user_info:
-            return jsonify({"username": content["username"], "token": user_info["token"], "role": user_info["role"]}), 200
+            return (
+                jsonify(
+                    {
+                        "username": content["username"],
+                        "token": user_info["token"],
+                        "role": user_info["role"],
+                    }
+                ),
+                200,
+            )
 
-        return "Invalid Credentials", 400
+    token = user_service.login(content["username"], content["password"])
+    if not token:
+        return "Invalid credentials", 400
 
-    return "Username already taken", 400
+    return jsonify({"username": content["username"], "token": token}), 200
+
 
 @app.route("/get_user_files", methods=["POST"])
 def get_user_files():
     content = request.json
     user_id = user_service.verify_token(content["token"])
-    if user_id:
-        result = file_service.get_user_files(user_id)
-        return jsonify(result), 200
-    return "Invalid Credentials", 400
+    if not user_id:
+        return "Invalid Credentials", 400
+
+    result = file_service.get_user_files(user_id)
+    return jsonify(result), 200
+
 
 @app.route("/file_service", methods=["POST"])
 def handle_file_request():
@@ -77,45 +101,50 @@ def handle_file_request():
     if not content.get("token", None):
         return "Invalid Credentials", 400
     user_id = user_service.verify_token(content["token"])
-    if user_id:
-        if content['action'] == 'save':
-            result = file_service.save_file(
-                content["filename"], content["textContent"], user_id
-            )
-            return jsonify(result), 200
-        elif content['action'] == 'hide':
-            result = file_service.hide_logo_file(content['fileId'])
-            return jsonify(result), 200
+    if not user_id:
+        return "Invalid credentials", 400
 
-        elif content['action'] == 'admin-delete':
-            result = file_service.delete_logo_file(content["fileId"])
-            return jsonify(result)
-            pass
+    if content["action"] == "save":
+        result = file_service.save_file(
+            content["filename"], content["textContent"], user_id
+        )
+        return jsonify(result), 200
 
-        elif content['action'] == 'admin-save':
-            result = file_service.save_file(
-                content["filename"], content["textContent"], content["userId"]
-            )
-            return jsonify(result)
-    return "Invalid Credentials", 400
+    if content["action"] == "hide":
+        result = file_service.hide_logo_file(content["fileId"])
+        return jsonify(result), 200
+
+    if content["action"] == "admin-delete":
+        result = file_service.delete_logo_file(content["fileId"])
+        return jsonify(result)
+
+    if content["action"] == "admin-save":
+        result = file_service.save_file(
+            content["filename"], content["textContent"], content["userId"]
+        )
+        return jsonify(result)
+
 
 @app.route("/upload", methods=["POST"])
 def upload_file():
-    content_file = request.files['file']
-    content = json.loads(request.form.get('json_data'))
-    if not content['token']:
+    content_file = request.files["file"]
+    content = json.loads(request.form.get("json_data"))
+    if not content["token"]:
         return "Invalid Credentials", 400
 
     user_id = user_service.verify_token(content["token"])
-    if user_id:
-        file_content = content_file.read()
-        decoded_file_content = file_content.decode()
-        result = file_service.save_file(
-            content_file.filename, decoded_file_content, content['user_id']
-        )
-        result['content'] = decoded_file_content
-        result['filename'] = content_file.filename
-        return jsonify(result)
+    if not user_id:
+        return
+
+    file_content = content_file.read()
+    decoded_file_content = file_content.decode()
+    result = file_service.save_file(
+        content_file.filename, decoded_file_content, content["user_id"]
+    )
+    result["content"] = decoded_file_content
+    result["filename"] = content_file.filename
+    return jsonify(result)
+
 
 @app.route("/deploy/robot", methods=["POST"])
 def deploy_to_robot():
@@ -127,11 +156,11 @@ def deploy_to_robot():
     user_id = user_service.verify_token(content["token"])
     if not user_id:
         return "Invalid Credentials", 400
-    
+
     if not content.get("content", None):
         return "Content Missing", 400
-    
-    MockCompiler.compile2(content['content'], '')
+
+    MockCompiler.compile2(content["content"], "")
     return_code = send_to_robot()
 
     if return_code != 0:
@@ -140,6 +169,7 @@ def deploy_to_robot():
     if not success:
         return "FAIL", 500
     return "OK", 200
+
 
 @app.route("/admin/get_users", methods=["POST"])
 def get_all_users():
@@ -151,6 +181,7 @@ def get_all_users():
         return "User not admin", 403
     user_list = user_service.get_all_users()
     return user_list
+
 
 @app.route("/admin/get_files", methods=["POST"])
 def get_all_files():
@@ -164,6 +195,7 @@ def get_all_files():
 
     return jsonify(file_list), 200
 
+
 @app.route("/config/password", methods=["POST"])
 def toggle_password_required():
     content = request.json
@@ -172,10 +204,12 @@ def toggle_password_required():
         return jsonify({"passReq": app.config["PASS_REQ"]}), 200
     else:
         return "Invalid Credentials", 400
-    
+
+
 @app.route("/config/get", methods=["GET"])
 def get_password_required():
     return jsonify(app.config["PASS_REQ"])
+
 
 @app.route("/admin/change_password", methods=["POST"])
 def change_password():
@@ -191,6 +225,7 @@ def change_password():
         return "OK", 200
     return "FAIL", 400
 
+
 @app.route("/verify_token_authenticity", methods=["POST"])
 def verify_token_authenticity():
     content = request.json
@@ -203,6 +238,7 @@ def verify_token_authenticity():
         if user_service.verify_user_existence(user_id, None):
             return "OK", 200
     return "FAIL", 400
+
 
 # Running app
 if __name__ == "__main__":
