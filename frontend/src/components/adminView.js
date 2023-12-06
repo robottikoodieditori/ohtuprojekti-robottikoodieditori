@@ -38,7 +38,7 @@ const AdminView = () => {
         'user_id': '',
         'user': ''
     })
-    const textContent = useSelector(state => state.editor.textContent)
+    const textContent = useSelector(state => state.editor.fileObject.textContent)
     const passwordIsRequired = useSelector(state => state.comms.passReq);
     const [isUploadOpen, setisUploadOpen] = useState(false)
     const [isPasswordWindowOpen, setIsPasswordWindowOpen] = useState(false)

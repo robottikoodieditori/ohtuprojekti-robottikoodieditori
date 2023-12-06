@@ -140,6 +140,7 @@ const Editor = ({ textContent }) => {
                     insert: textContent
                 }
             });
+            dispatch(setContent(textContent))
         }
     }, [textContent]);
 
