@@ -1,7 +1,7 @@
 # Project overview
 
 ## Purpose and goals of the application
-Logo Code Editor is a simple IDE designed for the Logo programming language. This application uses a [compiler](https://github.com/logo-to-lego/logomotion) created to compile Logo to Java. The application provides a streamlined process for sending functional Java programs to Lego Mindstorm robot model EV3. It was primarily developed to help children learn programming.
+Logo Code Editor is a simple IDE designed for the Logo programming language. This application uses a [forked](https://github.com/theJSZ/logomotion) compiler of a [compiler](https://github.com/logo-to-lego/logomotion) created to compile Logo to Java. The application provides a streamlined process for sending functional Java programs to Lego Mindstorm robot model EV3. It was primarily developed to help children learn programming.
 
 ## How it works
 Logo Code Editor IDE is a full-stack application meant to run on a local network. The IDE is specifically designed with a classroom environment in mind. The server runs on a local network hosted on the teacher's computer, to which children connect with their machines. The primary reason for this approach is consideration for children who may have rented or borrowed machines on which they can't install anything, thus requiring this application to be runnable in a browser environment. The entire IDE is also translated into English and Finnish, and the language can be switched on the fly. This is a client-side operation.
