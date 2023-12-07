@@ -10,9 +10,7 @@ export const LanguageProvider = ({ children }) => {
 
     const toggleLanguage = () => {
         setLanguage(prevLang => {
-            console.log('Toggling language from:', language);
             const newLang = prevLang === 'fi' ? 'en' : 'fi';
-            console.log('To:', newLang);
             setTranslations(newLang === 'fi' ? fi : en);
             return newLang;
         });

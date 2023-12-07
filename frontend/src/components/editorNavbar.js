@@ -1,9 +1,8 @@
 import { useState, useContext, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { LanguageContext } from "../contexts/languagecontext";
-import { handleFile, setUserFiles } from '../reducers/commsReducer';
+import {  getUserFiles, hideFile, saveExisting, saveNew } from '../reducers/commsReducer';
 import { setFileName, setContent, setFileId, resetFile } from "../reducers/editorReducer";
-import commService from "../services/comms";
 import '../css/editornavbar.css';
 import '../css/button.css'
 import FileSelectionScreen from "./editorNavbarFileSelectionScreen";
@@ -41,12 +40,13 @@ const EditorNavbar = () => {
     // Function to fetch user files and update the fileList state.
     async function getData() {
         if (userObject.username !== '') {
-            const data = await commService.getUserFiles(userObject.token)
+            dispatch(getUserFiles(userObject.token))
+            /*const data = await commService.getUserFiles(userObject.token)
             if (data) {
                 dispatch(setUserFiles(data))
             }
         } else {
-            dispatch(setUserFiles({}))
+            dispatch(setUserFiles({}))*/
         }
     }
 
@@ -64,10 +64,8 @@ const EditorNavbar = () => {
     // Function to handle saving a new file.
     // Dispatches action to save the new file with the provided filename.  
     const handleSaveNew = async (event) => {
-        console.log(event)
         if (userObject.username) {
-            dispatch(setFileName(event.target.elements.newFileNameInput.value))
-            await dispatch(handleFile(fileObject.textContent, event.target.elements.newFileNameInput.value, 'new', 'userId','save'))
+            await dispatch(saveNew(fileObject.textContent, event.target.elements.newFileNameInput.value, userObject.token))
             setisNewFileOpen(false)           
             getData()      
         }
@@ -81,7 +79,7 @@ const EditorNavbar = () => {
             return
         }
         if (userObject.username) {
-            dispatch(handleFile(fileObject.textContent, fileObject.filename,  fileObject.fileId, 'userId',  'save'))
+            dispatch(saveExisting(fileObject.textContent, fileObject.filename, userObject.token))
             getData() 
         }
     }
@@ -108,12 +106,10 @@ const EditorNavbar = () => {
     
         if (confirmDelete) {
             if (fileObject.filename === file.filename) {
-                console.log(file)
-                await dispatch(handleFile(fileObject.textContent, file.filename, file.file_id, 'user_id', 'hide'))
+                dispatch(hideFile(file.file_id, userObject.token))
                 handleNewFile()
             } else {
-                console.log(file)
-                await dispatch(handleFile(fileObject.textContent, file.filename, file.file_id, 'user_id', 'hide'))
+                dispatch(hideFile(file.file_id, userObject.token))
                 getData()
             }
             setisFileSelectOpen(false)
