@@ -8,14 +8,10 @@ const editorSlice = createSlice({
             filename: window.localStorage.getItem('filename') || '',
             fileId: window.localStorage.getItem('fileId') || ''
         },
-        textContent: window.localStorage.getItem('textContent') || '',
         currentlyHighlightedWord: '',
-        fileName: window.localStorage.getItem('filename') || '',
-        fileId: window.localStorage.getItem('fileId') || '',
     },
     reducers: {
         setContent(state, action) {
-            state.textContent = action.payload
             state.fileObject = {
                 ...state.fileObject,
                 textContent: action.payload
@@ -35,7 +31,6 @@ const editorSlice = createSlice({
             return state
         },
         setFileName(state, action) {
-            state.fileName = action.payload
             state.fileObject = {
                 ...state.fileObject,
                 filename: action.payload
@@ -45,7 +40,6 @@ const editorSlice = createSlice({
             return state
         },
         setFileId(state, action) {
-            state.fileId = action.payload
             state.fileObject = {
                 ...state.fileObject,
                 fileId: action.payload
