@@ -1,18 +1,3 @@
-/**
- * FileSelectionScreen.js
- * This component renders a popup screen for file selection and deletion. It allows users to select
- * a file to open or delete from the provided file list.
- * 
- * Props:
- * - isFileSelectOpen: Boolean indicating if the popup is open.
- * - setisFileSelectOpen: Function to set the state for opening/closing the popup.
- * - handleFileSelection: Function to handle the event when a file is selected.
- * - handleFileHiding: Function to handle the event when a file is requested to be deleted.
- * - fileList: Array of file objects to be displayed.
- * 
- * Uses LanguageContext for internationalization, enabling the display of text in different languages.
- */
-
 import '../css/button.css'
 import '../css/input.css'
 import '../css/popup.css'
@@ -20,6 +5,32 @@ import '../css/form.css'
 import Popup from "reactjs-popup";
 import { LanguageContext } from "../contexts/languagecontext";
 import { useContext } from "react";
+
+/**
+ * `FileSelectionScreen` component renders a popup screen for file selection and hiding (deletion).
+ * It displays a list of files, allowing users to select a file to open or request to hide (delete) it.
+ * The component is interactive, with each file being selectable, and integrates with the `LanguageContext` 
+ * for internationalization, supporting the display of text in various languages.
+ *
+ * @component
+ * @example
+ * return (
+ *   <FileSelectionScreen
+ *      isFileSelectOpen={isFileSelectOpen}
+ *      setisFileSelectOpen={setisFileSelectOpen}
+ *      handleFileSelection={handleFileSelection}
+ *      handleFileHiding={handleFileHiding}
+ *      fileList={fileList}
+ *   />
+ * )
+ *
+ * @param {Object} props - Props for FileSelectionScreen
+ * @param {boolean} props.isFileSelectOpen - State to determine if the popup is open
+ * @param {Function} props.setisFileSelectOpen - Function to toggle the popup open/close
+ * @param {Function} props.handleFileSelection - Function called when a file is selected
+ * @param {Function} props.handleFileHiding - Function called to request file hiding (deletion)
+ * @param {Array} props.fileList - Array of file objects for display
+ */
 
 const FileSelectionScreen = ({ isFileSelectOpen, setisFileSelectOpen, handleFileSelection, handleFileHiding, fileList }) => {
     const { translations } = useContext(LanguageContext);

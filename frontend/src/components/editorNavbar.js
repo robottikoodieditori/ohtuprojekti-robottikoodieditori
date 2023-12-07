@@ -1,15 +1,3 @@
-/**
- * EditorNavbar.js
- * This component provides a navigation bar for the code editor. It handles creating new files,
- * saving existing files, selecting files to open, and hiding (deleting) files.
- * It uses states to manage the visibility of the file selection and new file screens.
- * 
- * Uses:
- * - LanguageContext for internationalization.
- * - Redux for state management related to file and user information.
- * - commService for fetching user files from the backend.
- */
-
 import { useState, useContext, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { LanguageContext } from "../contexts/languagecontext";
@@ -21,6 +9,20 @@ import '../css/button.css'
 import FileSelectionScreen from "./editorNavbarFileSelectionScreen";
 import NewFileScreen from "./editorNavbarNewFileScreen";
 
+/**
+ * `EditorNavbar` component provides a navigation bar for the code editor within the application.
+ * It includes functionalities for creating new files, saving existing files, opening file selection,
+ * and hiding (deleting) files. The component uses React state to manage the visibility of different screens
+ * and integrates with Redux for state management and backend services for file operations.
+ * Internationalization is supported through the `LanguageContext`.
+ *
+ * @component
+ * @example
+ * return <EditorNavbar />
+ *
+ * @param {Object} props - Props for EditorNavbar
+ * - No explicit props are passed to this component as it utilizes Redux for state and context for translations.
+ */
 
 const EditorNavbar = () => {
     const dispatch = useDispatch()
@@ -66,8 +68,8 @@ const EditorNavbar = () => {
         if (userObject.username) {
             dispatch(setFileName(event.target.elements.newFileNameInput.value))
             await dispatch(handleFile(fileObject.textContent, event.target.elements.newFileNameInput.value, 'new', 'userId','save'))
-            setisNewFileOpen(false) // Close the New File Screen after saving.            
-            getData() // Fetch updated file list.        
+            setisNewFileOpen(false)           
+            getData()      
         }
     }
 
@@ -82,7 +84,7 @@ const EditorNavbar = () => {
             : ""
 
         if (!fileObject.filename) {
-            setisNewFileOpen(true); // Open New File Screen for unnamed files.
+            setisNewFileOpen(true) 
             return
         }
         
@@ -99,7 +101,7 @@ const EditorNavbar = () => {
         dispatch(setContent(file.textContent))
         dispatch(setFileName(file.filename))
         dispatch(setFileId(file.file_id))
-        setisFileSelectOpen(false) // Close the File Selection Screen after selection.
+        setisFileSelectOpen(false) 
     }
 
     // Function to handle hiding (deleting) a file.
@@ -123,7 +125,7 @@ const EditorNavbar = () => {
                 await dispatch(handleFile(fileObject.textContent, file.filename, file.file_id, 'user_id', 'hide'))
                 getData()
             }
-            setisFileSelectOpen(false) // Close the File Selection Screen after hiding a file.
+            setisFileSelectOpen(false)
         }
     }
 

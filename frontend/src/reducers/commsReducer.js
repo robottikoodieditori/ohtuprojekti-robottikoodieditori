@@ -14,8 +14,6 @@ const commsSlice = createSlice({
         },
         responseFromServer: '',
         passReq: window.localStorage.getItem("passReq") || true,
-        username: window.localStorage.getItem('username') || '',
-        userFiles: JSON.parse(window.localStorage.getItem('userFiles')) || [],
     },
     reducers: {
         setResponseFromServer(state, action) {
@@ -28,7 +26,6 @@ const commsSlice = createSlice({
             return state
         },
         setLoginFromServer(state, action) {
-            state.username = action.payload.username
             state.userObject = {
                 ...state.userObject,
                 username: action.payload.username,
@@ -50,7 +47,6 @@ const commsSlice = createSlice({
             return state
         },
         setUserFiles(state, action) {
-            state.userFiles = action.payload
             state.userObject = {
                 ...state.userObject,
                 userFiles: action.payload
@@ -66,8 +62,6 @@ const commsSlice = createSlice({
                 token: '',
                 userRole: '',
             }
-            state.username = ''
-            state.userFiles = []
             window.localStorage.removeItem('token')
             window.localStorage.removeItem('username')
             window.localStorage.removeItem('userFiles')

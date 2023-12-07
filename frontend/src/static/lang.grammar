@@ -1,3 +1,4 @@
+
 @precedence { times @left, plus @left }
 @top Program { expression* }
 expression { String | Keyword | Parameters}
@@ -15,3 +16,4 @@ Parameters { leftPar+ String* rightPar+}
   @precedence {command, name}
 }
 @external propSource jsonHighlighting from "./highlight"
+

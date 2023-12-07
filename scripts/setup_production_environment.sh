@@ -1,6 +1,6 @@
 #!/bin/bash
 
-read -p "This script will set up the development environment. Do you want to continue? (y/n) " -n 1 -r
+read -p "This script will set up the production environment. Do you want to continue? (y/n) " -n 1 -r
 echo    # Move to a new line
 if [[ ! $REPLY =~ ^[Yy]$ ]]
 then
@@ -22,34 +22,29 @@ echo "DB_PATH=user_db.db" >> "$ROOT_DIR/backend/.env"
 echo "TEST_DB_PATH=test_db.db" >> "$ROOT_DIR/backend/.env"
 
 
-# Create databases
 touch "$ROOT_DIR/backend/user_db.db"
 touch "$ROOT_DIR/backend/test_db.db"
 
-# Insert Schema into databases
 sqlite3 "$ROOT_DIR/backend/user_db.db" < "$ROOT_DIR/backend/schema.sql"
 sqlite3 "$ROOT_DIR/backend/test_db.db" < "$ROOT_DIR/backend/schema.sql"
-
-# Insert test users into test database
-sqlite3 "$ROOT_DIR/backend/test_db.db" < "$ROOT_DIR/backend/test_data.sql"
 
 
 if [ "$OS" == "Darwin" ]; then
     osascript <<EOD
     tell application "Terminal"
-        do script "cd \"$ROOT_DIR/frontend\" && npm install && npm start"
+        do script "cd \"$ROOT_DIR/frontend\" && npm install && npm run build && cp -r build ../backend"
     end tell
 EOD
 elif [ "$OS" == "Linux" ]; then
-    gnome-terminal -- bash -c "cd \"$ROOT_DIR/frontend\" && npm install; npm start"
+    gnome-terminal -- bash -c "cd \"$ROOT_DIR/frontend\" && npm install && npm run build && cp -r build ../backend"
 fi
 
 if [ "$OS" == "Darwin" ]; then
     osascript <<EOD
     tell application "Terminal"
-        do script "cd \"$ROOT_DIR/backend\" && poetry install && poetry run invoke admin && poetry run invoke start"
+        do script "cd \"$ROOT_DIR/backend\" && poetry install && poetry run invoke admin"
     end tell
 EOD
 elif [ "$OS" == "Linux" ]; then
-    gnome-terminal -- bash -c "cd \"$ROOT_DIR/backend\" && poetry install && poetry run invoke admin; poetry run invoke start"
+    gnome-terminal -- bash -c "cd \"$ROOT_DIR/backend\" && poetry install && poetry run invoke admin"
 fi
