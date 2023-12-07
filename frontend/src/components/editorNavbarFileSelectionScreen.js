@@ -60,13 +60,13 @@ const FileSelectionScreen = ({ isFileSelectOpen, setisFileSelectOpen, handleFile
                                 <tbody>
                                     {fileList.map((file, index) => (
                                         <tr key={file.filename} className={`file-row ${index % 2 === 0 ? 'even' : 'odd'}`}>
-                                            <td tabIndex="0" className="file-open-td" onClick={() => handleFileSelection(file)}>
+                                            <td role="button" tabIndex="0" className="file-open-td" onClick={() => handleFileSelection(file)} onKeyDown={(e) => e.key === 'Enter' && handleFileSelection(file)}>
                                                 {translations?.editorNavbar.open}
                                             </td>
                                             <td tabIndex="0" className="left-td">{file.filename}</td>
                                             <td tabIndex="0" className="center-td">{file.created}</td>
                                             <td tabIndex="0" className="right-td">{file.last_updated}</td>
-                                            <td tabIndex="0" className="file-hide-td" onClick={() => handleFileHiding(file)}>
+                                            <td role="button" tabIndex="0" className="file-hide-td" onClick={() => handleFileHiding(file)} onKeyDown={(e) => e.key === 'Enter' && handleFileHiding(file)}>
                                                 {translations?.editorNavbar.delete}
                                             </td>
                                         </tr>

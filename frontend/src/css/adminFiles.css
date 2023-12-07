@@ -119,7 +119,18 @@
 .hidden-file-button {
   border:  1px solid #555;
   cursor: pointer;
-  
+}
+
+.file-button:focus-visible {
+  background-color: rgb(174, 255, 167);
+  border-style: solid;
+  border-color: black;
+}
+
+.hidden-file-button:focus-visible {
+  background-color: rgb(253, 154, 154);
+  border-style: solid;
+  border-color: black;
 }
 
 .file-button:hover {

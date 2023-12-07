@@ -30,7 +30,7 @@ const AdminViewUserInfo = ({ selectedUser, isPasswordWindowOpen, setIsPasswordWi
     const { translations } = useContext(LanguageContext)
 
     return (
-        <div className="user-info">
+        <section className="user-info" aria-label="user info section">
             <p>{translations?.adminView.username} {selectedUser.name}</p>
             <p>{translations?.adminView.password} {selectedUser.password}</p>
 
@@ -38,7 +38,7 @@ const AdminViewUserInfo = ({ selectedUser, isPasswordWindowOpen, setIsPasswordWi
             { isPasswordWindowOpen &&
                 <PasswordWindow isPasswordWindowOpen={isPasswordWindowOpen} setIsPasswordWindowOpen={setIsPasswordWindowOpen} handlePasswordChange={handlePasswordChange} selectedUser={selectedUser} />
             }
-        </div>
+        </section>
     )
 }
 
