@@ -74,12 +74,21 @@ const EditorNavbar = () => {
     // Function to handle saving an existing file.
     // If no filename is set, opens the New File Screen; otherwise, saves the current file.    
     const handleSaveExisting = () => {
+
+        const saveConfirmedMessage = translations?.adminView.saveConfirmedMessage
+
+        const formattedMessage = saveConfirmedMessage
+            ? saveConfirmedMessage.replace('{filename}', fileObject.filename)
+            : ""
+
         if (!fileObject.filename) {
             setisNewFileOpen(true) 
             return
         }
+        
         if (userObject.username) {
             dispatch(saveExisting(fileObject.textContent, fileObject.filename, userObject.token))
+            alert(formattedMessage)
             getData() 
         }
     }

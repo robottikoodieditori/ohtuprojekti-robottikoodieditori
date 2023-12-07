@@ -14,21 +14,23 @@ import ReactMarkdown from "react-markdown";
  * @returns {JSX.Element} - JSX element containing detailed command information.
  */
 
-const OneCommand = ({ selectedCommand, setSelectedCommand , language, translations}) => {
+const OneCommand = ({ selectedCommand, setSelectedCommand, language, translations }) => {
     return (
         <div>
             <button className='button' onClick={() => setSelectedCommand(null)}>
                 {translations?.returnbutton}
             </button>
-
-            <h2>{translations?.command?.[selectedCommand] || selectedCommand}</h2>
-
+  
+            <h2 tabIndex="0">{translations?.command?.[selectedCommand] || selectedCommand}</h2>
+  
             {/* Render the command description in Markdown format */}
-            <ReactMarkdown>
-                {docs[language][translations?.command?.[selectedCommand] || selectedCommand]}
-            </ReactMarkdown>
+            <div tabIndex="0">
+                <ReactMarkdown>
+                    {docs[language][translations?.command?.[selectedCommand] || selectedCommand]}
+                </ReactMarkdown>
+            </div>
         </div>
-    )
-}
+    );
+};
 
 export default OneCommand;

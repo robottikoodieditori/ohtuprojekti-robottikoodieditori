@@ -36,7 +36,7 @@ const AdminViewUserListSection = ({
     const { translations } = useContext(LanguageContext)
 
     return (
-        <section className="admin-section user-list-section">
+        <section className="admin-section user-list-section" aria-label="user management section">
             <h3>{translations?.adminView.userManagement}</h3>
 
             <input
