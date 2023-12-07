@@ -40,7 +40,7 @@ def data():
 @app.route("/send/compiler", methods=["POST"])
 def send_to_compiler():
     content = request.json
-    errors = MockCompiler.compile2(content["code"], "Koodi")
+    errors = MockCompiler.compile(content["code"], "Koodi")
     return jsonify(errors), 200
 
 
@@ -160,7 +160,7 @@ def deploy_to_robot():
     if not content.get("content", None):
         return "Content Missing", 400
 
-    MockCompiler.compile2(content["content"], "")
+    MockCompiler.compile(content["content"], "")
     return_code = send_to_robot()
 
     if return_code != 0:
