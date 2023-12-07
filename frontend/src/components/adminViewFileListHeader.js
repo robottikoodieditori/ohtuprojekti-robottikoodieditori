@@ -21,6 +21,7 @@ const AdminViewFileListHeader = () => {
             <tr>
                 <th tabIndex="0">{translations?.editorNavbar.file}</th>
                 <th tabIndex="0">{translations?.adminView.creator}</th>
+                <th tabIndex="0">{translations?.adminView.modified}</th>
                 <th></th>
                 <th></th>
                 <th></th>

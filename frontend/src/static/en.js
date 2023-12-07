@@ -98,7 +98,8 @@ export default {
         restore: 'Restore',
         sendRobot: 'Send to robot',
         confirmDeleteMessage: 'Are you sure you want to delete the file: {filename} ?',
-        saveConfirmedMessage: 'File {filename} saved successfully'
+        saveConfirmedMessage: 'File {filename} saved successfully',
+        modified: 'Modified',
     },
     tooltipOpenSidebar: "Click word to display on sidebar",
     toggleLanguage: 'Vaihda Suomeksi'

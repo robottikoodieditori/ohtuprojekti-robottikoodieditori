@@ -98,7 +98,8 @@ export default {
         restore: 'Palauta',
         sendRobot: 'Lähetä robotille',
         confirmDeleteMessage: 'Haluatko varmasti poistaa tiedoston: {filename} ?',
-        saveConfirmedMessage: 'Tiedosto {filename} tallennettu'
+        saveConfirmedMessage: 'Tiedosto {filename} tallennettu',
+        modified: 'Muokattu',
     },
 
     tooltipOpenSidebar: "Klikkaa sanaa avataksesi sen sivupalkissa",
