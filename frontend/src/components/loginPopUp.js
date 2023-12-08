@@ -62,15 +62,15 @@ const LoginPopUp = ({status, onClose}) => {
             return;
         }
 
-        if (passwordIsRequired && !password) {
+        /*if (passwordIsRequired && !password) {
             updateNotificationText(translations?.login.notificationPasswordMissing)
             return;
-        }
+        }*/
 
         if (passwordIsRequired || username === 'admin') {        
             dispatch(login(username, password)); 
         } else {
-            dispatch(login(username, false)); 
+            dispatch(login(username, "")); 
         }
     };
 

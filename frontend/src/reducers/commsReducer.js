@@ -105,7 +105,7 @@ export const deployToRobot = code => {
 
 export const login = (username, password) => {
     return async dispatch => {
-        const curpas = password || 'password'
+        const curpas = password
         const res = await commService.sendLogin(username, curpas)
         if (res === 'Invalid Credentials') {
             dispatch(setResponseFromServer({'login': 'FAIL'}))
