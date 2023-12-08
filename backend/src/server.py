@@ -51,9 +51,7 @@ def login():
         if not app.config["PASS_REQ"] and content["username"] != "admin":
             user_info = user_service.login_without_pass(content["username"])
         else:
-            print("AAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
             user_info = user_service.login(content["username"], content["password"])
-            print(user_info)
         if user_info:
             return (
                 jsonify(
