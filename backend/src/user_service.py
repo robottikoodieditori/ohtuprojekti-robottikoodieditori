@@ -129,7 +129,7 @@ class UserService:
             "SELECT name, id, role FROM users WHERE name = ?", (username,))
         if not db_entry:
             return False
-        return {"id" : db_entry[2], "role" : db_entry[3]}
+        return {"id" : db_entry[1], "role" : db_entry[2]}
         
     
     def verify_admin(self, token: str) -> bool:

@@ -50,8 +50,10 @@ def login():
     if user_service.verify_user_existence(0, content["username"]):
         if not app.config["PASS_REQ"] and content["username"] != "admin":
             user_info = user_service.login_without_pass(content["username"])
+            passreq = False
         else:
             user_info = user_service.login(content["username"], content["password"])
+            passreq = True
         if user_info:
             return (
                 jsonify(
@@ -59,6 +61,7 @@ def login():
                         "username": content["username"],
                         "token": user_info["token"],
                         "role": user_info["role"],
+                        "passreq": passreq,
                     }
                 ),
                 200,
@@ -71,6 +74,7 @@ def login():
         result = user_service.register(content["username"], content["password"])
     if result:
         user_info = user_service.login(content["username"], content["password"])
+        passreq = True
         if user_info:
             return (
                 jsonify(
@@ -78,6 +82,7 @@ def login():
                         "username": content["username"],
                         "token": user_info["token"],
                         "role": user_info["role"],
+                        "passreq": passreq
                     }
                 ),
                 200,

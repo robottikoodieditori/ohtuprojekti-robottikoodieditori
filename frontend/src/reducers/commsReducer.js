@@ -35,6 +35,7 @@ const commsSlice = createSlice({
             window.localStorage.setItem('username', action.payload.username)
             window.localStorage.setItem('token', action.payload.token)
             window.localStorage.setItem('userRole', action.payload.role)
+            window.localStorage.setItem("loggedWithPass", action.payload.passreq)
             console.log(`SERVER RESPONDED WITH NAME: ${state.username}`)
             return state
         },
@@ -160,6 +161,10 @@ export const getPassRequired = () => {
         const res = await commService.getPassReq()
         console.log(res)
         dispatch(setPassReq(res))
+        const loggedWithPass = window.localStorage.getItem("loggedWithPass")
+        if (loggedWithPass === "false" && res) {
+            dispatch(logout())
+        }
     }
 }
 
