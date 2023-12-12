@@ -106,36 +106,28 @@ const AdminView = () => {
 
     // Handles file modifications and saves changes to the server
     const handleModifyClick = async (file) => {
-        const saveConfirmedMessage = translations?.adminView.saveConfirmedMessage
-        const formattedMessage = saveConfirmedMessage
-            ? saveConfirmedMessage.replace('{filename}', file.filename)
-            : ""
+        const res = await commService.adminSaveFile(file.filename, textContent, file.user_id, token)
+        const formattedMessage = res !== 'FAIL'
+            ? translations?.adminView.saveConfirmedMessage.replace('{filename}', file.filename)
+            : translations?.adminView.saveFailureMessage.replace('{filename}', file.filename)
 
-        try {
-            const res = await commService.adminSaveFile(file.filename, textContent, file.user_id, token)
-            alert(formattedMessage)
-            console.log(res)
-            getData()
-        } catch (e) {
-            console.error('FAILURE')
-        }
+        alert(formattedMessage)
     }
 
     // Confirms and handles file deletion
     const handleDeleteClick = async (file) => {
-        const confirmMessage = translations?.editorNavbar.confirmDeleteMessage;
-
-        const formattedMessage = confirmMessage
-            ? confirmMessage.replace('{filename}', file.filename)
-            : ""
+        const formattedMessage = translations?.editorNavbar.confirmDeleteMessage.replace(
+            '{filename}', file.filename);
 
         const isConfirmed = window.confirm(formattedMessage)
 
         if (isConfirmed) {
-            await commService.deleteFile(file.id, token)
+            const res = await commService.deleteFile(file.id, token)
+            const resultMessage = res !== 'FAIL'
+                ? translations?.adminView.deleteSuccesful.replace('{filename}', file.filename)
+                : translations?.adminView.deleteFailed.replace('{filename}', file.filename)
             getData()
-        } else {
-            // do nothing
+            alert(resultMessage)
         }
     }
 
@@ -143,7 +135,10 @@ const AdminView = () => {
     const handlePasswordChange = async (event) => {
         event.preventDefault()
         const password = document.getElementById('passwordInput').value;
-        await commService.changePassword(selectedUser.id, password, token)
+        const res = await commService.changePassword(selectedUser.id, password, token)
+        if (res === 'FAIL') {
+            alert(translations?.adminView.passwordChangeFailed)
+        }
         setIsPasswordWindowOpen(false)
         getData()
     }
@@ -168,7 +163,11 @@ const AdminView = () => {
 
     // Handles the action to send content to a robot
     const handleSendToRobotClick = async ()  => {
-        await commService.deployToRobot(textContent, token)
+        const res = await commService.deployToRobot(textContent, token)
+        const alertMessage = res !== 'FAIL'
+            ? translations?.adminView.deployToRobotSuccesful
+            : translations?.adminView.deployToRobotFailed
+        alert(alertMessage)
     }
 
     return (

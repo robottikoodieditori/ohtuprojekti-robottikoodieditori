@@ -98,7 +98,13 @@ export default {
         restore: 'Palauta',
         sendRobot: 'Lähetä robotille',
         confirmDeleteMessage: 'Haluatko varmasti poistaa tiedoston: {filename} ?',
-        saveConfirmedMessage: 'Tiedosto {filename} tallennettu'
+        deleteSuccesful: 'Tiedosto {filename} poistettiin',
+        deleteFailed: 'Tiedostoa {filename} ei pystytty poistaa',
+        saveConfirmedMessage: 'Tiedosto {filename} tallennettu',
+        saveFailureMessage: 'Tiedoston {filename} tallentaminen epäonnistui',
+        passwordChangeFailed: 'Salasanan vaihto epäonnistui',
+        deployToRobotSuccesful: 'Ohjelma kääntyi onnistuneesti ja on lähetetty robotille',
+        deployToRobotFailed: 'Yhteyden muodostaminen robottiin epäonnistui, tarkista onko yhteys konfiguroitu oikein'
     },
 
     tooltipOpenSidebar: "Klikkaa sanaa avataksesi sen sivupalkissa",

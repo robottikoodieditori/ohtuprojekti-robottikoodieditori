@@ -98,7 +98,13 @@ export default {
         restore: 'Restore',
         sendRobot: 'Send to robot',
         confirmDeleteMessage: 'Are you sure you want to delete the file: {filename} ?',
-        saveConfirmedMessage: 'File {filename} saved successfully'
+        deleteSuccesful: 'Deleted file {filename}',
+        deleteFailed: 'Could not delete file {filename}',
+        saveConfirmedMessage: 'File {filename} saved successfully',
+        saveFailureMessage: 'File {filename} saving failed',
+        passwordChangeFailed: 'Could not change password',
+        deployToRobotSuccesful: 'File succesfully compiled and sent to robot',
+        deployToRobotFailed: 'Could not establish a connection to robot, check if configured correctly'
     },
     tooltipOpenSidebar: "Click word to display on sidebar",
     toggleLanguage: 'Vaihda Suomeksi'

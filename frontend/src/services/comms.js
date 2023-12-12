@@ -79,14 +79,18 @@ const getAllUsers = async ( token ) => {
 }
 
 const deployToRobot = async ( content, token ) => {
-    const res = await axios.post('/deploy/robot', {
-        'content': content,
-    }, {
-        headers: {
-            'Authorization': `bearer ${token}`
-        },
-    })
-    return res.data
+    try {
+        const res = await axios.post('/deploy/robot', {
+            'content': content,
+        }, {
+            headers: {
+                'Authorization': `bearer ${token}`
+            },
+        })
+        return res.data
+    } catch (e) {
+        return e.response.data
+    }
 }
 
 const getPassReq = async () => {
@@ -105,16 +109,20 @@ const uploadFile = async ( data ) => {
 }
 
 const changePassword = async ( userId, password, token ) => {
-    const res = await axios.put('/admin/change_password', {
-        'id': userId,
-        'password': password
-    }, {
-        headers: {
-            'Authorization': `bearer ${token}`
+    try {
+        const res = await axios.put('/admin/change_password', {
+            'id': userId,
+            'password': password
+        }, {
+            headers: {
+                'Authorization': `bearer ${token}`
+            }
         }
+        )
+        return res.data
+    } catch (e) {
+        return 'FAIL'
     }
-    )
-    return res.data
 }
 
 const getAllFiles = async ( token ) => {
@@ -138,28 +146,36 @@ const verifyToken = async (token) => {
 }
 
 const adminSaveFile = async ( filename, content, userId, token ) => {
-    const res = await axios.put('/files/force_save', {
-        'filename': filename,
-        'textContent': content,
-        'userId': userId
-    }, {
-        headers: {
-            'Authorization': `bearer ${token}`
-        }
-    })
-    return res.data
+    try {
+        const res = await axios.put('/files/force_save', {
+            'filename': filename,
+            'textContent': content,
+            'userId': userId
+        }, {
+            headers: {
+                'Authorization': `bearer ${token}`
+            }
+        })
+        return res.data
+    } catch (e) {
+        return 'FAIL'
+    }
 }
 
 const deleteFile = async ( fileId, token ) => {
-    const res = await axios.delete('/files/delete', {
-        data: {
-            'fileId': fileId,
-        },
-        headers: {
-            'Authorization': `bearer ${token}`
-        }
-    })
-    return res.data
+    try {
+        const res = await axios.delete('/files/delete', {
+            data: {
+                'fileId': fileId,
+            },
+            headers: {
+                'Authorization': `bearer ${token}`
+            }
+        })
+        return res.data
+    } catch (e) {
+        return 'FAIL'
+    }
 }
 export default {
     sendToCompile: sendToCompile,
