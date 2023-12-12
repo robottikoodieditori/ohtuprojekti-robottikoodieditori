@@ -50,18 +50,20 @@ const AdminViewUserFilesSection = ({ viewMode, selectedUser, setSelectedUser,
     const { translations } = useContext(LanguageContext)
 
     return (
-        <section className="admin-section user-files-section" aria-label="user section">
-            <h3 tabIndex="0">
-                {
-                    viewMode === 'info' ?
-                        (translations?.adminView.info?.replace('{username}', selectedUser.name)) :
-                        (translations?.adminView.files?.replace('{username}', selectedUser.name))
-                }
-            </h3>
+        <section className="admin-section"  aria-label="user section">
+            <div className='user-info-header'>
+                <h3 tabIndex="0">
+                    {
+                        viewMode === 'info' ?
+                            (translations?.adminView.info?.replace('{username}', selectedUser.name)) :
+                            (translations?.adminView.files?.replace('{username}', selectedUser.name))
+                    }
+                </h3>
 
-            <button className="back-button" onClick={() => setSelectedUser(null)}>
-                {translations?.adminView.back}
-            </button>
+                <button className='button' onClick={() => setSelectedUser(null)}>
+                    {translations?.adminView.back}
+                </button>
+            </div>
 
             <div>
                 {viewMode === 'info' ? (
@@ -73,7 +75,7 @@ const AdminViewUserFilesSection = ({ viewMode, selectedUser, setSelectedUser,
                     />
                 )
                     : (
-                        <ul id='user-files-section'>
+                        <div className='user-files' id='user-files-section'>
                             {userFiles.length > 0 ? (
                                 <AdminViewFileList
                                     files={userFiles}
@@ -86,7 +88,7 @@ const AdminViewUserFilesSection = ({ viewMode, selectedUser, setSelectedUser,
                             ) : (
                                 <p tabIndex="0">{translations?.adminView.noUserFilesFound}</p>
                             )}
-                        </ul>
+                        </div>
                     )}
             </div>
         </section>

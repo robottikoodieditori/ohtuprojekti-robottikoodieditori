@@ -28,7 +28,12 @@ chmod +x setup_production_environment.sh
 ./setup_production_environment.sh
 ```
 
-After the script has finished running, everything has been installed.
+After the script has finished running, everything has been installed. The script creates a default admin user, with crendetials:
+```
+name: admin
+password: password
+```
+It is recommended to change this password as soon as possible.
 
 ## Running the application
 Before running the application, you should configure your computer to be a Wi-Fi hotspot. This can be done in your system settings, under network or Wi-Fi, etc.

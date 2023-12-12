@@ -21,3 +21,26 @@
     border-radius: 10px;
     border: 1px solid rgb(60, 120, 180);
 }
+
+
+.user-list-section input[type="text"] {
+    width: calc(100% - 40px);
+    padding: 8px 15px;
+    font-size: 14px;
+    border: 2px solid #ced4da;
+    border-radius: 20px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    transition: all 0.2s ease-in-out;
+    display: block;
+    margin: 0 auto 10px auto;
+}
+
+.user-list-section input[type="text"]::placeholder {
+    color: #adb5bd;
+}
+
+.user-list-section input[type="text"]:focus {
+    border-color: #80bdff;
+    outline: none;
+    box-shadow: 0 0 0 0.2rem rgba(0,123,255,0.25);
+}
