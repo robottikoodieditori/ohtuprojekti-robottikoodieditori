@@ -1,5 +1,6 @@
 import AdminViewFileListHeader from './adminViewFileListHeader';
 import AdminViewFileListEntry from './adminViewFileListEntry';
+import '../../css/table.css'
 
 /**
  * `AdminViewFileList` component is responsible for rendering a list of files in a table format in the admin panel.
@@ -33,7 +34,7 @@ const AdminViewFileList = ({ files, users, handleFileClick, handleVisibleClick, 
     return (
         <table>
             <AdminViewFileListHeader />
-            <tbody>
+            <tbody id='files-body'>
                 {files.map(file => (
                     <AdminViewFileListEntry
                         key={file.id}

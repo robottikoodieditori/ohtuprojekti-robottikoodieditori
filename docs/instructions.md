@@ -1,6 +1,6 @@
 # Instructions for installing and using Logo code editor
 
-This document contains instructions on how to setup and use this application in a classroom setting. This application has been developed and tested on Linux and Mac OS systems and we cannot guarantee that everything will work on Windows.
+This document contains instructions on how to set up and use this application in a classroom setting. The application has been developed and tested on Linux and macOS systems. However, we cannot guarantee that everything will work seamlessly on Windows.
 
 ## Prerequisites
 Ensure that you have the following installed on your computer:
@@ -11,49 +11,54 @@ Ensure that you have the following installed on your computer:
 - Java
 - Gradle
 
-`Java` and `Gradle` are only required if written Logo scripts are to be run on a Lego Mindstorm EV3 Robot.
+Note: `Java` and `Gradle` are only required if you intend to run Logo scripts on a Lego Mindstorm EV3 Robot.
 
 
 ## Installation
-When you are sure everything is installed and up to date on your machine, you should navigate in a terminal to:
+Once you have confirmed that everything is installed and up-to-date on your machine, navigate to the following directory in a terminal:
 
 ```
 /scripts
 ```
 
-and execute
+Execute the following commands:
 
 ```
 chmod +x setup_production_environment.sh
 ./setup_production_environment.sh
 ```
 
-After the script has finished running, everything has been installed.
+After the script finishes running, everything will be installed. The script creates a default admin user with the following credentials:
+```
+name: admin
+password: password
+```
+It is recommended to change this password as soon as possible.
 
 ## Running the application
-Before running the application, you should configure your computer to be a Wi-Fi hotspot. This can be done in your system settings, under network or Wi-Fi, etc.
+Before running the application, configure your computer to be a Wi-Fi hotspot. This can be done in your system settings under network or Wi-Fi settings.
 
-After setting up your Wi-Fi hotspot, you should navigate to:
+After setting up your Wi-Fi hotspot, navigate to the following directory:
 ```
 /backend
 ```
 
-And run
+Run the command:
 ```
 poetry run invoke gunicorn
 ```
-Now you need to find your hotspot's ip address. Ip address can be found by running: 
+Now, you need to find your hotspot's IP address. The IP address can be found by running the following command in a terminal:
 ```
 ifconfig
 ```
 
-in a terminal. Look for `inet` or `ipv4`, for example:
+Look for `inet` or `ipv4`; for example:
 ![image showing example address](/media/Inet.png)
 
 
-Now, have the students connect to your hotspot and type the address onto a browser's address bar, following `:5000/`. In the case of the address in the image, the proper address would be:
+Now, have the students connect to your hotspot and type the address into a browser's address bar, following `:5000/`. In the case of the address in the image, the proper address would be:
 ```
 10.42.0.1:5000/
 ```
 
-And now the students should be presented with the application if everything went right.
+If everything went right, the students should now be presented with the application.

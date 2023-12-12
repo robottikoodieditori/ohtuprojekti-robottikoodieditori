@@ -1,17 +1,14 @@
 import { useState, useContext, useEffect } from 'react';
 import { useSelector, useDispatch } from "react-redux";
-import { setContent } from "../reducers/editorReducer";
-import { LanguageContext } from "../contexts/languagecontext";
-import commService from '../services/comms'
+import { setContent } from "../../reducers/editorReducer";
+import { LanguageContext } from "../../contexts/languagecontext";
+import commService from '../../services/comms'
 import AdminViewUserListSection from './adminViewUserListSection';
 import AdminViewUserFilesSection from './adminViewUserFilesSection';
 import AdminViewAllFilesSection from './adminViewAllFilesSection';
 import AdminViewEditorSection from './adminViewEditorSection';
-import '../css/adminView.css';
-import '../css/adminUserinfo.css';
-import '../css/adminFiles.css';
-import '../css/adminButtons.css'
-import { togglePassRequired } from "../reducers/commsReducer";
+import '../../css/adminView.css';
+import { togglePassRequired } from "../../reducers/commsReducer";
 
 /**
  * `AdminView` component serves as the main interface for the administration dashboard.
@@ -40,6 +37,7 @@ const AdminView = () => {
     })
     const textContent = useSelector(state => state.editor.fileObject.textContent)
     const passwordIsRequired = useSelector(state => state.comms.passReq);
+    const token = useSelector(state => state.comms.userObject.token)
     const [isUploadOpen, setisUploadOpen] = useState(false)
     const [isPasswordWindowOpen, setIsPasswordWindowOpen] = useState(false)
 
@@ -49,14 +47,13 @@ const AdminView = () => {
 
     // Fetches and sets user and file data from the server
     const getData = async () => {
-        const files = await commService.getFiles()
-        const users = await commService.getUsers()
+        const files = await commService.getAllFiles(token)
+        const users = await commService.getAllUsers(token)
         setAllFiles(files);
         setUsers(users);
         if (selectedUser) {
             const filesForUser = files.filter(file => file.user_id === selectedUser.id)
             setUserFiles(filesForUser);
-            console.log(filesForUser)
         }
     }
 
@@ -105,52 +102,48 @@ const AdminView = () => {
     }
 
     // Handles file modifications and saves changes to the server
-    const handleModifyClick = (file) => {
-        const saveConfirmedMessage = translations?.adminView.saveConfirmedMessage
-        const formattedMessage = saveConfirmedMessage
-            ? saveConfirmedMessage.replace('{filename}', file.filename)
-            : ""
+    const handleModifyClick = async (file) => {
+        const res = await commService.adminSaveFile(file.filename, textContent, file.user_id, token)
+        const formattedMessage = res !== 'FAIL'
+            ? translations?.adminView.saveConfirmedMessage.replace('{filename}', file.filename)
+            : translations?.adminView.saveFailureMessage.replace('{filename}', file.filename)
 
-        commService.handleFile(textContent, file.filename, file.id, file.user_id, 'admin-save')
-            .then(() => {
-                alert(formattedMessage)
-                getData()
-            })
-            .catch((error) => {
-                console.error('Error saving file:', error)
-            })
+        alert(formattedMessage)
+        getData()
     }
 
     // Confirms and handles file deletion
     const handleDeleteClick = async (file) => {
-        const confirmMessage = translations?.editorNavbar.confirmDeleteMessage;
-
-        const formattedMessage = confirmMessage
-            ? confirmMessage.replace('{filename}', file.filename)
-            : ""
+        const formattedMessage = translations?.editorNavbar.confirmDeleteMessage.replace(
+            '{filename}', file.filename);
 
         const isConfirmed = window.confirm(formattedMessage)
 
         if (isConfirmed) {
-            await commService.handleFile(textContent, file.filename, file.id, file.user_id, 'admin-delete')
+            const res = await commService.deleteFile(file.id, token)
+            const resultMessage = res !== 'FAIL'
+                ? translations?.adminView.deleteSuccesful.replace('{filename}', file.filename)
+                : translations?.adminView.deleteFailed.replace('{filename}', file.filename)
             getData()
-        } else {
-            // do nothing
+            alert(resultMessage)
         }
     }
 
     // Handles password change for a selected user
-    const handlePasswordChange = (event) => {
+    const handlePasswordChange = async (event) => {
         event.preventDefault()
         const password = document.getElementById('passwordInput').value;
-        commService.changePassword(selectedUser.id, password)
+        const res = await commService.changePassword(selectedUser.id, password, token)
+        if (res === 'FAIL') {
+            alert(translations?.adminView.passwordChangeFailed)
+        }
         setIsPasswordWindowOpen(false)
         getData()
     }
 
     // Toggles file visibility on the server
     const handleVisibleClick = async (file) => {
-        await commService.handleFile(textContent, file.filename, file.id, file.user_id, "hide")
+        await commService.hideFile(file.id, token)
         getData()
     }
 
@@ -167,17 +160,24 @@ const AdminView = () => {
     }
 
     // Handles the action to send content to a robot
-    const handleSendToRobotClick = () => {
-        commService.deployToRobot(textContent)
+    const handleSendToRobotClick = async ()  => {
+        const res = await commService.deployToRobot(textContent, token)
+        const alertMessage = res !== 'FAIL'
+            ? translations?.adminView.deployToRobotSuccesful
+            : translations?.adminView.deployToRobotFailed
+        alert(alertMessage)
     }
 
     return (
         <div className="admin-container">
-            <p tabIndex="0">{passwordIsRequired ? translations.navbar.passwordLoginOn : translations.navbar.passwordLoginOff }</p>
-            <button onClick={() => dispatch(togglePassRequired())} className='button' id='password-requirement-button'>
-                {passwordIsRequired ? translations.navbar.on : translations.navbar.off}
-            </button>
-            <h2 tabIndex="0">{translations?.adminView.adminDashboard}</h2>
+
+            <div className='toggle-password-section'>
+                <h1 tabIndex="0">{translations?.adminView.adminDashboard}</h1>
+                <p tabIndex="0">{passwordIsRequired ? translations.navbar.passwordLoginOn : translations.navbar.passwordLoginOff }</p>
+                <button onClick={() => dispatch(togglePassRequired(token))} className='button' id='password-requirement-button'>
+                    {passwordIsRequired ? translations.navbar.on : translations.navbar.off}
+                </button>
+            </div>
 
             <div className="sections-container">
                 {/* User list section */}
