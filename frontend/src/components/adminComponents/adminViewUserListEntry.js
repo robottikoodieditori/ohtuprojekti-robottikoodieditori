@@ -1,5 +1,5 @@
 import { useContext } from 'react';
-import { LanguageContext } from "../contexts/languagecontext";
+import { LanguageContext } from "../../contexts/languagecontext";
 
 /**
  * `AdminViewUserListEntry` component represents an individual user entry in the user list of the admin panel.

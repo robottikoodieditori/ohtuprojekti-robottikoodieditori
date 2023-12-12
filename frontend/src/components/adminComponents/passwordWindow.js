@@ -1,9 +1,9 @@
 import Popup from "reactjs-popup"
 import { useContext } from 'react';
-import { LanguageContext } from "../contexts/languagecontext";
-import '../css/popup.css'
-import '../css/input.css'
-import '../css/button.css'
+import { LanguageContext } from "../../contexts/languagecontext";
+import '../../css/popup.css'
+import '../../css/input.css'
+import '../../css/button.css'
 
 /**
  * PasswordWindow component handles the display of a password change dialog.
