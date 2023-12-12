@@ -8,9 +8,6 @@ import AdminViewUserFilesSection from './adminViewUserFilesSection';
 import AdminViewAllFilesSection from './adminViewAllFilesSection';
 import AdminViewEditorSection from './adminViewEditorSection';
 import '../css/adminView.css';
-import '../css/adminUserinfo.css';
-import '../css/adminFiles.css';
-import '../css/adminButtons.css'
 import { togglePassRequired } from "../reducers/commsReducer";
 
 /**
@@ -173,11 +170,14 @@ const AdminView = () => {
 
     return (
         <div className="admin-container">
-            <p tabIndex="0">{passwordIsRequired ? translations.navbar.passwordLoginOn : translations.navbar.passwordLoginOff }</p>
-            <button onClick={() => dispatch(togglePassRequired(token))} className='button' id='password-requirement-button'>
-                {passwordIsRequired ? translations.navbar.on : translations.navbar.off}
-            </button>
-            <h2 tabIndex="0">{translations?.adminView.adminDashboard}</h2>
+
+            <div className='toggle-password-section'>
+                <h1 tabIndex="0">{translations?.adminView.adminDashboard}</h1>
+                <p tabIndex="0">{passwordIsRequired ? translations.navbar.passwordLoginOn : translations.navbar.passwordLoginOff }</p>
+                <button onClick={() => dispatch(togglePassRequired(token))} className='button' id='password-requirement-button'>
+                    {passwordIsRequired ? translations.navbar.on : translations.navbar.off}
+                </button>
+            </div>
 
             <div className="sections-container">
                 {/* User list section */}

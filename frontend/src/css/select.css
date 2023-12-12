@@ -1,0 +1,11 @@
+.popup-select{
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #34495e;
+    color: rgb(209, 209, 209);
+    margin-bottom: 10px;
+    outline: none;
+    appearance: none;
+}

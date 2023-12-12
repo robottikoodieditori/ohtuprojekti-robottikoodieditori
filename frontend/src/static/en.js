@@ -84,7 +84,7 @@ export default {
         noUserFilesFound:'No files found for this user.',
         noFilesFound:'No files found',
         allFiles:'All Files',
-        upload:'Upload',
+        uploadFile:'Upload',
         download:'Download',
         save:'Save',
         delete:'Delete',
@@ -98,7 +98,10 @@ export default {
         restore: 'Restore',
         sendRobot: 'Send to robot',
         confirmDeleteMessage: 'Are you sure you want to delete the file: {filename} ?',
-        saveConfirmedMessage: 'File {filename} saved successfully'
+        saveConfirmedMessage: 'File {filename} saved successfully',
+        modified: 'Modified',
+        change: 'Change',
+        upload: 'Upload',
     },
     tooltipOpenSidebar: "Click word to display on sidebar",
     toggleLanguage: 'Vaihda Suomeksi'
