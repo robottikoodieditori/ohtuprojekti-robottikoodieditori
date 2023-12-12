@@ -53,7 +53,7 @@ const AdminView = () => {
     const getData = async () => {
         const files = await commService.getAllFiles(token)
         const users = await commService.getAllUsers(token)
-        handleSortClick(files, sortedOrder.key)
+        handleSortClick(files, sortedOrder.key, true)
         setUsers(users);
         if (selectedUser) {
             const filesForUser = files.filter(file => file.user_id === selectedUser.id)
@@ -172,7 +172,7 @@ const AdminView = () => {
         alert(alertMessage)
     }
 
-    const handleSortClick = (files, key) => {
+    const handleSortClick = (files, key, sort) => {
         const order = sortedOrder.order ? 'asc' : 'desc';        
         const sorted = Object.entries(files).sort(([,a],[,b]) =>{
             let aValue, bValue;
@@ -190,17 +190,24 @@ const AdminView = () => {
             }
         });
         const sortedArray = sorted.map(([key, value]) => ({ key, ...value }));
-        setSortedOrder(sortedOrder => ({
-            ...sortedOrder,
-            key : key,
-            order : !sortedOrder.order
-        }))
+
+        if (!sort){
+            console.log(sort)
+            setSortedOrder(sortedOrder => ({
+                ...sortedOrder,
+                key : key,
+                order : !sortedOrder.order
+            }))
+        }
 
         setAllFiles(sortedArray)
+    }
+
+    useEffect(() => {
         if (selectedUser) {
             handleUserClick(selectedUser)
         }
-    }
+    }, [allFiles])
 
     return (
         <div className="admin-container">
