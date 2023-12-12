@@ -1,3 +1,39 @@
+/**
+ * en.js
+ * ---------------------------------------------------
+ * 
+ * Overview:
+ * The `en.js` file contains English translations for various text elements used throughout the application.
+ * It exports a single object with key-value pairs, where each key represents a specific UI element or label,
+ * and the corresponding value is the text in English.
+ *
+ * Structure:
+ * - The file is structured as an object with nested objects for different sections of the application,
+ *   such as the navigation bar, editor view, admin view, etc.
+ * - Each nested object contains key-value pairs for specific text elements, like button labels, placeholders,
+ *   and messages.
+ *
+ * Usage:
+ * - This file is used in conjunction with the LanguageContext to provide English translations for the app.
+ * - The translations object from this file is loaded into the LanguageContext based on the user's language preference.
+ *
+ * Example:
+ * - Accessing a translation in a component:
+ * 
+ *   import { useContext } from 'react';
+ *   import { LanguageContext } from '../path/to/LanguageContext';
+ *
+ *   const MyComponent = () => {
+ *       const { translations } = useContext(LanguageContext);
+ *       return <h1>{translations.navbar.title}</h1>;
+ *   };
+ *
+ * Note:
+ * - The key names in this file should match those in other language translation files (e.g., `fi.js`) for consistency.
+ * - When adding new text elements to the application, ensure to add corresponding translations here.
+ */
+
+
 export default {
     searchPlaceholder: "Search Command",
     commandListTitle: "Commands",

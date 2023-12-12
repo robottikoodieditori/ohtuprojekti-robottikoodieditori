@@ -1,14 +1,14 @@
 import { useState, useContext, useEffect } from 'react';
 import { useSelector, useDispatch } from "react-redux";
-import { setContent } from "../reducers/editorReducer";
-import { LanguageContext } from "../contexts/languagecontext";
-import commService from '../services/comms'
+import { setContent } from "../../reducers/editorReducer";
+import { LanguageContext } from "../../contexts/languagecontext";
+import commService from '../../services/comms'
 import AdminViewUserListSection from './adminViewUserListSection';
 import AdminViewUserFilesSection from './adminViewUserFilesSection';
 import AdminViewAllFilesSection from './adminViewAllFilesSection';
 import AdminViewEditorSection from './adminViewEditorSection';
-import '../css/adminView.css';
-import { togglePassRequired } from "../reducers/commsReducer";
+import '../../css/adminView.css';
+import { togglePassRequired } from "../../reducers/commsReducer";
 
 /**
  * `AdminView` component serves as the main interface for the administration dashboard.
