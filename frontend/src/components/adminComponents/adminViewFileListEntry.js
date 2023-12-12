@@ -1,5 +1,5 @@
 import { useContext } from 'react';
-import { LanguageContext } from "../contexts/languagecontext";
+import { LanguageContext } from "../../contexts/languagecontext";
 
 /**
  * `AdminViewFileListEntry` component represents an individual file entry within the file list in the admin panel.

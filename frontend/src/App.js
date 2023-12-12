@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
 import EditorView from "./components/editorview";
 import Sidebar from "./components/sidebar";
-import Navbar from "./components/navbar";  
+import Navbar from "./components/navbar";
 import { LanguageProvider } from './contexts/languagecontext';
 import LoginPopUp from "./components/loginPopUp";
-import AdminView from "./components/adminView"; 
+import AdminView from "./components/adminComponents/adminView";
 import { useDispatch, useSelector } from 'react-redux';
 import { getPassRequired, verifyLogin } from './reducers/commsReducer';
 import { setFileName, resetFile } from "./reducers/editorReducer";
@@ -16,7 +16,7 @@ function App() {
     const token = useSelector(state => state.comms.userObject.token)
     const fileObject = useSelector(state => state.editor.fileObject)
     document.title = 'Logomotion editor';
-    
+
     useEffect(() => {
         dispatch(getPassRequired())
         if (token !== '') {
@@ -41,7 +41,7 @@ function App() {
                 {isAdminViewOpen ? (
                     <div className="admin-view" id="admin-view">
                         <AdminView />
-                    </div>  
+                    </div>
                 ) : (
                     <div className="main-content">
                         <EditorView />

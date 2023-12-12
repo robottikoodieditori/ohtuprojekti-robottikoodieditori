@@ -1,5 +1,5 @@
 import { useContext } from 'react';
-import { LanguageContext } from "../contexts/languagecontext";
+import { LanguageContext } from "../../contexts/languagecontext";
 
 /**
  * `AdminViewFileListHeader` component renders the header for the file list table in the admin panel.
