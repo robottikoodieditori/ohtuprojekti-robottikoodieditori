@@ -84,7 +84,7 @@ export default {
         noUserFilesFound:'No files found for this user.',
         noFilesFound:'No files found',
         allFiles:'All Files',
-        upload:'Upload',
+        uploadFile:'Upload',
         download:'Download',
         save:'Save',
         delete:'Delete',
@@ -104,7 +104,10 @@ export default {
         saveFailureMessage: 'File {filename} saving failed',
         passwordChangeFailed: 'Could not change password',
         deployToRobotSuccesful: 'File succesfully compiled and sent to robot',
-        deployToRobotFailed: 'Could not establish a connection to robot, check if configured correctly'
+        deployToRobotFailed: 'Could not establish a connection to robot, check if configured correctly',
+        modified: 'Modified',
+        change: 'Change',
+        upload: 'Upload',
     },
     tooltipOpenSidebar: "Click word to display on sidebar",
     toggleLanguage: 'Vaihda Suomeksi'

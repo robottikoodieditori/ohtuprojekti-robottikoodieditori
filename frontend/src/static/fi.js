@@ -84,7 +84,7 @@ export default {
         noUserFilesFound:'Käyttäjälle ei löytynyt tiedostoja.',
         noFilesFound: 'Tiedostoja ei löytynyt.',
         allFiles:'Kaikki tiedostot',
-        upload:'Vie Tiedosto',
+        uploadFile:'Tuo Tiedosto',
         download:'Lataa',
         save:'Tallenna',
         delete:'Poista',
@@ -104,7 +104,10 @@ export default {
         saveFailureMessage: 'Tiedoston {filename} tallentaminen epäonnistui',
         passwordChangeFailed: 'Salasanan vaihto epäonnistui',
         deployToRobotSuccesful: 'Ohjelma kääntyi onnistuneesti ja on lähetetty robotille',
-        deployToRobotFailed: 'Yhteyden muodostaminen robottiin epäonnistui, tarkista onko yhteys konfiguroitu oikein'
+        deployToRobotFailed: 'Yhteyden muodostaminen robottiin epäonnistui, tarkista onko yhteys konfiguroitu oikein',
+        modified: 'Muokattu',
+        change: 'Vaihda',
+        upload: 'Tuo',
     },
 
     tooltipOpenSidebar: "Klikkaa sanaa avataksesi sen sivupalkissa",
