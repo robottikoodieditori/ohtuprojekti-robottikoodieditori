@@ -40,6 +40,10 @@ const AdminView = () => {
     const token = useSelector(state => state.comms.userObject.token)
     const [isUploadOpen, setisUploadOpen] = useState(false)
     const [isPasswordWindowOpen, setIsPasswordWindowOpen] = useState(false)
+    const [sortedOrder, setSortedOrder] = useState({
+        'key' : 'filename',
+        'order' : true
+    })
 
     useEffect( () => {
         getData()
@@ -49,7 +53,7 @@ const AdminView = () => {
     const getData = async () => {
         const files = await commService.getAllFiles(token)
         const users = await commService.getAllUsers(token)
-        setAllFiles(files);
+        handleSortClick(files, sortedOrder.key)
         setUsers(users);
         if (selectedUser) {
             const filesForUser = files.filter(file => file.user_id === selectedUser.id)
@@ -168,6 +172,36 @@ const AdminView = () => {
         await commService.deployToRobot(textContent, token)
     }
 
+    const handleSortClick = (files, key) => {
+        const order = sortedOrder.order ? 'asc' : 'desc';        
+        const sorted = Object.entries(files).sort(([,a],[,b]) =>{
+            let aValue, bValue;
+            if (key === 'last_updated'){
+                aValue = new Date(a[key])
+                bValue = new Date(b[key])
+            } else {
+                aValue = a[key].toLowerCase()
+                bValue = b[key].toLowerCase()
+            }
+            if (order === 'asc') {
+                return aValue > bValue ? 1 : -1;
+            } else {
+                return aValue < bValue ? 1 : -1
+            }
+        });
+        const sortedArray = sorted.map(([key, value]) => ({ key, ...value }));
+        setSortedOrder(sortedOrder => ({
+            ...sortedOrder,
+            key : key,
+            order : !sortedOrder.order
+        }))
+
+        setAllFiles(sortedArray)
+        if (selectedUser) {
+            handleUserClick(selectedUser)
+        }
+    }
+
     return (
         <div className="admin-container">
 
@@ -193,6 +227,7 @@ const AdminView = () => {
                         isPasswordWindowOpen={isPasswordWindowOpen} setIsPasswordWindowOpen={setIsPasswordWindowOpen}
                         userFiles={userFiles} allFiles={allFiles} users={users} handlePasswordChange={handlePasswordChange}
                         handleFileClick={handleFileClick} handleVisibleClick={handleVisibleClick} handleDeleteClick={handleDeleteClick} handleDownloadClick={handleDownloadClick}
+                        handleSortClick={handleSortClick} sortedOrder={sortedOrder}
                     />
                 )}
 
@@ -201,6 +236,7 @@ const AdminView = () => {
                     allFiles={allFiles} users={users} setOpenedFile={setOpenedFile}
                     handleFileClick={handleFileClick} handleVisibleClick={handleVisibleClick}
                     handleDeleteClick={handleDeleteClick} handleDownloadClick={handleDownloadClick}
+                    handleSortClick={handleSortClick} sortedOrder={sortedOrder}
                 />
             </div>
 

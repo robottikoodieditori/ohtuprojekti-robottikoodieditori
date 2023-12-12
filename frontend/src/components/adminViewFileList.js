@@ -29,11 +29,15 @@ import '../css/table.css'
  * @param {Function} props.handleDownloadClick - Function to handle downloading a file
  */
 
-const AdminViewFileList = ({ files, users, handleFileClick, handleVisibleClick, handleDeleteClick, handleDownloadClick }) => {
+const AdminViewFileList = ({ files, users, handleFileClick, handleVisibleClick, handleDeleteClick, handleDownloadClick, handleSortClick, sortedOrder, allFiles}) => {
 
     return (
         <table>
-            <AdminViewFileListHeader />
+            <AdminViewFileListHeader
+                files={allFiles}
+                handleSortClick={handleSortClick}
+                sortedOrder={sortedOrder}
+            />
             <tbody id='files-body'>
                 {files.map(file => (
                     <AdminViewFileListEntry

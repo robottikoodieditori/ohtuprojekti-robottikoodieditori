@@ -32,7 +32,7 @@ import AdminViewFileList from './adminViewFileList';
  * @param {Function} props.setOpenedFile - Function to set the currently opened file
  */
 
-const AdminViewAllFilesSection = ({ allFiles, users, handleFileClick, handleVisibleClick, handleDeleteClick, handleDownloadClick, setOpenedFile }) => {
+const AdminViewAllFilesSection = ({ allFiles, users, handleFileClick, handleVisibleClick, handleDeleteClick, handleDownloadClick, setOpenedFile, handleSortClick, sortedOrder }) => {
     const { translations } = useContext(LanguageContext)
 
     return (
@@ -48,6 +48,9 @@ const AdminViewAllFilesSection = ({ allFiles, users, handleFileClick, handleVisi
                     handleDeleteClick={handleDeleteClick}
                     handleDownloadClick={handleDownloadClick}
                     setOpenedFile={setOpenedFile}
+                    handleSortClick={handleSortClick}
+                    sortedOrder={sortedOrder}
+                    allFiles={allFiles}
                 />
             </div>
         </section>
