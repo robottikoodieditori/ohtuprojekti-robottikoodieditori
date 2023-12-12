@@ -18,7 +18,7 @@ const AdminViewFileListHeader = () => {
 
     return (
         <thead>
-            <tr>
+            <tr className='admin-border-th'>
                 <th tabIndex="0">{translations?.editorNavbar.file}</th>
                 <th tabIndex="0">{translations?.adminView.creator}</th>
                 <th tabIndex="0">{translations?.adminView.modified}</th>

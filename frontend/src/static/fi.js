@@ -84,7 +84,7 @@ export default {
         noUserFilesFound:'Käyttäjälle ei löytynyt tiedostoja.',
         noFilesFound: 'Tiedostoja ei löytynyt.',
         allFiles:'Kaikki tiedostot',
-        upload:'Vie Tiedosto',
+        uploadFile:'Tuo Tiedosto',
         download:'Lataa',
         save:'Tallenna',
         delete:'Poista',
@@ -100,6 +100,8 @@ export default {
         confirmDeleteMessage: 'Haluatko varmasti poistaa tiedoston: {filename} ?',
         saveConfirmedMessage: 'Tiedosto {filename} tallennettu',
         modified: 'Muokattu',
+        change: 'Vaihda',
+        upload: 'Tuo',
     },
 
     tooltipOpenSidebar: "Klikkaa sanaa avataksesi sen sivupalkissa",

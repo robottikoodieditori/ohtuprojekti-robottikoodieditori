@@ -1,6 +1,9 @@
 import Popup from "reactjs-popup"
 import { useContext } from 'react';
 import { LanguageContext } from "../contexts/languagecontext";
+import '../css/popup.css'
+import '../css/input.css'
+import '../css/button.css'
 
 /**
  * PasswordWindow component handles the display of a password change dialog.
@@ -16,31 +19,29 @@ const PasswordWindow = ({ isPasswordWindowOpen, setIsPasswordWindowOpen, handleP
     const { translations } = useContext(LanguageContext)
 
     return (
-        <div className='overlay'>
-            <Popup
-                open={isPasswordWindowOpen}
-                closeOnDocumentClick={false}
-                overlayStyle={{ background: 'rgba(0,0,0,0.8)' }}
-            >
-                <div className='content-upload'>
-                    <div className="content-upload-header ">
-                        <h2 tabIndex="0">{translations?.adminView.changePassword}</h2>
-                        <div className='upload-header'>
-                            <button className="close-button-upload" onClick={() => setIsPasswordWindowOpen(false)}>X</button>
-                        </div>
-                    </div>
-                    <form onSubmit={handlePasswordChange}>
+        <Popup
+            open={isPasswordWindowOpen}
+            closeOnDocumentClick={false}
+            overlayStyle={{ background: 'rgba(0,0,0,0.8)' }}
+        >
+            <div className='popup'>
+                <button className="close-button" onClick={() => setIsPasswordWindowOpen(false)}>X</button>
+
+                <div className="popup-container">
+                    <h2 tabIndex="0">{translations?.adminView.changePassword}</h2>
+                    <form className="popup-form" onSubmit={handlePasswordChange}>
                         <input
                             type='text'
                             id='passwordInput'
                             name='password'
                             placeholder={selectedUser.password}
+                            className="popup-input"
                         />
-                        <button type="submit" value="Change">Vaihda</button>
+                        <button className='popup-button' type="submit" value="Change">{translations.adminView.change}</button>
                     </form>
                 </div>
-            </Popup>
-        </div>
+            </div>
+        </Popup>
     )
 }
 

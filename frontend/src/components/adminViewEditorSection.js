@@ -2,6 +2,7 @@ import { useContext } from 'react';
 import { LanguageContext } from "../contexts/languagecontext";
 import Editor from './editor';
 import UploadScreen from './uploadScreen';
+import '../css/button.css'
 
 /**
  * `AdminViewEditorSection` component is part of the admin panel interface, providing a comprehensive
@@ -50,8 +51,8 @@ const AdminViewEditorSection = ({ handleNewFileClick, isUploadOpen, setisUploadO
     return (
         <div className="editor-section" id="editor-section">
             <div className="editor-toolbar" id="editor-toolbar">
-                <button id="new-file-button" onClick={handleNewFileClick}>{translations?.editorNavbar.newFile}</button>
-                <button id="upload-button" onClick={() => setisUploadOpen(true)}>{translations?.adminView.upload}</button>
+                <button className='button' id="new-file-button" onClick={handleNewFileClick}>{translations?.editorNavbar.newFile}</button>
+                <button className='button' id="upload-button" onClick={() => setisUploadOpen(true)}>{translations?.adminView.uploadFile}</button>
                 { isUploadOpen &&
                     <UploadScreen
                         isUploadOpen={isUploadOpen}
@@ -61,10 +62,10 @@ const AdminViewEditorSection = ({ handleNewFileClick, isUploadOpen, setisUploadO
                         setOpenedFile={setOpenedFile}
                     />
                 }
-                <button id="download-button" onClick={() => handleDownloadClick(openedFile)}>{translations?.adminView.download} </button>
-                <button id="save-button" onClick={() => handleModifyClick(openedFile)}>{translations?.adminView.save} </button>
-                <button id="delete-button" onClick={() => handleDeleteClick(openedFile)}>{translations?.editorNavbar.delete}</button>
-                <button id="send-to-robot-button" onClick={() => handleSendToRobotClick()}>{translations?.adminView.sendRobot}</button>
+                <button className='button' id="download-button" onClick={() => handleDownloadClick(openedFile)}>{translations?.adminView.download} </button>
+                <button className='button' id="save-button" onClick={() => handleModifyClick(openedFile)}>{translations?.adminView.save} </button>
+                <button className='button' id="delete-button" onClick={() => handleDeleteClick(openedFile)}>{translations?.editorNavbar.delete}</button>
+                <button className='button' id="send-to-robot-button" onClick={() => handleSendToRobotClick()}>{translations?.adminView.sendRobot}</button>
                 <p tabIndex="0">{translations?.editorNavbar.file} {openedFile['filename']}</p>
                 <p tabIndex="0">{translations?.adminView.creator} {openedFile['user']}</p>
             </div>

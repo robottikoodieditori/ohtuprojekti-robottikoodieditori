@@ -34,7 +34,7 @@ const AdminViewUserInfo = ({ selectedUser, isPasswordWindowOpen, setIsPasswordWi
             <p>{translations?.adminView.username} {selectedUser.name}</p>
             <p>{translations?.adminView.password} {selectedUser.password}</p>
 
-            <button className="change-password-button" onClick={() => {setIsPasswordWindowOpen(true)}}> Vaihda salasana </button>
+            <button className="button" id='change-password-button' onClick={() => {setIsPasswordWindowOpen(true)}}> {translations.adminView.changePassword} </button>
             { isPasswordWindowOpen &&
                 <PasswordWindow isPasswordWindowOpen={isPasswordWindowOpen} setIsPasswordWindowOpen={setIsPasswordWindowOpen} handlePasswordChange={handlePasswordChange} selectedUser={selectedUser} />
             }

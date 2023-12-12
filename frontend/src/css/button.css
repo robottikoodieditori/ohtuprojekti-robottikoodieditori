@@ -143,3 +143,29 @@
     border-style: solid;
     border-color: black;
 }
+
+.user-action-button {
+    cursor: pointer;
+    margin-right: 10px;
+    padding: 8px 12px;
+    font-size: 14px; 
+    border: none;
+    color: #ffffff;
+    border-radius: 4px;
+    text-align: center;
+    transition: background-color 0.3s;
+}
+
+.user-action-button {
+    background-color: rgb(71, 128, 47)
+}
+
+.user-action-button:hover {
+    background-color: rgb(110, 180, 80);
+}
+
+.user-action-button:focus-visible {
+    background-color: rgb(110, 180, 80);
+    border-style: solid;
+    border-color: black;
+}
