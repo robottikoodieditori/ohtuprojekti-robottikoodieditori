@@ -71,13 +71,34 @@ const commsSlice = createSlice({
         setPassReq(state, action) {
             state.passReq = action.payload
             window.localStorage.setItem("passReq", action.payload)
+        },
+        removeFile(state, action) {
+            state.userObject = {
+                ...state.userObject,
+                userFiles: state.userObject.userFiles.filter(file => file.id !== action.payload)
+            }
+            return state
+        },
+        addUserFile(state, action) {
+            const currentDate = new Date()
+            const timeStamp = currentDate.getTime()
+            state.userObject = {
+                ...state.userObject,
+                userFiles: state.userObject.userFiles.concat({
+                    filename: action.payload.filename,
+                    textContent: action.payload.content,
+                    created: timeStamp,
+                    last_updated: timeStamp
+                })
+            }
+            return state
         }
     }
 })
 
 export const {
     setResponseFromServer, setLoginFromServer, sendToCompiler, sendToRobot,
-    setUserFiles, getUserName, logout, setPassReq
+    setUserFiles, getUserName, logout, setPassReq, removeFile, addUserFile
 } = commsSlice.actions
 
 export const sendToServer = code => {
@@ -116,39 +137,42 @@ export const login = (username, password) => {
     }
 }
 
-export const uploadFile = data => {
+
+export const saveNew = (content, filename, token) => {
     return async dispatch => {
-        const res = await commService.uploadFile(data)
-        console.log(res)
-        dispatch()
+        const res = await commService.saveNew(content, filename, token)
+        dispatch(setFileName(filename))
+        dispatch(setContent(content))
+        if (res.file_id) {
+            dispatch(setFileId(res.file_id))
+        }
+        dispatch(addUserFile({content, filename}))
     }
 }
 
-export const handleFile = (content, filename, fileId, userId, action) => {
+export const saveExisting = ( content, filename, token ) => {
     return async dispatch => {
-        const res = await commService.handleFile(content, filename, fileId, userId, action)
-        console.log(res)
-        if (res.action === 'save'){
-            dispatch(setFileName(filename))
+        const res = await commService.saveExisting(content, filename, token)
+        if (res) {
+            dispatch(addUserFile({content, filename}))
             dispatch(setContent(content))
-            if (res.file_id){
-                dispatch(setFileId(res.file_id))
-            }
-        } 
-        if (res.action === 'hide') {
-            console.log(res)
-            //todo
-            //dispatch
         }
     }
 }
 
-export const getUserFiles = () => {
+export const hideFile = (fileId, token) => {
     return async dispatch => {
-        const res = await commService.getUserFiles()
+        const res = await commService.hideFile(fileId, token)
         console.log(res)
+        dispatch(removeFile(fileId))
+    }
+}
+
+export const getUserFiles = ( token ) => {
+    return async dispatch => {
+        const res = await commService.getUserFiles(token)
         if (res === 'FAIL'){
-            dispatch(setUserFiles(false))
+            dispatch(setUserFiles([]))
         } else {
             dispatch(setUserFiles(res))
         }
@@ -158,26 +182,21 @@ export const getUserFiles = () => {
 export const getPassRequired = () => {
     return async dispatch => {
         const res = await commService.getPassReq()
-        console.log(res)
         dispatch(setPassReq(res))
     }
 }
 
-export const togglePassRequired = () => {
+export const togglePassRequired = ( token ) => {
     return async dispatch => {
-        const res = await commService.togglePassReq()
-        console.log(res)
+        const res = await commService.togglePassReq(token)
         dispatch(setPassReq(res.passReq))
     }
 }
 
 export const verifyLogin = (token) => {
     return async dispatch => {
-        console.log('Onnistuuko')
         const res = await commService.verifyToken(token)
-        console.log(res)
         if (res === 'FAIL') {
-            console.log('EI!')
             dispatch(logout())
         }
     }
