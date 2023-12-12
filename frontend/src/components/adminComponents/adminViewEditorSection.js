@@ -1,8 +1,8 @@
 import { useContext } from 'react';
-import { LanguageContext } from "../contexts/languagecontext";
-import Editor from './editor';
-import UploadScreen from './uploadScreen';
-import '../css/button.css'
+import { LanguageContext } from "../../contexts/languagecontext";
+import Editor from './../editor';
+import UploadScreen from './../uploadScreen';
+import '../../css/button.css'
 
 /**
  * `AdminViewEditorSection` component is part of the admin panel interface, providing a comprehensive
