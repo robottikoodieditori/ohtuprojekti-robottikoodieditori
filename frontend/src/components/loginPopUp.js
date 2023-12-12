@@ -92,7 +92,7 @@ const LoginPopUp = ({status, onClose}) => {
             <div className='popup' id="popup" role="dialog" aria-modal="True" aria-label="login window">
                 <button className="close-button" onClick={handleClose} id='close-button'>X</button>
                 <div className="popup-container">
-                    <h2>{translations?.login.title}</h2>
+                    <h2 tabIndex="0">{translations?.login.title}</h2>
                     <input
                         id='registration-name-input'
                         type="text"

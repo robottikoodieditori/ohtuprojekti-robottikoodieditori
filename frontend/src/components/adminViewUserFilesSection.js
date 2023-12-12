@@ -50,9 +50,9 @@ const AdminViewUserFilesSection = ({ viewMode, selectedUser, setSelectedUser,
     const { translations } = useContext(LanguageContext)
 
     return (
-        <section className="admin-section">
+        <section className="admin-section"  aria-label="user section">
             <div className='user-info-header'>
-                <h3>
+                <h3 tabIndex="0">
                     {
                         viewMode === 'info' ?
                             (translations?.adminView.info?.replace('{username}', selectedUser.name)) :
@@ -86,7 +86,7 @@ const AdminViewUserFilesSection = ({ viewMode, selectedUser, setSelectedUser,
                                     handleDownloadClick={handleDownloadClick}
                                 />
                             ) : (
-                                <p>{translations?.adminView.noUserFilesFound}</p>
+                                <p tabIndex="0">{translations?.adminView.noUserFilesFound}</p>
                             )}
                         </div>
                     )}

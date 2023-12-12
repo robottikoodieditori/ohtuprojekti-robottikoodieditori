@@ -14,12 +14,13 @@
 .command-list-container {
     padding-top: 10px;
     overflow-y: auto;
-    height: 90%;
 }
 
 .command-list {
     list-style-type: none;
     padding-left: 0;
+    overflow-y: auto;
+    height: 65vh;
 }
 
 @media (max-width: 768px) {

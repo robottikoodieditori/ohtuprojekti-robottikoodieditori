@@ -24,7 +24,7 @@ In the same directory, a file named `tooltips.json` is located. This file contai
 When the mentioned `.txt` files are modified, a script named:
 
 ```
-/static/update_prepare_keywords.sh
+/scripts/update_prepare_keywords.sh
 ```
 
 should be run. This script updates the grammar for the parser used by the editor.
