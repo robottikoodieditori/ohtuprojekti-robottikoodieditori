@@ -3,6 +3,48 @@ import getErrorPositions from '../utils/getErrorPositions'
 import { createSlice } from '@reduxjs/toolkit'
 import { setFileName, setContent, setFileId } from './editorReducer'
 
+/**
+ * commsReducer.js
+ * ---------------------------------------------------
+ * 
+ * Overview:
+ * The `commsReducer` manages the state related to communications with the backend server in the application.
+ * It utilizes Redux toolkit's createSlice to handle actions like user login, file operations, and server responses.
+ *
+ * Key Features:
+ * - Handles user authentication state, including login, logout, and token verification.
+ * - Manages server responses, especially for compiler outputs and error messages.
+ * - Provides actions for file operations such as saving new files, hiding files, and fetching user files.
+ * - Manages application settings such as password requirements.
+ *
+ * Reducers and Actions:
+ * - Contains reducers to update the state based on different actions like setResponseFromServer, setLoginFromServer, setUserFiles, etc.
+ * - Includes asynchronous thunk actions that dispatch other actions after performing operations, such as sending data to the server or deploying code to the robot.
+ *
+ * Usage:
+ * - Import actions from this file to dispatch them in React components.
+ * - The reducer is combined with others in the store configuration.
+ *
+ * Example:
+ * ```
+ * import { useDispatch } from 'react-redux';
+ * import { login, saveNew } from './commsReducer';
+ *
+ * const dispatch = useDispatch();
+ * 
+ * // Example of using the login action
+ * dispatch(login(username, password));
+ *
+ * // Example of using the saveNew action
+ * dispatch(saveNew(content, filename, token));
+ * ```
+ *
+ * Note:
+ * - Ensure that the backend endpoints and expected responses match the implementation of these actions.
+ * - Handle state changes and side effects appropriately in components where these actions are dispatched.
+ */
+
+
 const commsSlice = createSlice({
     name: 'comms',
     initialState: {

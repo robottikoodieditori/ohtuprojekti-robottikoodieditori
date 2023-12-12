@@ -1,5 +1,45 @@
 import axios from "axios";
 
+/**
+ * comms.js
+ * ---------------------------------------------------
+ * 
+ * Overview:
+ * The `comms.js` file contains functions for making HTTP requests to the backend server.
+ * It uses axios for handling these requests and covers a wide range of functionalities including
+ * user authentication, file operations, and configurations.
+ *
+ * Key Functions:
+ * - sendToCompile: Sends code to the server for compilation.
+ * - sendLogin: Handles user login requests.
+ * - saveNew, saveExisting: Save new or existing files.
+ * - hideFile: Hides (effectively deletes) a file on the server.
+ * - getUserFiles, getAllUsers: Retrieves user files or user details.
+ * - deployToRobot: Deploys code to a robot.
+ * - getPassReq, togglePassReq: Gets or toggles password requirement settings.
+ * - uploadFile: Uploads a file to the server.
+ * - changePassword: Changes a user's password.
+ * - getAllFiles: Retrieves all files (admin functionality).
+ * - verifyToken: Verifies the authenticity of a user token.
+ * - adminSaveFile, deleteFile: Admin-specific file operations.
+ *
+ * Usage:
+ * - Import the required functions from this file and use them to interact with the backend server.
+ *
+ * Example:
+ * ```
+ * import comms from './comms';
+ *
+ * // Example of sending code to the compiler
+ * const response = await comms.sendToCompile(code);
+ * ```
+ *
+ * Note:
+ * - Ensure that the backend server's endpoints match the ones used in these functions.
+ * - Handle responses and errors appropriately where these functions are used.
+ */
+
+
 const sendToCompile = async (code) => {
     const res = await axios.post('/send/compiler', {'code': code})
     return res.data
