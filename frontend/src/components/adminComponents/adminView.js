@@ -53,7 +53,7 @@ const AdminView = () => {
     const getData = async () => {
         const files = await commService.getAllFiles(token)
         const users = await commService.getAllUsers(token)
-        handleSortClick(files, sortedOrder.key, true)
+        sortFiles(files, sortedOrder.key, sortedOrder.order)
         setUsers(users);
         if (selectedUser) {
             const filesForUser = files.filter(file => file.user_id === selectedUser.id)
@@ -172,8 +172,17 @@ const AdminView = () => {
         alert(alertMessage)
     }
 
-    const handleSortClick = (files, key, sort) => {
-        const order = sortedOrder.order ? 'asc' : 'desc';        
+    const handleSortClick = (files, key) => {
+        setSortedOrder(sortedOrder => ({
+            ...sortedOrder,
+            key : key,
+            order : !sortedOrder.order
+        }))
+        sortFiles(files,key, !sortedOrder.order)
+    }
+
+    const sortFiles = (files, key, order) => {
+        const sortOrder = order ? 'asc' : 'desc';        
         const sorted = Object.entries(files).sort(([,a],[,b]) =>{
             let aValue, bValue;
             if (key === 'last_updated'){
@@ -183,23 +192,13 @@ const AdminView = () => {
                 aValue = a[key].toLowerCase()
                 bValue = b[key].toLowerCase()
             }
-            if (order === 'asc') {
+            if (sortOrder === 'asc') {
                 return aValue > bValue ? 1 : -1;
             } else {
                 return aValue < bValue ? 1 : -1
             }
-        });
+        })
         const sortedArray = sorted.map(([key, value]) => ({ key, ...value }));
-
-        if (!sort){
-            console.log(sort)
-            setSortedOrder(sortedOrder => ({
-                ...sortedOrder,
-                key : key,
-                order : !sortedOrder.order
-            }))
-        }
-
         setAllFiles(sortedArray)
     }
 

@@ -35,7 +35,7 @@ const AdminViewUserInfo = ({ selectedUser, isPasswordWindowOpen, setIsPasswordWi
 
             <button className="button" id='change-password-button' onClick={() => {setIsPasswordWindowOpen(true)}}> {translations.adminView.changePassword} </button>
             { isPasswordWindowOpen &&
-                <PasswordWindow isPasswordWindowOpen={isPasswordWindowOpen} setIsPasswordWindowOpen={setIsPasswordWindowOpen} handlePasswordChange={handlePasswordChange} selectedUser={selectedUser} />
+                <PasswordWindow isPasswordWindowOpen={isPasswordWindowOpen} setIsPasswordWindowOpen={setIsPasswordWindowOpen} handlePasswordChange={handlePasswordChange}/>
             }
         </section>
     )
