@@ -155,6 +155,8 @@ const AdminView = () => {
     // Prepares for creating a new file
     const handleNewFileClick = () => {
         dispatch(setContent(""))
+        dispatch(setFileName(null))
+        setTimeout(() => dispatch(setFileName('')), 1)
         setOpenedFile(openedFile => ({
             ...openedFile,
             filename:  "",
