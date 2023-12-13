@@ -18,9 +18,15 @@ const AdminViewFileListHeader = ( {files, handleSortClick, sortedOrder}) => {
     return (
         <thead>
             <tr className='admin-border-th'>
+<<<<<<< HEAD
                 <th role='button' onClick={() => handleSortClick(files, 'filename')} tabIndex="0" id = 'filename'>{translations?.editorNavbar.file} {sortedOrder.key === 'filename' ? (sortedOrder.order ? '▲' : '▼') : ''}</th>
                 <th role='button' onClick={() => handleSortClick(files, 'username')} tabIndex="0" id = 'username'>{translations?.adminView.creator} {sortedOrder.key === 'username' ? (sortedOrder.order ? '▲' : '▼') : ''}</th>
                 <th role='button' onClick={() => handleSortClick(files, 'last_updated')} tabIndex="0" id = 'date'>{translations?.adminView.modified} {sortedOrder.key === 'last_updated' ? (sortedOrder.order ? '▲' : '▼') : ''}</th>
+=======
+                <th role='button' onClick={() => handleSortClick(files, 'filename')} onKeyDown={(e) => e.key === 'Enter' && handleSortClick(files, 'filename')} tabIndex="0">{translations?.editorNavbar.file} {sortedOrder.key === 'filename' ? (sortedOrder.order ? '▼' : '▲') : ''}</th>
+                <th role='button' onClick={() => handleSortClick(files, 'username')} onKeyDown={(e) => e.key === 'Enter' && handleSortClick(files, 'username')} tabIndex="0">{translations?.adminView.creator} {sortedOrder.key === 'username' ? (sortedOrder.order ? '▼' : '▲') : ''}</th>
+                <th role='button' onClick={() => handleSortClick(files, 'last_updated')} onKeyDown={(e) => e.key === 'Enter' && handleSortClick(files, 'last_updated')} tabIndex="0">{translations?.adminView.modified} {sortedOrder.key === 'last_updated' ? (sortedOrder.order ? '▼' : '▲') : ''}</th>
+>>>>>>> origin/dev
                 <th></th>
                 <th></th>
                 <th></th>
