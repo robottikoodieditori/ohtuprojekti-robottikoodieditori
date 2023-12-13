@@ -142,7 +142,7 @@ const Editor = ({ textContent }) => {
             });
             dispatch(setContent(textContent))
         }
-    }, [textContent]);
+    }, [fileObject.filename]);
 
     return (
         <div ref={editor} className="editor" id='editor' onClick={handleClick} aria-label="Code Editor"></div>

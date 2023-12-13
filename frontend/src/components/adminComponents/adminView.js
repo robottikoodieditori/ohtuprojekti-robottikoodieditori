@@ -1,6 +1,6 @@
 import { useState, useContext, useEffect } from 'react';
 import { useSelector, useDispatch } from "react-redux";
-import { setContent } from "../../reducers/editorReducer";
+import { setContent, setFileName } from "../../reducers/editorReducer";
 import { LanguageContext } from "../../contexts/languagecontext";
 import commService from '../../services/comms'
 import AdminViewUserListSection from './adminViewUserListSection';
@@ -85,6 +85,7 @@ const AdminView = () => {
     const handleFileClick = (file) => {
         const username = users.find(user => user.id === file.user_id).name
         dispatch(setContent(file.textContent))
+        dispatch(setFileName(file.filename))
         setOpenedFile(openedFile => ({
             ...openedFile,
             filename:  file.filename,
