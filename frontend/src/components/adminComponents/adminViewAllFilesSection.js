@@ -37,7 +37,7 @@ const AdminViewAllFilesSection = ({ allFiles, users, handleFileClick, handleVisi
 
     return (
         <section className="admin-section all-files-section" id="all-files-section" aria-label="all files section">
-            <h3>{translations?.adminView.allFiles}</h3>
+            <h3 tabIndex="0">{translations?.adminView.allFiles}</h3>
 
             <div className='all-files' id='all-files'>
                 <AdminViewFileList
