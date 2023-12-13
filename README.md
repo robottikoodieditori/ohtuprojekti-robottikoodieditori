@@ -12,7 +12,7 @@
 [Project timesheet](https://docs.google.com/spreadsheets/d/e/2PACX-1vRxpaxpfMdOrUnlUGn-lUCU_5Aq3E6z72hCZSh71sXlDEbgByw2HMZUzxe1BduUdx95Ijd8cjj8B3Bs/pubhtml)  
 [Project overview](./docs/overview.md)  
 [Instructions](./docs/instructions.md)  
-[Instructions for configuring Lego Mindstorm EV3 Brick for this application](./docs/robot.md)
+[Instructions for configuring Lego Mindstorm EV3 Brick for this application](./docs/robot.md)  
 [Handover/upkeep document](./docs/upkeep.md)
 
 ## Contributing
