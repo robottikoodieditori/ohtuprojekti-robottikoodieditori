@@ -9,16 +9,28 @@ describe('Admin functionality', function() {
     })
 
     it('Sorting files by filename', function() {
-        cy.get('#all-files-section').contains('#file').click()
+        cy.get('#filename').click()
         cy.get('#files-body').first().as('firstFileRow')
-        cy.get('@firstFileRow').contains('Zigzag_Henry.logo')
+        cy.get('@firstFileRow').should("contain", 'Zigzag_Henry.logo')
     })
 
     it('Sorting files by user', function() {
-        
+        cy.get('#username').click()
+        cy.get('#files-body').first().as('firstFileRow')
+        cy.get('@firstFileRow').should("contain", 'Henry')
     })
 
     it('Sorting files by last date modified', function() {
-        
+        cy.get('#date').click()
+        cy.get('#files-body').first().as('firstFileRow')
+        cy.get('@firstFileRow').should("contain", 'MoonCrescent_Bob.logo')
     })
+
+    it('Sorting files by filename double', function() {
+        cy.get('#filename').click()
+        cy.get('#filename').click()
+        cy.get('#files-body').first().as('firstFileRow')
+        cy.get('@firstFileRow').should("contain", 'CircleDrawing_Bob.logo')
+    })
+
 })
