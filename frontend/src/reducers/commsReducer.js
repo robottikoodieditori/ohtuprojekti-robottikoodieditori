@@ -149,8 +149,6 @@ export const sendToServer = code => {
         if (res.raw_errors) {
             res = {errors: res.errors, raw_errors: getErrorPositions(res.raw_errors)}
             dispatch(setResponseFromServer(res))
-        } else {
-            //todo
         }
         dispatch(setResponseFromServer(res))
         console.log("SEND TO SERVER:")
