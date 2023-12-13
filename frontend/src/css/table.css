@@ -121,6 +121,19 @@ th, td {
     top: 0;
 }
 
+.admin-border-th th{
+    cursor: pointer;
+}
+
+.admin-border-th-asc {
+    content: ' ▲'; 
+    background-color: black;
+}
+
+.admin-border-th-desc {    
+    content: ' ▼'; 
+}
+
 .admin-table {
     width: 20px;
     border-collapse: collapse;

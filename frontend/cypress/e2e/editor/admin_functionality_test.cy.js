@@ -58,19 +58,19 @@ describe('Admin functionality', function() {
 
     it('Attempting to hide and and restore a file (FINNISH)', function() {
         cy.get('#all-files-section tbody tr').first().as('firstFileRow')
-        cy.get('@firstFileRow').contains('Piilota').click({ force: true })
-        cy.get('@firstFileRow').should('have.css', 'background-color', 'rgb(255, 112, 112)')
         cy.get('@firstFileRow').contains('Palauta').click({ force: true })
         cy.get('@firstFileRow').should('have.css', 'background-color', 'rgb(119, 221, 119)')
+        cy.get('@firstFileRow').contains('Piilota').click({ force: true })
+        cy.get('@firstFileRow').should('have.css', 'background-color', 'rgb(255, 112, 112)')
     })
 
     it('Attempting to hide and and restore a file (ENGLISH)', function() {
         cy.get('#navbar').contains('Switch to English').click()
         cy.get('#all-files-section tbody tr').first().as('firstFileRow')
-        cy.get('@firstFileRow').contains('Hide').click({ force: true })
-        cy.get('@firstFileRow').should('have.css', 'background-color', 'rgb(255, 112, 112)')
         cy.get('@firstFileRow').contains('Restore').click({ force: true })
         cy.get('@firstFileRow').should('have.css', 'background-color', 'rgb(119, 221, 119)')
+        cy.get('@firstFileRow').contains('Hide').click({ force: true })
+        cy.get('@firstFileRow').should('have.css', 'background-color', 'rgb(255, 112, 112)')
     })
 
     it('Turning off password requirement', function() {
