@@ -41,6 +41,8 @@ const Editor = ({ textContent }) => {
     const hoverCompartment = new Compartment
     const fileObject = useSelector((state) => state.editor.fileObject)
     const exampleString = 'Logo...'
+    console.log(fileObject)
+
 
     // Update listener for the editor to handle document changes.
     const onUpdate = EditorView.updateListener.of((v) => {
@@ -137,12 +139,12 @@ const Editor = ({ textContent }) => {
                 changes: {
                     from: 0,
                     to: editor.current.state.doc.length,
-                    insert: textContent
+                    insert: fileObject.textContent
                 }
             });
-            dispatch(setContent(textContent))
+            //dispatch(setContent(textContent))
         }
-    }, [textContent]);
+    }, [fileObject.filename]);
 
     return (
         <div ref={editor} className="editor" id='editor' onClick={handleClick} aria-label="Code Editor"></div>

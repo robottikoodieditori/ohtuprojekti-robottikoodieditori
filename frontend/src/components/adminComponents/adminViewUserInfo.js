@@ -32,11 +32,10 @@ const AdminViewUserInfo = ({ selectedUser, isPasswordWindowOpen, setIsPasswordWi
     return (
         <section className="user-info" aria-label="user info section">
             <p>{translations?.adminView.username} {selectedUser.name}</p>
-            <p>{translations?.adminView.password} {selectedUser.password}</p>
 
             <button className="button" id='change-password-button' onClick={() => {setIsPasswordWindowOpen(true)}}> {translations.adminView.changePassword} </button>
             { isPasswordWindowOpen &&
-                <PasswordWindow isPasswordWindowOpen={isPasswordWindowOpen} setIsPasswordWindowOpen={setIsPasswordWindowOpen} handlePasswordChange={handlePasswordChange} selectedUser={selectedUser} />
+                <PasswordWindow isPasswordWindowOpen={isPasswordWindowOpen} setIsPasswordWindowOpen={setIsPasswordWindowOpen} handlePasswordChange={handlePasswordChange}/>
             }
         </section>
     )

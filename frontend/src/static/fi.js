@@ -134,7 +134,7 @@ export default {
         sendRobot: 'Lähetä robotille',
         confirmDeleteMessage: 'Haluatko varmasti poistaa tiedoston: {filename} ?',
         deleteSuccesful: 'Tiedosto {filename} poistettiin',
-        deleteFailed: 'Tiedostoa {filename} ei pystytty poistaa',
+        deleteFailed: 'Tiedostoa {filename} ei pystytty poistamaan',
         saveConfirmedMessage: 'Tiedosto {filename} tallennettu',
         saveFailureMessage: 'Tiedoston {filename} tallentaminen epäonnistui',
         passwordChangeFailed: 'Salasanan vaihto epäonnistui',

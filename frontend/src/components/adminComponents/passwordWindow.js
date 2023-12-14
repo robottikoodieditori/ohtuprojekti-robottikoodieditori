@@ -15,7 +15,7 @@ import '../../css/button.css'
  * @param {Object} props.selectedUser - The selected user object.
  */
 
-const PasswordWindow = ({ isPasswordWindowOpen, setIsPasswordWindowOpen, handlePasswordChange, selectedUser }) => {
+const PasswordWindow = ({ isPasswordWindowOpen, setIsPasswordWindowOpen, handlePasswordChange}) => {
     const { translations } = useContext(LanguageContext)
 
     return (
@@ -34,8 +34,8 @@ const PasswordWindow = ({ isPasswordWindowOpen, setIsPasswordWindowOpen, handleP
                             type='text'
                             id='passwordInput'
                             name='password'
-                            placeholder={selectedUser.password}
                             className="popup-input"
+                            placeholder={translations.login.passwordInputPlaceholder}
                         />
                         <button className='popup-button' type="submit" value="Change">{translations.adminView.change}</button>
                     </form>

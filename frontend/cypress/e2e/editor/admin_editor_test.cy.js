@@ -27,12 +27,12 @@ describe('Admin functionality', function() {
     })
 
     it('Attempting to delete a file', function() {
-        cy.get('#all-files-section').contains("TurtleDrawing_Alice.logo")
+        cy.get('#all-files-section').contains("AbstractShape_Alice.logo")
         cy.get('#files-body').first().as('firstFileRow')
         cy.get('@firstFileRow').contains('Avaa').click({ force: true })
         cy.get('#editor').should('not.contain', 'Logo...')
         cy.get('#editor-toolbar').contains("Poista").click()
-        cy.get('#all-files-section').should("not.contain", "TurtleDrawing_Alice.logo")
+        cy.get('#all-files-section').should("not.contain", "AbstractShape_Alice.logo")
     })
 
 })
