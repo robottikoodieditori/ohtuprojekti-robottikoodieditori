@@ -65,5 +65,5 @@ When an erroneus Logo script is attempted to be compiled and the view is changed
 
 In admin dashboard, if you attempt to download a file straight from the file selection screen without first opening it to the editor, an empty file gets downloaded. If the file is opened first, then the contents get downloaded as well. This bug happens in `src/components/adminComponents/adminView.js` in `handleDownloadClick` starting on line `94`.
 
-There may be more errors we haven't found out, but it is most likely that the possible errors only happen in special edge cases due to our thorough automated end-to-end tests.
+There may be more errors we haven't found out, but it is most likely that the possible errors only happen in special edge cases thanks to our thorough automated end-to-end tests.
 
