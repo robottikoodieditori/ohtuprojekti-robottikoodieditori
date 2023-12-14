@@ -6,7 +6,7 @@ import { LanguageProvider } from './contexts/languagecontext';
 import LoginPopUp from "./components/loginPopUp";
 import AdminView from "./components/adminComponents/adminView";
 import { useDispatch, useSelector } from 'react-redux';
-import { getPassRequired, logout, verifyLogin } from './reducers/commsReducer';
+import { getPassRequired, verifyLogin } from './reducers/commsReducer';
 import { setFileName, resetFile } from "./reducers/editorReducer";
 
 /**
@@ -36,7 +36,6 @@ function App() {
     const [isAdminViewOpen, setIsAdminViewOpen] = useState(false);
     const dispatch = useDispatch()
     const token = useSelector(state => state.comms.userObject.token)
-    const loggedWithPass = window.localStorage.getItem("loggedWithPass")
     const fileObject = useSelector(state => state.editor.fileObject)
     document.title = 'Logomotion editor';
 
