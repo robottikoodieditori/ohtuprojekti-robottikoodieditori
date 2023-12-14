@@ -2,7 +2,7 @@
 
 This document aims to provide clarity on how to upkeep this application.
 
-## Logo 
+## Logo
 In the event of any changes related to the Logo programming language, a script has been created to assist in keeping syntax highlighting and keywords up to date.
 The forked parser should also be kept up to date, or a new forked version of the parser can be specified to be used in:
 
@@ -57,7 +57,6 @@ poetry run invoke gunicorn
 The application is now live and served at the root route "/".
 
 ## Broken things
-There are several problems with scaling due to bugs in css classes and the css base has gotten bloated and have several instances of similar classes defined, all are in use however. 
+There are several problems with scaling due to bugs in css classes and the css base has gotten bloated and have several instances of similar classes defined, all are in use however.
 
-Logo to Java compiler is currently inconsistent when it comes to finding errors, meaning it usually finds only the first error in the file when trying to compile. Further info can be found [here](https://github.com/theJSZ/logomotion).
-
+Logo to Java compiler is currently inconsistent when it comes to finding errors, meaning it usually finds only the first error in the file when trying to compile. Further info can be found [here](https://github.com/theJSZ/logomotion_).
