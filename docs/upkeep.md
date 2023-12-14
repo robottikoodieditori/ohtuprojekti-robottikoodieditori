@@ -1,6 +1,6 @@
 # Maintaining project and running in production
 
-This document aims to provide clarity on how to upkeep this application.
+This document aims to provide clarity on how to upkeep this application. The technology stack of this application is as follows: database is operated with sqlite3, backend with Python's Flask and frontend runs on React.
 
 ## Logo 
 In the event of any changes related to the Logo programming language, a script has been created to assist in keeping syntax highlighting and keywords up to date.
