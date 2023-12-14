@@ -70,7 +70,7 @@ const LoginPopUp = ({status, onClose}) => {
         if (passwordIsRequired || username === 'admin') {        
             dispatch(login(username, password)); 
         } else {
-            dispatch(login(username, false)); 
+            dispatch(login(username, "")); 
         }
     };
 

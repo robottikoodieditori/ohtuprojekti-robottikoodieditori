@@ -41,6 +41,7 @@ function App() {
 
     useEffect(() => {
         dispatch(getPassRequired())
+
         if (token !== '') {
             dispatch(verifyLogin(token))
         }

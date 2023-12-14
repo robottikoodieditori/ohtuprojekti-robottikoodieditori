@@ -47,24 +47,15 @@ def send_to_compiler():
 @app.route("/login", methods=["POST"])
 def login():
     content = request.json
-    user_info = user_service.login(content["username"], content["password"])
-    if user_info:
-        return (
-            jsonify(
-                {
-                    "username": content["username"],
-                    "token": user_info["token"],
-                    "role": user_info["role"],
-                }
-            ),
-            200,
-        )
     if user_service.verify_user_existence(0, content["username"]):
-        return "Invalid Credentials", 400
-
-    result = user_service.register(content["username"], content["password"])
-    if result:
-        user_info = user_service.login(content["username"], content["password"])
+        if not app.config["PASS_REQ"] and content["username"] != "admin":
+            user_info = user_service.login_without_pass(content["username"])
+            passreq = False
+        else:
+            if content["password"] == "":
+                return "Password Required", 400
+            user_info = user_service.login(content["username"], content["password"])
+            passreq = True
         if user_info:
             return (
                 jsonify(
@@ -72,16 +63,32 @@ def login():
                         "username": content["username"],
                         "token": user_info["token"],
                         "role": user_info["role"],
+                        "passreq": passreq,
                     }
                 ),
                 200,
             )
+        return "Invalid Credentials", 400
 
-    token = user_service.login(content["username"], content["password"])
-    if not token:
-        return "Invalid credentials", 400
-
-    return jsonify({"username": content["username"], "token": token}), 200
+    if not app.config["PASS_REQ"]:
+        result = user_service.register(content["username"], "")
+    else:
+        result = user_service.register(content["username"], content["password"])
+    if result:
+        user_info = user_service.login(content["username"], content["password"])
+        passreq = True
+        if user_info:
+            return (
+                jsonify(
+                    {
+                        "username": content["username"],
+                        "token": user_info["token"],
+                        "role": user_info["role"],
+                        "passreq": passreq
+                    }
+                ),
+                200,
+            )
 
 
 @app.route("/get_user_files", methods=["GET"])

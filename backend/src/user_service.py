@@ -54,6 +54,15 @@ class UserService:
             return {"token" : token, "role": result["role"]}
 
         return False
+    
+    def login_without_pass(self, username: str):
+        result = self.check_username(username)
+
+        if result:
+            token = credentials.get_token(username, result["id"], self.secret_key)
+            return {"token" : token, "role": result["role"]}
+
+        return False
 
     def verify_token(self, token: str) -> Union[int, bool]:
         '''
@@ -114,6 +123,14 @@ class UserService:
         pass_bytes = password.encode("utf-8")
         result = bcrypt.checkpw(pass_bytes, hashed)
         return {"id" : db_entry[2], "role" : db_entry[3]} if result else False
+    
+    def check_username(self, username: str):
+        db_entry = self.database.get_entry_from_db(
+            "SELECT name, id, role FROM users WHERE name = ?", (username,))
+        if not db_entry:
+            return False
+        return {"id" : db_entry[1], "role" : db_entry[2]}
+        
     
     def verify_admin(self, token: str) -> bool:
         """

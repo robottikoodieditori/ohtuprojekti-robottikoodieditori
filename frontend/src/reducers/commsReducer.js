@@ -77,6 +77,7 @@ const commsSlice = createSlice({
             window.localStorage.setItem('username', action.payload.username)
             window.localStorage.setItem('token', action.payload.token)
             window.localStorage.setItem('userRole', action.payload.role)
+            window.localStorage.setItem("loggedWithPass", action.payload.passreq)
             console.log(`SERVER RESPONDED WITH NAME: ${state.username}`)
             return state
         },
@@ -166,7 +167,7 @@ export const deployToRobot = code => {
 
 export const login = (username, password) => {
     return async dispatch => {
-        const curpas = password || 'password'
+        const curpas = password
         const res = await commService.sendLogin(username, curpas)
         if (res === 'Invalid Credentials') {
             dispatch(setResponseFromServer({'login': 'FAIL'}))
@@ -223,6 +224,10 @@ export const getPassRequired = () => {
     return async dispatch => {
         const res = await commService.getPassReq()
         dispatch(setPassReq(res))
+        const loggedWithPass = window.localStorage.getItem("loggedWithPass")
+        if (loggedWithPass === "false" && res) {
+            dispatch(logout())
+        }
     }
 }
 
