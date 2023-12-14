@@ -2,6 +2,7 @@ import '../css/button.css'
 import '../css/input.css'
 import '../css/popup.css'
 import '../css/form.css'
+import'../css/table.css'
 import Popup from "reactjs-popup";
 import { LanguageContext } from "../contexts/languagecontext";
 import { useContext } from "react";
@@ -50,11 +51,11 @@ const FileSelectionScreen = ({ isFileSelectOpen, setisFileSelectOpen, handleFile
                             <table>
                                 <thead>
                                     <tr>
-                                        <th></th>
+                                        <th className='border-th'> </th>
                                         <th className="center-th" tabIndex="0">{translations?.editorNavbar.fileName}</th>
                                         <th className="center-th" tabIndex="0">{translations?.editorNavbar.createdAt}</th>
                                         <th className="center-th" tabIndex="0">{translations?.editorNavbar.lastEdited}</th>
-                                        <th></th>
+                                        <th className='border-th'></th>
                                     </tr>
                                 </thead>
                                 <tbody>

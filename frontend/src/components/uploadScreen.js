@@ -4,6 +4,10 @@ import { setContent } from "../reducers/editorReducer";
 import { useDispatch } from 'react-redux';
 import Popup from 'reactjs-popup';
 import commService from '../services/comms'
+import '../css/popup.css'; 
+import '../css/button.css'
+import '../css/input.css'
+import '../css/select.css'
 
 /**
  * UploadScreen component provides a screen for uploading files.
@@ -49,24 +53,22 @@ const UploadScreen = ({ isUploadOpen, setisUploadOpen, filteredUsers, users, set
     }
 
     return (
-        <div className='overlay'>
-            <Popup
-                open={isUploadOpen}
-                closeOnDocumentClick={false}
-                overlayStyle={{ background: 'rgba(0,0,0,0.8)' }}
-            >
-                <div className='content-upload'>
-                    <div className="content-upload-header ">
-                        <h2 tabIndex="0">{translations?.adminView.upload}</h2>
-                        <div className='upload-header'>
-                            <button className="close-button-upload" onClick={() => setisUploadOpen(false)}>X</button>
-                        </div>
-                    </div>
-                    <form id="uploadForm" encType='multipart/form-data'>
+        <Popup
+            open={isUploadOpen}
+            closeOnDocumentClick={false}
+            overlayStyle={{ background: 'rgba(0,0,0,0.8)' }}
+        >
+            <div className='popup'>
+                <button className="close-button" onClick={() => setisUploadOpen(false)}>X</button>
+
+                <div className="popup-container">
+                    <h2 tabIndex="0">{translations?.adminView.upload}</h2>
+                    <form className="popup-form" id="uploadForm" encType='multipart/form-data'>
                         <label htmlFor="usernames">{translations?.adminView.chooseOwner}</label>
                         <select
                             id="uploadUsername"
                             name="usernames"
+                            className='popup-select'
                         >
                             <option value="">{translations?.adminView.chooseUser}</option>
                             {filteredUsers.map((user) => (
@@ -83,12 +85,13 @@ const UploadScreen = ({ isUploadOpen, setisUploadOpen, filteredUsers, users, set
                             name='file'
                             required
                             id='uploadFile'
+                            className='popup-input'
                         />
-                        <button type="submit" value="Upload" onClick={handleUpload}>Upload</button>
+                        <button className='popup-button' type="submit" value="Upload" onClick={handleUpload}>Upload</button>
                     </form>
                 </div>
-            </Popup>
-        </div>
+            </div>
+        </Popup>
     );
 };
 

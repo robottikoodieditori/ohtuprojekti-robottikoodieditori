@@ -185,3 +185,11 @@ class UserService:
         result = self.database.insert_entry(query, values)
 
         return result == "OK"
+
+def fetch_token(headers: dict) -> Union[bytes, bool]:
+    bearer = headers.get('Authorization', None)
+    if not bearer:
+        return False
+    token = bearer.split()[1]
+    
+    return token

@@ -15,21 +15,21 @@ describe('Admin functionality', function() {
     })
 
     it('Attempting to save a modified file', function() {
-        cy.get('#all-files-section').first().as('firstFileRow')
-        cy.get('@firstFileRow').contains('Avaa').click()
+        cy.get('#files-body').first().as('firstFileRow')
+        cy.get('@firstFileRow').contains('Avaa').click({ force: true })
         cy.get('#editor').type(' eteen 20')
         cy.get('#editor-toolbar').contains('Tallenna').click()
         cy.get('#editor-toolbar').contains('Uusi Tiedosto').click()
-        cy.get('#all-files-section').first().as('firstFileRow')
-        cy.get('@firstFileRow').contains('Avaa').click()
+        cy.get('#files-body').first().as('firstFileRow')
+        cy.get('@firstFileRow').contains('Avaa').click({ force: true })
         cy.get('#editor').should("contain","eteen 20")
         
     })
 
     it('Attempting to delete a file', function() {
         cy.get('#all-files-section').contains("TurtleDrawing_Alice.logo")
-        cy.get('#all-files-section').first().as('firstFileRow')
-        cy.get('@firstFileRow').contains('Avaa').click()
+        cy.get('#files-body').first().as('firstFileRow')
+        cy.get('@firstFileRow').contains('Avaa').click({ force: true })
         cy.get('#editor').should('not.contain', 'Logo...')
         cy.get('#editor-toolbar').contains("Poista").click()
         cy.get('#all-files-section').should("not.contain", "TurtleDrawing_Alice.logo")

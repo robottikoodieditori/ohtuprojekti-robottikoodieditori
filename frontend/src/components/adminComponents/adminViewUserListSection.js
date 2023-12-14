@@ -1,6 +1,6 @@
 import AdminViewUserListEntry from "./adminViewUserListEntry"
 import { useContext } from 'react';
-import { LanguageContext } from "../contexts/languagecontext";
+import { LanguageContext } from "../../contexts/languagecontext";
 
 /**
  * `AdminViewUserListSection` component is responsible for rendering the user management section in the admin panel.
