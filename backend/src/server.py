@@ -52,6 +52,8 @@ def login():
             user_info = user_service.login_without_pass(content["username"])
             passreq = False
         else:
+            if content["password"] == "":
+                return "Password Required", 400
             user_info = user_service.login(content["username"], content["password"])
             passreq = True
         if user_info:
