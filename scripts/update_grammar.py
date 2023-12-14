@@ -4,22 +4,28 @@ DIRNAME = os.path.dirname(__file__)
 KEYWORD_DIRNAME = os.path.join(DIRNAME, '..', 'frontend', 'src', 'static')
 LANG_DIRNAME = os.path.join(DIRNAME, '..', 'frontend', 'src', 'static')
 
-BASE_STRING = f"""@precedence {{ times @left, plus @left }}
-@top Program {{ expression* }}
-expression {{ String | Keyword | Parameters}}
-String {{ number |  name }}
-Keyword {{ command !times String* ")" | !plus command}}
-Parameters {{ "(" String ")"}}
-@skip {{ space }}
-@tokens {{
-  space {{ @whitespace+ }}
-  name {{ @asciiLetter+ }}
-  number {{ @digit+ }}
-  command {{ (TO_REPLACE) ((@eof | @whitespace) | "(")}}
-  @precedence {{command, name}}
-}}
+
+BASE_STRING = """
+@precedence { times @left, plus @left }
+@top Program { expression* }
+expression { String | Keyword | Parameters}
+String { number |  name  | '"' | "'" }
+Keyword { command !times String* rightPar | !plus command}
+Parameters { leftPar+ String* rightPar+}
+@skip { space }
+@tokens {
+  space { @whitespace+ }
+  name { (@asciiLetter | "ä" | "ö" | "å" | "Ä" | "Ö" | "Å")+ }
+  number { @digit+ }
+  leftPar { "(" | "{" | "[" }
+  rightPar { ")" | "}" | "]"}
+  command { (TO_REPLACE) ((@eof | @whitespace) | ("(" | "[" | "{")+ | ( ")" | "]" | "}")+ )}
+  @precedence {command, name}
+}
 @external propSource jsonHighlighting from "./highlight"
+
 """
+
 
 
 def read_file(filename):

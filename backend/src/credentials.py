@@ -1,6 +1,8 @@
 '''Module which handles token encoding and decoding'''
 
+from typing import Union
 import jwt
+
 
 def get_token(username: str, user_id: str, secret_key: str) -> str:
     '''
@@ -18,7 +20,7 @@ def get_token(username: str, user_id: str, secret_key: str) -> str:
     return encoded_jwt
 
 
-def decode_token(token: str, secret_key: str) -> dict:
+def decode_token(token: str, secret_key: str) -> Union[dict, bool]:
     '''
     Function for decoding tokens into dict objects
 
@@ -27,6 +29,10 @@ def decode_token(token: str, secret_key: str) -> dict:
         secret_key (str): a key used for decoding
     returns:
         credentials (dict): a dict-object which houses the contents of the token
+        bool: False if failure
     '''
-    credentials = jwt.decode(token, secret_key, algorithms=["HS256"])
+    try:
+        credentials = jwt.decode(token, secret_key, algorithms=["HS256"])
+    except jwt.exceptions.InvalidSignatureError:
+        return False
     return credentials

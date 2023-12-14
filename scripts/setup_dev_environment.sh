@@ -21,12 +21,16 @@ echo "SECRET_KEY=$SECRET_KEY" > "$ROOT_DIR/backend/.env"
 echo "DB_PATH=user_db.db" >> "$ROOT_DIR/backend/.env"
 echo "TEST_DB_PATH=test_db.db" >> "$ROOT_DIR/backend/.env"
 
+
+# Create databases
 touch "$ROOT_DIR/backend/user_db.db"
 touch "$ROOT_DIR/backend/test_db.db"
 
+# Insert Schema into databases
 sqlite3 "$ROOT_DIR/backend/user_db.db" < "$ROOT_DIR/backend/schema.sql"
 sqlite3 "$ROOT_DIR/backend/test_db.db" < "$ROOT_DIR/backend/schema.sql"
-sqlite3 "$ROOT_DIR/backend/user_db.db" < "$ROOT_DIR/backend/test_data.sql"
+
+# Insert test users into test database
 sqlite3 "$ROOT_DIR/backend/test_db.db" < "$ROOT_DIR/backend/test_data.sql"
 
 
@@ -43,9 +47,9 @@ fi
 if [ "$OS" == "Darwin" ]; then
     osascript <<EOD
     tell application "Terminal"
-        do script "cd \"$ROOT_DIR/backend\" && poetry install && poetry run invoke start"
+        do script "cd \"$ROOT_DIR/backend\" && poetry install && poetry run invoke admin && poetry run invoke testing"
     end tell
 EOD
 elif [ "$OS" == "Linux" ]; then
-    gnome-terminal -- bash -c "cd \"$ROOT_DIR/backend\" && poetry install; poetry run invoke start"
+    gnome-terminal -- bash -c "cd \"$ROOT_DIR/backend\" && poetry install && poetry run invoke admin; poetry run invoke testing"
 fi

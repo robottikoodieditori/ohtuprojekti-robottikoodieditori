@@ -15,19 +15,34 @@
     }
 }
 
-/* User Management Section Styles */
+/* Password reuirement button */
+.toggle-password-section {
+    display: flex;
+    margin-bottom: 10px;
+    gap: 10px;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.toggle-password-section h1{
+    position: absolute;
+    left: 0;
+    padding: 0 20px;
+}
+
+/* Sections for all */
 .admin-section {
     flex: 1;
     padding: 10px;
-    border: 1px solid #ddd; 
-    border-radius: 8px; 
-    background-color: #f9f9f9; 
-    overflow: auto; 
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    overflow: auto;
     height: 300px;
     overflow-y: hidden;
 }
 
-.user-list, .all-files-list, .user-specific-files-list {
+.user-list {
     max-height: 65%;
     overflow-y: auto;
 }
@@ -35,14 +50,51 @@
 /* Editor Toolbar Styles */
 .editor-toolbar {
     background-color: rgb(134, 176, 226);
-    padding: 10px 15px;
+    padding: 5px;
     display: flex;
-    gap: 10px;
-    border-top-left-radius: 8px;
-    border-top-right-radius: 8px; 
+    height: 40px;
+    align-items: center;
 }
 
-/* User Item Styles */
+.editor-toolbar p {
+    margin-right: 10px;
+}
+
+/*All files list */
+.all-files {
+    max-height: 78%;
+    overflow-y: auto;
+}
+
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+/* User info / files */
+.user-files {
+    max-height: 235px;
+    overflow-y: auto;
+}
+
+.user-info-header {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.user-info-header h3{
+    margin-right: auto;
+}
+
+.user-info {
+    margin-top: 10px;
+    padding: 10px;
+    background-color: #eef;
+    border-radius: 5px;
+}
+
 .user-item {
     display: flex;
     justify-content: space-between;
@@ -50,32 +102,18 @@
     margin-bottom: 10px;
     padding: 10px;
     background-color: #f2f2f2;
-    border-radius: 6px; 
+    border-radius: 6px;
 }
 
 .user-name {
-    font-size: 1.2rem; 
-    margin-right: 15px; 
+    font-size: 1.2rem;
+    margin-right: 15px;
+}
+.user-action-buttons {
+    display: flex; 
+    gap: 10px; 
 }
 
-.user-list-section input[type="text"] {
-    width: calc(100% - 40px);
-    padding: 8px 15px;
-    font-size: 14px; 
-    border: 2px solid #ced4da;
-    border-radius: 20px; 
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    transition: all 0.2s ease-in-out;
-    display: block;
-    margin: 0 auto 10px auto;
-}
-
-.user-list-section input[type="text"]::placeholder {
-    color: #adb5bd; 
-}
-
-.user-list-section input[type="text"]:focus {
-    border-color: #80bdff;
-    outline: none; 
-    box-shadow: 0 0 0 0.2rem rgba(0,123,255,0.25);
+.user-files-section {
+    padding: 0;
 }

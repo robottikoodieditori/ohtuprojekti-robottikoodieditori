@@ -4,6 +4,10 @@ import { setResponseFromServer } from '../reducers/commsReducer';
 import { LanguageContext } from '../contexts/languagecontext';
 import '../css/response.css'
 
+/**
+ * Response component handles displaying server responses and notifications.
+ * @component
+ */
 
 const Response = () => {
     const dispatch = useDispatch();
@@ -14,6 +18,7 @@ const Response = () => {
         dispatch(setResponseFromServer(''));
     }
 
+    //Render the error messages if there are any errors in the server response.
     if (serverResponse && serverResponse.errors && serverResponse.errors.length > 0) {
         return (
             <div id='error' className='error' role="dialog" aria-label="error message">
@@ -32,7 +37,8 @@ const Response = () => {
         );
     }
 
-    if (serverResponse && serverResponse.errors.length < 1) {
+    // Render a confirmation message if there are no errors in the server response.}
+    if (serverResponse.errors && serverResponse.errors.length < 1) {
         return (
             <div id='confirmation' className='confirmation' role = "dialog" aria-label="confirmation message">
                 <div className="confirmationHeader">
