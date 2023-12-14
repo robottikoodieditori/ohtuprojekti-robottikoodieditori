@@ -32,7 +32,7 @@ If an SSH connection could not be established or an IP address is not displayed 
 - Locate `IPv4 Method` and select `Shared to other computers` or a similar option, then apply.
 - Enable connection if not already done.
 
-Now the connection should be established and configured. Testest this with establishing an SSH connection again.
+Now the connection should be established and configured. Test this with establishing an SSH connection again.
 
 
 ## Finally

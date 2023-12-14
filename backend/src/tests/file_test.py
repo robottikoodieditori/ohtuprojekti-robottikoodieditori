@@ -103,7 +103,8 @@ class TestFile(unittest.TestCase):
         self.assertEqual([], result)
 
     def test_unhide_file(self):
-        self.file_service.save_file("Hide this!", "Uninteresting Code", self.id)
+        self.file_service.save_file(
+            "Hide this!", "Uninteresting Code", self.id)
         result = self.file_service.get_user_files(self.id)
         expected_object = {
             "filename": "Hide this!",

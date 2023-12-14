@@ -27,20 +27,16 @@ const Navbar = ({handleAdminViewClick}) => {
     const userRole = useSelector((state) => state.comms.userObject.userRole);
     const dispatch = useDispatch();
 
-    // Local component state for managing popup visibility
     const [isPopupOpen, setIsPopupOpen] = useState(false);
 
-    // Function to open the login popup
     const openPopup = () => {
         setIsPopupOpen(true);
     };
 
-    // Function to close the login popup
     const closePopup = () => {
         setIsPopupOpen(false);
     };
 
-    // Function to handle user logout
     const logOutFromServer = () => {
         dispatch(logout());
         setIsPopupOpen(false); 

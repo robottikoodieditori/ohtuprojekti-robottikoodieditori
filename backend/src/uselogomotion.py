@@ -112,7 +112,8 @@ def main(LOGO_CODE, path):
                 end_index = error["end"]
                 length = end_index - start_index
 
-                line, position = find_line_and_position_based_on_index(start_index)
+                line, position = find_line_and_position_based_on_index(
+                    start_index)
 
                 errors_with_pretty_position.append(
                     {
@@ -145,7 +146,8 @@ def main(LOGO_CODE, path):
     code_generator = get_code_generator()
     parser = Parser(lexer, logger, symbol_tables, code_generator)
 
-    symbol_tables.functions = initialize_logo_functions(symbol_tables.functions)
+    symbol_tables.functions = initialize_logo_functions(
+        symbol_tables.functions)
 
     # Compile from logo to language defined with CODE_GEN .env variable
     return compile_logo() or []

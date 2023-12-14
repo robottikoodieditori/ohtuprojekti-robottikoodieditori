@@ -32,26 +32,17 @@ const EditorNavbar = () => {
     const [isNewFileOpen, setisNewFileOpen] = useState(false);
 
 
-    // useEffect to fetch user files when the username changes.
     useEffect(() => {
         getData()
     }, [userObject.username])
 
-    // Function to fetch user files and update the fileList state.
     async function getData() {
         if (userObject.username !== '') {
             dispatch(getUserFiles(userObject.token))
-            /*const data = await commService.getUserFiles(userObject.token)
-            if (data) {
-                dispatch(setUserFiles(data))
-            }
-        } else {
-            dispatch(setUserFiles({}))*/
         }
     }
 
-    // Function to create a new file.
-    // Clears all editor data related to the current file and fetches updated file list.      
+   
     const handleNewFile = async () => {
         if (fileObject.filename === '') dispatch(setFileName(null))
         // Ensure editor content is reset and file data is updated asynchronously.
@@ -61,8 +52,7 @@ const EditorNavbar = () => {
         }, 1)
     }
 
-    // Function to handle saving a new file.
-    // Dispatches action to save the new file with the provided filename.  
+
     const handleSaveNew = async (event) => {
         if (userObject.username) {
             await dispatch(saveNew(fileObject.textContent, event.target.elements.newFileNameInput.value, userObject.token))
@@ -71,8 +61,7 @@ const EditorNavbar = () => {
         }
     }
 
-    // Function to handle saving an existing file.
-    // If no filename is set, opens the New File Screen; otherwise, saves the current file.    
+  
     const handleSaveExisting = () => {
 
         const saveConfirmedMessage = translations?.adminView.saveConfirmedMessage
@@ -93,8 +82,7 @@ const EditorNavbar = () => {
         }
     }
 
-    // Function to handle file selection from the file list.
-    // Sets the editor content, filename, and file ID based on the selected file.
+
     const handleFileSelection = (file) => {
         dispatch(setContent(file.textContent))
         dispatch(setFileName(file.filename))
@@ -102,8 +90,6 @@ const EditorNavbar = () => {
         setisFileSelectOpen(false) 
     }
 
-    // Function to handle hiding (deleting) a file.
-    // Asks for confirmation before hiding the file and updates the file list accordingly.    
     const handleFileHiding = async (file) => {
         const confirmMessage = translations?.editorNavbar.confirmDeleteMessage;
 
@@ -125,8 +111,6 @@ const EditorNavbar = () => {
         }
     }
 
-    // Component rendering with buttons for file operations and conditional rendering
-    // of the File Selection Screen and New File Screen based on state.
     return (
         <div className='editornavbar' id='editornavbar'>
             <button className='button' onClick={handleNewFile}>{translations?.editorNavbar.newFile}</button>

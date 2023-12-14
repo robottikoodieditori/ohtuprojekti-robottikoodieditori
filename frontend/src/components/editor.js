@@ -132,7 +132,6 @@ const Editor = ({ textContent }) => {
         languageRef.current = language
     }, [language])
 
-    // Update the editor content based on the `textContent` prop, allowing external content updates.
     useEffect(() => {
         if (editor.current && textContent !== undefined) {
             editor.current.dispatch({
@@ -142,7 +141,6 @@ const Editor = ({ textContent }) => {
                     insert: fileObject.textContent
                 }
             });
-            //dispatch(setContent(textContent))
         }
     }, [fileObject.filename]);
 

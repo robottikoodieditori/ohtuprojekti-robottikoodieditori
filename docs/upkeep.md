@@ -61,3 +61,9 @@ There are several problems with scaling due to bugs in css classes and the css b
 
 Logo to Java compiler is currently inconsistent when it comes to finding errors, meaning it usually finds only the first error in the file when trying to compile. Further info can be found [here](https://github.com/theJSZ/logomotion).
 
+When an erroneus Logo script is attempted to be compiled and the view is changed to admin dashboard, an error occurs. This has to do with the way updates are done with the editor, since the error stack traces to a function call `clearUnderlines` at line 84 in `src/components/editor.js`, which is supposed to delete all error underlines from the editor, but there are none at the time when admin dashboard is initialized resulting in an uncaught runtime error.
+
+In admin dashboard, if you attempt to download a file straight from the file selection screen without first opening it to the editor, an empty file gets downloaded. If the file is opened first, then the contents get downloaded as well. This bug happens in `src/components/adminComponents/adminView.js` in `handleDownloadClick` starting on line `94`.
+
+There may be more errors we haven't found out, but it is most likely that the possible errors only happen in special edge cases due to our thorough automated end-to-end tests.
+

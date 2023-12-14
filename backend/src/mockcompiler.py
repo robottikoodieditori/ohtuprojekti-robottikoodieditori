@@ -9,10 +9,15 @@ class MockCompiler:
 
     @staticmethod
     def compile(code: str, output_file: str):
+        temp = output_file == 'temp'
         path = os.getcwd()
         if path.endswith("src"):
             path = os.path.join(path, "..")
-        path = os.path.join(path, "logomotion_gradle", "src", "main", "java", "logo")
+        if temp:
+            path = os.path.join(path, "temp_logofiles")
+        else:
+            path = os.path.join(path, "logomotion_gradle",
+                            "src", "main", "java", "logo")
         path += "/"
         print(path)
         errors, errors_with_raw_pos = uselogomotion.main(code, path)

@@ -1,7 +1,9 @@
 '''Module which handles token encoding and decoding'''
 
-import jwt
 from typing import Union
+import jwt
+
+
 def get_token(username: str, user_id: str, secret_key: str) -> str:
     '''
     Function which forms a personal token for given username and user id

@@ -17,35 +17,28 @@ import { LanguageContext } from '../contexts/languagecontext';
  */
 
 const Sidebar = () => {
-    // Access language settings and translations from the LanguageContext
     const { language, translations } = useContext(LanguageContext);
 
-    // Redux state selectors and dispatcher
     const clickedCommand = useSelector(state => state.editor.currentlyHighlightedWord)
     const dispatch = useDispatch();
 
-    // Local component state
     const [selectedCommand, setSelectedCommand] = useState(null);
     const [searchTerm, setSearchTerm] = useState('');
 
-    // Handler for when a command is selected from the list
     const handleCommandClick = (command) => {
         setSelectedCommand(command);
     };
 
-    // Handler for changes in the search bar input
     const handleSearchChange = (event) => {
         const term = event.target.value;
         setSearchTerm(term);
     };
 
-    // Effect to set the selected command when a command is clicked within the editor
     if (clickedCommand !== '') {
         setSelectedCommand(clickedCommand);
         dispatch(resetHighlightedWord())
     }
 
-    // Component rendering
     return (
         <div className="sidebar" id='sidebar'>
             {selectedCommand ? (

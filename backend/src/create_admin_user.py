@@ -10,13 +10,15 @@ def main():
     admin_username = 'admin'
     admin_password = 'password'
 
-    hashed_password = bcrypt.hashpw(admin_password.encode('utf-8'), bcrypt.gensalt())
+    hashed_password = bcrypt.hashpw(
+        admin_password.encode('utf-8'), bcrypt.gensalt())
     query = 'INSERT INTO users (name, password, role) VALUES (?, ?, ?)'
     values = (admin_username, hashed_password, 1)
 
     # Insert admin user into the table with the hashed password as bytes
     database.insert_entry(query, values)
     test_database.insert_entry(query, values)
+
 
 if __name__ == '__main__':
     main()

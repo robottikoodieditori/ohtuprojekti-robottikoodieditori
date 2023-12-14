@@ -1,5 +1,6 @@
-import subprocess, paramiko
 import os
+import subprocess
+import paramiko
 
 
 class FileService:
@@ -26,20 +27,23 @@ class FileService:
             result (str): success status
         """
         query = "SELECT COUNT(*) FROM logofiles WHERE user_id = ? AND filename = ?"
-        file_exists = self.database.get_entry_from_db(query, (user_id, filename))
+        file_exists = self.database.get_entry_from_db(
+            query, (user_id, filename))
         if file_exists[0] == 0:
             query = """INSERT INTO logofiles (filename, content, created, last_updated, user_id)
              VALUES (?, ?, DateTime("now", "localtime"), DateTime("now", "localtime"), ?)"""
-            result = self.database.insert_entry(query, (filename, content, user_id))
+            result = self.database.insert_entry(
+                query, (filename, content, user_id))
             query = """SELECT id FROM logofiles WHERE user_id=? AND filename=?"""
-            file_id = self.database.get_entry_from_db(query, (user_id, filename))
+            file_id = self.database.get_entry_from_db(
+                query, (user_id, filename))
             return {"result": result, "action": "save", "file_id": file_id}
 
-        else:
-            query = """UPDATE logofiles SET content = ?, last_updated = DateTime("now", "localtime")
-             WHERE filename = ? AND user_id = ?"""
-            result = self.database.insert_entry(query, (content, filename, user_id))
-            return {"result": result, "action": "save"}
+        query = """UPDATE logofiles SET content = ?, last_updated = DateTime("now", "localtime")
+         WHERE filename = ? AND user_id = ?"""
+        result = self.database.insert_entry(
+            query, (content, filename, user_id))
+        return {"result": result, "action": "save"}
 
     def get_user_files(self, user_id: int) -> list:
         """
@@ -81,7 +85,8 @@ class FileService:
         visible = self.database.get_entry_from_db(get_query, (str(file_id),))
         visible = 1 if visible[0] == 0 else 0
         query = "UPDATE logofiles SET visible=? WHERE id=?"
-        result = self.database.insert_entry(query, (str(visible), str(file_id)))
+        result = self.database.insert_entry(
+            query, (str(visible), str(file_id)))
 
         return {"result": result, "action": "hide"}
 

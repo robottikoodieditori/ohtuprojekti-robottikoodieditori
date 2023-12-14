@@ -30,13 +30,10 @@ const LoginPopUp = ({status, onClose}) => {
     const passwordIsRequired = useSelector(state => state.comms.passReq)
     const responseFromServer = useSelector(state => state.comms.responseFromServer)
 
-    // Function to update notification messages
     const updateNotificationText = (text) => setNotificationText(text);
 
-    // Handler for username input changes
     const handleInputChange = (e) => setUsername(e.target.value);
 
-    // Function to toggle the application language and clear notifications
     const handleLanguageChange = () => {
         toggleLanguage();
         updateNotificationText('');
@@ -55,7 +52,6 @@ const LoginPopUp = ({status, onClose}) => {
         }
     }, [responseFromServer])
 
-    // Handler for submitting the login form
     const handleSubmit = () => {
         if (!username) {
             updateNotificationText(translations?.login.notificationNameMissing); // Show error if username is empty
@@ -74,13 +70,11 @@ const LoginPopUp = ({status, onClose}) => {
         }
     };
 
-    // Function to close the popup and call onClose callback if provided
     const handleClose = () => {
         setOpen(false);
         if (onClose) onClose();
     };
 
-    // Function to handle password change
     const handlePassChange = (e) => setPassword(e.target.value)
 
     return (

@@ -8,7 +8,8 @@ from db import DB
 import json
 
 
-app = Flask(__name__, static_folder="../build/static", template_folder="../build")
+app = Flask(__name__, static_folder="../build/static",
+            template_folder="../build")
 
 path = os.getcwd()
 if path.endswith("src"):
@@ -36,11 +37,15 @@ def main():
 def data():
     return {"status": "OK"}
 
+@app.route("/favicon.ico")
+def favicon():
+    return send_from_directory(app.template_folder, path="favicon.ico")
+
 
 @app.route("/send/compiler", methods=["POST"])
 def send_to_compiler():
     content = request.json
-    errors = MockCompiler.compile(content["code"], "Koodi")
+    errors = MockCompiler.compile(content["code"], "temp")
     return jsonify(errors), 200
 
 
@@ -54,7 +59,8 @@ def login():
         else:
             if content["password"] == "":
                 return "Password Required", 400
-            user_info = user_service.login(content["username"], content["password"])
+            user_info = user_service.login(
+                content["username"], content["password"])
             passreq = True
         if user_info:
             return (
@@ -74,10 +80,12 @@ def login():
         result = user_service.register(content["username"], "")
         passreq = False
     else:
-        result = user_service.register(content["username"], content["password"])
+        result = user_service.register(
+            content["username"], content["password"])
         passreq = True
     if result:
-        user_info = user_service.login(content["username"], content["password"])
+        user_info = user_service.login(
+            content["username"], content["password"])
         if user_info:
             return (
                 jsonify(
@@ -101,28 +109,28 @@ def get_user_files():
     user_id = user_service.verify_token(token)
     if not user_id:
         return "Invalid Credentials", 400
-    
 
     result = file_service.get_user_files(user_id)
     return jsonify(result), 200
 
-    
+
 @app.route("/files/save", methods=["POST", "PUT"])
 def file_save():
     headers = request.headers
     token = fetch_token(headers)
     if not token:
         return "Missing credentials", 400
-    
+
     user_id = user_service.verify_token(token)
     if not user_id:
         return "Invalid credentials", 400
-    
+
     content = request.json
     result = file_service.save_file(
         content["filename"], content["textContent"], user_id
     )
     return jsonify(result), 200
+
 
 @app.route("/files/force_save", methods=["POST", "PUT"])
 def force_save_file():
@@ -130,13 +138,13 @@ def force_save_file():
     token = fetch_token(headers)
     if not token:
         return "Missing credentials", 400
-    
+
     user_id = user_service.verify_token(token)
     if not user_id:
         return "Invalid credentials", 400
     if not user_service.verify_admin(token):
         return "User not admin", 403
-    
+
     content = request.json
     result = file_service.save_file(
         content["filename"], content["textContent"], content["userId"]
@@ -151,14 +159,15 @@ def file_hide():
     token = fetch_token(headers)
     if not token:
         return "Missing credentials", 400
-    
+
     user_id = user_service.verify_token(token)
     if not user_id:
         return "Invalid credentials", 400
-    
+
     content = request.json
     result = file_service.hide_logo_file(content["fileId"])
     return jsonify(result), 200
+
 
 @app.route("/files/delete", methods=["DELETE"])
 def delete_file():
@@ -166,15 +175,15 @@ def delete_file():
     token = fetch_token(headers)
     if not token:
         return "Missing credentials", 400
-    
+
     user_id = user_service.verify_token(token)
     if not user_id:
         return "Invalid credentials", 400
     if not user_service.verify_admin(token):
         return "User not admin", 403
-    
+
     content = request.json
-    
+
     result = file_service.delete_logo_file(content["fileId"])
     return jsonify(result), 200
 
@@ -207,12 +216,12 @@ def deploy_to_robot():
 
     if not token:
         return "Missing credentials", 400
-    
+
     if not user_service.verify_token(token):
         return "Invalid credentials", 400
     if not user_service.verify_admin(token):
         return "User not admin", 403
-    
+
     content = request.json
     if not content.get("content", None):
         return "Content Missing", 400

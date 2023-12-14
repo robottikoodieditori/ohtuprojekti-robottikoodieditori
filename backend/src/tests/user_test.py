@@ -74,17 +74,18 @@ class TestUser(unittest.TestCase):
     def test_change_user_password(self):
         self.user_service.register("Arnold", "password")
         self.user_service.register("Anrold", "password")
-        
+
         user_list = self.user_service.get_all_users()
         old_password = user_list[1]["password"]
         self.user_service.change_password("2", "new_password")
         user_list = self.user_service.get_all_users()
 
         self.assertNotEqual(old_password, user_list[1]["password"])
-    
+
     def test_verify_admin(self):
         admin_password = 'password'
-        hashed_password = bcrypt.hashpw(admin_password.encode('utf-8'), bcrypt.gensalt())
+        hashed_password = bcrypt.hashpw(
+            admin_password.encode('utf-8'), bcrypt.gensalt())
         query = 'INSERT INTO users (name, password, role) VALUES (?, ?, ?)'
         values = ('admin', hashed_password, 1)
         self.db.insert_entry(query, values)

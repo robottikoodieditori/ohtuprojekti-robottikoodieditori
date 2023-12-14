@@ -23,7 +23,6 @@ const OneCommand = ({ selectedCommand, setSelectedCommand, language, translation
   
             <h2 tabIndex="0">{translations?.command?.[selectedCommand] || selectedCommand}</h2>
   
-            {/* Render the command description in Markdown format */}
             <div tabIndex="0">
                 <ReactMarkdown>
                     {docs[language][translations?.command?.[selectedCommand] || selectedCommand]}
