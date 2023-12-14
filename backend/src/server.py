@@ -72,11 +72,12 @@ def login():
 
     if not app.config["PASS_REQ"]:
         result = user_service.register(content["username"], "")
+        passreq = False
     else:
         result = user_service.register(content["username"], content["password"])
+        passreq = True
     if result:
         user_info = user_service.login(content["username"], content["password"])
-        passreq = True
         if user_info:
             return (
                 jsonify(
