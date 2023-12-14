@@ -45,7 +45,7 @@ import AdminViewUserInfo from './adminViewUserInfo';
 const AdminViewUserFilesSection = ({ viewMode, selectedUser, setSelectedUser,
     setIsPasswordWindowOpen, isPasswordWindowOpen, userFiles, users,
     handleFileClick, handleVisibleClick, handleDeleteClick, handleDownloadClick,
-    handlePasswordChange }) => {
+    handlePasswordChange, handleSortClick, sortedOrder, allFiles }) => {
 
     const { translations } = useContext(LanguageContext)
 
@@ -84,6 +84,9 @@ const AdminViewUserFilesSection = ({ viewMode, selectedUser, setSelectedUser,
                                     handleVisibleClick={handleVisibleClick}
                                     handleDeleteClick={handleDeleteClick}
                                     handleDownloadClick={handleDownloadClick}
+                                    handleSortClick={handleSortClick}
+                                    sortedOrder={sortedOrder}
+                                    allFiles={allFiles}
                                 />
                             ) : (
                                 <p tabIndex="0">{translations?.adminView.noUserFilesFound}</p>

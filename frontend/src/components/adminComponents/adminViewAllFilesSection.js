@@ -32,12 +32,12 @@ import AdminViewFileList from './adminViewFileList';
  * @param {Function} props.setOpenedFile - Function to set the currently opened file
  */
 
-const AdminViewAllFilesSection = ({ allFiles, users, handleFileClick, handleVisibleClick, handleDeleteClick, handleDownloadClick, setOpenedFile }) => {
+const AdminViewAllFilesSection = ({ allFiles, users, handleFileClick, handleVisibleClick, handleDeleteClick, handleDownloadClick, setOpenedFile, handleSortClick, sortedOrder }) => {
     const { translations } = useContext(LanguageContext)
 
     return (
         <section className="admin-section all-files-section" id="all-files-section" aria-label="all files section">
-            <h3>{translations?.adminView.allFiles}</h3>
+            <h3 tabIndex="0">{translations?.adminView.allFiles}</h3>
 
             <div className='all-files' id='all-files'>
                 <AdminViewFileList
@@ -48,6 +48,9 @@ const AdminViewAllFilesSection = ({ allFiles, users, handleFileClick, handleVisi
                     handleDeleteClick={handleDeleteClick}
                     handleDownloadClick={handleDownloadClick}
                     setOpenedFile={setOpenedFile}
+                    handleSortClick={handleSortClick}
+                    sortedOrder={sortedOrder}
+                    allFiles={allFiles}
                 />
             </div>
         </section>

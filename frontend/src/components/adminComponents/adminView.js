@@ -1,6 +1,6 @@
 import { useState, useContext, useEffect } from 'react';
 import { useSelector, useDispatch } from "react-redux";
-import { setContent } from "../../reducers/editorReducer";
+import { setContent, setFileName } from "../../reducers/editorReducer";
 import { LanguageContext } from "../../contexts/languagecontext";
 import commService from '../../services/comms'
 import AdminViewUserListSection from './adminViewUserListSection';
@@ -40,6 +40,10 @@ const AdminView = () => {
     const token = useSelector(state => state.comms.userObject.token)
     const [isUploadOpen, setisUploadOpen] = useState(false)
     const [isPasswordWindowOpen, setIsPasswordWindowOpen] = useState(false)
+    const [sortedOrder, setSortedOrder] = useState({
+        'key' : 'filename',
+        'order' : true
+    })
 
     useEffect( () => {
         getData()
@@ -49,7 +53,7 @@ const AdminView = () => {
     const getData = async () => {
         const files = await commService.getAllFiles(token)
         const users = await commService.getAllUsers(token)
-        setAllFiles(files);
+        sortFiles(files, sortedOrder.key, sortedOrder.order)
         setUsers(users);
         if (selectedUser) {
             const filesForUser = files.filter(file => file.user_id === selectedUser.id)
@@ -81,6 +85,7 @@ const AdminView = () => {
     const handleFileClick = (file) => {
         const username = users.find(user => user.id === file.user_id).name
         dispatch(setContent(file.textContent))
+        dispatch(setFileName(file.filename))
         setOpenedFile(openedFile => ({
             ...openedFile,
             filename:  file.filename,
@@ -150,6 +155,8 @@ const AdminView = () => {
     // Prepares for creating a new file
     const handleNewFileClick = () => {
         dispatch(setContent(""))
+        dispatch(setFileName(null))
+        setTimeout(() => dispatch(setFileName('')), 1)
         setOpenedFile(openedFile => ({
             ...openedFile,
             filename:  "",
@@ -167,6 +174,42 @@ const AdminView = () => {
             : translations?.adminView.deployToRobotFailed
         alert(alertMessage)
     }
+
+    const handleSortClick = (files, key) => {
+        setSortedOrder(sortedOrder => ({
+            ...sortedOrder,
+            key : key,
+            order : !sortedOrder.order
+        }))
+        sortFiles(files,key, !sortedOrder.order)
+    }
+
+    const sortFiles = (files, key, order) => {
+        const sortOrder = order ? 'asc' : 'desc';        
+        const sorted = Object.entries(files).sort(([,a],[,b]) =>{
+            let aValue, bValue;
+            if (key === 'last_updated'){
+                aValue = new Date(a[key])
+                bValue = new Date(b[key])
+            } else {
+                aValue = a[key].toLowerCase()
+                bValue = b[key].toLowerCase()
+            }
+            if (sortOrder === 'asc') {
+                return aValue > bValue ? 1 : -1;
+            } else {
+                return aValue < bValue ? 1 : -1
+            }
+        })
+        const sortedArray = sorted.map(([key, value]) => ({ key, ...value }));
+        setAllFiles(sortedArray)
+    }
+
+    useEffect(() => {
+        if (selectedUser) {
+            handleUserClick(selectedUser)
+        }
+    }, [allFiles])
 
     return (
         <div className="admin-container">
@@ -193,6 +236,7 @@ const AdminView = () => {
                         isPasswordWindowOpen={isPasswordWindowOpen} setIsPasswordWindowOpen={setIsPasswordWindowOpen}
                         userFiles={userFiles} allFiles={allFiles} users={users} handlePasswordChange={handlePasswordChange}
                         handleFileClick={handleFileClick} handleVisibleClick={handleVisibleClick} handleDeleteClick={handleDeleteClick} handleDownloadClick={handleDownloadClick}
+                        handleSortClick={handleSortClick} sortedOrder={sortedOrder}
                     />
                 )}
 
@@ -201,6 +245,7 @@ const AdminView = () => {
                     allFiles={allFiles} users={users} setOpenedFile={setOpenedFile}
                     handleFileClick={handleFileClick} handleVisibleClick={handleVisibleClick}
                     handleDeleteClick={handleDeleteClick} handleDownloadClick={handleDownloadClick}
+                    handleSortClick={handleSortClick} sortedOrder={sortedOrder}
                 />
             </div>
 

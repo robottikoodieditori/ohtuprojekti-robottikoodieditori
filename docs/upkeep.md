@@ -55,3 +55,9 @@ poetry run invoke gunicorn
 ```
 
 The application is now live and served at the root route "/".
+
+## Broken things
+There are several problems with scaling due to bugs in css classes and the css base has gotten bloated and have several instances of similar classes defined, all are in use however. 
+
+Logo to Java compiler is currently inconsistent when it comes to finding errors, meaning it usually finds only the first error in the file when trying to compile. Further info can be found [here](https://github.com/theJSZ/logomotion).
+

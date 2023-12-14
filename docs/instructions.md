@@ -56,7 +56,7 @@ Look for `inet` or `ipv4`; for example:
 ![image showing example address](/media/Inet.png)
 
 
-Now, have the students connect to your hotspot and type the address into a browser's address bar, following `:5000/`. In the case of the address in the image, the proper address would be:
+Now, have the students connect to your hotspot and type the address into a browser's address bar, appending `:5000/`. In the case of the address in the image, the proper address would be:
 ```
 10.42.0.1:5000/
 ```
